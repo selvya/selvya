@@ -6,24 +6,24 @@
 	<div class="content-header">
 		<div class="header-section">
 			<h1>
-				<i class="fa fa-table"></i>
-				<b>Monitoring Anggaran</b>
+				<i class="gi gi-tags"></i>
+				<b>OJK Inovatif</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
-		<li>Tables</li>
-		<li><a href="">Datatables</a></li>
+		<li><a href="{{url('/')}}">Beranda</a></li>
+		<li>OJK Inovatif</li>
 	</ul>
 	<!-- END Datatables Header -->
 
 	<!-- Datatables Content -->
 	<div class="block full">
-		<div class="block-title">
-			<h2><strong>Datatables</strong> integration</h2>
+		<div class="text-right">
+		<a href="{{url('arsip/inovatif')}}"" class="btn btn-default" data-toggle="tooltip" title="Lihat OJK Inovatif"><i class="fa fa-eye"></i></a>
+			<a href="{{url('tambah/inovatif')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah OJK Inovatif"><i class="fa fa-plus"></i></a>
 		</div>
-		<p><a href="https://datatables.net/" target="_blank">DataTables</a> is a plug-in for the Jquery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table. It is integrated with template's design and it offers many features such as on-the-fly filtering and variable length pagination.</p>
-
+		<br>
 		<div class="table-responsive">
 			<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
 				<thead>
@@ -45,7 +45,8 @@
 						<td><span class="label label-info">Business</span></td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
 							</div>
 						</td>
@@ -58,7 +59,8 @@
 						<td><span class="label label-warning">Trial</span></td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
 							</div>
 						</td>
@@ -71,7 +73,8 @@
 						<td><span class="label label-success">VIP</span></td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
 							</div>
 						</td>

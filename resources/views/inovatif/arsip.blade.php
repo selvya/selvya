@@ -6,24 +6,20 @@
 	<div class="content-header">
 		<div class="header-section">
 			<h1>
-				<i class="gi gi-tags"></i>
-				<b>Program Budaya</b>
+				<i class="gi gi-sort"></i>
+				<b>Arsip Inovatif</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li>Program Budaya</li>
+		<li><a href="{{url('inovatif')}}">OJK Inovatif</a></li>
+		<li>Arsip</li>
 	</ul>
 	<!-- END Datatables Header -->
 
 	<!-- Datatables Content -->
 	<div class="block full">
-		<div class="text-right">
-		<a href="" class="btn btn-default" data-toggle="tooltip" title="Lihat Program Budaya"><i class="fa fa-eye"></i></a>
-			<a href="" class="btn btn-success" data-toggle="tooltip" title="Tambah Program Budaya"><i class="fa fa-plus"></i></a>
-		</div>
-		<br>
 		<div class="table-responsive">
 			<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
 				<thead>
@@ -46,8 +42,7 @@
 						<td class="text-center">
 							<div class="btn-group">
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
 							</div>
 						</td>
 					</tr>
@@ -60,8 +55,7 @@
 						<td class="text-center">
 							<div class="btn-group">
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
 							</div>
 						</td>
 					</tr>
@@ -74,8 +68,7 @@
 						<td class="text-center">
 							<div class="btn-group">
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
 							</div>
 						</td>
 					</tr>

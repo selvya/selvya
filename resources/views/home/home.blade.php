@@ -35,25 +35,6 @@
 	<!-- Dashboard 2 Content -->
 	<div class="row">
 		<div class="col-md-6">
-			<!-- Web Server Block -->
-			<div class="block full">
-				<!-- Web Server Title -->
-				<div class="block-title">
-					<div class="block-options pull-right">
-						<span id="dash-chart-live-info" class="label label-primary">%</span>
-						<span class="label label-danger animation-pulse">CPU Load</span>
-					</div>
-					<h2><strong>Web</strong> Server #1</h2>
-				</div>
-				<!-- END Web Server Title -->
-
-				<!-- Web Server Content -->
-				<!-- Flot Charts (initialized in js/pages/index2.js), for more examples you can check out http://www.flotcharts.org/ -->
-				<div id="dash-chart-live" class="chart"></div>
-				<!-- END Web Server Content -->
-			</div>
-			<!-- END Web Server Block -->
-
 			<!-- Quick Post Block -->
 			<div class="block">
 				<!-- Quick Post Title -->

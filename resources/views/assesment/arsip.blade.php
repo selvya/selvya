@@ -7,13 +7,14 @@
 		<div class="header-section">
 			<h1>
 				<i class="gi gi-sort"></i>
-				<b>Lembar Assessment</b>
+				<b>Arsip Assessment</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li>Lembar Assessment</li>
+		<li><a href="{{url('lembar-self-assesment')}}">Lembar Assessment</a></li>
+		<li>Arsip</li>
 	</ul>
 	<!-- END Datatables Header -->
 
@@ -38,9 +39,6 @@
 				</tr>
 			</table>
 		</div>
-		<div class="text-right">
-			<a href="{{url('arsip/assessment')}}" class="btn btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment"><i class="fa fa-eye"></i></a>
-		</div>
 		<br>
 		<div class="table-responsive">
 			<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
@@ -63,8 +61,8 @@
 						<td><span class="label label-info">Business</span></td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
 							</div>
 						</td>
 					</tr>
@@ -76,8 +74,8 @@
 						<td><span class="label label-warning">Trial</span></td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
 							</div>
 						</td>
 					</tr>
@@ -89,8 +87,8 @@
 						<td><span class="label label-success">VIP</span></td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
 							</div>
 						</td>
 					</tr>

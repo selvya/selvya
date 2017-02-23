@@ -43,17 +43,14 @@
                 <li class="@if(Request::is('nilai-self-assesment')) active @endif">
                     <a href="{{url('nilai-self-assesment')}}"><i class="gi gi-notes sidebar-nav-icon"></i> Nilai Assessment</a>
                 </li>
-                <li class="@if(Request::is('lembar-self-assesment')) active @endif">
+                <li class="@if(Request::is('lembar-self-assesment') || Request::is('arsip/assessment')) active @endif">
                     <a href="{{url('lembar-self-assesment')}}"><i class="gi gi-sort sidebar-nav-icon"></i> Lembar Assessment</a>
                 </li>
-                 <li class="@if(Request::is('program-budaya')) active @endif">
-                    <a href="{{url('program-budaya')}}"><i class="gi gi-tags sidebar-nav-icon"></i> Program Budaya</a>
+                 <li class="@if(Request::is('inovatif') || Request::is('arsip/inovatif')) active @endif">
+                    <a href="{{url('inovatif')}}"><i class="gi gi-tags sidebar-nav-icon"></i> OJK Inovatif</a>
                 </li>
                 <li class="@if(Request::is('monitoring-anggaran')) active @endif">
                     <a href="{{url('monitoring-anggaran')}}"><i class="gi gi-imac sidebar-nav-icon"></i> Monitoring Anggaran</a>
-                </li>
-                <li class="@if(Request::is('stakeholder')) active @endif">
-                    <a href="{{url('stakeholder')}}"><i class="gi gi-group sidebar-nav-icon"></i> Daftar Stakeholder</a>
                 </li>
                 <li class="@if(Request::is('manual-pengguna')) active @endif">
                     <a href="{{url('manual-pengguna')}}"><i class="gi gi-book sidebar-nav-icon"></i> Manual Pengguna</a>
