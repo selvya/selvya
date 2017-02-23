@@ -881,7 +881,7 @@ a.sidebar-title:focus {
 }
 
 .header-section {
-    padding: 30px 10px;
+    padding: 40px 10px;
 }
 
 .content-header,
@@ -932,7 +932,7 @@ a.sidebar-title:focus {
 /* Blocks */
 .block {
     margin: 0 0 10px;
-    padding: 20px 15px 1px;
+    padding: 20px 15px;
     background-color: #ffffff;
     border: 1px solid #dbe1e8;
 }
@@ -1736,6 +1736,8 @@ a[data-toggle="lightbox-image"]:hover img {
 }
 
 /* Pricing Table */
+table>tbody>tr>td{padding:10px;}
+
 .table.table-pricing {
     background-color: #ffffff;
 }
@@ -2881,8 +2883,10 @@ li.dropdown-header {
 
 /* Buttons */
 .btn {
+    border-radius: 0px!important;
     margin: 1px 0;
     background-color: #ffffff;
+    border: none;
 }
 
 .btn .gi,
@@ -2906,6 +2910,7 @@ fieldset[disabled] .btn {
 }
 
 .btn-default {
+    border: none;
     background-color: #f1f3f6;
     border-color: #dbe1e8;
     color: #394263;
@@ -2913,11 +2918,12 @@ fieldset[disabled] .btn {
 
 .btn-default.btn-alt {
     background-color: #ffffff;
+    border: none;
 }
 
 .btn-default:hover {
+    border: none;
     background-color: #eaedf1;
-    border-color: #c2c8cf;
 }
 
 .btn-default:focus,
@@ -2934,6 +2940,7 @@ fieldset[disabled] .btn {
 .open .btn-default.dropdown-toggle.focus {
     background-color: #eaedf1;
     border-color: #eaedf1;
+    border: none;
 }
 
 .btn-default.disabled,
@@ -2956,7 +2963,7 @@ fieldset[disabled] .btn-default.active,
 fieldset[disabled] .btn-default:active:focus,
 fieldset[disabled] .btn-default.active:focus {
     background-color: #eaedf1;
-    border-color: #eaedf1;
+    border: none;
 }
 
 .btn-primary {

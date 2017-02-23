@@ -14,3 +14,25 @@
 Route::get('/', function () {
     return view('home.home');
 });
+
+Route::get('nilai-self-assesment', function () {
+    return view('assesment.nilai');
+});
+Route::get('lembar-self-assesment', function () {
+    return view('assesment.lembar');
+});
+Route::get('program-budaya', function () {
+    return view('budaya.index');
+});
+Route::get('monitoring-anggaran', function () {
+    return view('anggaran.monitoring');
+});
+Route::get('stakeholder', function () {
+    return view('stakeholder.index');
+});
+Route::get('manual-pengguna', function () {
+    return view('panduan.index');
+});
+Route::get('kontak', function () {
+    return view('kontak.index');
+});
