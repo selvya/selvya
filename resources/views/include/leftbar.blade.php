@@ -86,13 +86,13 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="">
+                                    <a href="{{url('upload/satker')}}">
                                         <i class="gi gi-group sidebar-nav-icon"></i> 
                                         Manual Pengguna Satker
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="{{url('upload/dmpb')}}">
                                         <i class="gi gi-group sidebar-nav-icon"></i> 
                                         Manual Pengguna DMPB
                                     </a>

@@ -12,8 +12,6 @@
 */
 
 Route::get('/', function () {
-    $pdf = PDF::loadHtml('<h3>asdasdasdadas</h3>');
-    return @$pdf->stream('invoice.pdf');
     return view('home.home');
 });
 
@@ -74,9 +72,17 @@ Route::get('monitoring-anggaran', function () {
 });
 //TUTUP ANGGARAN
 
+
 Route::get('manual-pengguna', function () {
     return view('panduan.index');
 });
+Route::get('upload/satker', function () {
+    return view('panduan.upload-panduan-satker');
+});
+Route::get('upload/dmpb', function () {
+    return view('panduan.upload-dmpb');
+});
+
 Route::get('kontak', function () {
     return view('kontak.index');
 });
