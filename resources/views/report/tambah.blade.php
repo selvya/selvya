@@ -6,7 +6,7 @@
 		<div class="header-section">
 			<h1>
 				<i class="gi gi-google_maps"></i>
-				Tambah Mapping
+				<b>Tambah Mapping</b>
 			</h1>
 		</div>
 	</div>

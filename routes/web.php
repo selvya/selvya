@@ -92,3 +92,6 @@ Route::get('map-report', function () {
 Route::get('report/tambah', function () {
     return view('report.tambah');
 });
+Route::get('survey', function () {
+    return view('survey.index');
+});

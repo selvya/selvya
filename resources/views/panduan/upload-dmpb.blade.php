@@ -6,7 +6,7 @@
 		<div class="header-section">
 			<h1>
 				<i class="gi gi-upload"></i>
-				Upload Manual Pengguna DMPB
+				<b>Upload Manual Pengguna DMPB</b>
 			</h1>
 		</div>
 	</div>

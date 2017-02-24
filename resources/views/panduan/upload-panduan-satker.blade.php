@@ -6,7 +6,7 @@
 		<div class="header-section">
 			<h1>
 				<i class="gi gi-upload"></i>
-				Upload Manual Pengguna Satker
+				<b>Upload Manual Pengguna Satker</b>
 			</h1>
 		</div>
 	</div>
