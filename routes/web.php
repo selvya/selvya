@@ -12,9 +12,8 @@
 */
 
 Route::get('/', function () {
-    $pdf = PDF::loadHtml('<h3>asdasdasdadas</h3>');
-    return @$pdf->stream('invoice.pdf');
-    return view('home.home');
+    echo Hashids::connection('coba')->encode(67);
+    //return view('home.home');
 });
 
 //ASSESSMENT

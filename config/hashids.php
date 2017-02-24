@@ -38,16 +38,11 @@ return [
     */
 
     'connections' => [
-
-        'main' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
-        ],
-
-        'alternative' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
-        ],
+        'coba' => [
+            'salt' => 'kasdhkasjdas',
+            'length' => 10,
+            'alphabet' => 'qwertyuiopasdfghj12345'
+        ]
 
     ],
 
