@@ -178,6 +178,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //DataTables
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        //PDF
+        Barryvdh\DomPDF\ServiceProvider::class,
+        //HashIDs
+        Vinkla\Hashids\HashidsServiceProvider::class,
     ],
 
     /*
@@ -226,6 +232,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        //PDF
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        //HashIDs
+        'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
     ],
 
 ];
