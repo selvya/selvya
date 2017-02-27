@@ -15,32 +15,8 @@ Route::get('/', function () {
     return view('home.home');
 });
 
-//USER
-Route::get('user', function () {
-    return view('user.user');
-});
-Route::get('deputi-komisioner', function () {
-    return view('user.komisioner');
-});
-Route::get('departemen', function () {
-    return view('user.departemen');
-});
-Route::get('direktorat', function () {
-    return view('user.direktorat');
-});
-Route::get('user/tambah', function () {
-    return view('user.tambah-user');
-});
-Route::get('direktorat/tambah', function () {
-    return view('user.tambah-direktorat');
-});
-Route::get('departemen/tambah', function () {
-    return view('user.tambah-departemen');
-});
-Route::get('komisioner/tambah', function () {
-    return view('user.tambah-komisioner');
-});
-//TUTUP USER
+
+
 
 //ASSESSMENT
 Route::get('nilai-self-assesment', function () {
@@ -106,6 +82,32 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/pengaturan', function()
     {
        return view('admin.pengaturan');
+    });
+
+    //USER
+    Route::get('user', function () {
+        return view('user.user');
+    });
+    Route::get('deputi-komisioner', function () {
+        return view('user.komisioner');
+    });
+    Route::get('departemen', function () {
+        return view('user.departemen');
+    });
+    Route::get('direktorat', function () {
+        return view('user.direktorat');
+    });
+    Route::get('user/tambah', function () {
+        return view('user.tambah-user');
+    });
+    Route::get('direktorat/tambah', function () {
+        return view('user.tambah-direktorat');
+    });
+    Route::get('departemen/tambah', function () {
+        return view('user.tambah-departemen');
+    });
+    Route::get('komisioner/tambah', function () {
+        return view('user.tambah-komisioner');
     });
 });
 
