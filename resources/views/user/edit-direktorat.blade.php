@@ -6,14 +6,14 @@
 		<div class="header-section">
 			<h1>
 				<i class="fa fa-user-plus"></i>
-				<b>Tambah Departemen</b>
+				<b>Edit Direktorat</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li><a href="{{url('departemen')}}">Deputi Departemen</a></li>
-		<li>Tambah Departemen</li>
+		<li><a href="{{url('direktorat')}}">Direktorat</a></li>
+		<li>Edit Direktorat</li>
 	</ul>
 	<!-- END Wizard Header -->
 
@@ -27,12 +27,12 @@
 					<h2><strong>Form</strong></h2>
 				</div>
 				@include('include.alert')
-				<form class="form-horizontal" action="{{url('departemen/tambah/proses')}}" method="POST">
+				<form action="{{url('direktorat/edit/proses/'.$dir->id)}}" method="POST" class="form-horizontal">
 					<div class="form-group">
-						<label class="col-sm-2 control-label">Departemen</label>
+						<label class="col-sm-2 control-label">Direktorat</label>
+						{{csrf_field()}}
 						<div class="col-sm-10">
-							{{csrf_field()}}
-							<input type="text" class="form-control" name="departemen" placeholder="Departemen" required>
+							<input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="{{$dir->direktorat_name}}">
 						</div>
 					</div>
 					<div class="form-group">
