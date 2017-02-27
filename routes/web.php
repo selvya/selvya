@@ -12,8 +12,7 @@
 */
 
 Route::get('/', function () {
-    echo Hashids::connection('coba')->encode(67);
-    //return view('home.home');
+    return view('welcome');
 });
 
 //USER
@@ -76,12 +75,34 @@ Route::get('monitoring-anggaran', function () {
 Route::get('manual-pengguna', function () {
     return view('panduan.index');
 });
+
 Route::get('kontak', function () {
     return view('kontak.index');
 });
+
 Route::get('map-report', function () {
     return view('report.map-report');
 });
+
 Route::get('report/tambah', function () {
     return view('report.tambah');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('admin/pengaturan', function()
+    {
+       return view('admin.pengaturan');
+    });
+});
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
