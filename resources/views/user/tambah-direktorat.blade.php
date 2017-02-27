@@ -6,7 +6,7 @@
 		<div class="header-section">
 			<h1>
 				<i class="fa fa-user-plus"></i>
-				Tambah Direktorat
+				<b>Tambah Direktorat</b>
 			</h1>
 		</div>
 	</div>

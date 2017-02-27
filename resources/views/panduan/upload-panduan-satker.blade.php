@@ -5,15 +5,14 @@
 	<div class="content-header">
 		<div class="header-section">
 			<h1>
-				<i class="fa fa-user-plus"></i>
-				<b>Tambah Komisioner</b>
+				<i class="gi gi-upload"></i>
+				<b>Upload Manual Pengguna Satker</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li><a href="{{url('deputi-komisioner')}}">Deputi Komisioner</a></li>
-		<li>Tambah Komisioner</li>
+		<li>Upload Manual Pengguna Satker</li>
 	</ul>
 	<!-- END Wizard Header -->
 
@@ -28,11 +27,12 @@
 				</div>
 				<form class="form-horizontal">
 					<div class="form-group">
-						<label class="col-sm-2 control-label">Komisioner</label>
+						<label class="col-sm-2 control-label">Upload File</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="komisioner" placeholder="Komisioner">
+							<input type="file" name="file" class="form-control">
 						</div>
 					</div>
+					<a href="">Download File</a>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-success">Simpan</button>

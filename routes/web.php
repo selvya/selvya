@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.home');
 });
 
 //USER
@@ -72,8 +72,16 @@ Route::get('monitoring-anggaran', function () {
 });
 //TUTUP ANGGARAN
 
+
 Route::get('manual-pengguna', function () {
     return view('panduan.index');
+});
+
+Route::get('upload/satker', function () {
+    return view('panduan.upload-panduan-satker');
+});
+Route::get('upload/dmpb', function () {
+    return view('panduan.upload-dmpb');
 });
 
 Route::get('kontak', function () {
@@ -106,3 +114,7 @@ Route::group(['middleware' => ['admin']], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('survey', function () {
+    return view('survey.index');
+});

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+//declare(strict_types=1);
 
 return [
 
@@ -38,12 +38,17 @@ return [
     */
 
     'connections' => [
-        'coba' => [
-            'salt' => 'kasdhkasjdas',
-            'length' => 10,
-            'alphabet' => 'qwertyuiopasdfghj12345'
-        ]
 
+        'coba' => [
+            'salt' => 'Ilhwamwarajelekaskjdhaskdhdek',
+            'length' => 20,
+            'alphabet' => 'PG1234567890EAWI'
+        ],
+
+        'alternative' => [
+            'salt' => 'your-salt-string',
+            'length' => 'your-length-integer',
+        ]
     ],
 
 ];
