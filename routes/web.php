@@ -79,10 +79,8 @@ Route::get('report/tambah', function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['admin']], function () {
-    Route::get('admin/pengaturan', function()
-    {
-       return view('admin.pengaturan');
-    });
+    Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
+    Route::get('iku/detail/{hashid}', ['as' => 'iku.detail', 'uses' => 'PengaturanController@getIkuAjax']);
 
     //USER
     Route::get('user', function () {

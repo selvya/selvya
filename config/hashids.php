@@ -45,6 +45,12 @@ return [
             'alphabet' => 'PG1234567890EAWI'
         ],
 
+        'iku' => [
+            'salt' => 'Bismillahirrohmanirrohim',
+            'length' => 8,
+            'alphabet' => 'INDKATOREJUM1234567890'
+        ],
+
         'alternative' => [
             'salt' => 'your-salt-string',
             'length' => 'your-length-integer',
