@@ -118,3 +118,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('survey', function () {
     return view('survey.index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
