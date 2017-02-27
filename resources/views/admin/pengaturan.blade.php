@@ -6,10 +6,15 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    
+                    <h4>Indikator Pencapaian</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <div class="text-center" id="loading">
+                        <i class="fa fa-cog fa-3x fa-spin"></i>
+                        <br>
+                        Memuat...
+                    </div>
+                    <form class="form-horizontal" id="modal-form">
                         <div class="form-group">
                             <label for="komponen-iku" class="control-label col-md-4">Komponen Iku</label>
                             <div class="col-md-8">
@@ -29,6 +34,37 @@
                                     <input type="number" class="form-control" min="0" step="1" max="100" id="persen">
                                     <span class="input-group-addon">%</span>                                
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-type" class="control-label col-md-4">Input Nilai</label>
+                            <div class="col-md-8">
+                                <div class="col-md-9">
+                                    <div class="radio">
+                                        <label for="input-type1">
+                                            <input type="radio" id="input-type1" name="input-type" value="manual" checked> Manual
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label for="input-type2">
+                                            <input type="radio" id="input-type2" name="input-typee" value="otomatis"> Otomatis
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan" class="control-label col-md-4">Keterangan</label>
+                            <div class="col-md-8">
+                                <textarea name="keterangan" id="keterangan" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                {{csrf_field()}}
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-success pull-right">Simpan <i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     </form>
@@ -105,6 +141,7 @@
 
 @section('js')
     <script type="text/javascript">
+        $('#loading, #modal-form').hide();
         $('.kol').on('click', function(){
 
             //Get data
@@ -113,11 +150,16 @@
                 type: 'GET',
                 dataType: 'JSON',
                 beforeSend: function(){
-
+                    $('#modal-form').hide();
+                    $('#loading').show();
                 },
                 success: function(response) {
                     if (response.status) {
-                        
+                        $('#komponen-iku').val(response.data.komponen.name);
+                        $('#periode').val(response.data.triwulan);
+                        $('#persen').val(response.data.persen);
+                        $('#loading').hide();
+                        $('#modal-form').show();
                     }else{
 
                     }

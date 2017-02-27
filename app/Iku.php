@@ -18,6 +18,6 @@ class Iku extends Model
 
     public function komponen()
     {
-        return $this->belongsTo('\App\Iku', 'komponen_id');
+        return $this->belongsTo('\App\KomponenIku', 'komponen_id');
     }
 }
