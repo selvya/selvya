@@ -26,7 +26,9 @@
 				<div class="block-title">
 					<h2><strong>Form</strong></h2>
 				</div>
-				<form class="form-horizontal">
+				@include('include.alert')
+				<form class="form-horizontal" action="{{url('komisioner/tambah/proses')}}" method="POST">
+				{{csrf_field()}}
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Komisioner</label>
 						<div class="col-sm-10">

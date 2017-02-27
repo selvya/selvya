@@ -55,10 +55,7 @@
     <script src="{{asset('vendor/js/vendor/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/js/vendor/bootstrap.min.js')}}"></script>
     <script src="{{asset('vendor/js/plugins.js')}}"></script>
-    <script src="{{asset('vendor/js/app.js')}}"></script>
-    <script src="{{asset('vendor/js/helpers/gmaps.min.js')}}"></script>
-    <script src="{{asset('vendor/js/pages/index2.js')}}"></script>
-    <script src="{{asset('vendor/js/vendor/modernizr.min.js')}}"></script>
+    <script src="{{asset('vendor/js/app.js')}}"></script>    
     @yield('js')
 </body>
 </html>

@@ -26,9 +26,11 @@
 				<div class="block-title">
 					<h2><strong>Form</strong></h2>
 				</div>
-				<form class="form-horizontal">
+				@include('include.alert')
+				<form action="{{url('direktorat/tambah/proses')}}" method="POST" class="form-horizontal">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Direktorat</label>
+						{{csrf_field()}}
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="direktorat" placeholder="Direktorat">
 						</div>

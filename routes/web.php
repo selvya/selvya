@@ -79,34 +79,43 @@ Route::get('report/tambah', function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['admin']], function () {
+
     Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
     Route::get('iku/detail/{hashid}', ['as' => 'iku.detail', 'uses' => 'PengaturanController@getIkuAjax']);
+
 
     //USER
     Route::get('user', function () {
         return view('user.user');
     });
-    Route::get('deputi-komisioner', function () {
-        return view('user.komisioner');
-    });
-    Route::get('departemen', function () {
-        return view('user.departemen');
-    });
-    Route::get('direktorat', function () {
-        return view('user.direktorat');
-    });
     Route::get('user/tambah', function () {
         return view('user.tambah-user');
     });
-    Route::get('direktorat/tambah', function () {
-        return view('user.tambah-direktorat');
-    });
-    Route::get('departemen/tambah', function () {
-        return view('user.tambah-departemen');
-    });
-    Route::get('komisioner/tambah', function () {
-        return view('user.tambah-komisioner');
-    });
+
+    //DEPARTEMEN
+    Route::get('departemen','DepartemenController@index');
+    Route::get('departemen/tambah','DepartemenController@createview');
+    Route::post('departemen/tambah/proses','DepartemenController@create');
+    Route::get('departemen/hapus/{id}','DepartemenController@hapus');
+    Route::get('departemen/edit/{id}','DepartemenController@editview');
+    Route::post('departemen/edit/proses/{id}','DepartemenController@edit');
+
+    //DIREKTORAT
+    Route::get('direktorat', 'DirektoratController@index');
+    Route::get('direktorat/tambah', 'DirektoratController@createview');
+    Route::post('direktorat/tambah/proses','DirektoratController@create');
+    Route::get('direktorat/hapus/{id}','DirektoratController@hapus');
+    Route::get('direktorat/edit/{id}','DirektoratController@editview');
+    Route::post('direktorat/edit/proses/{id}','DirektoratController@edit');
+
+
+    
+    Route::get('deputi-komisioner', 'KomisionerController@index');
+    Route::get('komisioner/tambah', 'KomisionerController@createview') ;
+    Route::post('komisioner/tambah/proses', 'KomisionerController@create') ;
+    Route::get('komisioner/hapus/{id}','KomisionerController@hapus');
+    Route::get('komisioner/edit/{id}','KomisionerController@editview');
+    Route::post('komisioner/edit/proses/{id}','KomisionerController@edit');
 });
 
 
@@ -118,3 +127,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('survey', function () {
     return view('survey.index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
