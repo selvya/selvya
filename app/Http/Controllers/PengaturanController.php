@@ -21,29 +21,16 @@ class PengaturanController extends Controller
         // $kompon = Iku::where('tahun', $tahun)->get();
         $komponenIku = KomponenIku::all();
 
-        //Cek apakah sudah ada iku
-        foreach ($komponenIku as $key => $value) {
-            $iku = Iku::updateOrCreate([
-                'komponen_id' => $value->id,
-                'tahun' => $tahun,
-                'triwulan' => 1
-            ]);
-            $iku = Iku::updateOrCreate([
-                'komponen_id' => $value->id,
-                'tahun' => $tahun,
-                'triwulan' => 2
-            ]);
-            $iku = Iku::updateOrCreate([
-                'komponen_id' => $value->id,
-                'tahun' => $tahun,
-                'triwulan' => 3
-            ]);
-            $iku = Iku::updateOrCreate([
-                'komponen_id' => $value->id,
-                'tahun' => $tahun,
-                'triwulan' => 4
-            ]);
-        }
+        // //Cek apakah sudah ada iku
+        // foreach ($komponenIku as $key => $value) {
+        //     $field['komponen_id'] = $value->id;
+        //     $field['tahun'] = $tahun;
+
+        //     for ($i=1; $i <=4 ; $i++) { 
+        //         $field['triwulan'] = $i;
+        //         $iku = Iku::updateOrCreate($field);
+        //     }
+        // }
 
         return view('admin.pengaturan', compact('tahun', 'komponenIku'));
     }
@@ -61,7 +48,7 @@ class PengaturanController extends Controller
             return response()->json($response, 404);
         }
         
-        $iku = Iku::with('komponen')->find($id[0]);
+        $iku = Iku::with('komponen')->with('indikator')->find($id[0]);
         if (count($iku) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
             return response()->json($response, 404);
@@ -70,6 +57,35 @@ class PengaturanController extends Controller
         $response['data'] = $iku;
         $response['status'] = true;
         
+        return response()->json($response, 200);
+    }
+
+    public function simpanIkuBaru(Request $r) {
+        $response = [
+            'status' => false,
+            'data' => [],
+            'message' => ''
+        ];
+
+        $komponen = KomponenIku::findOrFail($r->komponen_id);
+
+        $iku = new Iku();
+        $iku->komponen_id = $komponen->id;
+        $iku->tahun = $r->modal_tahun;
+        $iku->triwulan = $r->modal_triwulan;
+        $iku->persen = $r->persen;
+        $iku->tipe = $r->input_tipe;
+        $iku->keterangan = $r->keterangan;
+        $iku->is_program_budaya = $r->modal_is_program_budaya;
+        $iku->program_budaya = $r->program_budaya;
+        
+        if (!$iku->save()) {
+            $response['message'] = 'Gagal menyimpan';
+        }
+
+        $response['status'] = true;
+        $response['data'] = $iku->with('komponen');
+
         return response()->json($response, 200);
     }
 }

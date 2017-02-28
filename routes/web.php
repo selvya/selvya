@@ -78,7 +78,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
     Route::get('iku/detail/{hashid}', ['as' => 'iku.detail', 'uses' => 'PengaturanController@getIkuAjax']);
-
+    Route::post('ikuBaru', ['as' => 'iku.baru', 'uses' => 'PengaturanController@simpanIkuBaru']);
 
     //USER
     Route::get('user', function () {
