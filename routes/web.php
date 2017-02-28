@@ -19,14 +19,20 @@ Route::get('/', function () {
 
 
 //ASSESSMENT
-Route::get('nilai-self-assesment', function () {
+Route::get('nilai-self-assessment', function () {
     return view('assesment.nilai');
 });
-Route::get('lembar-self-assesment', function () {
+Route::get('lembar-self-assessment', function () {
     return view('assesment.lembar');
 });
 Route::get('arsip/assessment', function () {
     return view('assesment.arsip');
+});
+Route::get('rekap-assessment', function () {
+    return view('assesment.rekap');
+});
+Route::get('hasil-assessment', function () {
+    return view('assesment.hasil');
 });
 //ASSESSMENT TUTUP
 
