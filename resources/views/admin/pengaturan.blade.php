@@ -156,7 +156,7 @@
                 success: function(response) {
                     if (response.status) {
                         $('#komponen-iku').val(response.data.komponen.name);
-                        $('#periode').val(response.data.triwulan);
+                        $('#periode').val('Triwulan ' + response.data.triwulan);
                         $('#persen').val(response.data.persen);
                         $('#loading').hide();
                         $('#modal-form').show();
