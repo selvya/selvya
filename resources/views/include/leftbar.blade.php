@@ -41,11 +41,11 @@
                     <li class="@if(Request::is('/')) active @endif">
                         <a href="{{url('/')}}"><i class="gi gi-home sidebar-nav-icon"></i> Home</a>
                     </li>
-                    <li class="@if(Request::is('nilai-self-assesment')) active @endif">
-                        <a href="{{url('nilai-self-assesment')}}"><i class="gi gi-notes sidebar-nav-icon"></i> Nilai Assessment</a>
+                    <li class="@if(Request::is('nilai-self-assessment')) active @endif">
+                        <a href="{{url('nilai-self-assessment')}}"><i class="gi gi-notes sidebar-nav-icon"></i> Nilai Assessment</a>
                     </li>
-                    <li class="@if(Request::is('lembar-self-assesment') || Request::is('arsip/assessment')) active @endif">
-                        <a href="{{url('lembar-self-assesment')}}"><i class="gi gi-sort sidebar-nav-icon"></i> Lembar Assessment</a>
+                    <li class="@if(Request::is('lembar-self-assessment') || Request::is('arsip/assessment')) active @endif">
+                        <a href="{{url('lembar-self-assessment')}}"><i class="gi gi-sort sidebar-nav-icon"></i> Lembar Assessment</a>
                     </li>
                     <li class="@if(Request::is('inovatif') || Request::is('arsip/inovatif')) active @endif">
                         <a href="{{url('inovatif')}}"><i class="gi gi-tags sidebar-nav-icon"></i> OJK Inovatif</a>
@@ -155,13 +155,13 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="{{url('')}}">
+                                            <a href="{{url('rekap-assessment')}}">
                                                 <i class="gi gi-notes sidebar-nav-icon"></i> 
                                                 Rekap Self Assassment
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{url('')}}">
+                                            <a href="{{url('hasil-assessment')}}">
                                                 <i class="gi gi-notes sidebar-nav-icon"></i> 
                                                 Hasil Self Assassment
                                             </a>
