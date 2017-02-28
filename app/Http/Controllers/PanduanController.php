@@ -10,11 +10,13 @@ class PanduanController extends Controller
 {
     public function satker()
        {
-           return view('panduan.panduan-satker');
+           $data = ManualBook::where('type','Satker')->orderBy('id','DESC')->first();
+           return view('panduan.panduan-satker', compact('data'));
        }
     public function reviewer()
        {
-            return view('panduan.panduan-reviewer');
+            $data = ManualBook::where('type','Reviewer')->orderBy('id','DESC')->first();
+            return view('panduan.panduan-reviewer',compact('data'));
        }   
     public function uploadsatkerview()
        {    
@@ -23,7 +25,7 @@ class PanduanController extends Controller
        }
     public function uploadreviewer()
        {
-            $data = ManualBook::where('type','Reviewer')->orderBy('id','DESC')->first();
+           $data = ManualBook::where('type','Reviewer')->orderBy('id','DESC')->first();
            return view('panduan.upload-dmpb', compact('data'));
        }
     public function uploadpost(Request $r)

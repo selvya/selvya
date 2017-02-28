@@ -26,7 +26,11 @@
 				</p>
 			</div>
 			<div class="col-md-12 col-lg-12">
-				<a href="" class="btn btn-success"><i class="gi gi-download"></i> Unduh Berkas</a>
+				@if(!empty($data))
+				<a href="{{asset('manual-book/satker/'.$data->name)}}" class="btn btn-success"><i class="gi gi-download"></i> Unduh Berkas</a>
+				@else
+				<a disabled class="btn btn-success"><i class="gi gi-download"></i> Unduh Berkas</a>
+				@endif
 			</div>
 		</div>
 		<!-- END FAQ Content -->
