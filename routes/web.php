@@ -49,16 +49,12 @@ Route::get('monitoring-anggaran', function () {
 //TUTUP ANGGARAN
 
 
-Route::get('manual-pengguna', function () {
-    return view('panduan.index');
-});
-
-Route::get('upload/satker', function () {
-    return view('panduan.upload-panduan-satker');
-});
-Route::get('upload/dmpb', function () {
-    return view('panduan.upload-dmpb');
-});
+//MANUAL PENGGUNA
+Route::get('manual-pengguna-satker', 'PanduanController@satker');
+Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
+Route::get('upload/satker','PanduanController@uploadsatkerview');
+Route::get('upload/dmpb', 'PanduanController@uploadreviewer');
+Route::post('upload/manual-book/proses', 'PanduanController@uploadpost');
 
 Route::get('kontak', function () {
     return view('kontak.index');

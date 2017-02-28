@@ -53,102 +53,178 @@
                     <li class="@if(Request::is('monitoring-anggaran')) active @endif">
                         <a href="{{url('monitoring-anggaran')}}"><i class="gi gi-imac sidebar-nav-icon"></i> Monitoring Anggaran</a>
                     </li>
-                    <li class="@if(Request::is('manual-pengguna')) active @endif">
-                        <a href="{{url('manual-pengguna')}}"><i class="gi gi-book sidebar-nav-icon"></i> Manual Pengguna</a>
-                    </li>
-                    <li class="@if(Request::is('kontak')) active @endif">
-                        <a href="{{url('kontak')}}"><i class="gi gi-circle_info sidebar-nav-icon"></i> Kontak</a>
-                    </li>
-                    <!-- TUTUP MENU SATKER ,DKIN,DSMS  -->
-                    <!-- MENU ADMIN -->
-                    <li class="sidebar-header">
-                        <span class="sidebar-header-options clearfix">
-                            <i class="gi gi-user"></i></span>
-                            <span class="sidebar-header-title"><b>Admin</b></span>
+                    <li class="@if(Request::is('manual-pengguna-satker')) active @endif">
+                        <a href="{{url('manual-pengguna-satker')}}">
+                            <i class="gi gi-book sidebar-nav-icon"></i> Manual Pengguna</a>
                         </li>
-                        <li class="@if(Request::is('/')) active @endif">
-                            <a href="{{url('/')}}"><i class="gi gi-home sidebar-nav-icon"></i> Home</a>
+                        <li class="@if(Request::is('kontak')) active @endif">
+                            <a href="{{url('kontak')}}"><i class="gi gi-circle_info sidebar-nav-icon"></i> Kontak</a>
                         </li>
-                        <li class="@if(Request::is('user')) active @endif">
-                            <a href="{{url('user')}}">
-                                <i class="gi gi-user sidebar-nav-icon"></i> Semua User
-                            </a>
-                        </li>
-                        <li class="@if(Request::is('map-report')) active @endif">
-                            <a href="{{url('map-report')}}">
-                                <i class="gi gi-google_maps sidebar-nav-icon"></i> Mapping Report
-                            </a>
-                        </li>
-                        <li class="@if(Request::is('upload')) active @endif">
-                            <a href="#" class="sidebar-nav-menu">
-                                <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
-                                <i class="gi gi-upload sidebar-nav-icon"></i> Upload
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="{{url('upload/satker')}}">
-                                        <i class="gi gi-group sidebar-nav-icon"></i> 
-                                        Manual Pengguna Satker
-                                    </a>
+                        <!-- TUTUP MENU SATKER ,DKIN,DSMS  -->
+                        <!-- MENU ADMIN -->
+                        <li class="sidebar-header">
+                            <span class="sidebar-header-options clearfix">
+                                <i class="gi gi-user"></i></span>
+                                <span class="sidebar-header-title"><b>Admin</b></span>
+                            </li>
+                            <li class="@if(Request::is('user')) active @endif">
+                                <a href="{{url('user')}}">
+                                    <i class="gi gi-user sidebar-nav-icon"></i> Semua User
+                                </a>
+                            </li>
+                            <li class="@if(Request::is('map-report')) active @endif">
+                                <a href="{{url('map-report')}}">
+                                    <i class="gi gi-google_maps sidebar-nav-icon"></i> Mapping Report
+                                </a>
+                            </li>
+                            <li class="@if(Request::is('upload')) active @endif">
+                                <a href="#" class="sidebar-nav-menu">
+                                    <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                    <i class="gi gi-upload sidebar-nav-icon"></i> Upload
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{{url('upload/satker')}}">
+                                            <i class="gi gi-group sidebar-nav-icon"></i> 
+                                            Manual Pengguna Satker
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('upload/dmpb')}}">
+                                            <i class="gi gi-group sidebar-nav-icon"></i> 
+                                            Manual Pengguna DMPB
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                            Catatan Dinas
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="@if(Request::is('survey')) active @endif">
+                                <a href="{{url('survey')}}">
+                                    <i class="gi gi-notes sidebar-nav-icon"></i> Rekap Survey
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="sidebar-nav-menu">
+                                    <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                    <i class="gi gi-shield sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Parameter User</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{{url('deputi-komisioner')}}">
+                                            <i class="gi gi-group sidebar-nav-icon"></i> 
+                                            Deputi Komisioner
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('departemen')}}">
+                                            <i class="gi gi-group sidebar-nav-icon"></i> 
+                                            Departemen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('direktorat')}}">
+                                            <i class="gi gi-group sidebar-nav-icon"></i> 
+                                            Direktorat
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="@if(Request::is('program')) active @endif">
+                                <a href="{{url('program')}}">
+                                    <i class="gi gi-tags sidebar-nav-icon"></i> Parameter Program
+                                </a>
+                            </li>
+                            <!-- TUTUP MENU ADMIN -->
+                            <!-- MENU REVIEWER -->
+                            <li class="sidebar-header">
+                                <span class="sidebar-header-options clearfix">
+                                    <i class="gi gi-user"></i></span>
+                                    <span class="sidebar-header-title"><b>Reviewer</b></span>
                                 </li>
                                 <li>
-                                    <a href="{{url('upload/dmpb')}}">
-                                        <i class="gi gi-group sidebar-nav-icon"></i> 
-                                        Manual Pengguna DMPB
+                                    <a href="#" class="sidebar-nav-menu">
+                                        <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                        <i class="gi gi-sort sidebar-nav-icon"></i>
+                                        <span class="sidebar-nav-mini-hide">Self Assassment</span>
                                     </a>
+                                    <ul>
+                                        <li>
+                                            <a href="{{url('')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Rekap Self Assassment
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Hasil Self Assassment
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Rekap Budaya Spesifik
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
-                                    <a href="">
-                                        <i class="gi gi-notes sidebar-nav-icon"></i> 
-                                        Catatan Dinas
+                                    <a href="#" class="sidebar-nav-menu">
+                                        <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                        <i class="gi gi-imac sidebar-nav-icon"></i>
+                                        <span class="sidebar-nav-mini-hide">Monitoring</span>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="{{url('')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Rekap Monitoring
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Hasil Monitoring
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="@if(Request::is('')) active @endif">
+                                    <a href="{{url('')}}">
+                                        <i class="fa fa-line-chart sidebar-nav-icon"></i> 
+                                        Grafik Budaya Satker
                                     </a>
                                 </li>
+                                <li class="@if(Request::is('')) active @endif">
+                                    <a href="{{url('')}}">
+                                        <i class="fa fa-trophy sidebar-nav-icon"></i> 
+                                        Launching Budaya
+                                    </a>
+                                </li>
+                                <li class="@if(Request::is('')) active @endif">
+                                    <a href="{{url('')}}">
+                                        <i class="fa fa-money sidebar-nav-icon"></i> 
+                                        Anggaran Budaya
+                                    </a>
+                                </li>
+                                <li class="@if(Request::is('manual-pengguna-reviewer')) active @endif">
+                                    <a href="{{url('manual-pengguna-reviewer')}}">
+                                        <i class="fa fa-book sidebar-nav-icon"></i> 
+                                        Manual Pengguna
+                                    </a>
+                                </li>
+                                <!-- TUTUP MENU REVIEWER -->
                             </ul>
-                        </li>
-                        <li class="@if(Request::is('survey')) active @endif">
-                            <a href="{{url('survey')}}">
-                                <i class="gi gi-notes sidebar-nav-icon"></i> Rekap Survey
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-nav-menu">
-                                <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
-                                <i class="gi gi-shield sidebar-nav-icon"></i>
-                                <span class="sidebar-nav-mini-hide">Parameter User</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="{{url('deputi-komisioner')}}">
-                                        <i class="gi gi-group sidebar-nav-icon"></i> 
-                                        Deputi Komisioner
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{url('departemen')}}">
-                                        <i class="gi gi-group sidebar-nav-icon"></i> 
-                                        Departemen
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{url('direktorat')}}">
-                                        <i class="gi gi-group sidebar-nav-icon"></i> 
-                                        Direktorat
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="@if(Request::is('program')) active @endif">
-                            <a href="{{url('program')}}">
-                            <i class="gi gi-tags sidebar-nav-icon"></i> Parameter Program
-                            </a>
-                        </li>
-                        <!-- TUTUP MENU ADMIN -->
-
-                    </ul>
-                    <!-- END Sidebar Navigation -->
+                            <!-- END Sidebar Navigation -->
+                        </div>
+                        <!-- END Sidebar Content -->
+                    </div>
+                    <!-- END Wrapper for scrolling functionality -->
                 </div>
-                <!-- END Sidebar Content -->
-            </div>
-            <!-- END Wrapper for scrolling functionality -->
-        </div>
     <!-- END Main Sidebar -->
