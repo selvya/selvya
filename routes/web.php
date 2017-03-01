@@ -99,7 +99,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('ikuEdit7', ['as' => 'iku.edit7', 'uses' => 'PengaturanController@simpanIkuEdit7']);
 //  !!
 //TODO:cek jika satker mengirimkan assesment yang ikunya belum didefinisikan
-
+//Kalau belum ada, berarti kosong (0)
     //USER
     Route::get('user', function () {
         return view('user.user');
