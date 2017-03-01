@@ -699,10 +699,96 @@ class PengaturanController extends Controller
             return response()->json($response, 200);
         }
 
-        $iku->komponen_id = 5;
+        $iku->komponen_id = 6;
         $iku->triwulan = $r->modal_triwulan6Edit;
         $iku->persen = $r->persen6Edit;
         $iku->keterangan = $r->keterangan6Edit;
+        $iku->program_budaya = null;
+        
+        if (!$iku->save()) {
+            $response['message'] = 'Gagal menyimpan';
+        }
+
+        $response['status'] = true;
+        $response['data'] = $iku;
+        $response['data']['hashid'] = $iku->hashid;
+
+        return response()->json($response, 200);
+    }
+
+    public function simpanIkuBaru7(Request $r) {
+        $response = [
+            'status' => false,
+            'data' => [],
+            'message' => ''
+        ];
+
+        //Cek jumlah keseluruhan
+        $existingPersen = Iku::where('tahun', $r->modal_tahun7)
+                            ->where('triwulan', $r->modal_triwulan7)
+                            ->sum('persen');
+
+        if (($existingPersen + $r->persen7) > 100) {
+            $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
+            return response()->json($response, 200);
+        }
+
+        $iku = new Iku();
+        $iku->komponen_id = 7;
+        $iku->tahun = $r->modal_tahun7;
+        $iku->triwulan = $r->modal_triwulan7;
+        $iku->persen = $r->persen7;
+        $iku->tipe = 'manual';
+        $iku->keterangan = $r->keterangan7;
+        $iku->is_program_budaya = 't';
+        $iku->program_budaya = null;
+        
+        if (!$iku->save()) {
+            $response['message'] = 'Gagal menyimpan';
+        }
+
+        $response['status'] = true;
+        $response['data'] = $iku;
+        $response['data']['hashid'] = $iku->hashid;
+
+        return response()->json($response, 200);
+    }
+
+    public function simpanIkuEdit7(Request $r) {
+        $response = [
+            'status' => false,
+            'data' => [],
+            'message' => ''
+        ];
+
+        //Cek Iku
+        $id = Hashids::connection('iku')->decode($r->hashid);
+        if (count($id) == 0) {
+            $response['message'] = 'Iku tidak ditemukan. Error';
+            return response()->json($response, 200);
+        }
+
+        $iku = Iku::find($id[0]);
+        if (count($iku) == 0) {
+            $response['message'] = 'Iku tidak ditemukan. Error';
+            return response()->json($response, 200);
+        }
+
+        //Cek jumlah keseluruhan
+        $existingPersen = Iku::where('tahun', $r->modal_tahun7Edit)
+                            ->where('triwulan', $r->modal_triwulan7Edit)
+                            ->whereNotIn('id', [$iku->id])
+                            ->sum('persen');
+
+        if (($existingPersen + $r->persen7Edit) > 100) {
+            $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
+            return response()->json($response, 200);
+        }
+
+        $iku->komponen_id = 7;
+        $iku->triwulan = $r->modal_triwulan7Edit;
+        $iku->persen = $r->persen7Edit;
+        $iku->keterangan = $r->keterangan7Edit;
         $iku->program_budaya = null;
         
         if (!$iku->save()) {

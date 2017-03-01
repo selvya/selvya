@@ -934,6 +934,147 @@
         </div>
     </div>
 
+    {{-- Baru 7 --}}
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal7" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Indikator Pencapaian Survei Budaya Eksternal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center" id="loading7">
+                        <i class="fa fa-cog fa-3x fa-spin"></i>
+                        <br>
+                        Memuat...
+                    </div>
+                    <form class="form-horizontal" id="modal-form7">
+                        <div class="form-group">
+                            <label for="komponen_iku7" class="control-label col-md-4">Komponen Iku</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" readonly id="komponen_iku7" value="Survei Budaya Eksternal">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="periode7" class="control-label col-md-4">Periode</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" readonly id="periode7">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="persen7" class="control-label col-md-4">Persentase Nilai</label>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <input type="number" name="persen7" class="form-control" min="0" step="1" max="100" value="0" id="persen7">
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input_tipe7" class="control-label col-md-4">Input Nilai</label>
+                            <div class="col-md-8">
+                                <div class="col-md-9" id="radioContainer">
+                                    <div class="radio">
+                                        <label for="input_tipe7">
+                                            <input type="radio" id="input_tipe7" name="input_tipe7" checked value="manual"> Manual
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan7" class="control-label col-md-4">Keterangan</label>
+                            <div class="col-md-8">
+                                <textarea name="keterangan7" id="keterangan7" class="form-control"></textarea>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                {{csrf_field()}}
+                                <input type="hidden" name="sender_id7" id="sender_id7" value="">
+                                <input type="hidden" name="modal_tahun7" value="{{$tahun}}">
+                                <input type="hidden" name="modal_triwulan7" value="" id="modal_triwulan7">
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-success pull-right" id="modal_simpan_baru7">Simpan <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- EDIT 7 --}}
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal7Edit" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Indikator Pencapaian Survei Budaya Eksternal</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center" id="loading7Edit">
+                        <i class="fa fa-cog fa-3x fa-spin"></i>
+                        <br>
+                        Memuat...
+                    </div>
+                    <form class="form-horizontal" id="modal-form7Edit">
+                        <div class="form-group">
+                            <label for="komponen_iku7Edit" class="control-label col-md-4">Komponen Iku</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" readonly id="komponen_iku7Edit" value="Survei Budaya Eksternal">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="periode7Edit" class="control-label col-md-4">Periode</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" readonly id="periode7Edit">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="persen7Edit" class="control-label col-md-4">Persentase Nilai</label>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <input type="number" name="persen7Edit" class="form-control" min="0" step="1" max="100" value="0" id="persen7Edit">
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input_tipe7" class="control-label col-md-4">Input Nilai</label>
+                            <div class="col-md-8">
+                                <div class="col-md-9" id="radioContainer">
+                                    <div class="radio">
+                                        <label for="input_tipe7Edit">
+                                            <input type="radio" id="input_tipe7Edit" name="input_tipe7Edit" checked value="manual"> Manual
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan7" class="control-label col-md-4">Keterangan</label>
+                            <div class="col-md-8">
+                                <textarea name="keterangan7Edit" id="keterangan7Edit" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                {{csrf_field()}}
+                                <input type="hidden" name="sender_id7Edit" id="sender_id7Edit" value="">
+                                <input type="hidden" name="modal_tahun7Edit" value="{{$tahun}}">
+                                <input type="hidden" name="modal_triwulan7Edit" value="" id="modal_triwulan7Edit">
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-success pull-right" id="modal_simpan_baru7Edit">Simpan <i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!-- Page content -->
     <div id="page-content">
         <!-- Datatables Header -->
@@ -1195,6 +1336,14 @@
                     $('#modal_triwulan6').val('').val(t.attr('data-triwulan'));
 
                     $('#modal6').modal('show');
+                }else if(t.attr('data-component') == 7){
+                    $('#periode7').val('').val('Triwulan ' + t.attr('data-triwulan'));
+                    $('#persen7').val('').val(0);
+                    $('#sender_id7').val('').val(t.attr('id'));
+                    $('#keterangan7').val('');
+                    $('#modal_triwulan7').val('').val(t.attr('data-triwulan'));
+
+                    $('#modal7').modal('show');
                 }
             } else {
                 if (t.attr('data-component') == 1) {
@@ -1414,6 +1563,44 @@
                     });
                     
                     $('#modal6Edit').modal('show');
+                } else if (t.attr('data-component') == 7) {
+                    $.ajax({
+                        url: '{{url('iku/detail/')}}/' + t.attr('data-id'),
+                        type: 'GET',
+                        dataType: 'JSON',
+                        beforeSend: function() {
+                            $('#periode7Edit').val('').val('Triwulan ' + t.attr('data-triwulan'));
+                            $('#persen7Edit').val('').val(0);
+                            $('#sender_id7Edit').val('').val(t.attr('id'));
+                            $('#keterangan7Edit').val('').prop('readonly', false);
+                            $('#modal_triwulan7Edit').val('').val(t.attr('data-triwulan'));
+
+                            $('#modal-form7Edit').hide();
+                            $('#loading7Edit').show();
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                $('#periode7Edit').val('').val('Triwulan ' + t.attr('data-triwulan'));
+                                $('#persen7Edit').val('').val(response.data.persen).prop('readonly', false);
+                                $('#sender_id7Edit').val('').val(t.attr('id'));
+                                $('#keterangan7Edit').val(response.data.keterangan);
+                                $('#modal_triwulan7Edit').val('').val(t.attr('data-triwulan'));
+                                console.log(response);
+
+                                $('#loading7Edit').hide();
+                                $('#modal-form7Edit').show();
+                            }else{
+                                alert('Ups terjadi kesalahan');
+                                $('#modal7Edit').modal('hide');
+                            }
+                        },
+                        error: function(response) {
+                            alert('Ups terjadi kesalahan');
+                            $('#modal7Edit').modal('hide');
+                        }
+                    });
+                    
+                    $('#modal7Edit').modal('show');
                 }
             }
         });
@@ -1960,6 +2147,64 @@
                     }
                     s6.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
                     $('#keterangan6, #persen6').prop('readonly', false);
+                }
+            });
+        });
+
+        // Baru 7
+        $('#modal_simpan_baru7').on('click', function() {
+            let s7 = $(this);
+            let sender_id = $('#sender_id7').val();
+            var sender = $('#' + sender_id);
+
+            $.ajax({
+                url: '{{url('ikuBaru7')}}',
+                data: $('#modal-form7').serialize(),
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function(){
+                    s7.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                    $('#keterangan7, #persen7').prop('readonly', true);
+                },
+                success: function(response){
+                    if (response.status) {
+                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                        $('#modal7').modal('hide');
+                    }else{
+                        alert(response.message);
+                        $('#persen7').focus();
+                    }
+                    s7.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                    $('#keterangan7, #persen7').prop('readonly', false);
+                }
+            });
+        });
+        //Edit6
+        $('#modal_simpan_baru7Edit').on('click', function() {
+            let s7 = $(this);
+            let sender_id = $('#sender_id7Edit').val();
+            var sender = $('#' + sender_id);
+
+            $.ajax({
+                url: '{{url('ikuEdit7')}}',
+                data: $('#modal-form7Edit').serialize() + '&hashid=' + sender.attr('data-id'),
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function(){
+                    s7.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                    $('#keterangan7Edit, #persen7Edit').prop('readonly', true);
+                },
+                success: function(response){
+                    if (response.status) {
+                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                        $('#modal7Edit').modal('hide');
+                    }else{
+                        alert(response.message);
+                        $('#keterangan7Edit, #persen7Edit').prop('readonly', false);
+                        $('#persen7Edit').focus();
+                    }
+                    s6.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                    $('#keterangan7, #persen7').prop('readonly', false);
                 }
             });
         });
