@@ -34,6 +34,9 @@ Route::get('rekap-assessment', function () {
 Route::get('hasil-assessment', function () {
     return view('assesment.hasil');
 });
+Route::get('rekap-budaya', function () {
+    return view('assesment.rekap-budaya');
+});
 //ASSESSMENT TUTUP
 
 //OJK INOVATIF
@@ -48,11 +51,17 @@ Route::get('arsip/inovatif', function () {
 });
 //TUTUP OJK INOVATIF
 
-//ANGGARAN
+//MONITORING
 Route::get('monitoring-anggaran', function () {
-    return view('anggaran.monitoring');
+    return view('monitoring.anggaran');
 });
-//TUTUP ANGGARAN
+Route::get('rekap-monitoring', function () {
+    return view('monitoring.rekap');
+});
+Route::get('hasil-monitoring', function () {
+    return view('monitoring.hasil');
+});
+//TUTUP MONITORING
 
 
 //MANUAL PENGGUNA
@@ -101,12 +110,9 @@ Route::group(['middleware' => ['admin']], function () {
 //TODO:cek jika satker mengirimkan assesment yang ikunya belum didefinisikan
 //Kalau belum ada, berarti kosong (0)
     //USER
-    Route::get('user', function () {
-        return view('user.user');
-    });
-    Route::get('user/tambah', function () {
-        return view('user.tambah-user');
-    });
+    Route::get('user','UserController@user');
+    Route::get('user/tambah', 'UserController@usertambahview');
+    Route::post('user/tambah/proses', 'UserController@tambahuser');
 
     //DEPARTEMEN
     Route::get('departemen','DepartemenController@index');
