@@ -20,4 +20,9 @@ class Iku extends Model
     {
         return $this->belongsTo('\App\KomponenIku', 'komponen_id');
     }
+
+    public function indikator()
+    {
+        return $this->hasMany('\App\IndikatorIku', 'iku_id');
+    }
 }
