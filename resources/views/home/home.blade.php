@@ -1,8 +1,48 @@
 @extends('layout.master')
 @section('content')
+<style>
+	.jumbotron{
+		background: url('{{asset('/img/banner.jpg')}}');
+		position: relative;
+	}
+	.jumbotron:before {
+		position: absolute;
+		content: '';
+		right: 0;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		opacity: 0.5;
+		background: -webkit-linear-gradient(black, grey); /* For Safari 5.1 to 6.0 */
+	}
+	
+	.jumbotron .content p{
+		font-size:16px;
+		margin-top:20px;
+	}
+	.header-section{
+		padding:0px;
+	}
+</style>
+
 <div id="page-content">
 	<!-- Dashboard 2 Header -->
-	<div class="content-header">
+
+	<div class="content-header content-media">
+		<div class="header-section">
+			<div class="jumbotron" >
+
+				<div class="content" style="padding:0px 40px;">
+					<h1>Salam Perubahan!</h1>
+					<p>Selamat datang di dashboard monitoring program budaya OJKway.
+						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.
+						Selamat menggunakan,
+						Direktorat Manajemen Perubahan</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- <div class="content-header">
 		<ul class="nav-horizontal text-center">
 			<li class="active">
 				<a href="javascript:void(0)"><i class="fa fa-home"></i> Home</a>
@@ -29,7 +69,7 @@
 				<a href="javascript:void(0)"><i class="fa fa-cogs"></i> Settings</a>
 			</li>
 		</ul>
-	</div>
+	</div> -->
 	<!-- END Dashboard 2 Header -->
 
 	<!-- Dashboard 2 Content -->
@@ -91,7 +131,7 @@
 									<p class="push-bit"><a href="page_ready_article.html" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Read the article</a></p>
 									<div class="row push">
 										<div class="col-sm-6 col-md-4">
-										<a href="" data-toggle="lightbox-image">
+											<a href="" data-toggle="lightbox-image">
 												<img src="{{asset('vendor/img/placeholders/photos/photo1.jpg')}}" alt="image">
 											</a>
 										</div>
