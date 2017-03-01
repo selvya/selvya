@@ -26,17 +26,19 @@
 				<div class="block-title">
 					<h2><strong>Form</strong></h2>
 				</div>
-				<form class="form-horizontal">
+				@include('include.alert')
+				<form action="{{url('user/tambah/proses')}}" class="form-horizontal" method="POST">
+				{{csrf_field()}}
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Username</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" placeholder="Username">
+							<input type="text" class="form-control" placeholder="Username" name="username">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" placeholder="Password">
+							<input type="password" class="form-control" placeholder="Password" name="password">
 						</div>
 					</div>
 					<div class="form-group">
@@ -54,16 +56,16 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Deputi Komisioner</label>
 						<div class="col-sm-10">
-							<select name="komisioner" class="form-control">
-								<option>-- Pilih --</option>
+							<select name="deputi" class="form-control">
+								<option value="kosong">-- Pilih --</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Departmen</label>
 						<div class="col-sm-10">
-							<select name="departmen" class="form-control">
-								<option>-- Pilih --</option>
+							<select name="departemen" class="form-control">
+								<option value="kosong">-- Pilih --</option>
 							</select>
 						</div>
 					</div>
@@ -71,26 +73,26 @@
 						<label class="col-sm-2 control-label">KOJK</label>
 						<div class="col-sm-10">
 							<select name="kojk" class="form-control">
-								<option>-- Pilih --</option>
+								<option value="kosong">-- Pilih --</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Change Partner</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="partner" placeholder="Change Partner">
+							<input type="text" class="form-control" name="change" placeholder="Change Partner">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Pimpinan Satker/Direktorat</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="pimpinan" placeholder="Nama Pimpinan">
+							<input type="text" class="form-control" name="satker" placeholder="Nama Pimpinan">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Jabatan</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="jabatans" placeholder="Jabatan">
+							<input type="text" class="form-control" name="jabatan" placeholder="Jabatan">
 						</div>
 					</div>
 					<div class="form-group">

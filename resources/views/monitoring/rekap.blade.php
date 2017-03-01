@@ -6,21 +6,37 @@
 	<div class="content-header">
 		<div class="header-section">
 			<h1>
-				<i class="gi gi-sort"></i>
-				<b>Hasil Assessment</b>
+				<i class="gi gi-imac"></i>
+				<b>Rekap Monitoring</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li>Hasil Assessment</li>
+		<li>Rekap Monitoring</li>
 	</ul>
 	<!-- END Datatables Header -->
 
 	<!-- Datatables Content -->
 	<div class="block full">
-		<div class="text-right">
-			<a href="{{url('arsip/assessment')}}" class="btn btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment"><i class="fa fa-eye"></i></a>
+		<div class="table-responsive">
+			<table>
+				<tr>
+					<td>Deputi Komisioner</td>
+					<td>:</td>
+					<td>Manajemen Strategis IB</td>
+				</tr>
+				<tr>
+					<td>Satuan Kerja</td>
+					<td>:</td>
+					<td>Perencanaan Strategis, Manajemen Perubahan dan Sekretariat Dewan Komisioner</td>
+				</tr>
+				<tr>
+					<td>Direktorat/KOJK</td>
+					<td>:</td>
+					<td>N/A</td>
+				</tr>
+			</table>
 		</div>
 		<br>
 		<div class="table-responsive">
@@ -44,6 +60,7 @@
 						<td><span class="label label-info">Business</span></td>
 						<td class="text-center">
 							<div class="btn-group">
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
 							</div>
@@ -57,6 +74,7 @@
 						<td><span class="label label-warning">Trial</span></td>
 						<td class="text-center">
 							<div class="btn-group">
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
 							</div>
@@ -70,6 +88,7 @@
 						<td><span class="label label-success">VIP</span></td>
 						<td class="text-center">
 							<div class="btn-group">
+								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
 							</div>

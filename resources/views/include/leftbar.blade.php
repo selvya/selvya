@@ -167,7 +167,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{url('')}}">
+                                            <a href="{{url('rekap-budaya')}}">
                                                 <i class="gi gi-notes sidebar-nav-icon"></i> 
                                                 Rekap Budaya Spesifik
                                             </a>
@@ -182,13 +182,13 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="{{url('')}}">
+                                            <a href="{{url('rekap-monitoring')}}">
                                                 <i class="gi gi-notes sidebar-nav-icon"></i> 
                                                 Rekap Monitoring
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{url('')}}">
+                                            <a href="{{url('hasil-monitoring')}}">
                                                 <i class="gi gi-notes sidebar-nav-icon"></i> 
                                                 Hasil Monitoring
                                             </a>

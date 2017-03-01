@@ -7,13 +7,13 @@
 		<div class="header-section">
 			<h1>
 				<i class="gi gi-sort"></i>
-				<b>Hasil Assessment</b>
+				<b>Rekap Budaya Assessment</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li>Hasil Assessment</li>
+		<li>Rekap Budaya Assessment</li>
 	</ul>
 	<!-- END Datatables Header -->
 
