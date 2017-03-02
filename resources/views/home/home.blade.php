@@ -2,23 +2,17 @@
 @section('content')
 <style>
 	.jumbotron{
-		background: url('{{asset('/img/banner.jpg')}}');
-		position: relative;
+		background: url('{{asset('/img/banners.jpg')}}');
+		background-size: cover;
 	}
-	.jumbotron:before {
-		position: absolute;
-		content: '';
-		right: 0;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		opacity: 0.5;
-		background: -webkit-linear-gradient(black, grey); /* For Safari 5.1 to 6.0 */
-	}
-	
+
 	.jumbotron .content p{
 		font-size:16px;
 		margin-top:20px;
+		color:#fff;
+	}
+	.jumbotron .content h1{
+		color:#fff;
 	}
 	.header-section{
 		padding:0px;
@@ -33,11 +27,11 @@
 			<div class="jumbotron" >
 
 				<div class="content" style="padding:0px 40px;">
-					<h1>Salam Perubahan!</h1>
-					<p>Selamat datang di dashboard monitoring program budaya OJKway.
+					<h1><b>Salam Perubahan!</b></h1>
+					<p><b>Selamat datang di dashboard monitoring program budaya OJKway.
 						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.
 						Selamat menggunakan,
-						Direktorat Manajemen Perubahan</p>
+						Direktorat Manajemen Perubahan</b></p>
 					</div>
 				</div>
 			</div>
