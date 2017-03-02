@@ -63,7 +63,7 @@
 						<td><span class="label label-info">Business</span></td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+								<a href="{{url('edit-self-assessment')}}" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
 							</div>
 						</td>

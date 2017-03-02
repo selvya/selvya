@@ -25,6 +25,9 @@ Route::get('nilai-self-assessment', function () {
 Route::get('lembar-self-assessment', function () {
     return view('assesment.lembar');
 });
+Route::get('edit-self-assessment', function () {
+    return view('assesment.edit-assessment');
+});
 Route::get('arsip/assessment', function () {
     return view('assesment.arsip');
 });

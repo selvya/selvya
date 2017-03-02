@@ -1,8 +1,52 @@
 @extends('layout.master')
 @section('content')
+<style>
+	.jumbotron{
+		background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url('{{asset('/img/banner.jpg')}}');
+		background-size: cover;
+		background-position: center;
+	}
+
+	.jumbotron .content p{
+		font-size:16px;
+		margin-top:20px;
+		color:#fff;
+	}
+	.jumbotron .content h1{
+		color:#fff;
+	}
+	.header-section{
+		padding:0px;
+	}
+	.form-bordered .form-group.form-actions {
+		background-color: #fff;
+		border:none;}
+		.form-bordered .form-group{
+			border:none;
+			padding: 10px 15px 0;
+		}
+
+</style>
+
 <div id="page-content">
 	<!-- Dashboard 2 Header -->
-	<div class="content-header">
+
+	<div class="content-header content-media">
+		<div class="header-section">
+			<div class="jumbotron" >
+
+				<div class="content" style="padding:0px 40px;">
+					<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
+					<p>
+						Selamat datang di dashboard monitoring program budaya OJKway.
+						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.Selamat menggunakan,Direktorat Manajemen Perubahan
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="content-header">
 		<ul class="nav-horizontal text-center">
 			<li class="active">
 				<a href="javascript:void(0)"><i class="fa fa-home"></i> Home</a>
@@ -29,7 +73,7 @@
 				<a href="javascript:void(0)"><i class="fa fa-cogs"></i> Settings</a>
 			</li>
 		</ul>
-	</div>
+	</div> -->
 	<!-- END Dashboard 2 Header -->
 
 	<!-- Dashboard 2 Content -->
@@ -42,24 +86,25 @@
 					<div class="block-options pull-right">
 						<a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Post Options"><i class="fa fa-pencil"></i></a>
 					</div>
-					<h2><strong>Quick</strong> Post</h2>
+					<h2><strong>Bagikan</strong> Sesuatu</h2>
 				</div>
 				<!-- END Quick Post Title -->
 
 				<!-- Quick Post Content -->
 				<form action="index2.html" method="post" class="form-bordered" onsubmit="return false;">
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<input type="text" id="qpost-title" name="qpost-title" class="form-control" placeholder="Enter a title..">
 					</div>
 					<div class="form-group">
 						<input type="text" id="qpost-tags" name="qpost-tags" class="input-tags" value="tutorial, learn, javascript">
-					</div>
+					</div> -->
 					<div class="form-group">
-						<textarea id="qpost-content" name="qpost-content" rows="11" class="form-control" placeholder="Enter content.."></textarea>
+						<textarea id="qpost-content" name="qpost-content" rows="11" class="form-control" placeholder="Apa yang sedang anda pikirkan" style="max-height: 100px;"></textarea>
 					</div>
 					<div class="form-group form-actions">
-						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Publish</button>
-						<button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset</button>
+						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Kirim</button>
+						<button type="submit" class="btn btn-sm btn-default"><i class="fa fa-camera"></i></button>
+						<!-- <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset</button> -->
 					</div>
 				</form>
 				<!-- END Quick Post Content -->
@@ -74,7 +119,7 @@
 					<div class="block-options pull-right">
 						<a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Settings"><i class="fa fa-cog"></i></a>
 					</div>
-					<h2><strong>Latest</strong> News</h2>
+					<h2><strong>Berita</strong> Terhangat</h2>
 				</div>
 				<!-- END Timeline Title -->
 
@@ -91,7 +136,7 @@
 									<p class="push-bit"><a href="page_ready_article.html" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Read the article</a></p>
 									<div class="row push">
 										<div class="col-sm-6 col-md-4">
-										<a href="" data-toggle="lightbox-image">
+											<a href="" data-toggle="lightbox-image">
 												<img src="{{asset('vendor/img/placeholders/photos/photo1.jpg')}}" alt="image">
 											</a>
 										</div>
