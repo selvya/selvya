@@ -6,8 +6,7 @@
         <div class="sidebar-content">
             <!-- Brand -->
             <a href="index.html" class="sidebar-brand">
-                <i class="gi gi-flash"></i><span class="sidebar-nav-mini-hide"><strong>
-                OJKWAY</strong></span>
+            </i><span class="sidebar-nav-mini-hide"><img src="{{asset('img/logo.png')}}" width="150"></span>
             </a>
             <!-- END Brand -->
 

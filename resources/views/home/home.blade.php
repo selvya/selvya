@@ -17,6 +17,14 @@
 	.header-section{
 		padding:0px;
 	}
+	.form-bordered .form-group.form-actions {
+		background-color: #fff;
+		border:none;}
+		.form-bordered .form-group{
+			border:none;
+			padding: 10px 15px 0;
+		}
+
 </style>
 
 <div id="page-content">
@@ -30,7 +38,7 @@
 					<h1><b>Salam Perubahan!</b></h1>
 					<p><b>Selamat datang di dashboard monitoring program budaya OJKway.
 						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.
-						Selamat menggunakan,
+						Selamat menggunakan,<br>
 						Direktorat Manajemen Perubahan</b></p>
 					</div>
 				</div>
@@ -76,24 +84,25 @@
 					<div class="block-options pull-right">
 						<a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Post Options"><i class="fa fa-pencil"></i></a>
 					</div>
-					<h2><strong>Quick</strong> Post</h2>
+					<h2><strong>Bagikan</strong> Sesuatu</h2>
 				</div>
 				<!-- END Quick Post Title -->
 
 				<!-- Quick Post Content -->
 				<form action="index2.html" method="post" class="form-bordered" onsubmit="return false;">
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<input type="text" id="qpost-title" name="qpost-title" class="form-control" placeholder="Enter a title..">
 					</div>
 					<div class="form-group">
 						<input type="text" id="qpost-tags" name="qpost-tags" class="input-tags" value="tutorial, learn, javascript">
-					</div>
+					</div> -->
 					<div class="form-group">
-						<textarea id="qpost-content" name="qpost-content" rows="11" class="form-control" placeholder="Enter content.."></textarea>
+						<textarea id="qpost-content" name="qpost-content" rows="11" class="form-control" placeholder="Apa yang sedang anda pikirkan" style="max-height: 100px;"></textarea>
 					</div>
 					<div class="form-group form-actions">
-						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Publish</button>
-						<button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset</button>
+						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Kirim</button>
+						<button type="submit" class="btn btn-sm btn-default"><i class="fa fa-camera"></i></button>
+						<!-- <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset</button> -->
 					</div>
 				</form>
 				<!-- END Quick Post Content -->
@@ -108,7 +117,7 @@
 					<div class="block-options pull-right">
 						<a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="Settings"><i class="fa fa-cog"></i></a>
 					</div>
-					<h2><strong>Latest</strong> News</h2>
+					<h2><strong>Berita</strong> Terhangat</h2>
 				</div>
 				<!-- END Timeline Title -->
 
