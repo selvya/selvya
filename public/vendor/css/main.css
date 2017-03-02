@@ -2293,16 +2293,19 @@ textarea.form-control {
 
 .wizard-steps span {
     display: inline-block;
+    /*padding: 15px;*/
+    /*border-radius: 3px;*/
+    font-weight: bold;
     width: 100px;
     height: 100px;
     line-height: 100px;
-    border: 1px solid #1bbae1;
+    border: 1px solid #aaa;
     border-radius: 50px;
 }
 
 .wizard-steps div.done span,
 .wizard-steps div.active span {
-    background-color: #1bbae1;
+    background-color: #EC407A;
     color: #ffffff;
 }
 
@@ -2312,6 +2315,7 @@ textarea.form-control {
 
 .wizard-steps div.active span {
     opacity: 1;
+    background:#5C6BC0;
 }
 
 /* Form Select Switches */

@@ -2,8 +2,9 @@
 @section('content')
 <style>
 	.jumbotron{
-		background: url('{{asset('/img/banners.jpg')}}');
+		background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url('{{asset('/img/banner.jpg')}}');
 		background-size: cover;
+		background-position: center;
 	}
 
 	.jumbotron .content p{
@@ -27,15 +28,15 @@
 			<div class="jumbotron" >
 
 				<div class="content" style="padding:0px 40px;">
-					<h1><b>Salam Perubahan!</b></h1>
-					<p><b>Selamat datang di dashboard monitoring program budaya OJKway.
-						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.
-						Selamat menggunakan,
-						Direktorat Manajemen Perubahan</b></p>
-					</div>
+					<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
+					<p>
+						Selamat datang di dashboard monitoring program budaya OJKway.
+						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.Selamat menggunakan,Direktorat Manajemen Perubahan
+					</p>
 				</div>
 			</div>
 		</div>
+	</div>
 	<!-- <div class="content-header">
 		<ul class="nav-horizontal text-center">
 			<li class="active">
