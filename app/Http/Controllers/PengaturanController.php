@@ -887,7 +887,7 @@ class PengaturanController extends Controller
         $jenis = [
             1 => 'OJK Melayani',
             2 => 'OJK Peduli',
-            3 => 'OJK Inovaif'
+            3 => 'OJK Inovatif'
         ];
 
         $jenis = $jenis[$r->jenis];
@@ -941,48 +941,52 @@ class PengaturanController extends Controller
             return redirect()->back()->withInput()->withErrors($validation);
         }
 
+        $iku->tipe = $r->input_tipe;
         $iku->persen = $r->persen;
         $iku->keterangan = $r->keterangan;
 
         $iku->save();
 
         IndikatorIku::where('iku_id', $iku->id)->delete();
-        //Indikaotr
-        $indikator1 = new IndikatorIku();
-        $indikator1->iku_id = $iku->id;
-        $indikator1->type = 'otomatis';
-        $indikator1->deskripsi = $r->indikator_1;
-        $indikator1->save();
+        if ($r->input_tipe == 'otomatis') {
+            //Indikaotr
+            $indikator1 = new IndikatorIku();
+            $indikator1->iku_id = $iku->id;
+            $indikator1->type = 'otomatis';
+            $indikator1->deskripsi = $r->indikator_1;
+            $indikator1->save();
 
-        $indikator2 = new IndikatorIku();
-        $indikator2->iku_id = $iku->id;
-        $indikator2->type = 'otomatis';
-        $indikator2->deskripsi = $r->indikator_2;
-        $indikator2->save();
+            $indikator2 = new IndikatorIku();
+            $indikator2->iku_id = $iku->id;
+            $indikator2->type = 'otomatis';
+            $indikator2->deskripsi = $r->indikator_2;
+            $indikator2->save();
 
-        $indikator3 = new IndikatorIku();
-        $indikator3->iku_id = $iku->id;
-        $indikator3->type = 'otomatis';
-        $indikator3->deskripsi = $r->indikator_3;
-        $indikator3->save();
+            $indikator3 = new IndikatorIku();
+            $indikator3->iku_id = $iku->id;
+            $indikator3->type = 'otomatis';
+            $indikator3->deskripsi = $r->indikator_3;
+            $indikator3->save();
 
-        $indikator4 = new IndikatorIku();
-        $indikator4->iku_id = $iku->id;
-        $indikator4->type = 'otomatis';
-        $indikator4->deskripsi = $r->indikator_4;
-        $indikator4->save();
+            $indikator4 = new IndikatorIku();
+            $indikator4->iku_id = $iku->id;
+            $indikator4->type = 'otomatis';
+            $indikator4->deskripsi = $r->indikator_4;
+            $indikator4->save();
 
-        $indikator5 = new IndikatorIku();
-        $indikator5->iku_id = $iku->id;
-        $indikator5->type = 'otomatis';
-        $indikator5->deskripsi = $r->indikator_5;
-        $indikator5->save();
+            $indikator5 = new IndikatorIku();
+            $indikator5->iku_id = $iku->id;
+            $indikator5->type = 'otomatis';
+            $indikator5->deskripsi = $r->indikator_5;
+            $indikator5->save();
 
-        $indikator6 = new IndikatorIku();
-        $indikator6->iku_id = $iku->id;
-        $indikator6->type = 'otomatis';
-        $indikator6->deskripsi = $r->indikator_6;
-        $indikator6->save();
+            $indikator6 = new IndikatorIku();
+            $indikator6->iku_id = $iku->id;
+            $indikator6->type = 'otomatis';
+            $indikator6->deskripsi = $r->indikator_6;
+            $indikator6->save();
+        }
+        
         // dd($iku);
         //Success
         return redirect(url('admin/pengaturan'));
@@ -1023,96 +1027,144 @@ class PengaturanController extends Controller
             return redirect()->back()->withInput()->withErrors($validation);
         }
 
+        $iku->tipe = $r->input_tipe;
         $iku->persen = $r->persen;
         $iku->keterangan = $r->keterangan;
 
         $iku->save();
 
+        if ($r->input_tipe == 'otomatis') {
+            if ($r->has('mc')) {
+                IndikatorIku::where('iku_id', $iku->id)->where('type', 'mysteri_call')->delete();
+                //Indikaotr
+                $indikator1 = new IndikatorIku();
+                $indikator1->iku_id = $iku->id;
+                $indikator1->type = 'mysteri_call';
+                $indikator1->deskripsi = $r->mindikator_1;
+                $indikator1->save();
 
-        if ($r->has('mc')) {
-            IndikatorIku::where('iku_id', $iku->id)->where('type', 'mysteri_call')->delete();
-            //Indikaotr
-            $indikator1 = new IndikatorIku();
-            $indikator1->iku_id = $iku->id;
-            $indikator1->type = 'mysteri_call';
-            $indikator1->deskripsi = $r->mindikator_1;
-            $indikator1->save();
+                $indikator2 = new IndikatorIku();
+                $indikator2->iku_id = $iku->id;
+                $indikator2->type = 'mysteri_call';
+                $indikator2->deskripsi = $r->mindikator_2;
+                $indikator2->save();
 
-            $indikator2 = new IndikatorIku();
-            $indikator2->iku_id = $iku->id;
-            $indikator2->type = 'mysteri_call';
-            $indikator2->deskripsi = $r->mindikator_2;
-            $indikator2->save();
+                $indikator3 = new IndikatorIku();
+                $indikator3->iku_id = $iku->id;
+                $indikator3->type = 'mysteri_call';
+                $indikator3->deskripsi = $r->mindikator_3;
+                $indikator3->save();
 
-            $indikator3 = new IndikatorIku();
-            $indikator3->iku_id = $iku->id;
-            $indikator3->type = 'mysteri_call';
-            $indikator3->deskripsi = $r->mindikator_3;
-            $indikator3->save();
+                $indikator4 = new IndikatorIku();
+                $indikator4->iku_id = $iku->id;
+                $indikator4->type = 'mysteri_call';
+                $indikator4->deskripsi = $r->mindikator_4;
+                $indikator4->save();
 
-            $indikator4 = new IndikatorIku();
-            $indikator4->iku_id = $iku->id;
-            $indikator4->type = 'mysteri_call';
-            $indikator4->deskripsi = $r->mindikator_4;
-            $indikator4->save();
+                $indikator5 = new IndikatorIku();
+                $indikator5->iku_id = $iku->id;
+                $indikator5->type = 'mysteri_call';
+                $indikator5->deskripsi = $r->mindikator_5;
+                $indikator5->save();
 
-            $indikator5 = new IndikatorIku();
-            $indikator5->iku_id = $iku->id;
-            $indikator5->type = 'mysteri_call';
-            $indikator5->deskripsi = $r->mindikator_5;
-            $indikator5->save();
+                $indikator6 = new IndikatorIku();
+                $indikator6->iku_id = $iku->id;
+                $indikator6->type = 'mysteri_call';
+                $indikator6->deskripsi = $r->mindikator_6;
+                $indikator6->save();
+            }else{
+                IndikatorIku::where('iku_id', $iku->id)->where('type', 'mysteri_call')->delete();
+            }
 
-            $indikator6 = new IndikatorIku();
-            $indikator6->iku_id = $iku->id;
-            $indikator6->type = 'mysteri_call';
-            $indikator6->deskripsi = $r->mindikator_6;
-            $indikator6->save();
-        }else{
-            IndikatorIku::where('iku_id', $iku->id)->where('type', 'mysteri_call')->delete();
+            if ($r->has('sks')) {
+                IndikatorIku::where('iku_id', $iku->id)->where('type', 'sks')->delete();
+                //Indikaotr
+                $indikator1 = new IndikatorIku();
+                $indikator1->iku_id = $iku->id;
+                $indikator1->type = 'sks';
+                $indikator1->deskripsi = $r->sindikator_1;
+                $indikator1->save();
+
+                $indikator2 = new IndikatorIku();
+                $indikator2->iku_id = $iku->id;
+                $indikator2->type = 'sks';
+                $indikator2->deskripsi = $r->sindikator_2;
+                $indikator2->save();
+
+                $indikator3 = new IndikatorIku();
+                $indikator3->iku_id = $iku->id;
+                $indikator3->type = 'sks';
+                $indikator3->deskripsi = $r->sindikator_3;
+                $indikator3->save();
+
+                $indikator4 = new IndikatorIku();
+                $indikator4->iku_id = $iku->id;
+                $indikator4->type = 'sks';
+                $indikator4->deskripsi = $r->sindikator_4;
+                $indikator4->save();
+
+                $indikator5 = new IndikatorIku();
+                $indikator5->iku_id = $iku->id;
+                $indikator5->type = 'sks';
+                $indikator5->deskripsi = $r->sindikator_5;
+                $indikator5->save();
+
+                $indikator6 = new IndikatorIku();
+                $indikator6->iku_id = $iku->id;
+                $indikator6->type = 'sks';
+                $indikator6->deskripsi = $r->sindikator_6;
+                $indikator6->save();
+            }else{
+                IndikatorIku::where('iku_id', $iku->id)->where('type', 'sks')->delete();
+            }
         }
 
-        if ($r->has('sks')) {
-            IndikatorIku::where('iku_id', $iku->id)->where('type', 'sks')->delete();
-            //Indikaotr
-            $indikator1 = new IndikatorIku();
-            $indikator1->iku_id = $iku->id;
-            $indikator1->type = 'sks';
-            $indikator1->deskripsi = $r->sindikator_1;
-            $indikator1->save();
+        return redirect(url('admin/pengaturan'));
+    }
 
-            $indikator2 = new IndikatorIku();
-            $indikator2->iku_id = $iku->id;
-            $indikator2->type = 'sks';
-            $indikator2->deskripsi = $r->sindikator_2;
-            $indikator2->save();
+    public function simpanOjkInovatif(Request $r) {
 
-            $indikator3 = new IndikatorIku();
-            $indikator3->iku_id = $iku->id;
-            $indikator3->type = 'sks';
-            $indikator3->deskripsi = $r->sindikator_3;
-            $indikator3->save();
+        $validation = Validator::make($r->all(), [
+            'hashid' => 'required',
+            'persen' => 'required|integer|max:100'
+        ]);
 
-            $indikator4 = new IndikatorIku();
-            $indikator4->iku_id = $iku->id;
-            $indikator4->type = 'sks';
-            $indikator4->deskripsi = $r->sindikator_4;
-            $indikator4->save();
 
-            $indikator5 = new IndikatorIku();
-            $indikator5->iku_id = $iku->id;
-            $indikator5->type = 'sks';
-            $indikator5->deskripsi = $r->sindikator_5;
-            $indikator5->save();
-
-            $indikator6 = new IndikatorIku();
-            $indikator6->iku_id = $iku->id;
-            $indikator6->type = 'sks';
-            $indikator6->deskripsi = $r->sindikator_6;
-            $indikator6->save();
-        }else{
-            IndikatorIku::where('iku_id', $iku->id)->where('type', 'sks')->delete();
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->withErrors($validation);
         }
 
+        $id = Hashids::connection('iku')->decode($r->hashid);
+        if (count($id) == 0) {
+            $iku = new Iku();
+        }else{
+            $iku = Iku::findOrFail($id[0]);
+        }
+
+        //Cek jumlah keseluruhan
+        $existingPersen = Iku::where('tahun', $iku->tahun)
+                            ->where('triwulan', $iku->triwulan)
+                            ->where('komponen_id', '!=', 3)
+                            ->whereNotIn('id', [$iku->id])
+                            ->sum('persen');
+
+        $existingPersen3 = Iku::where('tahun', $iku->tahun)
+                            ->where('triwulan', $iku->triwulan)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+        if (($existingPersen + $existingPersen3 + $r->persen) > 100) {
+            Session::flash('message', 'Total persen untuk satu triwulan maksimum 100%.');
+            return redirect()->back()->withInput()->withErrors($validation);
+        }
+
+        $iku->tipe = 'manual';
+        $iku->persen = $r->persen;
+        $iku->keterangan = $r->keterangan;
+
+        $iku->save();
+        
+        // dd($iku);
+        //Success
         return redirect(url('admin/pengaturan'));
     }
 

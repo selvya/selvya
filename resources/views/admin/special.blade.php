@@ -21,7 +21,11 @@
         </ul>
     
         <div class="block full">
-
+            @if(Session::has('message'))
+                <div class="alert alert-warning">
+                    {{Session::get('message')}}
+                </div>
+            @endif
             @if($jenis == 'OJK Melayani')
                 <form class="form-horizontal" method="post" action="{{url('ikuOjkMelayani')}}">
                     <div class="form-group">
@@ -46,12 +50,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="input_tipe2" class="control-label col-md-4">Input Nilai</label>
+                        <label for="input_tipe" class="control-label col-md-4">Input Tipe</label>
                         <div class="col-md-8">
                             <div class="col-md-9" id="radioContainer">
                                 <div class="radio">
-                                    <label for="input_tipe2Edit">
-                                        <input type="radio" id="input_tipe2Edit" name="input_tipe2Edit" checked value="otomatis"> Parameterize
+                                    <label for="input_tipeo">
+                                        <input type="radio" id="input_tipeo" name="input_tipe" checked value="otomatis"> Parameterized
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label for="input_tipem">
+                                        <input type="radio" id="input_tipem" name="input_tipe" value="manual"> Manual
                                     </label>
                                 </div>
                             </div>
@@ -65,13 +74,13 @@
                     </div>
                     
                     @php
-                        $mc = array_values((array) $iku->indikator->where('type', 'mysteri_call'));
-                        $sks = array_values((array) $iku->indikator->where('type', 'sks'));
+                        $mc = \App\IndikatorIku::where('iku_id', $iku->id)->where('type', 'mysteri_call')->get();
+                        $sks = \App\IndikatorIku::where('iku_id', $iku->id)->where('type', 'sks')->get();
 
                     @endphp
                     
                     {{-- @if($iku->indikator->where('type', 'mysteri_call')->count() > 0) --}}
-                    @if(count($mc[0]) > 0)
+                    @if(count($mc) > 0)
                         <table class="table table-condensed table-bordered mtable" id="tabel-deskripsi">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -88,7 +97,7 @@
                                     <th>Deskripsi Indikator {{$i}}</th>
                                     <td>
                                         {{-- <input type="text" name="mindikator_{{$i}}" id="mindikator_{{$i}}" class="form-control" value="{{$iku->indikator->where('type', 'mysteri_call')[$i-1]->deskripsi}}" required> --}}
-                                        <input type="text" name="mindikator_{{$i}}" id="mindikator_{{$i}}" class="form-control" value="{{$mc[0][$i-1]->deskripsi}}" required>
+                                        <input type="text" name="mindikator_{{$i}}" id="mindikator_{{$i}}" class="form-control" value="{{$mc[$i-1]->deskripsi}}" required>
                                     </td>
                                 </tr>
                             @endfor
@@ -168,7 +177,7 @@
                                     <th>Deskripsi Indikator {{$i}}</th>
                                     <td>
                                         {{-- <input type="text" name="sindikator_{{$i}}" id="sindikator_{{$i}}" class="form-control" value="{{$iku->indikator->where('type', 'sks')[$i]->deskripsi}}" required> --}}
-                                        <input type="text" name="sindikator_{{$i}}" id="sindikator_{{$i}}" class="form-control" value="{{$sks[0][$i-1]->deskripsi}}" required>
+                                        <input type="text" name="sindikator_{{$i}}" id="sindikator_{{$i}}" class="form-control" value="{{$sks[$i-1]->deskripsi}}" required>
                                     </td>
                                 </tr>
                             @endfor
@@ -264,8 +273,13 @@
                         <div class="col-md-8">
                             <div class="col-md-9" id="radioContainer">
                                 <div class="radio">
-                                    <label for="input_tipe2Edit">
-                                        <input type="radio" id="input_tipe2Edit" name="input_tipe2Edit" checked value="otomatis"> Parameterize
+                                    <label for="input_tipeo">
+                                        <input type="radio" id="input_tipeo" name="input_tipe" checked value="otomatis"> Parameterized
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label for="input_tipem">
+                                        <input type="radio" id="input_tipem" name="input_tipe" value="manual"> Manual
                                     </label>
                                 </div>
                             </div>
@@ -339,7 +353,57 @@
                         </div>
                     </div>
                 </form>
-            @elseif($jenis == 3)
+            @elseif($jenis == 'OJK Inovatif')
+                <form class="form-horizontal" method="post" action="{{url('ikuOjkInovatif')}}">
+                    <div class="form-group">
+                        <label for="komponen_iku" class="control-label col-md-4">Komponen Iku</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" readonly id="komponen_iku" value="Program Budaya Spesifik: {{$jenis}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="periode" class="control-label col-md-4">Periode</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" readonly id="periode" value="Triwulan {{$triwulan}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="persen" class="control-label col-md-4">Persentase Nilai</label>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="number" name="persen" class="form-control" min="0" step="1" max="100" value="{{$iku->persen}}" id="persen" required>
+                                <span class="input-group-addon">%</span>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_tipe2" class="control-label col-md-4">Input Nilai</label>
+                        <div class="col-md-8">
+                            <div class="col-md-9" id="radioContainer">
+                                <div class="radio">
+                                    <label for="input_tipe2Edit">
+                                        <input type="radio" id="input_tipe2Edit" name="input_tipe2Edit" checked value="otomatis"> Parameterize
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan" class="control-label col-md-4">Keterangan</label>
+                        <div class="col-md-8">
+                            <textarea name="keterangan" id="keterangan" class="form-control">{{$iku->keterangan}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            {{csrf_field()}}
+                            <input type="hidden" name="hashid" id="hashid" value="{{$iku->hashid}}">
+                        </div>
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-success pull-right" id="modal_simpan_baru">Simpan <i class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+                </form>
             @endif
         </div>
     </div>
@@ -360,6 +424,19 @@
                 $('[id^=mindikator_]').val('').prop('disabled', false);
             }else{
                 $('[id^=mindikator_]').val('').prop('disabled', true);
+            }
+        });
+
+        $(document).on('change', 'input[name="input_tipe"]', function() {
+            if ($('#input_tipeo').is(':checked')) {
+                $('#mc, #sks').prop('checked', true).prop('disabled', false);
+                // alert('oto');
+                $('[id^=mindikator_], [id^=sindikator_], [id^=indikator_]').val('').prop('disabled', false);
+            }else{
+                // alert('manual');
+                $('#mc, #sks').prop('checked', false).prop('disabled', true);
+                $('[id^=mindikator_], [id^=sindikator_], [id^=indikator_]').val('').prop('disabled', true);
+
             }
         });
     </script>
