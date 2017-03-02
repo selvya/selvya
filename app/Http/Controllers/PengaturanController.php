@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Hashids;
+use Validator;
+use Session;
 
 use App\Iku;
 use App\KomponenIku;
@@ -71,9 +73,14 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun1)
                             ->where('triwulan', $r->modal_triwulan1)
+                            ->where('komponen_id', '!=', 3)
                             ->sum('persen');
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun1)
+                            ->where('triwulan', $r->modal_triwulan1)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
 
-        if (($existingPersen + $r->persen1) > 100) {
+        if (($existingPersen + $existingPersen3 + $r->persen1) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -159,10 +166,15 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun1Edit)
                             ->where('triwulan', $r->modal_triwulan1Edit)
+                            ->where('komponen_id', '!=', 3)
                             ->whereNotIn('id', [$iku->id])
                             ->sum('persen');
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun1Edit)
+                            ->where('triwulan', $r->modal_triwulan1Edit)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
 
-        if (($existingPersen + $r->persen1Edit) > 100) {
+        if (($existingPersen + $existingPersen3 + $r->persen1Edit) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -232,9 +244,15 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun2)
                             ->where('triwulan', $r->modal_triwulan2)
+                            ->where('komponen_id', '!=', 3)
                             ->sum('persen');
 
-        if (($existingPersen + $r->persen2) > 100) {
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun2)
+                            ->where('triwulan', $r->modal_triwulan2)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+
+        if (($existingPersen + $existingPersen3 + $r->persen2) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -320,10 +338,16 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun2Edit)
                             ->where('triwulan', $r->modal_triwulan2Edit)
+                            ->where('komponen_id', '!=', 3)
                             ->whereNotIn('id', [$iku->id])
                             ->sum('persen');
 
-        if (($existingPersen + $r->persen2Edit) > 100) {
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun2Edit)
+                            ->where('triwulan', $r->modal_triwulan2Edit)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+
+        if (($existingPersen + $existingPersen3 + $r->persen2Edit) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -393,9 +417,14 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun4)
                             ->where('triwulan', $r->modal_triwulan4)
+                            ->where('komponen_id', '!=', 3)
                             ->sum('persen');
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun3)
+                            ->where('triwulan', $r->modal_triwulan3)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
 
-        if (($existingPersen + $r->persen4) > 100) {
+        if (($existingPersen + $existingPersen3 + $r->persen4) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -481,10 +510,15 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun4Edit)
                             ->where('triwulan', $r->modal_triwulan4Edit)
+                            ->where('komponen_id', '!=', 3)
                             ->whereNotIn('id', [$iku->id])
                             ->sum('persen');
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun4Edit)
+                            ->where('triwulan', $r->modal_triwulan4Edit)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
 
-        if (($existingPersen + $r->persen4Edit) > 100) {
+        if (($existingPersen + $existingPersen3 + $r->persen4Edit) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -554,9 +588,14 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun5)
                             ->where('triwulan', $r->modal_triwulan5)
+                            ->where('komponen_id', '!=', 3)
                             ->sum('persen');
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun5)
+                            ->where('triwulan', $r->modal_triwulan5)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
 
-        if (($existingPersen + $r->persen5) > 100) {
+        if (($existingPersen + $existingPersen3 + $r->persen5) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -605,10 +644,15 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun5Edit)
                             ->where('triwulan', $r->modal_triwulan5Edit)
+                            ->where('komponen_id', '!=', 3)
                             ->whereNotIn('id', [$iku->id])
                             ->sum('persen');
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun5Edit)
+                            ->where('triwulan', $r->modal_triwulan5Edit)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
 
-        if (($existingPersen + $r->persen5Edit) > 100) {
+        if (($existingPersen + $existingPersen3 + $r->persen5Edit) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -640,9 +684,15 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun6)
                             ->where('triwulan', $r->modal_triwulan6)
+                            ->where('komponen_id', '!=', 3)
                             ->sum('persen');
 
-        if (($existingPersen + $r->persen6) > 100) {
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun6)
+                            ->where('triwulan', $r->modal_triwulan6)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+
+        if (($existingPersen + $existingPersen3 + $r->persen6) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -691,10 +741,16 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun6Edit)
                             ->where('triwulan', $r->modal_triwulan6Edit)
+                            ->where('komponen_id', '!=', 3)
                             ->whereNotIn('id', [$iku->id])
                             ->sum('persen');
 
-        if (($existingPersen + $r->persen6Edit) > 100) {
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun6Edit)
+                            ->where('triwulan', $r->modal_triwulan6Edit)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+
+        if (($existingPersen + $existingPersen3 + $r->persen6Edit) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -726,9 +782,15 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun7)
                             ->where('triwulan', $r->modal_triwulan7)
+                            ->where('komponen_id', '!=', 3)
                             ->sum('persen');
 
-        if (($existingPersen + $r->persen7) > 100) {
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun7)
+                            ->where('triwulan', $r->modal_triwulan7)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+
+        if (($existingPersen + $existingPersen3 + $r->persen7) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -777,10 +839,16 @@ class PengaturanController extends Controller
         //Cek jumlah keseluruhan
         $existingPersen = Iku::where('tahun', $r->modal_tahun7Edit)
                             ->where('triwulan', $r->modal_triwulan7Edit)
+                            ->where('komponen_id', '!=', 3)
                             ->whereNotIn('id', [$iku->id])
                             ->sum('persen');
 
-        if (($existingPersen + $r->persen7Edit) > 100) {
+        $existingPersen3 = Iku::where('tahun', $r->modal_tahun7Edit)
+                            ->where('triwulan', $r->modal_triwulan7Edit)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+
+        if (($existingPersen + $existingPersen3 + $r->persen7Edit) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
@@ -801,4 +869,251 @@ class PengaturanController extends Controller
 
         return response()->json($response, 200);
     }
+
+    function special(Request $r) {
+        // dd($r->tahun);
+        if ((int) $r->tahun < 2017 OR (int) $r->tahun >= 2100) {
+            abort(404);
+        }
+
+        if ((int) $r->triwulan < 1 OR (int) $r->triwulan > 4) {
+            abort(404);
+        }
+
+        if ((int) $r->jenis < 1 OR (int) $r->jenis > 3) {
+            abort(404);
+        }
+
+        $jenis = [
+            1 => 'OJK Melayani',
+            2 => 'OJK Peduli',
+            3 => 'OJK Inovaif'
+        ];
+
+        $jenis = $jenis[$r->jenis];
+        // dd($jenis);
+        $triwulan = (int) $r->triwulan;
+
+        $iku = Iku::updateOrCreate([
+            'komponen_id' => 3,
+            'tahun' => $r->tahun,
+            'triwulan' => $triwulan,
+            'is_program_budaya' => 'y',
+            'program_budaya' => $jenis
+        ]);
+
+
+        return view('admin.special', compact('jenis', 'triwulan', 'iku'));
+    }
+
+    public function simpanOjkPeduli(Request $r) {
+
+        $validation = Validator::make($r->all(), [
+            'hashid' => 'required',
+            'persen' => 'required|integer|max:100'
+        ]);
+
+
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->withErrors($validation);
+        }
+
+        $id = Hashids::connection('iku')->decode($r->hashid);
+        if (count($id) == 0) {
+            $iku = new Iku();
+        }else{
+            $iku = Iku::findOrFail($id[0]);
+        }
+
+        //Cek jumlah keseluruhan
+        $existingPersen = Iku::where('tahun', $iku->tahun)
+                            ->where('triwulan', $iku->triwulan)
+                            ->where('komponen_id', '!=', 3)
+                            ->whereNotIn('id', [$iku->id])
+                            ->sum('persen');
+
+        $existingPersen3 = Iku::where('tahun', $iku->tahun)
+                            ->where('triwulan', $iku->triwulan)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+        if (($existingPersen + $existingPersen3 + $r->persen) > 100) {
+            Session::flash('message', 'Total persen untuk satu triwulan maksimum 100%.');
+            return redirect()->back()->withInput()->withErrors($validation);
+        }
+
+        $iku->persen = $r->persen;
+        $iku->keterangan = $r->keterangan;
+
+        $iku->save();
+
+        IndikatorIku::where('iku_id', $iku->id)->delete();
+        //Indikaotr
+        $indikator1 = new IndikatorIku();
+        $indikator1->iku_id = $iku->id;
+        $indikator1->type = 'otomatis';
+        $indikator1->deskripsi = $r->indikator_1;
+        $indikator1->save();
+
+        $indikator2 = new IndikatorIku();
+        $indikator2->iku_id = $iku->id;
+        $indikator2->type = 'otomatis';
+        $indikator2->deskripsi = $r->indikator_2;
+        $indikator2->save();
+
+        $indikator3 = new IndikatorIku();
+        $indikator3->iku_id = $iku->id;
+        $indikator3->type = 'otomatis';
+        $indikator3->deskripsi = $r->indikator_3;
+        $indikator3->save();
+
+        $indikator4 = new IndikatorIku();
+        $indikator4->iku_id = $iku->id;
+        $indikator4->type = 'otomatis';
+        $indikator4->deskripsi = $r->indikator_4;
+        $indikator4->save();
+
+        $indikator5 = new IndikatorIku();
+        $indikator5->iku_id = $iku->id;
+        $indikator5->type = 'otomatis';
+        $indikator5->deskripsi = $r->indikator_5;
+        $indikator5->save();
+
+        $indikator6 = new IndikatorIku();
+        $indikator6->iku_id = $iku->id;
+        $indikator6->type = 'otomatis';
+        $indikator6->deskripsi = $r->indikator_6;
+        $indikator6->save();
+        // dd($iku);
+        //Success
+        return redirect(url('admin/pengaturan'));
+    }
+
+    public function simpanOjkMelayani(Request $r) {
+        $validation = Validator::make($r->all(), [
+            'hashid' => 'required',
+            'persen' => 'required|integer|max:100'
+        ]);
+
+
+        if ($validation->fails()) {
+            return redirect()->back()->withInput()->withErrors($validation);
+        }
+
+        $id = Hashids::connection('iku')->decode($r->hashid);
+        if (count($id) == 0) {
+            $iku = new Iku();
+        }else{
+            $iku = Iku::findOrFail($id[0]);
+        }
+
+        //Cek jumlah keseluruhan
+        $existingPersen = Iku::where('tahun', $iku->tahun)
+                            ->where('triwulan', $iku->triwulan)
+                            ->where('komponen_id', '!=', 3)
+                            ->whereNotIn('id', [$iku->id])
+                            ->sum('persen');
+
+        $existingPersen3 = Iku::where('tahun', $iku->tahun)
+                            ->where('triwulan', $iku->triwulan)
+                            ->where('komponen_id', 3)
+                            ->sum('persen') / 3;
+
+        if (($existingPersen + $existingPersen3 + $r->persen) > 100) {
+            Session::flash('message', 'Total persen untuk satu triwulan maksimum 100%.');
+            return redirect()->back()->withInput()->withErrors($validation);
+        }
+
+        $iku->persen = $r->persen;
+        $iku->keterangan = $r->keterangan;
+
+        $iku->save();
+
+
+        if ($r->has('mc')) {
+            IndikatorIku::where('iku_id', $iku->id)->where('type', 'mysteri_call')->delete();
+            //Indikaotr
+            $indikator1 = new IndikatorIku();
+            $indikator1->iku_id = $iku->id;
+            $indikator1->type = 'mysteri_call';
+            $indikator1->deskripsi = $r->mindikator_1;
+            $indikator1->save();
+
+            $indikator2 = new IndikatorIku();
+            $indikator2->iku_id = $iku->id;
+            $indikator2->type = 'mysteri_call';
+            $indikator2->deskripsi = $r->mindikator_2;
+            $indikator2->save();
+
+            $indikator3 = new IndikatorIku();
+            $indikator3->iku_id = $iku->id;
+            $indikator3->type = 'mysteri_call';
+            $indikator3->deskripsi = $r->mindikator_3;
+            $indikator3->save();
+
+            $indikator4 = new IndikatorIku();
+            $indikator4->iku_id = $iku->id;
+            $indikator4->type = 'mysteri_call';
+            $indikator4->deskripsi = $r->mindikator_4;
+            $indikator4->save();
+
+            $indikator5 = new IndikatorIku();
+            $indikator5->iku_id = $iku->id;
+            $indikator5->type = 'mysteri_call';
+            $indikator5->deskripsi = $r->mindikator_5;
+            $indikator5->save();
+
+            $indikator6 = new IndikatorIku();
+            $indikator6->iku_id = $iku->id;
+            $indikator6->type = 'mysteri_call';
+            $indikator6->deskripsi = $r->mindikator_6;
+            $indikator6->save();
+        }else{
+            IndikatorIku::where('iku_id', $iku->id)->where('type', 'mysteri_call')->delete();
+        }
+
+        if ($r->has('sks')) {
+            IndikatorIku::where('iku_id', $iku->id)->where('type', 'sks')->delete();
+            //Indikaotr
+            $indikator1 = new IndikatorIku();
+            $indikator1->iku_id = $iku->id;
+            $indikator1->type = 'sks';
+            $indikator1->deskripsi = $r->sindikator_1;
+            $indikator1->save();
+
+            $indikator2 = new IndikatorIku();
+            $indikator2->iku_id = $iku->id;
+            $indikator2->type = 'sks';
+            $indikator2->deskripsi = $r->sindikator_2;
+            $indikator2->save();
+
+            $indikator3 = new IndikatorIku();
+            $indikator3->iku_id = $iku->id;
+            $indikator3->type = 'sks';
+            $indikator3->deskripsi = $r->sindikator_3;
+            $indikator3->save();
+
+            $indikator4 = new IndikatorIku();
+            $indikator4->iku_id = $iku->id;
+            $indikator4->type = 'sks';
+            $indikator4->deskripsi = $r->sindikator_4;
+            $indikator4->save();
+
+            $indikator5 = new IndikatorIku();
+            $indikator5->iku_id = $iku->id;
+            $indikator5->type = 'sks';
+            $indikator5->deskripsi = $r->sindikator_5;
+            $indikator5->save();
+
+            $indikator6 = new IndikatorIku();
+            $indikator6->iku_id = $iku->id;
+            $indikator6->type = 'sks';
+            $indikator6->deskripsi = $r->sindikator_6;
+            $indikator6->save();
+        }else{
+            IndikatorIku::where('iku_id', $iku->id)->where('type', 'sks')->delete();
+        }
+
+        return redirect(url('admin/pengaturan'));
+    }
+
 }

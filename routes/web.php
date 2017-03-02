@@ -106,6 +106,12 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('ikuEdit6', ['as' => 'iku.edit6', 'uses' => 'PengaturanController@simpanIkuEdit6']);
     Route::post('ikuBaru7', ['as' => 'iku.baru7', 'uses' => 'PengaturanController@simpanIkuBaru7']);
     Route::post('ikuEdit7', ['as' => 'iku.edit7', 'uses' => 'PengaturanController@simpanIkuEdit7']);
+
+    //Special
+    Route::get('special/tahun/{tahun}/triwulan/{triwulan}/jenis/{jenis}', ['as' => 'special', 'uses' => 'PengaturanController@special']);
+    Route::post('ikuOjkMelayani', ['as' => 'ikuojkmelayani', 'uses' => 'PengaturanController@simpanOjkMelayani']);
+    Route::post('ikuOjkPeduli', ['as' => 'ikuojkpeduli', 'uses' => 'PengaturanController@simpanOjkPeduli']);
+
 //  !!
 //TODO:cek jika satker mengirimkan assesment yang ikunya belum didefinisikan
 //Kalau belum ada, berarti kosong (0)

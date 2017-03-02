@@ -1,5 +1,13 @@
 @extends('layout.master')
 
+@section('css')
+    <style type="text/css">
+        .btn-special {
+            width: 100%;
+        }
+    </style>
+@endsection
+
 @section('content')
     {{-- BARU 1 --}}
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal1" aria-labelledby="myLargeModalLabel">
@@ -1125,10 +1133,10 @@
                                 // $touch3 = $v->iku->where('tahun', $tahun)->where('triwulan', 3)->touch();
                                 // $touch4 = $v->iku->where('tahun', $tahun)->where('triwulan', 4)->touch();
 
-                                $inputValue1 = $v->iku->where('tahun', $tahun)->where('triwulan', 1)->sum('persen');
-                                $inputValue2 = $v->iku->where('tahun', $tahun)->where('triwulan', 2)->sum('persen');
-                                $inputValue3 = $v->iku->where('tahun', $tahun)->where('triwulan', 3)->sum('persen');
-                                $inputValue4 = $v->iku->where('tahun', $tahun)->where('triwulan', 4)->sum('persen');
+                                $inputValue1 = round($v->iku->where('tahun', $tahun)->where('triwulan', 1)->sum('persen'), 2);
+                                $inputValue2 = round($v->iku->where('tahun', $tahun)->where('triwulan', 2)->sum('persen'), 2);
+                                $inputValue3 = round($v->iku->where('tahun', $tahun)->where('triwulan', 3)->sum('persen'), 2);
+                                $inputValue4 = round($v->iku->where('tahun', $tahun)->where('triwulan', 4)->sum('persen'), 2);
 
                                 if ($v->id == 3) {
                                     $dataId1 = 'special';
@@ -1136,10 +1144,10 @@
                                     $dataId3 = 'special';
                                     $dataId4 = 'special';
                                     
-                                    $inputValue1 = $v->iku->where('tahun', $tahun)->where('triwulan', 1)->sum('persen') / 4;
-                                    $inputValue2 = $v->iku->where('tahun', $tahun)->where('triwulan', 2)->sum('persen') / 4;
-                                    $inputValue3 = $v->iku->where('tahun', $tahun)->where('triwulan', 3)->sum('persen') / 4;
-                                    $inputValue4 = $v->iku->where('tahun', $tahun)->where('triwulan', 4)->sum('persen') / 4;
+                                    $inputValue1 = round($v->iku->where('tahun', $tahun)->where('triwulan', 1)->sum('persen') / 3, 2);
+                                    $inputValue2 = round($v->iku->where('tahun', $tahun)->where('triwulan', 2)->sum('persen') / 3, 2);
+                                    $inputValue3 = round($v->iku->where('tahun', $tahun)->where('triwulan', 3)->sum('persen') / 3, 2);
+                                    $inputValue4 = round($v->iku->where('tahun', $tahun)->where('triwulan', 4)->sum('persen') / 3, 2);
                                 }else{
                                     //Triwulan 1
                                     $iku1 = $v->iku->where('tahun', $tahun)->where('triwulan', 1)->first(); 
@@ -1187,10 +1195,28 @@
                                         data-html="true"
                                         data-toggle="popover"
                                         data-placement="left"
-                                        data-content="
-                                            <button class='btn btn-primary ojk-melayani'>OJK Melayani</button><br>
-                                            <button class='btn btn-warning ojk-peduli'>OJK Peduli</button><br>
-                                            <button class='btn btn-danger ojk-inovatif'>OJK Inovatif</button>"
+                                        data-content='
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/1/jenis/1'}}"
+                                                class="btn btn-primary ojk-melayani btn-special"
+                                                data-id="{{$dataId1}}"
+                                                id="b{{$v->id}}_1"
+                                                data-triwulan="1"
+                                                data-component="{{$v->id}}"
+                                            >OJK Melayani</a><br>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/1/jenis/2'}}"
+                                                class="btn btn-warning ojk-peduli btn-special"
+                                                data-id="{{$dataId1}}"
+                                                id="b{{$v->id}}_1"
+                                                data-triwulan="1"
+                                                data-component="{{$v->id}}"
+                                            >OJK Peduli</buabr>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/1/jenis/3'}}"
+                                                class="btn btn-danger ojk-inovatif btn-special"
+                                                data-id="{{$dataId1}}"
+                                                id="b{{$v->id}}_1"
+                                                data-triwulan="1"
+                                                data-component="{{$v->id}}"
+                                            >OJK Inovatif</a>'
                                     @endif
                                     
                                     readonly
@@ -1211,10 +1237,28 @@
                                         data-html="true"
                                         data-toggle="popover"
                                         data-placement="left"
-                                        data-content="
-                                            <button class='btn btn-primary ojk-melayani'>OJK Melayani</button><br>
-                                            <button class='btn btn-warning ojk-peduli'>OJK Peduli</button><br>
-                                            <button class='btn btn-danger ojk-inovatif'>OJK Inovatif</button>"
+                                        data-content='
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/2/jenis/1'}}"
+                                                class="btn btn-primary ojk-melayani btn-special"
+                                                data-id="{{$dataId2}}"
+                                                id="b{{$v->id}}_2"
+                                                data-triwulan="2"
+                                                data-component="{{$v->id}}"
+                                            >OJK Melayani</a><br>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/2/jenis/2'}}"
+                                                class="btn btn-warning ojk-peduli btn-special"
+                                                data-id="{{$dataId2}}"
+                                                id="b{{$v->id}}_2"
+                                                data-triwulan="2"
+                                                data-component="{{$v->id}}"
+                                            >OJK Peduli</buabr>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/2/jenis/3'}}"
+                                                class="btn btn-danger ojk-inovatif btn-special"
+                                                data-id="{{$dataId2}}"
+                                                id="b{{$v->id}}_2"
+                                                data-triwulan="2"
+                                                data-component="{{$v->id}}"
+                                            >OJK Inovatif</a>'
                                     @endif
                                     
                                     readonly
@@ -1235,11 +1279,30 @@
                                         data-html="true"
                                         data-toggle="popover"
                                         data-placement="left"
-                                        data-content="
-                                            <button class='btn btn-primary ojk-melayani'>OJK Melayani</button><br>
-                                            <button class='btn btn-warning ojk-peduli'>OJK Peduli</button><br>
-                                            <button class='btn btn-danger ojk-inovatif'>OJK Inovatif</button>"
+                                        data-content='
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/3/jenis/1'}}"
+                                                class="btn btn-primary ojk-melayani btn-special"
+                                                data-id="{{$dataId3}}"
+                                                id="b{{$v->id}}_3"
+                                                data-triwulan="3"
+                                                data-component="{{$v->id}}"
+                                            >OJK Melayani</a><br>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/3/jenis/2'}}"
+                                                class="btn btn-warning ojk-peduli btn-special"
+                                                data-id="{{$dataId3}}"
+                                                id="b{{$v->id}}_3"
+                                                data-triwulan="3"
+                                                data-component="{{$v->id}}"
+                                            >OJK Peduli</buabr>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/3/jenis/3'}}"
+                                                class="btn btn-danger ojk-inovatif btn-special"
+                                                data-id="{{$dataId3}}"
+                                                id="b{{$v->id}}_3"
+                                                data-triwulan="3"
+                                                data-component="{{$v->id}}"
+                                            >OJK Inovatif</a>'
                                     @endif
+
                                     readonly
                                 >
                             </td>
@@ -1258,10 +1321,28 @@
                                         data-html="true"
                                         data-toggle="popover"
                                         data-placement="left"
-                                        data-content="
-                                            <button class='btn btn-primary ojk-melayani'>OJK Melayani</button><br>
-                                            <button class='btn btn-warning ojk-peduli'>OJK Peduli</button><br>
-                                            <button class='btn btn-danger ojk-inovatif'>OJK Inovatif</button>"
+                                        data-content='
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/4/jenis/1'}}"
+                                                class="btn btn-primary ojk-melayani btn-special"
+                                                data-id="{{$dataId4}}"
+                                                id="b{{$v->id}}_4"
+                                                data-triwulan="4"
+                                                data-component="{{$v->id}}"
+                                            >OJK Melayani</a><br>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/4/jenis/2'}}"
+                                                class="btn btn-warning ojk-peduli btn-special"
+                                                data-id="{{$dataId4}}"
+                                                id="b{{$v->id}}_4"
+                                                data-triwulan="4"
+                                                data-component="{{$v->id}}"
+                                            >OJK Peduli</buabr>
+                                            <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/4/jenis/3'}}"
+                                                class="btn btn-danger ojk-inovatif btn-special"
+                                                data-id="{{$dataId4}}"
+                                                id="b{{$v->id}}_4"
+                                                data-triwulan="4"
+                                                data-component="{{$v->id}}"
+                                            >OJK Inovatif</a>'
                                     @endif
                                     
                                     readonly
@@ -2208,6 +2289,5 @@
                 }
             });
         });
-
     </script>
 @endsection

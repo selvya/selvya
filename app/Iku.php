@@ -10,7 +10,7 @@ class Iku extends Model
     //
     protected $table = 'iku';
 
-    protected $fillable = ['komponen_id', 'tahun', 'triwulan', 'persen'];
+    protected $fillable = ['komponen_id', 'tahun', 'triwulan', 'persen', 'is_program_budaya', 'program_budaya', 'tipe'];
 
     public function getHashidAttribute() {
         return Hashids::connection('iku')->encode($this->attributes['id']);

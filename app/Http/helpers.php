@@ -1,5 +1,6 @@
 <?php
-function test()
-{
-    return 'asdas';
+use Carbon\Carbon;
+
+function test() {
+    return Carbon::now();
 }
