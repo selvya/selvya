@@ -37,10 +37,7 @@
 
 				<div class="content" style="padding:0px 40px;">
 					<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
-					<p>
-						Selamat datang di dashboard monitoring program budaya OJKway.
-						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.Selamat menggunakan,Direktorat Manajemen Perubahan
-					</p>
+					
 
 				</div>
 			</div>
@@ -75,7 +72,17 @@
 		</ul>
 	</div> -->
 	<!-- END Dashboard 2 Header -->
-
+		<div class="row">
+		<div class="col-md-6">
+			<!-- Quick Post Block -->
+			<div class="block">
+			<p>
+						Selamat datang di dashboard monitoring program budaya OJKway.
+						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.Selamat menggunakan,</br>Direktorat Manajemen Perubahan
+					</p>
+			</div>
+			</div>
+			</div>
 	<!-- Dashboard 2 Content -->
 	<div class="row">
 		<div class="col-md-6">
