@@ -135,7 +135,7 @@
                                 </ul>
                             </li>
                             <li class="@if(Request::is('program')) active @endif">
-                                <a href="{{url('program')}}">
+                                <a href="{{url('admin/pengaturan')}}">
                                     <i class="gi gi-tags sidebar-nav-icon"></i> Parameter Program
                                 </a>
                             </li>
@@ -206,8 +206,8 @@
                                         Launching Budaya
                                     </a>
                                 </li>
-                                <li class="@if(Request::is('')) active @endif">
-                                    <a href="{{url('')}}">
+                                <li class="@if(Request::is('anggaran-budaya')) active @endif">
+                                    <a href="{{url('anggaran-budaya')}}">
                                         <i class="fa fa-money sidebar-nav-icon"></i> 
                                         Anggaran Budaya
                                     </a>

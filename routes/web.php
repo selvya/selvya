@@ -66,6 +66,11 @@ Route::get('hasil-monitoring', function () {
 });
 //TUTUP MONITORING
 
+//REVIEWER
+Route::get('ubah-anggaran', function () {
+    return view('monitoring.ubah');
+    });
+//TUTUP REVIEWER
 
 //MANUAL PENGGUNA
 Route::get('manual-pengguna-satker', 'PanduanController@satker');

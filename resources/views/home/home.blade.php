@@ -2,18 +2,23 @@
 @section('content')
 <style>
 	.jumbotron{
-		background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url('{{asset('/img/banner.jpg')}}');
+		background: url('{{asset('/img/banner.jpg')}}');
 		background-size: cover;
 		background-position: center;
+		padding: 100px 100px 150px;
+		margin-bottom: 0px;
 	}
 
-	.jumbotron .content p{
-		font-size:16px;
-		margin-top:20px;
-		color:#fff;
+	.jumbotron .col-md-12{
+	background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));
+	margin: -100px -100px;
+	width:1200px;
 	}
-	.jumbotron .content h1{
+
+	.jumbotron .col-md-12 h1{
 		color:#fff;
+		padding:30px;
+		
 	}
 	.header-section{
 		padding:0px;
@@ -25,6 +30,13 @@
 			border:none;
 			padding: 10px 15px 0;
 		}
+	.nav-horizontal a{
+		padding:12px 100px;
+	}
+	.content-header, .content-top{
+		background-color: transparent;
+		border:none;
+	}
 
 </style>
 
@@ -34,33 +46,31 @@
 	<div class="content-header content-media">
 		<div class="header-section">
 			<div class="jumbotron" >
-
-				<div class="content" style="padding:0px 40px;">
+			<div class="col-md-12"">
 					<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
 					
-
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- <div class="content-header">
+	<div class="content-header">
 		<ul class="nav-horizontal text-center">
-			<li class="active">
-				<a href="javascript:void(0)"><i class="fa fa-home"></i> Home</a>
+			<li class="">
+				<a href="javascript:void(0)"><i class="fa fa-home"></i> Triwulan 1</a>
 			</li>
 			<li>
-				<a href="javascript:void(0)"><i class="gi gi-charts"></i> Sales</a>
+				<a href="javascript:void(0)"><i class="gi gi-charts"></i> Triwulan 2</a>
 			</li>
 			<li>
-				<a href="javascript:void(0)"><i class="gi gi-briefcase"></i> Projects</a>
+				<a href="javascript:void(0)"><i class="gi gi-briefcase"></i> Triwulan 3</a>
 			</li>
 			<li>
-				<a href="javascript:void(0)"><i class="gi gi-video_hd"></i> Movies</a>
+				<a href="javascript:void(0)"><i class="gi gi-video_hd"></i> Triwulan 4</a>
 			</li>
-			<li>
+			<!--<li>
 				<a href="javascript:void(0)"><i class="gi gi-music"></i> Music</a>
 			</li>
-			<li>
+			 <li>
 				<a href="javascript:void(0)"><i class="fa fa-cubes"></i> Apps</a>
 			</li>
 			<li>
@@ -68,24 +78,20 @@
 			</li>
 			<li>
 				<a href="javascript:void(0)"><i class="fa fa-cogs"></i> Settings</a>
-			</li>
+			</li> -->
 		</ul>
-	</div> -->
+	</div>
 	<!-- END Dashboard 2 Header -->
-		<div class="row">
-		<div class="col-md-6">
-			<!-- Quick Post Block -->
-			<div class="block">
-			<p>
-						Selamat datang di dashboard monitoring program budaya OJKway.
-						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.Selamat menggunakan,</br>Direktorat Manajemen Perubahan
-					</p>
-			</div>
-			</div>
-			</div>
+	
 	<!-- Dashboard 2 Content -->
 	<div class="row">
 		<div class="col-md-6">
+		<div class="block">
+			<p>
+						Selamat datang di dashboard monitoring program budaya OJKway.<br/>
+						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November.Selamat menggunakan,</br>Direktorat Manajemen Perubahan
+					</p>
+			</div>
 			<!-- Quick Post Block -->
 			<div class="block">
 				<!-- Quick Post Title -->
