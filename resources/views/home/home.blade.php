@@ -56,16 +56,16 @@
 	<div class="content-header">
 		<ul class="nav-horizontal text-center">
 			<li class="">
-				<a href="javascript:void(0)"><i class="fa fa-home"></i> Triwulan 1</a>
+				<a href="javascript:void(0)"><i class="gi gi-charts"></i> Triwulan 1</a>
 			</li>
 			<li>
 				<a href="javascript:void(0)"><i class="gi gi-charts"></i> Triwulan 2</a>
 			</li>
 			<li>
-				<a href="javascript:void(0)"><i class="gi gi-briefcase"></i> Triwulan 3</a>
+				<a href="javascript:void(0)"><i class="gi gi-charts"></i> Triwulan 3</a>
 			</li>
 			<li>
-				<a href="javascript:void(0)"><i class="gi gi-video_hd"></i> Triwulan 4</a>
+				<a href="javascript:void(0)"><i class="gi gi-charts"></i> Triwulan 4</a>
 			</li>
 			<!--<li>
 				<a href="javascript:void(0)"><i class="gi gi-music"></i> Music</a>

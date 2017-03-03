@@ -14,7 +14,7 @@
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li>Anggaran Budaya</li>
+		<li>Ubah Anggaran Budaya</li>
 	</ul>
 	<!-- END Datatables Header -->
 

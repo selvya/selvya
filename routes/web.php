@@ -70,6 +70,9 @@ Route::get('hasil-monitoring', function () {
 Route::get('ubah-anggaran', function () {
     return view('monitoring.ubah');
     });
+Route::get('lihat-anggaran', function () {
+    return view('monitoring.lihat');
+    });
 //TUTUP REVIEWER
 
 //MANUAL PENGGUNA
