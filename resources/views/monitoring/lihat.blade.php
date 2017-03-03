@@ -65,7 +65,8 @@
 										</tr>
 										<tr>
 											<td><label for="exampleInputFile">Lampiran<br>(Max. 20MB)<br>(.zip,.rar, .pdf, .jpg)</label></td>
-											<td><input class="form-control" type="file" id="exampleInputFile1" disabled="" name="userfile1" onchange="AlertFilesize(document.getElementById('exampleInputFile1').getAttribute('id'),1 )"></td>
+											<!-- <td><input class="form-control" type="file" id="exampleInputFile1" disabled="" name="userfile1" onchange="AlertFilesize(document.getElementById('exampleInputFile1').getAttribute('id'),1 )"></td> -->
+											<td>Belum ada Lampiran</td>
 											<td>Belum ada Lampiran</td>
 											<td>Belum ada Lampiran</td>
 											<td>Belum ada Lampiran</td>
