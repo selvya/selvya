@@ -58,7 +58,7 @@
 							<div class="btn-group">
 								<a href="{{url('lihat-anggaran')}}" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 								<a href="{{url('ubah-anggaran')}}" data-toggle="tooltip" title="Ubah" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								
 							</div>
 						</td>
 					</tr>
@@ -70,7 +70,7 @@
 							<div class="btn-group">
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								
 							</div>
 						</td>
 					</tr>
@@ -81,7 +81,7 @@
 							<div class="btn-group">
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
+								
 							</div>
 						</td>
 					</tr>
