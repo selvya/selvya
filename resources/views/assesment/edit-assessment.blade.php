@@ -36,9 +36,38 @@
 				<!-- Wizard with Validation Content -->
 				<form id="advanced-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
 					<!-- First Step -->
-					<div id="advanced-first" class="step">
+					<div id="clickable-first" class="step">
+
+						<div class="form-group">
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong>1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>3. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
 						<!-- Step Info -->
-						<div class="wizard-steps">
+						<!-- <div class="wizard-steps">
 							<div class="row">
 								<div class="col-xs-3 active" data-toggle="tooltip" title="Program Budaya Spesifik">
 									<span>
@@ -55,9 +84,9 @@
 									<span>KP 15%</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-- END Step Info -->
-						
+
 						<br>
 						<!-- ACCORDION -->
 						<div class="container" style="max-width: 1000px; overflow: hidden;">
@@ -282,27 +311,36 @@
 					<!-- END First Step -->
 
 					<!-- Second Step -->
-					<div id="advanced-second" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Program Budaya Spesifik">
-									<span>
-										PBS 40%
-									</span>
-								</div>
-								<div class="col-xs-3 active" data-toggle="tooltip" title="Serapan Anggaran">
-									<span>SA 15%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Partisipan Pimpinan">
-									<span>PP 30%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Kecepatan Pelaporan">
-									<span>KP 15%</span>
-								</div>
+					<div id="clickable-second" class="step">
+
+						<div class="form-group">
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong><i class="fa fa-check"></i>1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>3. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<!-- END Step Info -->
+
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="example-advanced-bio">Bio</label>
 							<div class="col-md-8">
@@ -332,27 +370,36 @@
 					<!-- END Second Step -->
 
 					<!-- Third Step -->
-					<div id="advanced-third" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Program Budaya Spesifik">
-									<span>
-										PBS 40%
-									</span>
-								</div>
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Serapan Anggaran">
-									<span>SA 15%</span>
-								</div>
-								<div class="col-xs-3 active" data-toggle="tooltip" title="Partisipan Pimpinan">
-									<span>PP 30%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Kecepatan Pelaporan">
-									<span>KP 15%</span>
-								</div>
+					<div id="clickable-third" class="step">
+						
+						<div class="form-group">
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong><i class="fa fa-check"></i>1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>3. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<!-- END Step Info -->
+
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="example-advanced-bio">Bio</label>
 							<div class="col-md-8">
@@ -373,27 +420,36 @@
 					<!-- END Third Step -->
 
 					<!-- Fourth Step -->
-					<div id="advanced-fourth" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Program Budaya Spesifik">
-									<span>
-										PBS 40%
-									</span>
-								</div>
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Serapan Anggaran">
-									<span>SA 15%</span>
-								</div>
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Partisipan Pimpinan">
-									<span>PP 30%</span>
-								</div>
-								<div class="col-xs-3 active" data-toggle="tooltip" title="Kecepatan Pelaporan">
-									<span>KP 15%</span>
-								</div>
+					<div id="clickable-fourth" class="step">
+						
+						<div class="form-group">
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong><i class="fa fa-check"></i>1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>3. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<!-- END Step Info -->
+
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="example-advanced-bio">Bio</label>
 							<div class="col-md-8">
