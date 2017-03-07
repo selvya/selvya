@@ -51,11 +51,32 @@ return [
             'alphabet' => 'INDKATOREJUM1234567890'
         ],
 
-        'indikator_ku' => [
+        'daftarindikator' => [
             'salt' => 'Alhamdulillahirrohmanirrohim',
             'length' => 10,
-            'alphabet' => 'INDKATOU1234567890'
-        ]
+            'alphabet' => 'FRINDKATO1234567890'
+        ],
+        'persentase' => [
+            'salt' => 'Arrahmanirrahim',
+            'length' => 4,
+            'alphabet' => 'PRESNT1234567890'
+        ],
+        'programbudaya' => [
+            'salt' => 'Malikiyaumiddin',
+            'length' => 6,
+            'alphabet' => 'PROGAMBUDY1234567890'
+        ],
+        'alatukur' => [
+            'salt' => 'Iyakanabuduwaiyyakanastain',
+            'length' => 6,
+            'alphabet' => 'ALTUKR1234567890'
+        ],
+        'definisinilai' => [
+            'salt' => 'Ihdinashshirathalmustaqim',
+            'length' => 6,
+            'alphabet' => 'DEFINSLA1234567890'
+        ],
+
     ],
 
 ];

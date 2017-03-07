@@ -10,19 +10,19 @@ class Iku extends Model
     //
     protected $table = 'iku';
 
-    protected $fillable = ['komponen_id', 'tahun', 'triwulan', 'persen', 'is_program_budaya', 'program_budaya', 'tipe'];
+    protected $fillable = [
+        'daftarindikator_id',
+        'tahun',
+        'namaprogram', 
+        'persen_id',
+        'tipe',
+        'keterangan',
+        'tujuan',
+        'programbudaya_id',
+        'satker'
+    ];
 
     public function getHashidAttribute() {
         return Hashids::connection('iku')->encode($this->attributes['id']);
-    }
-
-    public function komponen()
-    {
-        return $this->belongsTo('\App\KomponenIku', 'komponen_id');
-    }
-
-    public function indikator()
-    {
-        return $this->hasMany('\App\IndikatorIku', 'iku_id');
     }
 }
