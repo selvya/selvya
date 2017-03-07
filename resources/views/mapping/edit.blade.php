@@ -6,14 +6,14 @@
 		<div class="header-section">
 			<h1>
 				<i class="gi gi-google_maps"></i>
-				<b>Tambah Mapping</b>
+				<b>Edit Mapping</b>
 			</h1>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
 		<li><a href="{{url('map-report')}}">Mapping Report</a></li>
-		<li>Tambah Mapping</li>
+		<li>Edit Mapping</li>
 	</ul>
 	<!-- END Wizard Header -->
 
@@ -26,23 +26,27 @@
 				<div class="block-title">
 					<h2><strong>Form</strong></h2>
 				</div>
-				<form class="form-horizontal">
+				<br>
+				@include('include.alert')
+				<form action="{{url('edit/mapping/proses/'.$map->id)}}" class="form-horizontal" method="POST">
+					{{csrf_field()}}
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Nama</label>
 						<div class="col-sm-10">
-							<input type="text" name="nama" class="form-control" placeholder="Nama Mapping">
+							<input type="text" value="{{$map->nama}}" name="nama" class="form-control" placeholder="Nama Mapping">
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="col-sm-2 control-label">Urutan</label>
 						<div class="col-sm-10">
 							<input type="text" name="urutan" class="form-control" placeholder="Urutan">
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Group</label>
 						<div class="col-sm-10">
-							<select name="otoritas" class="form-control">
+							<select name="group" class="form-control">
+								<option value="{{$map->group}}">Kantor {{$map->group}}</option>
 								<option value="Pusat">Kantor Pusat</option>
 								<option value="Regional">Kantor Regional</option>
 							</select>
@@ -50,7 +54,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-success">Simpan</button>
+							<button type="submit" name="edit" class="btn btn-success">Edit</button>
 						</div>
 					</div>
 				</form>

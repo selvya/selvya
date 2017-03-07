@@ -200,12 +200,6 @@
                                         Grafik Budaya Satker
                                     </a>
                                 </li>
-                                <li class="@if(Request::is('')) active @endif">
-                                    <a href="{{url('')}}">
-                                        <i class="fa fa-trophy sidebar-nav-icon"></i> 
-                                        Launching Budaya
-                                    </a>
-                                </li>
                                 <li class="@if(Request::is('anggaran-budaya')) active @endif">
                                     <a href="{{url('anggaran-budaya')}}">
                                         <i class="fa fa-money sidebar-nav-icon"></i> 
