@@ -36,28 +36,35 @@
 				<!-- Wizard with Validation Content -->
 				<form id="advanced-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
 					<!-- First Step -->
-					<div id="advanced-first" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-3 active" data-toggle="tooltip" title="Program Budaya Spesifik">
-									<span>
-										PBS 40%
-									</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Serapan Anggaran">
-									<span>SA 15%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Partisipan Pimpinan">
-									<span>PP 30%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Kecepatan Pelaporan">
-									<span>KP 15%</span>
-								</div>
+					<div id="clickable-first" class="step">
+
+						<div class="form-group">
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong>1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<!-- END Step Info -->
-						
 						<br>
 						<!-- ACCORDION -->
 						<div class="container" style="max-width: 1000px; overflow: hidden;">
@@ -274,7 +281,6 @@
 								</div>
 							</div>
 							<!-- CLOSE OJK INOVATIF -->
-
 						</div>
 						<!-- CLOSE CONTAINER -->
 						<!-- CLOSE ACCORDION -->
@@ -282,134 +288,216 @@
 					<!-- END First Step -->
 
 					<!-- Second Step -->
-					<div id="advanced-second" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Program Budaya Spesifik">
-									<span>
-										PBS 40%
-									</span>
-								</div>
-								<div class="col-xs-3 active" data-toggle="tooltip" title="Serapan Anggaran">
-									<span>SA 15%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Partisipan Pimpinan">
-									<span>PP 30%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Kecepatan Pelaporan">
-									<span>KP 15%</span>
-								</div>
+					<div id="clickable-second" class="step" style="overflow: hidden;">
+
+						<div class="form-group">
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong><i class="fa fa-check"></i> 1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<!-- END Step Info -->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-bio">Bio</label>
-							<div class="col-md-8">
-								<textarea id="example-advanced-bio" name="example-advanced-bio" rows="6" class="form-control" placeholder="Tell us your story.."></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-newsletter">Newsletter</label>
-							<div class="col-md-6">
-								<div class="checkbox">
-									<label for="example-advanced-newsletter">
-										<input type="checkbox" id="example-advanced-newsletter" name="example-advanced-newsletter">  Sign up
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label"><a href="#modal-terms" data-toggle="modal">Terms</a> <span class="text-danger">*</span></label>
-							<div class="col-md-6">
-								<label class="switch switch-primary" for="val_terms">
-									<input type="checkbox" id="val_terms" name="val_terms" value="1">
-									<span data-toggle="tooltip" title="I agree to the terms!"></span>
-								</label>
+						<br>
+						<div class="container" style="max-width: 1000px; overflow: hidden;">
+							<div class="block">
+								<table class="table table-striped table-bordered">
+									<tbody>
+										<tr>
+											<td>&nbsp;</td>
+											<td>Triwulan I</td>
+											<td>Triwulan II</td>
+											<td>Triwulan III</td>
+											<td>Triwulan IV</td>
+										</tr>
+										<tr>
+											<td>Rencana Anggaran</td>
+											<td>Rp. 20.000.000</td>
+											<td>Rp. 20.000.000</td>
+											<td>Rp. 30.000.000</td>
+											<td>Rp. 30.000.000</td>
+										</tr>
+										<tr>
+											<td>Realisasi Anggaran</td>
+											<td>
+												<input class="form-control numVal" name="real1" id="real1" type="text" maxlength="14" placeholder="Realisasi Anggaran" value="">
+												<input type="hidden" name="realizeq1" id="realizeq1" value="0">
+											</td>
+											<td>
+												<input class="form-control" name="real2" id="real2" type="text" maxlength="14" value="Rp. 0" disabled="">
+												<input type="hidden" name="realizeq2" id="realizeq2" value="0">
+											</td>
+											<td>
+												<input class="form-control" name="real3" id="real3" type="text" maxlength="14" value="Rp. 0" disabled="">
+												<input type="hidden" name="realizeq3" id="realizeq3" value="0">
+											</td>
+											<td>
+												<input class="form-control" name="real4" id="real4" type="text" maxlength="14" value="Rp. 0" disabled="">
+												<input type="hidden" name="realizeq4" id="realizeq4" value="0">
+											</td>
+										</tr>
+										<tr>
+											<td><label for="exampleInputFile">Lampiran<br>(Max. 20MB)<br>(.zip,.rar, .pdf, .jpg)</label></td>
+											<td><input class="form-control" type="file" id="exampleInputFile1" name="userfile1" onchange="AlertFilesize(document.getElementById('exampleInputFile1').getAttribute('id'),1)"></td>
+											<td>Belum ada Lampiran</td>
+											<td>Belum ada Lampiran</td>
+											<td>Belum ada Lampiran</td>
+										</tr>
+									</tbody>
+								</table>
+								<input type="hidden" name="pagu" id="pagu" value="100000000">
+								<input type="hidden" name="total" id="totalAnnual" value="0">
 							</div>
 						</div>
 					</div>
 					<!-- END Second Step -->
 
 					<!-- Third Step -->
-					<div id="advanced-third" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Program Budaya Spesifik">
-									<span>
-										PBS 40%
-									</span>
-								</div>
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Serapan Anggaran">
-									<span>SA 15%</span>
-								</div>
-								<div class="col-xs-3 active" data-toggle="tooltip" title="Partisipan Pimpinan">
-									<span>PP 30%</span>
-								</div>
-								<div class="col-xs-3" data-toggle="tooltip" title="Kecepatan Pelaporan">
-									<span>KP 15%</span>
-								</div>
-							</div>
-						</div>
-						<!-- END Step Info -->
+					<div id="clickable-third" class="step">
+
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-bio">Bio</label>
-							<div class="col-md-8">
-								<textarea id="example-advanced-bio" name="example-advanced-bio" rows="6" class="form-control" placeholder="Tell us your story.."></textarea>
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong><i class="fa fa-check"></i>1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											<i class="fa fa-check"></i> 2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-newsletter">Newsletter</label>
-							<div class="col-md-6">
-								<div class="checkbox">
-									<label for="example-advanced-newsletter">
-										<input type="checkbox" id="example-advanced-newsletter" name="example-advanced-newsletter">  Sign up
-									</label>
+						<br>
+						<div class="container" style="max-width: 1000px; overflow: hidden;">
+							<div class="block">
+								<div class="block-content">
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nama Program <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Peran Pimpinan <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<textarea class="form-control" rows="5"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Partisipasi Pimpinan <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="number" class="form-control" min="0" max="10">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="file" class="form-control">
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+						
 					</div>
 					<!-- END Third Step -->
 
 					<!-- Fourth Step -->
-					<div id="advanced-fourth" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Program Budaya Spesifik">
-									<span>
-										PBS 40%
-									</span>
-								</div>
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Serapan Anggaran">
-									<span>SA 15%</span>
-								</div>
-								<div class="col-xs-3 done" data-toggle="tooltip" title="Partisipan Pimpinan">
-									<span>PP 30%</span>
-								</div>
-								<div class="col-xs-3 active" data-toggle="tooltip" title="Kecepatan Pelaporan">
-									<span>KP 15%</span>
-								</div>
-							</div>
-						</div>
-						<!-- END Step Info -->
+					<div id="clickable-fourth" class="step">
+
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-bio">Bio</label>
-							<div class="col-md-8">
-								<textarea id="example-advanced-bio" name="example-advanced-bio" rows="6" class="form-control" placeholder="Tell us your story.."></textarea>
+							<div class="col-xs-12">
+								<ul class="nav nav-pills nav-justified clickable-steps">
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-first">
+											<strong><i class="fa fa-check"></i>1. Program Budaya Spesifik <big>40%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+											<i class="fa fa-check"></i> 2. Serapan Anggaran <big>15%</big></strong>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-gotostep="clickable-third">
+											<strong> <i class="fa fa-check"></i> 3. Partisipan Pimpinan <big>30%</big></strong>
+										</a>
+									</li>
+
+									<li class="active">
+										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
+											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-newsletter">Newsletter</label>
-							<div class="col-md-6">
-								<div class="checkbox">
-									<label for="example-advanced-newsletter">
-										<input type="checkbox" id="example-advanced-newsletter" name="example-advanced-newsletter">  Sign up
-									</label>
+						<br>
+						<div class="container" style="max-width: 1000px; overflow: hidden;">
+							<div class="block">
+								<div class="block-content">
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nama Program <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Penjelasan Nilai <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<textarea class="form-control" rows="5"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="number" class="form-control" min="0">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="file" class="form-control">
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+
 					</div>
 					<!-- END Fourth Step -->
 

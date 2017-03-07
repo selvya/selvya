@@ -90,13 +90,13 @@ Route::get('kontak', function () {
     return view('kontak.index');
 });
 
-Route::get('map-report', function () {
-    return view('report.map-report');
-});
-
-Route::get('report/tambah', function () {
-    return view('report.tambah');
-});
+//MAPPING
+Route::get('map-report', 'MappingController@report');
+Route::get('report/tambah', 'MappingController@tambah_mapping');
+Route::post('proses/mapping/tambah', 'MappingController@proses_tambah_mapping');
+Route::get('edit/mapping/{id}', 'MappingController@editmapping');
+Route::post('edit/mapping/proses/{id}', 'MappingController@proseseditmapping');
+Route::get('hapus-maping/{id}', 'MappingController@hapus');
 
 
 /*
