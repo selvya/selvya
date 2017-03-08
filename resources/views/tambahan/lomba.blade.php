@@ -47,7 +47,7 @@
 					</thead>
 					<tbody>
 						<tr class="odd text-center">
-							<td>Ilham</td>
+							<td>Ilham Wara Nugroho</td>
 							<td>Full Stack Developer</td>
 							<td>Full Stack Developer</td>
 							<td>IT Creative</td>
