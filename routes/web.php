@@ -68,16 +68,34 @@ Route::get('rekap-monitoring', function () {
 Route::get('hasil-monitoring', function () {
     return view('monitoring.hasil');
 });
-//TUTUP MONITORING
-
-//REVIEWER
 Route::get('ubah-anggaran', function () {
     return view('monitoring.ubah');
-    });
+});
 Route::get('lihat-anggaran', function () {
     return view('monitoring.lihat');
-    });
-//TUTUP REVIEWER
+});
+//TUTUP MONITORING
+
+//INPUT TAMBAHAN
+Route::get('lomba-kreasi-kreatif', function () {
+    return view('tambahan.lomba');
+});
+Route::get('budaya-internal', function () {
+    return view('tambahan.budaya-internal');
+});
+Route::get('budaya-eksternal', function () {
+    return view('tambahan.budaya-eksternal');
+});
+Route::get('tambah/budaya-eksternal', function () {
+    return view('tambahan.tambah-budaya-eksternal');
+});
+Route::get('tambah/budaya-internal', function () {
+    return view('tambahan.tambah-budaya-internal');
+});
+Route::get('tambah/lomba', function () {
+    return view('tambahan.tambah-lomba');
+});
+//TUTUP INPUT TAMBAHAN
 
 //MANUAL PENGGUNA
 Route::get('manual-pengguna-satker', 'PanduanController@satker');
