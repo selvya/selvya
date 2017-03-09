@@ -134,8 +134,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('persentaseEdit5', ['as' => 'persentaseEdit5', 'uses' => 'PengaturanController@persentaseEdit5']);
     Route::post('persentaseEdit6', ['as' => 'persentaseEdit6', 'uses' => 'PengaturanController@persentaseEdit6']);
     Route::post('persentaseEdit7', ['as' => 'persentaseEdit7', 'uses' => 'PengaturanController@persentaseEdit7']);
-    
+
     Route::post('persentaseEdit3_1', ['as' => 'persentaseEdit3_1', 'uses' => 'PengaturanController@persentaseEdit3_1']);
+    Route::post('persentaseEdit3_2', ['as' => 'persentaseEdit3_2', 'uses' => 'PengaturanController@persentaseEdit3_2']);
+    Route::post('persentaseEdit3_3', ['as' => 'persentaseEdit3_3', 'uses' => 'PengaturanController@persentaseEdit3_3']);
 
     // Route::post('ikuBaru1', ['as' => 'iku.baru1', 'uses' => 'PengaturanController@simpanIkuBaru1']);
     // Route::post('ikuEdit1', ['as' => 'iku.edit1', 'uses' => 'PengaturanController@simpanIkuEdit1']);
