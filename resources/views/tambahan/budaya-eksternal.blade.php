@@ -47,11 +47,11 @@
 					</thead>
 					<tbody>
 						<tr class="odd text-center">
-							<td>Ilham Wara Nugroho</td>
-							<td>Full Stack Developer</td>
-							<td>Full Stack Developer</td>
-							<td>IT Creative</td>
-							<td>Full Stack Developer</td>
+							<td>Satker DSMS</td>
+							<td>DSMS</td>
+							<td>DSMS</td>
+							<td>DSMS</td>
+							<td>DSMS</td>
 							<td>
 								<a href="{{url('tambah/budaya-eksternal/')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Budaya Eksternal">Tambah</a>
 							</td>
