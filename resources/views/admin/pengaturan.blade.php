@@ -284,7 +284,7 @@
                                         </label> --}}
                                         {{-- <br> --}}
                                         <label for="input_tipe3_3">
-                                            <input type="radio" id="input_tipe3_3" name="input_tipe3" value="manul"> Manual
+                                            <input type="radio" id="input_tipe3_3" name="input_tipe3" value="manual"> Manual
                                         </label>
                                     </div>
                                 </div>
@@ -905,6 +905,11 @@
                         $('[id^=mindikator_]').val('').prop('disabled', false);
                         $('[id^=sindikator_]').val('').prop('disabled', false);
                         $('[id^=pindikator_]').val('').prop('disabled', false);
+                        $('#jenis_program option').prop('selected', false).prop('readonly', false);
+                        $('#jenis_program option[value="1"]').prop('selected',true);
+                        $('#keterangan3_1').prop('disabled', false).show();
+                        $('#peduli_container, #inovatif_container').hide();
+                        $('#melayani_container').show();
 
                         $('#modal-form3').hide();
                         $('#loading3').show();
@@ -920,15 +925,27 @@
                             
                             console.log(response);
                             if ($.isArray(response.data.definisi1_1)) {
-                                $.each(response.data.definisi1_1, function(k, v) {
-                                    $('#mindikator_' + (k+1)).val(v.deskripsi);
-                                });
+                                if (response.data.definisi1_1.length > 0) {
+                                    $('#mc').prop('checked', true);
+                                    $.each(response.data.definisi1_1, function (k, v) {
+                                        $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                    });
+                                }else{
+                                    $('#mc').prop('checked', false);
+                                    $('[id^=mindikator_]').val('').prop('disabled', true);
+                                }
                             }
 
                             if ($.isArray(response.data.definisi1_2)) {
-                                $.each(response.data.definisi1_2, function(k, v) {
-                                    $('#sindikator_' + (k+1)).val(v.deskripsi);
-                                });
+                                if(response.data.definisi1_2.length > 0) {
+                                    $('#sks').prop('checked', true);
+                                    $.each(response.data.definisi1_2, function (k, v) {
+                                        $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                    });
+                                }else{
+                                    $('#sks').prop('checked', false);
+                                    $('[id^=sindikator_]').val('').prop('disabled', true);
+                                }
                             }
 
                             if ($.isArray(response.data.definisi2)) {
@@ -1340,8 +1357,8 @@
 
         //Simpan 5
         $('#modal_simpan5').on('click', function() {
-            let s5 = $(this);
-            let sender_id = $('#sender_id5').val();
+            var s5 = $(this);
+            var sender_id = $('#sender_id5').val();
             var sender = $('#' + sender_id);
 
             $.ajax({
@@ -1375,8 +1392,8 @@
 
         //Simpan 6
         $('#modal_simpan6').on('click', function() {
-            let s6 = $(this);
-            let sender_id = $('#sender_id6').val();
+            var s6 = $(this);
+            var sender_id = $('#sender_id6').val();
             var sender = $('#' + sender_id);
 
             $.ajax({
@@ -1410,8 +1427,8 @@
 
         //Simpan 7
         $('#modal_simpan7').on('click', function() {
-            let s7 = $(this);
-            let sender_id = $('#sender_id7').val();
+            var s7 = $(this);
+            var sender_id = $('#sender_id7').val();
             var sender = $('#' + sender_id);
 
             $.ajax({
@@ -1549,8 +1566,8 @@
 
         //Simpan 3_1
         $('#modal_simpan3_1').on('click', function() {
-            let s3_1 = $(this);
-            let sender_id = $('#sender_id3').val();
+            var s3_1 = $(this);
+            var sender_id = $('#sender_id3').val();
             var sender = $('#' + sender_id);
 
             $.ajax({
@@ -1565,6 +1582,7 @@
                 success: function(response){
                     if (response.status) {
                         sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                        $('#keterangan3_1, #persen3').prop('readonly', false);
                         $('#modal3').modal('hide');
                     }else{
                         alert(response.message);
@@ -1574,6 +1592,78 @@
                     }
                     s3_1.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
                     $('#keterangan3_1, #persen3').prop('readonly', false);
+                },
+                error: function(response) {
+                    console.log(response);
+                    alert('error');
+                }
+            });
+        });
+
+        //Simpan 3_2
+        $('#modal_simpan3_2').on('click', function() {
+            var s3_2 = $(this);
+            var sender_id = $('#sender_id3').val();
+            var sender = $('#' + sender_id);
+
+            $.ajax({
+                url: '{{url('persentaseEdit3_2')}}',
+                data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function(){
+                    s3_2.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                    $('#keterangan3_2, #persen3').prop('readonly', true);
+                },
+                success: function(response){
+                    if (response.status) {
+                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                        $('#keterangan3_2, #persen3').prop('readonly', false);
+                        $('#modal3').modal('hide');
+                    }else{
+                        alert(response.message);
+                        $('#keterangan3_2, #persen3').prop('readonly', false);
+                        $('#persen3').focus();
+
+                    }
+                    s3_2.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                    $('#keterangan3_2, #persen3').prop('readonly', false);
+                },
+                error: function(response) {
+                    console.log(response);
+                    alert('error');
+                }
+            });
+        });
+
+        //Simpan 3_3
+        $('#modal_simpan3_3').on('click', function() {
+            var s3_3 = $(this);
+            var sender_id = $('#sender_id3').val();
+            var sender = $('#' + sender_id);
+
+            $.ajax({
+                url: '{{url('persentaseEdit3_3')}}',
+                data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function(){
+                    s3_3.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                    $('#keterangan3_3, #persen3').prop('readonly', true);
+                },
+                success: function(response){
+                    if (response.status) {
+                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                        $('#keterangan3_3, #persen3').prop('readonly', false);
+                        $('#modal3').modal('hide');
+                    }else{
+                        alert(response.message);
+                        $('#keterangan3_3, #persen3').prop('readonly', false);
+                        $('#persen3').focus();
+
+                    }
+                    s3_3.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                    $('#keterangan3_3, #persen3').prop('readonly', false);
                 },
                 error: function(response) {
                     console.log(response);

@@ -671,4 +671,129 @@ class PengaturanController extends Controller
 
         return response()->json($response, 200);
     }
+
+    public function persentaseEdit3_2(Request $r) {
+
+        $response = [
+            'status' => false,
+            'data' => [],
+            'message' => ''
+        ];
+
+        $id = Hashids::connection('persentase')->decode($r->hashid);
+        if (count($id) == 0) {
+            $response['message'] = 'Persentase tidak ditemukan';
+            return response()->json($response, 404);
+        }
+
+        $persentase = Persentase::find($id[0]);
+        if (count($persentase) == 0) {
+            $response['message'] = 'Iku tidak ditemukan';
+            return response()->json($response, 404);
+        }
+
+        $existingPersen = Persentase::where('tahun', $persentase->tahun)
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
+        if (($existingPersen + $r->persen3) > 100) {
+            $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
+            return response()->json($response, 200);
+        }
+
+        $persentase->nilai = $r->persen3;
+        $persentase->save();
+
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan .
+            '#ojk_peduli'
+        )->first();
+
+        $iku->keterangan = $r->keterangan3_2;
+        $iku->tipe = $r->input_tipe3;
+        $iku->save();
+
+        //Hapus Definisi dan Alat Ukur
+        DefinisiNilai::where('iku_id', $iku->id)->delete();
+        AlatUkur::where('iku_id', $iku->id)->delete();
+
+        if ($r->input_tipe3 == 'parameterized') {
+            $alatUkur = AlatUkur::updateOrCreate([
+                'iku_id' => $iku->id,
+                'name' => $iku->namaprogram
+            ]);
+
+            for ($i=0; $i < 6; $i++) {
+                $definisiNilai2[$i] = DefinisiNilai::create([
+                    'iku_id' => $iku->id,
+                    'alatukur_id' => $alatUkur->id,
+                    'deskripsi' => request('pindikator_' . ($i+1)),
+                    'triwulan' => $persentase->triwulan,
+                    'tahun' => $persentase->tahun
+                ]);
+            }
+        }
+
+        $response['status'] = true;
+        $response['data']['persen'] = $persentase->nilai;
+
+        return response()->json($response, 200);
+    }
+
+    public function persentaseEdit3_3(Request $r) {
+
+        $response = [
+            'status' => false,
+            'data' => [],
+            'message' => ''
+        ];
+
+        $id = Hashids::connection('persentase')->decode($r->hashid);
+        if (count($id) == 0) {
+            $response['message'] = 'Persentase tidak ditemukan';
+            return response()->json($response, 404);
+        }
+
+        $persentase = Persentase::find($id[0]);
+        if (count($persentase) == 0) {
+            $response['message'] = 'Iku tidak ditemukan';
+            return response()->json($response, 404);
+        }
+
+        $existingPersen = Persentase::where('tahun', $persentase->tahun)
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
+        if (($existingPersen + $r->persen3) > 100) {
+            $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
+            return response()->json($response, 200);
+        }
+
+        $persentase->nilai = $r->persen3;
+        $persentase->save();
+
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan .
+            '#ojk_inovatif'
+        )->first();
+
+        $iku->keterangan = $r->keterangan3_3;
+        $iku->tipe = $r->input_tipe3;
+        $iku->save();
+
+        //Hapus Definisi dan Alat Ukur
+        DefinisiNilai::where('iku_id', $iku->id)->delete();
+        AlatUkur::where('iku_id', $iku->id)->delete();
+
+        $response['status'] = true;
+        $response['data']['persen'] = $persentase->nilai;
+
+        return response()->json($response, 200);
+    }
 }
