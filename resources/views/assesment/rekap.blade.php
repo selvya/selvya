@@ -24,59 +24,300 @@
 		</div>
 		<br>
 		<div class="table-responsive">
-			<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
-				<thead>
-					<tr>
-						<th class="text-center">ID</th>
-						<th class="text-center"><i class="gi gi-user"></i></th>
-						<th>Client</th>
-						<th>Email</th>
-						<th>Subscription</th>
-						<th class="text-center">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">1</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar11.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client1</a></td>
-						<td>client1@company.com</td>
-						<td><span class="label label-info">Business</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center">2</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar9.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client2</a></td>
-						<td>client2@company.com</td>
-						<td><span class="label label-warning">Trial</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center">3</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar15.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client3</a></td>
-						<td>client3@company.com</td>
-						<td><span class="label label-success">VIP</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
+				<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+					<thead>
+						<tr>
+							<th>Deputi Komisioner</th>
+							<th>Departemen</th>
+							<th style="width:13%;">KOJK</th>
+							<th style="width:13%;text-align:center">Progress</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Manajemen Strategis IA</td>
+							<td>Pengembangan Kebijakan Strategis</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox0">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IB</td>
+							<td>Perencanaan Strategis, Manajemen Perubahan dan Sekretariat Dewan Komisioner</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox1">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IB</td>
+							<td>Komunikasi dan Internasional</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox2">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IC</td>
+							<td>Penyidikan Sektor Jasa Keuangan</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox3">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IIA</td>
+							<td>Organisasi dan Sumber Daya Manusia</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox4">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IIA</td>
+							<td>Hukum</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox5">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IIB</td>
+							<td>Pengelolaan Sistem Informasi</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox6">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IIB</td>
+							<td>Keuangan</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox7">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Manajemen Strategis IIB</td>
+							<td>Logistik</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox8">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Audit Internal, Manajemen Resiko dan Pengendalian Kualitas (AIMRPK)</td>
+							<td>Audit Internal</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox9">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Audit Internal, Manajemen Resiko dan Pengendalian Kualitas (AIMRPK)</td>
+							<td>Manajemen Risiko dan Pengendalian Kualitas</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox10">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Edukasi dan Perlindungan Konsumen</td>
+							<td>Perlindungan Konsumen</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox11">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Edukasi dan Perlindungan Konsumen</td>
+							<td>Literasi dan Inklusi Keuangan</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox12">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan I</td>
+							<td>Penelitian dan Pengaturan Perbankan</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox13">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan I</td>
+							<td>Perizinan dan Informasi Perbankan</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox14">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan I</td>
+							<td>Perbankan Syariah</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox15">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan II</td>
+							<td>Pengendalian Kualitas Pengawasan Perbankan</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox16">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan II</td>
+							<td>Pengembangan Pengawasan dan Manajemen Krisis</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox17">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan II</td>
+							<td>Pemeriksaan Khusus dan Investigasi Perbankan</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox18">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan III</td>
+							<td>Pengawasan Bank 1</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox19">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan III</td>
+							<td>Pengawasan Bank 2</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox20">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Perbankan III</td>
+							<td>Pengawasan Bank 3</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox21">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Pasar Modal I</td>
+							<td>Pengawasan Pasar Modal 1A</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox22">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Pasar Modal I</td>
+							<td>Pengawasan Pasar Modal 1B</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox23">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Pasar Modal II</td>
+							<td>Pengawasan Pasar Modal 2A</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox24">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Pasar Modal II</td>
+							<td>Pengawasan Pasar Modal 2B</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox25">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>IKNB I</td>
+							<td>Pengawasan IKNB 1A</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox26">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>IKNB I</td>
+							<td>Pengawasan IKNB 1B</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox27">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>IKNB II</td>
+							<td>Pengawasan IKNB 2A</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox28">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>IKNB II</td>
+							<td>Pengawasan IKNB 2B</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox29">Belum Submit</label>
+
+							</td>
+						</tr>
+						<tr>
+							<td>OJK Institute</td>
+							<td>Learning and Assessment Centre</td>
+							<td> N/A</td>
+							<td style="text-align:center">
+								<label class="btn btn-danger" id="bootBox30">Belum Submit</label>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- /.panel-body -->
 		</div>
 	</div>
 	<!-- END Datatables Content -->

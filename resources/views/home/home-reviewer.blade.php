@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('content')
 <style>
-	.highcharts-credits{display: none;}
+.highcharts-credits{display: none;}
 	.jumbotron{
 		background: url('{{asset('/img/banner.jpg')}}');
 		background-size: cover;
@@ -56,7 +56,7 @@
 		</div>
 		<!-- Mini Top Stats Row -->
 		<div class="row">
-			<div class="col-sm-6 col-lg-3">
+			<div class="col-sm-6 col-lg-4">
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
@@ -64,13 +64,14 @@
 							<i class="fa fa-child"></i>
 						</div>
 						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan I</strong>
+							50 <strong>Satker</strong><br>
+							<small>Submit Assessment</small>
 						</h3>
 					</div>
 				</a>
 				<!-- END Widget -->
 			</div>
-			<div class="col-sm-6 col-lg-3">
+			<div class="col-sm-6 col-lg-4">
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
@@ -78,13 +79,14 @@
 							<i class="fa fa-group"></i>
 						</div>
 						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan II</strong>
+							50 <strong>Satker</strong><br>
+							<small>Belum Submit Assessment</small>
 						</h3>
 					</div>
 				</a>
 				<!-- END Widget -->
 			</div>
-			<div class="col-sm-6 col-lg-3">
+			<div class="col-sm-6 col-lg-4">
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
@@ -92,21 +94,53 @@
 							<i class="fa fa-envelope"></i>
 						</div>
 						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan III</strong>
+							5 <strong>Satker</strong>
+							<small>Sudah di Monitor</small>
 						</h3>
 					</div>
 				</a>
 				<!-- END Widget -->
 			</div>
-			<div class="col-sm-6 col-lg-3">
+			<div class="col-sm-6 col-lg-4">
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-fire animation-fadeIn">
+						<div class="widget-icon pull-left themed-background-amethyst animation-fadeIn">
 							<i class="fa fa-envelope"></i>
 						</div>
 						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan IV</strong>
+							+30 <strong>Satker</strong>
+							<small>Belum di Monitor</small>
+						</h3>
+					</div>
+				</a>
+				<!-- END Widget -->
+			</div>
+			<div class="col-sm-6 col-lg-4">
+				<!-- Widget -->
+				<a href="" class="widget widget-hover-effect1">
+					<div class="widget-simple">
+						<div class="widget-icon pull-left themed-background-amethyst animation-fadeIn">
+							<i class="fa fa-tags"></i>
+						</div>
+						<h3 class="widget-content text-right animation-pullDown">
+							30 <strong>OJK Inovatif Finalisasi</strong>
+							<!-- <small>Belum </small> -->
+						</h3>
+					</div>
+				</a>
+				<!-- END Widget -->
+			</div>
+			<div class="col-sm-6 col-lg-4">
+				<!-- Widget -->
+				<a href="" class="widget widget-hover-effect1">
+					<div class="widget-simple">
+						<div class="widget-icon pull-left themed-background-amethyst animation-fadeIn">
+							<i class="fa fa-dollar"></i>
+						</div>
+						<h3 class="widget-content text-right animation-pullDown">
+							30 <strong>Penetapan Anggaran Total</strong>
+							<!-- <small>Belum </small> -->
 						</h3>
 					</div>
 				</a>
@@ -120,22 +154,10 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="block">
-					<p>
-						Selamat datang di dashboard monitoring program budaya OJKway. <br> <br>
-
-						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November. <br> <br>
-
-						Selamat menggunakan,<br>
-						Direktorat Manajemen Perubahan
-					</p>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="block">
 					<div id="containernya"></div>
 				</div>
 			</div>
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="block">
 					<div id="container"></div>
 				</div>
@@ -159,7 +181,7 @@
 					}
 				},
 				title: {
-					text: 'Nilai Indikator IKU'
+					text: 'Monitoring'
 				},
 				plotOptions: {
 					column: {
@@ -167,16 +189,16 @@
 					}
 				},
 				xAxis: {
-					categories: ['Indikator 1', 'Indikator 2' , 'Indikator 3' , 'Indikator 4' , 'Indikator 5', 'Indikator 6', 'Indikator 7']
+					categories: ['TW 1', 'TW 2' , 'TW 3' , 'TW 4']
 				},
 				yAxis: {
 					title: {
-						text: 'Nilai per Indikator'
+						text: 'Nilai'
 					}
 				},
 				series: [{
-					name: 'Nilai Indikator',
-					data: [1, 2 , 3, 4,5,6,7]
+					name: 'Triwulan',
+					data: [1, 2 , 3, 4]
 				}]
 			});
 		</script>
@@ -194,7 +216,7 @@
 					}
 				},
 				title: {
-					text: 'Sekarang Periode TW II Januari - Maret'
+					text: 'Browser market shares at a specific website, 2014'
 				},
 				tooltip: {
 					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -214,10 +236,8 @@
 					type: 'pie',
 					name: 'Nilai',
 					data: [
-					['Indikator I', 40],
-					['Indikator II', 40],
-					['Indikator III', 10],
-					['Indikator IV', 10]
+					['Firefox', 62.7],
+					['IE', 37.3]
 					]
 				}]
 			});
