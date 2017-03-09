@@ -1,4 +1,5 @@
 @extends('layout.master')
+
 @section('content')
 
 
@@ -94,6 +95,6 @@
 <!-- END Page Content -->
 @endsection
 @section('js')
-<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
-<script>$(function(){ TablesDatatables.init(); });</script>
+	<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
+	<script>$(function(){ TablesDatatables.init(); });</script>
 @endsection
