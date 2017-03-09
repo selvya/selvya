@@ -24,59 +24,47 @@
 		</div>
 		<br>
 		<div class="table-responsive">
-			<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>
 					<tr>
-						<th class="text-center">ID</th>
-						<th class="text-center"><i class="gi gi-user"></i></th>
-						<th>Client</th>
-						<th>Email</th>
-						<th>Subscription</th>
-						<th class="text-center">Actions</th>
+						<th>Deputi Komisioner</th>
+						<th>Departemen</th>
+						<th style="width:13%;">KOJK</th>
+						<th style="width:13%;text-align:center">Nama Program</th>
+						<th style="width:13%;text-align:center">Status</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="text-center">1</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar11.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client1</a></td>
-						<td>client1@company.com</td>
-						<td><span class="label label-info">Business</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
-							</div>
+						<td>Manajemen Strategis IB</td>
+						<td>Perencanaan Strategis, Manajemen Perubahan dan Sekretariat Dewan Komisioner</td>
+						<td> N/A</td>
+						<td>DSMS Inovatif Oke!</td>
+						<td style="text-align:center">
+						<label class="btn btn-success modalBox" id="bootBox0" data-program-id="352" data-state-id="1" data-desc-id="DSMS Inovatif Oke!">Sudah Final</label>
 						</td>
 					</tr>
 					<tr>
-						<td class="text-center">2</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar9.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client2</a></td>
-						<td>client2@company.com</td>
-						<td><span class="label label-warning">Trial</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
-							</div>
+						<td>Manajemen Strategis IB</td>
+						<td>Komunikasi dan Internasional</td>
+						<td> N/A</td>
+						<td>OJK Peduli</td>
+						<td style="text-align:center">
+						<label class="btn btn-success modalBox" id="bootBox1" data-program-id="354" data-state-id="1" data-desc-id="OJK Peduli">Sudah Final</label>
 						</td>
 					</tr>
 					<tr>
-						<td class="text-center">3</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar15.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client3</a></td>
-						<td>client3@company.com</td>
-						<td><span class="label label-success">VIP</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Hapus" class="btn btn-danger"><i class="fa fa-times"></i></a>
-							</div>
+						<td>Manajemen Strategis IB</td>
+						<td>Komunikasi dan Internasional</td>
+						<td> N/A</td>
+						<td>OJK Melayani</td>
+						<td style="text-align:center">
+						<label class="btn btn-success modalBox" id="bootBox2" data-program-id="355" data-state-id="1" data-desc-id="OJK Melayani">Sudah Final</label>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+
 		</div>
 	</div>
 	<!-- END Datatables Content -->

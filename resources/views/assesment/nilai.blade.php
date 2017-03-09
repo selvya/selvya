@@ -14,66 +14,15 @@
 		<li><a href="{{url('/')}}">Beranda</a></li>
 		<li>Nilai Assessment</li>
 	</ul>
-	<!-- END Charts Header -->
-
-	<!-- Mini Charts Row -->
-	<!-- Jquery Sparkline (initialized in js/pages/compCharts.js), for more examples you can check out http://omnipotent.net/jquery.sparkline/#s-about -->
+	
 	<div class="row">
-		<div class="col-sm-6">
-			<!-- Mini Bar Charts Block -->
+		<div class="col-sm-12">
 			<div class="block full">
-				<!-- Mini Bar Charts Title -->
 				<div class="block-title">
-					<h2><strong>Mini Bar</strong> Charts</h2>
+					<h2><strong>Nilai Assessment</strong> Grafik</h2>
 				</div>
-				<!-- END Mini Bar Charts Title -->
-
-				<!-- Mini Bar Charts Content -->
-				<div class="row text-center">
-					<div class="col-sm-4">
-						<span id="mini-chart-bar1">2,10,5,6,7,10,3,4</span>
-						<h4 class="text-center">Projects</h4>
-					</div>
-					<div class="col-sm-4">
-						<span id="mini-chart-bar2">500,1200,750,3000,1350,1485,980,750</span>
-						<h4 class="text-center">Income</h4>
-					</div>
-					<div class="col-sm-4">
-						<span id="mini-chart-bar3">17,8,6,12,20,1,10,5</span>
-						<h4 class="text-center">Updates</h4>
-					</div>
-				</div>
-				<!-- END Mini Bar Charts Content -->
+				<div id="container"></div>
 			</div>
-			<!-- END Mini Bar Charts Block -->
-		</div>
-		<div class="col-sm-6">
-			<!-- Mini Line Charts Block -->
-			<div class="block full">
-				<!-- Mini Line Charts Title -->
-				<div class="block-title">
-					<h2><strong>Mini Line</strong> Charts</h2>
-				</div>
-				<!-- END Mini Line Charts Title -->
-
-				<!-- Mini Line Charts Content -->
-				<div class="row text-center">
-					<div class="col-sm-4">
-						<span id="mini-chart-line1">2,10,5,6,7,10,3,4</span>
-						<h4 class="text-center">Projects</h4>
-					</div>
-					<div class="col-sm-4">
-						<span id="mini-chart-line2">500,1200,750,3000,1350,1485,980,750</span>
-						<h4 class="text-center">Income</h4>
-					</div>
-					<div class="col-sm-4">
-						<span id="mini-chart-line3">17,8,6,12,20,1,10,5</span>
-						<h4 class="text-center">Updates</h4>
-					</div>
-				</div>
-				<!-- END Mini Line Charts Content -->
-			</div>
-			<!-- END Mini Line Charts Block -->
 		</div>
 	</div>
 	<!-- END Mini Charts Row -->
@@ -82,6 +31,42 @@
 <!-- END Page Content -->
 @endsection
 @section('js')
-<script src="{{asset('vendor/js/pages/compCharts.js')}}"></script>
-<script>$(function(){ CompCharts.init(); });</script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<!--CHART BAR-->
+<script type="text/javascript">
+	Highcharts.chart('container', {
+		chart: {
+			type: 'column',
+			options3d: {
+				enabled: true,
+				alpha: 10,
+				beta: 25,
+				depth: 70
+			}
+		},
+		title: {
+			text: 'Nilai Assessment'
+		},
+		plotOptions: {
+			column: {
+				depth: 25
+			}
+		},
+		xAxis: {
+			categories: ['Jan-Mar 2016', 'Apr-Jun 2016' , 'Jul-Sep 2016']
+		},
+		yAxis: {
+			title: {
+				text: 'Nilai'
+			}
+		},
+		series: [{
+			name: 'Nilai',
+			data: [1, 2 , 3]
+		}]
+	});
+</script>
+<!-- TUTUP CHART BAR -->
 @endsection

@@ -66,9 +66,9 @@
 					</thead>
 					<tbody>
 						<tr class="odd">
-							<td class="sorting_1">DSMS Inovatif Oke!</td>
-							<td class=" ">l agmklamglrmgl</td>
-							<td class=" ">kf kafjklkfjkal</td>
+							<td class="text-center sorting_1">DSMS Inovatif Oke!</td>
+							<td class="text-center">l agmklamglrmgl</td>
+							<td class="text-center">kf kafjklkfjkal</td>
 							<td align="center">
 								<a href="#" class="btn btn-primary">View</a>			
 							</td>

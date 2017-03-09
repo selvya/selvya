@@ -18,6 +18,9 @@ Route::get('test', function () {
 Route::get('/', function () {
     return view('home.home');
 });
+Route::get('home-reviewer', function () {
+    return view('home.home-reviewer');
+});
 
 
 
@@ -75,6 +78,9 @@ Route::get('ubah-anggaran', function () {
 
 Route::get('lihat-anggaran', function () {
     return view('monitoring.lihat');
+});
+Route::get('anggaran-budaya', function () {
+    return view('monitoring.anggaran-budaya');
 });
 //TUTUP MONITORING
 

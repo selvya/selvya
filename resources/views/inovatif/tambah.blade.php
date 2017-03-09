@@ -238,9 +238,9 @@
 
 						<div class="form-group row">
 							<div class="col-md-12 text-center">
-								<a href="{{url('inovatif')}}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Kembali</a>
-								<button class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
-								<button class="btn btn-success"><i class=" fa fa-flag"></i> Finalisasi</button>
+								<a href="{{url('inovatif')}}" class="btn btn-default btn-lg"><i class="fa fa-arrow-left"></i> Kembali</a>
+								<button class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Simpan</button>
+								<button class="btn btn-success btn-lg"><i class=" fa fa-flag"></i> Finalisasi</button>
 							</div>
 						</div>
 
