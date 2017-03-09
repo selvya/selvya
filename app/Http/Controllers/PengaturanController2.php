@@ -12,7 +12,7 @@ use App\DaftarIndikator;
 use App\IndikatorIku;
 use App\Persentase;
 
-class PengaturanController extends Controller
+class PengaturanController2 extends Controller
 {
     //
     public function index(Request $r) {

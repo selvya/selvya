@@ -242,7 +242,7 @@
                         <div class="form-group">
                             <label for="komponen_iku3" class="control-label col-md-4">Komponen Iku</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" readonly id="" value="Partisipasi Pimpinan">
+                                <input type="text" class="form-control" readonly id="" value="Pelaksanaan Program Budaya">
                             </div>
                         </div>
                         <div class="form-group">
@@ -275,8 +275,16 @@
                             <div class="col-md-8">
                                 <div class="col-md-9" id="radioContainer">
                                     <div class="radio">
-                                        <label for="input_tipe3">
-                                            <input type="radio" id="input_tipe3" name="input_tipe3" checked value="otomatis"> Parameterize
+                                        <label for="input_tipe3_1">
+                                            <input type="radio" id="input_tipe3_1" name="input_tipe3" checked value="parameterized"> Parameterize
+                                        </label>
+                                        <br>
+                                        {{-- <label for="input_tipe3_2">
+                                            <input type="radio" id="input_tipe3_2" name="input_tipe3" value="otomatis"> Otomatis
+                                        </label> --}}
+                                        {{-- <br> --}}
+                                        <label for="input_tipe3_3">
+                                            <input type="radio" id="input_tipe3_3" name="input_tipe3" value="manul"> Manual
                                         </label>
                                     </div>
                                 </div>
@@ -285,17 +293,79 @@
                         <div class="form-group">
                             <label for="keterangan3" class="control-label col-md-4">Keterangan</label>
                             <div class="col-md-8">
-                                <textarea name="keterangan3" id="keterangan3" class="form-control"></textarea>
+                                <textarea name="keterangan3_1" id="keterangan3_1" class="form-control"></textarea>
+                                <textarea name="keterangan3_2" id="keterangan3_2" class="form-control"></textarea>
+                                <textarea name="keterangan3_3" id="keterangan3_3" class="form-control"></textarea>
                             </div>
                         </div>
-                    
+                        <div id="melayani_container">
+                            <table class="table table-condensed table-bordered mtable" id="table_mc">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="mc" value="1" aria-label="..." id="mc" checked>
+                                            </span>
+                                            <input type="text" class="form-control" aria-label="..." value="Mystery Call" readonly>
+                                        </div><!-- /input-group -->
+                                    </div><!-- /.col-lg-6 -->
+                                </div><!-- /.row -->
+                                @for($i = 6; $i >= 1; $i--)
+                                    <tr>
+                                        <th>Deskripsi Indikator {{$i}}</th>
+                                        <td>
+                                            <input type="text" name="mindikator_{{$i}}" id="mindikator_{{$i}}" class="form-control" value="" required>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            </table>
+                            <table class="table table-condensed table-bordered skstable" id="table_sks">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" name="sks" value="1" aria-label="..." id="sks" checked>
+                                            </span>
+                                            <input type="text" class="form-control" aria-label="..." value="Survei Kepuasan Stakeholder" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                @for($i = 6; $i >= 1; $i--)
+                                    <tr>
+                                        <th>Deskripsi Indikator {{$i}}</th>
+                                        <td>
+                                            <input type="text" name="sindikator_{{$i}}" id="sindikator_{{$i}}" class="form-control" value="" required>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            </table>
+                        </div>
+                        <div id="peduli_container">
+                            <table class="table table-condensed table-bordered peduli_table" id="peduli_table">
+                                @for($i = 6; $i >= 1; $i--)
+                                    <tr>
+                                        <th>Deskripsi Indikator {{$i}}</th>
+                                        <td>
+                                            <input type="text" name="pindikator_{{$i}}" id="pindikator_{{$i}}" class="form-control" value="" required>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            </table>
+                        </div>
+                        <div id="inovatif_container">
+                            
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-4">
                                 {{csrf_field()}}
                                 <input type="hidden" name="sender_id3" id="sender_id3" value="">
+
                             </div>
                             <div class="col-md-8">
-                                <button type="button" class="btn btn-success pull-right" id="modal_simpan3">Simpan <i class="fa fa-save"></i></button>
+                                <button type="button" class="btn btn-success pull-right" id="modal_simpan3_1">Simpan <i class="fa fa-save"></i></button>
+                                <button type="button" class="btn btn-success pull-right" id="modal_simpan3_2">Simpan <i class="fa fa-save"></i></button>
+                                <button type="button" class="btn btn-success pull-right" id="modal_simpan3_3">Simpan <i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     </form>
@@ -678,10 +748,10 @@
                                         data-component-nama="{{$v->name}}"
                                         value="{{$v->persentase[$i]->nilai}} %"
 
-                                        @if($v->id == 3)
-                                            data-html="true"
+                                        {{-- @if($v->id == 3) --}}
+                                            {{-- data-html="true" --}}
                                             {{-- data-toggle="popover" --}}
-                                            data-placement="left"
+                                           {{--  data-placement="left"
                                             data-content='
                                                 <a  href="{{url('special/tahun') . '/' . $tahun . '/triwulan/' . ($i+1) . '/jenis/1'}}"
                                                     class="btn btn-primary ojk-melayani btn-special"
@@ -700,8 +770,8 @@
                                                     id="b{{$v->id}}_{{$i}}"
                                                     data-triwulan="{{$i}}"
                                                     data-component="{{$v->id}}"
-                                                >OJK Inovatif</a>'
-                                        @endif
+                                                >OJK Inovatif</a>' --}}
+                                        {{-- @endif --}}
                                         readonly
                                     >
                                 </td>
@@ -721,13 +791,14 @@
         
         $(document).ready(function(){
             $('[id^=loading]').hide();
-            // $("[data-toggle=popover]").popover();
+            $('#inovatif_container').hide().find(':input').prop('disabled', true);
+            $('#peduli_container').hide().find(':input').prop('disabled', true);
+            $('#modal_simpan3_2, #modal_simpan3_3').hide();
         });
 
         $('.kol').on('click', function(){
             $("[data-toggle=popover]").popover('hide');
             let t = $(this);
-
 
             if (t.attr('data-component') == 1) {
                 $.ajax({
@@ -828,9 +899,12 @@
                         $('#periode3').val('').val('Triwulan ' + t.attr('data-triwulan'));
                         $('#persen3').val('').val(0);
                         $('#sender_id3').val('').val(t.attr('id'));
-                        $('#keterangan3').val('').prop('readonly', false);
                         $('#modal_triwulan3').val('').val((parseInt(t.attr('data-triwulan')) + 1));
                         $('[id^=definisi3_]').val('').prop('readonly', false);
+                        $('[id^=keterangan3]').val('').prop('readonly', false).hide();
+                        $('[id^=mindikator_]').val('').prop('disabled', false);
+                        $('[id^=sindikator_]').val('').prop('disabled', false);
+                        $('[id^=pindikator_]').val('').prop('disabled', false);
 
                         $('#modal-form3').hide();
                         $('#loading3').show();
@@ -840,13 +914,26 @@
                             $('#periode3').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
                             $('#persen3').val('').val(response.data.persentase.nilai).prop('readonly', false);
                             $('#sender_id3').val('').val(t.attr('id'));
-                            $('#keterangan3').val(response.data.iku1.keterangan);
+                            $('#keterangan3_1').val(response.data.iku1.keterangan).show();
+                            $('#keterangan3_2').val(response.data.iku2.keterangan);
+                            $('#keterangan3_3').val(response.data.iku3.keterangan);
                             
                             console.log(response);
-                            if ($.isArray(response.data.alat_ukur1.definisi)) {
-                                $.each(response.data.alat_ukur1.definisi, function(k, v) {
-                                   $('#definisi3_' + (k+1)).val(v.deskripsi);
-                                   console.log(k);
+                            if ($.isArray(response.data.definisi1_1)) {
+                                $.each(response.data.definisi1_1, function(k, v) {
+                                    $('#mindikator_' + (k+1)).val(v.deskripsi);
+                                });
+                            }
+
+                            if ($.isArray(response.data.definisi1_2)) {
+                                $.each(response.data.definisi1_2, function(k, v) {
+                                    $('#sindikator_' + (k+1)).val(v.deskripsi);
+                                });
+                            }
+
+                            if ($.isArray(response.data.definisi2)) {
+                                $.each(response.data.definisi2, function(k, v) {
+                                    $('#pindikator_' + (k+1)).val(v.deskripsi);
                                 });
                             }
 
@@ -1356,5 +1443,143 @@
             });
         });
 
+
+        // OOOOO
+
+        $(document).on('change', 'select[name="jenis_program"]', function(argument) {
+
+            if ($('select[name="jenis_program"] option:selected').val() == '3') {
+
+                $('#melayani_container').hide().find(':input').prop('disabled', true);
+                $('#peduli_container').hide().find(':input').prop('disabled', true);
+
+                $('[id^=keterangan3_]').hide().prop('disabled', true);
+                $('[id^=keterangan3_3]').show().prop('disabled', false);
+
+                $('[id^=modal_simpan3]').hide().prop('disabled', true);
+                $('[id^=modal_simpan3_3]').show().prop('disabled', false);
+
+                $('[id^=input_tipe3_').prop('checked', false).parent().hide();
+                $('#input_tipe3_3').prop('checked', true).parent().show();
+
+                $('#inovatif_container').show().find(':input').prop('disabled', false);
+
+            } else if ($('select[name="jenis_program"] option:selected').val() == '2') {
+
+                $('#inovatif_container').hide().find(':input').prop('disabled', true);
+                $('#melayani_container').hide().find(':input').prop('disabled', true);
+
+                $('[id^=keterangan3_]').hide().prop('disabled', true);
+                $('[id^=keterangan3_2]').show().prop('disabled', false);
+
+                $('[id^=modal_simpan3]').hide().prop('disabled', true);
+                $('[id^=modal_simpan3_2]').show().prop('disabled', false);
+
+                $('[id^=input_tipe3_').prop('checked', false).parent().hide();
+                $('#input_tipe3_1').prop('checked', true).parent().show();
+                $('#input_tipe3_3').prop('checked', false).parent().show();
+                
+                $('#peduli_container').show().find(':input').prop('disabled', false);
+
+            } else {
+
+                $('#inovatif_container').hide().find(':input').prop('disabled', true);
+                $('#peduli_container').hide().find(':input').prop('disabled', true);
+
+                $('[id^=keterangan3_]').hide().prop('disabled', true);
+                $('[id^=keterangan3_1]').show().prop('disabled', false);
+                
+                $('[id^=modal_simpan3]').hide().prop('disabled', true);
+                $('[id^=modal_simpan3_1]').show().prop('disabled', false);
+
+                $('[id^=input_tipe3_').show().prop('checked', false).parent().hide();
+                $('#input_tipe3_1').prop('checked', true).parent().show();
+                $('#input_tipe3_3').prop('checked', false).parent().show();
+
+                $('#mc, #sks').prop('checked', true).prop('disabled', false);
+
+                $('#melayani_container').show().find(':input').prop('disabled', false);
+            }
+        });
+
+        $('#sks').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=sindikator_]').val('').prop('disabled', false);
+            }else{
+                $('[id^=sindikator_]').val('').prop('disabled', true);
+            }
+        });
+
+        $('#mc').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=mindikator_]').val('').prop('disabled', false);
+            }else{
+                $('[id^=mindikator_]').val('').prop('disabled', true);
+            }
+        });
+
+        $(document).on('change', 'input[name="input_tipe3"]', function() {
+
+            if ($('#input_tipe3_1').is(':checked')) {
+
+                if ($('#jenis_program').val() == 1) {
+            
+                    $('#mc, #sks').prop('checked', true).prop('disabled', false);
+                    $('[id^=mindikator_], [id^=sindikator_]').val('').prop('disabled', false);
+            
+                } else if($('#jenis_program').val() == 2) {
+            
+                    $('[id^=pindikator_]').val('').prop('disabled', false);
+                }
+            
+            } else if ($('#input_tipe3_3').is(':checked')){
+            
+                if ($('#jenis_program').val() == 1) {
+            
+                    $('#mc, #sks').prop('checked', false).prop('disabled', true);
+                    $('[id^=mindikator_], [id^=sindikator_]').val('').prop('disabled', true);
+            
+                } else if ($('#jenis_program').val() == 2) {
+            
+                    $('[id^=pindikator_]').val('').prop('disabled', true);
+            
+                }
+            }
+        });
+
+        //Simpan 3_1
+        $('#modal_simpan3_1').on('click', function() {
+            let s3_1 = $(this);
+            let sender_id = $('#sender_id3').val();
+            var sender = $('#' + sender_id);
+
+            $.ajax({
+                url: '{{url('persentaseEdit3_1')}}',
+                data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
+                type: 'POST',
+                dataType: 'JSON',
+                beforeSend: function(){
+                    s3_1.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                    $('#keterangan3_1, #persen3').prop('readonly', true);
+                },
+                success: function(response){
+                    if (response.status) {
+                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                        $('#modal3').modal('hide');
+                    }else{
+                        alert(response.message);
+                        $('#keterangan3_1, #persen3').prop('readonly', false);
+                        $('#persen3').focus();
+
+                    }
+                    s3_1.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                    $('#keterangan3_1, #persen3').prop('readonly', false);
+                },
+                error: function(response) {
+                    console.log(response);
+                    alert('error');
+                }
+            });
+        });
     </script>
 @endsection
