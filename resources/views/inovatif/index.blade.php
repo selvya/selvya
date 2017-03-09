@@ -70,7 +70,7 @@
 							<td class="text-center">l agmklamglrmgl</td>
 							<td class="text-center">kf kafjklkfjkal</td>
 							<td align="center">
-								<a href="#" class="btn btn-primary">View</a>			
+								<a href="{{url('detail/inovatif')}}" class="btn btn-primary">View</a>			
 							</td>
 						</tr>
 					</tbody>

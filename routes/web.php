@@ -59,6 +59,9 @@ Route::get('tambah/inovatif', function () {
 Route::get('arsip/inovatif', function () {
     return view('inovatif.arsip');
 });
+Route::get('detail/inovatif', function () {
+    return view('inovatif.detail-inovatif');
+});
 //TUTUP OJK INOVATIF
 
 //MONITORING
