@@ -68,9 +68,11 @@ Route::get('rekap-monitoring', function () {
 Route::get('hasil-monitoring', function () {
     return view('monitoring.hasil');
 });
+
 Route::get('ubah-anggaran', function () {
     return view('monitoring.ubah');
 });
+
 Route::get('lihat-anggaran', function () {
     return view('monitoring.lihat');
 });
@@ -190,6 +192,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('komisioner/hapus/{id}','KomisionerController@hapus');
     Route::get('komisioner/edit/{id}','KomisionerController@editview');
     Route::post('komisioner/edit/proses/{id}','KomisionerController@edit');
+
+    //KECEPATAN LAPORAN
+    Route::get('cek-simpan-pelaporan', 'SelfAssesmentController@cekSimpanPelaporan');
 });
 
 

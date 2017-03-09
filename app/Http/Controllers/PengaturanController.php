@@ -26,10 +26,9 @@ class PengaturanController extends Controller
 
         $daftarIndikator = DaftarIndikator::all();
 
-
         //Cek apakah sudah ada Persen
         foreach ($daftarIndikator as $key => $value) {
-            
+
             $field['daftarindikator_id'] = $value->id;
             $field['tahun'] = $tahun;
 
@@ -81,7 +80,7 @@ class PengaturanController extends Controller
             $definisiNilai = $alatUkur->definisi;
 
             if (count($alatUkur->definisi) < 6)  {
-                
+
                 for ($i=0; $i < 6; $i++) { 
                     $definisiNilai[$i] = DefinisiNilai::create([
                         'iku_id' => $iku->id,
@@ -98,7 +97,7 @@ class PengaturanController extends Controller
         $response['data']['iku'] = $iku;
         $response['data']['alat_ukur'] = $alatUkur;
         $response['status'] = true;
-        
+
         return response()->json($response, 200);
     }
 
@@ -115,7 +114,7 @@ class PengaturanController extends Controller
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -175,7 +174,6 @@ class PengaturanController extends Controller
             'name' => $iku3->namaprogram
         ]);
 
-  
         $definisiNilai1_1 = $alatUkur1_1->definisi;
 //        if (count($definisiNilai1_1) == 0) {
 //            for ($i=0; $i < 6; $i++) {
@@ -354,7 +352,7 @@ class PengaturanController extends Controller
                             str_slug($persentase->daftar_indikator->name, '_') . 
                             '#' . $persentase->tahun . 
                             '#' . $persentase->triwulan
-                )->first();
+                    )->first();
 
         foreach ($alatUkur->definisi as $key => $value) {
             $value->deskripsi = request('definisi2_' . ($key+1));
@@ -411,7 +409,7 @@ class PengaturanController extends Controller
                             str_slug($persentase->daftar_indikator->name, '_') . 
                             '#' . $persentase->tahun . 
                             '#' . $persentase->triwulan
-                )->first();
+                    )->first();
 
         foreach ($alatUkur->definisi as $key => $value) {
             $value->deskripsi = request('definisi4_' . ($key+1));
@@ -469,7 +467,7 @@ class PengaturanController extends Controller
                             str_slug($persentase->daftar_indikator->name, '_') . 
                             '#' . $persentase->tahun . 
                             '#' . $persentase->triwulan
-                )->first();
+                    )->first();
 
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
@@ -522,7 +520,7 @@ class PengaturanController extends Controller
                             str_slug($persentase->daftar_indikator->name, '_') . 
                             '#' . $persentase->tahun . 
                             '#' . $persentase->triwulan
-                )->first();
+                    )->first();
 
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
@@ -575,7 +573,7 @@ class PengaturanController extends Controller
                             str_slug($persentase->daftar_indikator->name, '_') . 
                             '#' . $persentase->tahun . 
                             '#' . $persentase->triwulan
-                )->first();
+                    )->first();
 
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
@@ -583,7 +581,6 @@ class PengaturanController extends Controller
     }
 
     public function persentaseEdit3_1(Request $r) {
-        
 
         $response = [
             'status' => false,
@@ -784,7 +781,8 @@ class PengaturanController extends Controller
         )->first();
 
         $iku->keterangan = $r->keterangan3_3;
-        $iku->tipe = $r->input_tipe3;
+        //$iku->tipe = $r->input_tipe3;
+        $iku->tipe = 'manual';
         $iku->save();
 
         //Hapus Definisi dan Alat Ukur
