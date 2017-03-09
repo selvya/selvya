@@ -91,8 +91,8 @@
 							<td class=" ">
 								<div>
 									<p>
-										<strong>OJK Cerdas</strong>
-										<span class="pull-right text-muted">20% Complete</span>
+										<!-- <strong>OJK Cerdas</strong> -->
+										<span class="text-muted">20% Complete</span>
 									</p>
 									<div class="progress progress-striped active">
 										<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
