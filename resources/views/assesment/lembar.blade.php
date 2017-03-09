@@ -102,7 +102,7 @@
 								</div>
 							</td>
 							<td align="center" valign="middle" class=" ">
-								<a href="https://ojkway.com/admin/form/program_form/1/vdqHRkkTs1J7RYt/0" style="min-width:35%" class="btn yellow">Ubah&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
+								<a href="{{url('edit-self-assessment')}}" style="min-width:35%" class="btn yellow">Ubah&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
 							</td>
 						</tr></tbody>
 					</table><div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">Showing 1 to 1 of 1 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li></ul></div></div></div></div>
