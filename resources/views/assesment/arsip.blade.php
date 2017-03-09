@@ -41,59 +41,71 @@
 		</div>
 		<br>
 		<div class="table-responsive">
-			<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
-				<thead>
-					<tr>
-						<th class="text-center">ID</th>
-						<th class="text-center"><i class="gi gi-user"></i></th>
-						<th>Client</th>
-						<th>Email</th>
-						<th>Subscription</th>
-						<th class="text-center">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">1</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar11.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client1</a></td>
-						<td>client1@company.com</td>
-						<td><span class="label label-info">Business</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center">2</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar9.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client2</a></td>
-						<td>client2@company.com</td>
-						<td><span class="label label-warning">Trial</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center">3</td>
-						<td class="text-center"><img src="{{asset('vendor/img/placeholders/avatars/avatar15.jpg')}}" alt="avatar" class="img-circle"></td>
-						<td><a href="javascript:void(0)">client3</a></td>
-						<td>client3@company.com</td>
-						<td><span class="label label-success">VIP</span></td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<i class="fa fa-check fa-2x text-success" data-toggle="tooltip" title="Sudah Disetujui"></i>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="dataTables_length" id="dataTables-example_length">
+							<label>
+								<select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
+									<option value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="100">100</option>
+								</select>
+								records per page
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div id="dataTables-example_filter" class="dataTables_filter">
+							<label>
+								Search:<input type="search" class="form-control input-sm" aria-controls="dataTables-example">
+							</label>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+					<thead>
+						<tr role="row">
+							<th style="width: 113px;" class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Bulan/Periode: activate to sort column ascending">
+								Bulan/Periode
+							</th>
+							<th style="width: 83px;" class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Tahun: activate to sort column ascending">
+								Tahun
+							</th>
+							<th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Progress: activate to sort column ascending" style="width: 471px;">
+								Progress
+							</th>
+							<th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Pengaturan: activate to sort column ascending" style="width: 273px;">
+								Pengaturan
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd">
+							<td class="text-center">Januari - Maret</td>
+							<td class="text-center">2017</td>
+							<td >
+								<div>
+									<p>
+										<strong>Final pada :</strong> 20-12-2019
+										<span class="text-muted pull-right">100% Complete</span>
+									</p>
+									<div class="progress progress-striped">
+										<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+											<span class="sr-only">100% Complete</span>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">
+							<br>
+								<a href="{{url('#')}}" class="btn btn-primary">Preview </a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	<!-- END Datatables Content -->

@@ -47,6 +47,8 @@
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Alat Ukur</label>
 							<div class="col-md-10">
+								<input type="checkbox" name=""> Gunakan alat ukur berikut (Centang bila digunakan)
+								<br><br>
 								<input class="form-control" type="text" id="" placeholder="Alat Ukur I">
 							</div>
 						</div>
@@ -54,49 +56,49 @@
 							<div class="col-md-10 pull-right">
 								<table class="table table-condensed table-hover table-stripped">
 									<tr>
-										<th class="text-center">Nama</th>
+										<th class="text-center" style="width: 10%!important;">Nilai</th>
 										<th class="text-center">Triwulan I</th>
 										<th class="text-center">Triwulan II</th>
 										<th class="text-center">Triwulan III</th>
 										<th class="text-center">Triwulan IV</th>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 1</td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 2</td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 3</td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 4</td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 5</td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 6</td>
 										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
@@ -109,6 +111,8 @@
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Alat Ukur</label>
 							<div class="col-md-10">
+								<input type="checkbox" name=""> Gunakan alat ukur berikut (Centang bila digunakan)
+								<br><br>
 								<input class="form-control" type="text" id="" placeholder="Alat Ukur II">
 							</div>
 						</div>
@@ -116,49 +120,49 @@
 							<div class="col-md-10 pull-right">
 								<table class="table table-condensed table-hover table-stripped">
 									<tr>
-										<th class="text-center">Nama</th>
+										<th class="text-center" style="width: 10%!important;">Nilai</th>
 										<th class="text-center">Triwulan I</th>
 										<th class="text-center">Triwulan II</th>
 										<th class="text-center">Triwulan III</th>
 										<th class="text-center">Triwulan IV</th>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 1</td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 2</td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 3</td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 4</td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 5</td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
+										<td class="text-center">Skala 6</td>
 										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
 										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
@@ -171,6 +175,8 @@
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Alat Ukur</label>
 							<div class="col-md-10">
+								<input type="checkbox" name=""> Gunakan alat ukur berikut (Centang bila digunakan)
+								<br><br>
 								<input class="form-control" type="text" id="" placeholder="Alat Ukur III">
 							</div>
 						</div>
@@ -178,53 +184,53 @@
 							<div class="col-md-10 pull-right">
 								<table class="table table-condensed table-hover table-stripped">
 									<tr>
-										<th class="text-center">Nama</th>
+										<th class="text-center" style="width: 10%!important;">Nilai</th>
 										<th class="text-center">Triwulan I</th>
 										<th class="text-center">Triwulan II</th>
 										<th class="text-center">Triwulan III</th>
 										<th class="text-center">Triwulan IV</th>
 									</tr>
 									<tr>
-										<td>Nilai</td>
-										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td class="text-center">Skala 1</td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
-										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td class="text-center">Skala 2</td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
-										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td class="text-center">Skala 3</td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
-										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td class="text-center">Skala 4</td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
-										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td class="text-center">Skala 5</td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>Nilai</td>
-										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
-										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td class="text-center">Skala 6</td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control"></td>
 									</tr>
 								</table>
 							</div>

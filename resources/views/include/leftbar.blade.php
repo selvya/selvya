@@ -43,11 +43,11 @@
                     <li class="@if(Request::is('nilai-self-assessment')) active @endif">
                         <a href="{{url('nilai-self-assessment')}}"><i class="gi gi-notes sidebar-nav-icon"></i> Nilai Assessment</a>
                     </li>
-                    <li class="@if(Request::is('lembar-self-assessment') || Request::is('arsip/assessment')) active @endif">
-                        <a href="{{url('lembar-self-assessment')}}"><i class="gi gi-sort sidebar-nav-icon"></i> Lembar Assessment</a>
-                    </li>
                     <li class="@if(Request::is('inovatif') || Request::is('arsip/inovatif')) active @endif">
                         <a href="{{url('inovatif')}}"><i class="gi gi-tags sidebar-nav-icon"></i> OJK Inovatif</a>
+                    </li>
+                    <li class="@if(Request::is('lembar-self-assessment') || Request::is('arsip/assessment')) active @endif">
+                        <a href="{{url('lembar-self-assessment')}}"><i class="gi gi-sort sidebar-nav-icon"></i> Lembar Assessment</a>
                     </li>
                     <li class="@if(Request::is('monitoring-anggaran')) active @endif">
                         <a href="{{url('monitoring-anggaran')}}"><i class="gi gi-imac sidebar-nav-icon"></i> Monitoring Anggaran</a>
