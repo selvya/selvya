@@ -81,5 +81,95 @@
 					</p>
 				</div>	
 			</div>
+			<div class="col-md-6">
+				<div class="block">
+					<div id="containernya"></div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="block">
+					<div id="container"></div>
+				</div>
+			</div>
 		</div>
+		@endsection
+		@section('js')
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<!--CHART BAR-->
+		<script type="text/javascript">
+			Highcharts.chart('container', {
+				chart: {
+					type: 'column',
+					options3d: {
+						enabled: true,
+						alpha: 10,
+						beta: 25,
+						depth: 70
+					}
+				},
+				title: {
+					text: 'Nilai Indikator IKU'
+				},
+				plotOptions: {
+					column: {
+						depth: 25
+					}
+				},
+				xAxis: {
+					categories: ['Indikator 1', 'Indikator 2' , 'Indikator 3' , 'Indikator 4' , 'Indikator 5' , 'Indikator 6' , 'Indikator 7']
+				},
+				yAxis: {
+					title: {
+						text: 'Nilai per Indikator'
+					}
+				},
+				series: [{
+					name: 'Nilai Indikator',
+					data: [1, 2 , 3, 4, 5, 6]
+				}]
+			});
+		</script>
+		<!-- TUTUP CHART BAR -->
+
+		<!-- CHART PIE -->
+		<script type="text/javascript">
+			Highcharts.chart('containernya', {
+				chart: {
+					type: 'pie',
+					options3d: {
+						enabled: true,
+						alpha: 45,
+						beta: 0
+					}
+				},
+				title: {
+					text: 'Browser market shares at a specific website, 2014'
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						depth: 35,
+						dataLabels: {
+							enabled: true,
+							format: '{point.name}'
+						}
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'Nilai',
+					data: [
+					['Firefox', 62.7],
+					['IE', 37.3]
+					]
+				}]
+			});
+		</script>
+		<!-- TUTUP CHART PIE -->
 		@endsection

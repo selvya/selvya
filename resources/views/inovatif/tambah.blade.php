@@ -20,123 +20,225 @@
 	<!-- Wizards Row -->
 	<div class="row">
 		<div class="col-md-12">
-			<!-- Wizard with Validation Block -->
 			<div class="block">
-				<!-- Wizard with Validation Title -->
 				<div class="block-title">
-					<h2><strong>Validation</strong> Wizard</h2>
+					<h2><strong>Form</strong></h2>
 				</div>
-				<!-- END Wizard with Validation Title -->
+				<div class="container" style="max-width: 1000px;">
+					<form>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Nama Program</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" id="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Deskripsi Program</label>
+							<div class="col-md-10">
+								<textarea class="form-control" rows="5"></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Tujuan Program</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" id="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Alat Ukur</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" id="" placeholder="Alat Ukur I">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-10 pull-right">
+								<table class="table table-condensed table-hover table-stripped">
+									<tr>
+										<th class="text-center">Nama</th>
+										<th class="text-center">Triwulan I</th>
+										<th class="text-center">Triwulan II</th>
+										<th class="text-center">Triwulan III</th>
+										<th class="text-center">Triwulan IV</th>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
 
-				<!-- Wizard with Validation Content -->
-				<form id="advanced-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
-					<!-- First Step -->
-					<div id="advanced-first" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-6 active">
-									<span>1. Account</span>
-								</div>
-								<div class="col-xs-6">
-									<span>2. Info</span>
-								</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Alat Ukur</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" id="" placeholder="Alat Ukur II">
 							</div>
 						</div>
-						<!-- END Step Info -->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="val_username">Username <span class="text-danger">*</span></label>
-							<div class="col-md-6">
-								<div class="input-group">
-									<input type="text" id="val_username" name="val_username" class="form-control" placeholder="Your username.." required>
-									<span class="input-group-addon"><i class="gi gi-user"></i></span>
-								</div>
+						<div class="form-group row">
+							<div class="col-md-10 pull-right">
+								<table class="table table-condensed table-hover table-stripped">
+									<tr>
+										<th class="text-center">Nama</th>
+										<th class="text-center">Triwulan I</th>
+										<th class="text-center">Triwulan II</th>
+										<th class="text-center">Triwulan III</th>
+										<th class="text-center">Triwulan IV</th>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+									</tr>
+								</table>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="val_email">Email <span class="text-danger">*</span></label>
-							<div class="col-md-6">
-								<div class="input-group">
-									<input type="text" id="val_email" name="val_email" class="form-control" placeholder="test@example.com" required>
-									<span class="input-group-addon"><i class="gi gi-envelope"></i></span>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="val_password">Password <span class="text-danger">*</span></label>
-							<div class="col-md-6">
-								<div class="input-group">
-									<input type="password" id="val_password" name="val_password" class="form-control" placeholder="Choose a crazy one.." required>
-									<span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="val_confirm_password">Retype Password <span class="text-danger">*</span></label>
-							<div class="col-md-6">
-								<div class="input-group">
-									<input type="password" id="val_confirm_password" name="val_confirm_password" class="form-control" placeholder="..and confirm it!" required>
-									<span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- END First Step -->
 
-					<!-- Second Step -->
-					<div id="advanced-second" class="step">
-						<!-- Step Info -->
-						<div class="wizard-steps">
-							<div class="row">
-								<div class="col-xs-6 done">
-									<span>1. Account</span>
-								</div>
-								<div class="col-xs-6 active">
-									<span>2. Info</span>
-								</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Alat Ukur</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" id="" placeholder="Alat Ukur III">
 							</div>
 						</div>
-						<!-- END Step Info -->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-bio">Bio</label>
-							<div class="col-md-8">
-								<textarea id="example-advanced-bio" name="example-advanced-bio" rows="6" class="form-control" placeholder="Tell us your story.."></textarea>
+						<div class="form-group row">
+							<div class="col-md-10 pull-right">
+								<table class="table table-condensed table-hover table-stripped">
+									<tr>
+										<th class="text-center">Nama</th>
+										<th class="text-center">Triwulan I</th>
+										<th class="text-center">Triwulan II</th>
+										<th class="text-center">Triwulan III</th>
+										<th class="text-center">Triwulan IV</th>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 1" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 2" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 3" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 4" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 5" type="text" name="" class="form-control"></td>
+									</tr>
+									<tr>
+										<td>Nilai</td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+										<td><input placeholder="Assessment 6" type="text" name="" class="form-control"></td>
+									</tr>
+								</table>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="example-advanced-newsletter">Newsletter</label>
-							<div class="col-md-6">
-								<div class="checkbox">
-									<label for="example-advanced-newsletter">
-										<input type="checkbox" id="example-advanced-newsletter" name="example-advanced-newsletter">  Sign up
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label"><a href="#modal-terms" data-toggle="modal">Terms</a> <span class="text-danger">*</span></label>
-							<div class="col-md-6">
-								<label class="switch switch-primary" for="val_terms">
-									<input type="checkbox" id="val_terms" name="val_terms" value="1">
-									<span data-toggle="tooltip" title="I agree to the terms!"></span>
-								</label>
-							</div>
-						</div>
-					</div>
-					<!-- END Second Step -->
 
-					<!-- Form Buttons -->
-					<div class="form-group form-actions">
-						<div class="col-md-8 col-md-offset-4">
-							<input type="reset" class="btn btn-sm btn-warning" id="back2" value="Back">
-							<input type="submit" class="btn btn-sm btn-primary" id="next2" value="Next">
+						<div class="form-group row">
+							<div class="col-md-10 pull-right">
+								<button class="btn btn-success btn-block">Simpan</button>
+							</div>
 						</div>
-					</div>
-					<!-- END Form Buttons -->
-				</form>
-				<!-- END Wizard with Validation Content -->
+
+					</form>
+				</div>
 			</div>
-			<!-- END Wizard with Validation Block -->
 		</div>
 	</div>
 	<!-- END Wizards Row -->	
