@@ -155,9 +155,14 @@ class PengaturanController extends Controller
             'satker' => 0
         ]);
 
-        $alatUkur1 = AlatUkur::updateOrCreate([
+        $alatUkur1_1 = AlatUkur::updateOrCreate([
             'iku_id' => $iku1->id,
-            'name' => $iku1->namaprogram
+            'name' => $iku1->namaprogram . '#mystery_call'
+        ]);
+
+        $alatUkur1_2 = AlatUkur::updateOrCreate([
+            'iku_id' => $iku1->id,
+            'name' => $iku1->namaprogram . '#survei_stake_holder'
         ]);
 
         $alatUkur2 = AlatUkur::updateOrCreate([
@@ -171,31 +176,57 @@ class PengaturanController extends Controller
         ]);
 
   
-            
-        for ($i=0; $i < 6; $i++) { 
-            $definisiNilai1[$i] = DefinisiNilai::updateOrcreate([
-                'iku_id' => $iku1->id,
-                'alatukur_id' => $alatUkur1->id,
-                'deskripsi' => null,
-                'triwulan' => $persentase->triwulan,
-                'tahun' => $persentase->tahun
-            ]);
-            
-            $definisiNilai2[$i] = DefinisiNilai::updateOrcreate([
-                'iku_id' => $iku2->id,
-                'alatukur_id' => $alatUkur2->id,
-                'deskripsi' => null,
-                'triwulan' => $persentase->triwulan,
-                'tahun' => $persentase->tahun
-            ]);
+        $definisiNilai1_1 = $alatUkur1_1->definisi;
+//        if (count($definisiNilai1_1) == 0) {
+//            for ($i=0; $i < 6; $i++) {
+//                $definisiNilai1_1[$i] = DefinisiNilai::create([
+//                    'iku_id' => $iku1->id,
+//                    'alatukur_id' => $alatUkur1_1->id,
+//                    'deskripsi' => null,
+//                    'triwulan' => $persentase->triwulan,
+//                    'tahun' => $persentase->tahun
+//                ]);
+//            }
+//        }
+        
+        $definisiNilai1_2 = $alatUkur1_2->definisi;
+//        if (count($definisiNilai1_2) == 0) {
+//            for ($i=0; $i < 6; $i++) {
+//                $definisiNilai1_2[$i] = DefinisiNilai::create([
+//                    'iku_id' => $iku1->id,
+//                    'alatukur_id' => $alatUkur1_2->id,
+//                    'deskripsi' => null,
+//                    'triwulan' => $persentase->triwulan,
+//                    'tahun' => $persentase->tahun
+//                ]);
+//            }
+//        }
 
-            $definisiNilai3[$i] = DefinisiNilai::updateOrcreate([
-                'iku_id' => $iku3->id,
-                'alatukur_id' => $alatUkur3->id,
-                'deskripsi' => null,
-                'triwulan' => $persentase->triwulan,
-                'tahun' => $persentase->tahun
-            ]);
+
+        $definisiNilai2 = $alatUkur2->definisi;
+        if (count($definisiNilai2) == 0) {
+            for ($i=0; $i < 6 ; $i++) { 
+                $definisiNilai2[$i] = DefinisiNilai::create([
+                    'iku_id' => $iku2->id,
+                    'alatukur_id' => $alatUkur2->id,
+                    'deskripsi' => null,
+                    'triwulan' => $persentase->triwulan,
+                    'tahun' => $persentase->tahun
+                ]);
+            }
+        }
+
+        $definisiNilai3 = $alatUkur3->definisi;
+        if (count($definisiNilai3) == 0) {
+            for ($i=0; $i < 6 ; $i++) { 
+                $definisiNilai2[$i] = DefinisiNilai::create([
+                    'iku_id' => $iku3->id,
+                    'alatukur_id' => $alatUkur3->id,
+                    'deskripsi' => null,
+                    'triwulan' => $persentase->triwulan,
+                    'tahun' => $persentase->tahun
+                ]);
+            }
         }
         
 
@@ -203,10 +234,12 @@ class PengaturanController extends Controller
         $response['data']['iku1'] = $iku1;
         $response['data']['iku2'] = $iku2;
         $response['data']['iku3'] = $iku3;
-        $response['data']['alat_ukur1'] = $alatUkur1;
+        $response['data']['alat_ukur1_1'] = $alatUkur1_1;
+        $response['data']['alat_ukur1_2'] = $alatUkur1_2;
         $response['data']['alat_ukur2'] = $alatUkur2;
         $response['data']['alat_ukur3'] = $alatUkur3;
-        $response['data']['definisi1'] = $definisiNilai1;
+        $response['data']['definisi1_1'] = $definisiNilai1_1;
+        $response['data']['definisi1_2'] = $definisiNilai1_2;
         $response['data']['definisi2'] = $definisiNilai2;
         $response['data']['definisi3'] = $definisiNilai3;
         $response['status'] = true;
@@ -214,6 +247,10 @@ class PengaturanController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * @param Request $r
+     * @return \Illuminate\Http\JsonResponse
+     */
     function persentaseEdit1(Request $r) {
 
         $response = [
@@ -542,6 +579,96 @@ class PengaturanController extends Controller
 
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
+        return response()->json($response, 200);
+    }
+
+    public function persentaseEdit3_1(Request $r) {
+        
+
+        $response = [
+            'status' => false,
+            'data' => [],
+            'message' => ''
+        ];
+
+        $id = Hashids::connection('persentase')->decode($r->hashid);
+        if (count($id) == 0) {
+            $response['message'] = 'Persentase tidak ditemukan';
+            return response()->json($response, 404);
+        }
+        
+        $persentase = Persentase::find($id[0]);
+        if (count($persentase) == 0) {
+            $response['message'] = 'Iku tidak ditemukan';
+            return response()->json($response, 404);
+        }
+
+        $existingPersen = Persentase::where('tahun', $persentase->tahun)
+                            ->where('triwulan', $persentase->triwulan)
+                            ->whereNotIn('id', [$persentase->id])
+                            ->sum('nilai');
+        
+        if (($existingPersen + $r->persen3) > 100) {
+            $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
+            return response()->json($response, 200);
+        }
+
+        $persentase->nilai = $r->persen3;
+        $persentase->save();
+
+        $iku = Iku::where('namaprogram', 
+                            str_slug($persentase->daftar_indikator->name, '_') . 
+                            '#' . $persentase->tahun . 
+                            '#' . $persentase->triwulan . 
+                            '#ojk_melayani'
+                )->first();
+
+        $iku->keterangan = $r->keterangan3_1;
+        $iku->tipe = $r->input_tipe3;
+        $iku->save();
+
+        //Hapus Definisi dan Alat Ukur
+        DefinisiNilai::where('iku_id', $iku->id)->delete();
+        AlatUkur::where('iku_id', $iku->id)->delete();
+
+        if ($r->mc == 1) {
+            $alatUkur = AlatUkur::updateOrCreate([
+                'iku_id' => $iku->id,
+                'name' => $iku->namaprogram . '#mystery_call'
+            ]);
+
+            for ($i=0; $i < 6; $i++) { 
+                $definisiNilai1[$i] = DefinisiNilai::create([
+                    'iku_id' => $iku->id,
+                    'alatukur_id' => $alatUkur->id,
+                    'deskripsi' => request('mindikator_' . ($i+1)),
+                    'triwulan' => $persentase->triwulan,
+                    'tahun' => $persentase->tahun
+                ]);
+            }
+        }
+
+        if ($r->sks == 1) {
+            $alatUkur = AlatUkur::updateOrCreate([
+                'iku_id' => $iku->id,
+                'name' => $iku->namaprogram . '#survei_stake_holder'
+            ]);
+
+            for ($i=0; $i < 6; $i++) { 
+                $definisiNilai2[$i] = DefinisiNilai::create([
+                    'iku_id' => $iku->id,
+                    'alatukur_id' => $alatUkur->id,
+                    'deskripsi' => request('sindikator_' . ($i+1)),
+                    'triwulan' => $persentase->triwulan,
+                    'tahun' => $persentase->tahun
+                ]);
+            }
+        }
+
+
+        $response['status'] = true;
+        $response['data']['persen'] = $persentase->nilai;
+
         return response()->json($response, 200);
     }
 }

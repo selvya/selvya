@@ -116,6 +116,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('persentaseEdit5', ['as' => 'persentaseEdit5', 'uses' => 'PengaturanController@persentaseEdit5']);
     Route::post('persentaseEdit6', ['as' => 'persentaseEdit6', 'uses' => 'PengaturanController@persentaseEdit6']);
     Route::post('persentaseEdit7', ['as' => 'persentaseEdit7', 'uses' => 'PengaturanController@persentaseEdit7']);
+    
+    Route::post('persentaseEdit3_1', ['as' => 'persentaseEdit3_1', 'uses' => 'PengaturanController@persentaseEdit3_1']);
 
     // Route::post('ikuBaru1', ['as' => 'iku.baru1', 'uses' => 'PengaturanController@simpanIkuBaru1']);
     // Route::post('ikuEdit1', ['as' => 'iku.edit1', 'uses' => 'PengaturanController@simpanIkuEdit1']);
@@ -131,7 +133,7 @@ Route::group(['middleware' => ['admin']], function () {
     // Route::post('ikuEdit7', ['as' => 'iku.edit7', 'uses' => 'PengaturanController@simpanIkuEdit7']);
 
     // Special
-    Route::get('special/tahun/{tahun}/triwulan/{triwulan}/jenis/{jenis}', ['as' => 'special', 'uses' => 'PengaturanController@special']);
+    Route::get('special/tahun/{tahun}/triwulan/{triwulan}/jenis/{jenis}', ['as' => 'special', 'uses' => 'PengaturanController2@special']);
     Route::post('ikuOjkMelayani', ['as' => 'ikuojkmelayani', 'uses' => 'PengaturanController@simpanOjkMelayani']);
     Route::post('ikuOjkPeduli', ['as' => 'ikuojkpeduli', 'uses' => 'PengaturanController@simpanOjkPeduli']);
     Route::post('ikuOjkInovatif', ['as' => 'ikuojkpinovatif', 'uses' => 'PengaturanController@simpanOjkInovatif']);
