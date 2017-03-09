@@ -114,8 +114,9 @@
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
-												<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
-												<output for="fader" id="volume">0</output>
+												<!-- <input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
+												<output for="fader" id="volume">0</output> -->
+												<input type="number" name="" min="0" max="6" class="form-control">
 											</div>
 										</div>
 										<!-- TUTUP MANUAL -->
@@ -168,8 +169,7 @@
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
-												<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
-												<output for="fader" id="volume">0</output>
+												<input type="number" name="" min="0" max="6" class="form-control">
 											</div>
 										</div>
 										<!-- TUTUP MANUAL -->
@@ -252,8 +252,7 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 										<div class="col-md-9">
-											<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
-											<output for="fader" id="volume">0</output>
+											<input type="number" name="" min="0" max="6" class="form-control">
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
@@ -333,8 +332,7 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 										<div class="col-md-9">
-											<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
-											<output for="fader" id="volume">0</output>
+											<input type="number" name="" min="0" max="6" class="form-control">
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
