@@ -1,4 +1,7 @@
 @extends('layout.master')
+@section('css')
+
+@endsection
 @section('content')
 <style type="text/css">
 	.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td, .table tbody + tbody, .table-bordered, .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
@@ -43,23 +46,23 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong>1. Program Budaya Spesifik <big>40%</big></strong>
+											<strong>Program Budaya Spesifik <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-											2. Serapan Anggaran <big>15%</big></strong>
+											Serapan Anggaran <br> <big>15%</big></strong>
 										</a>
 									</li>
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+											<strong>Partisipan Pimpinan <br> <big>30%</big></strong>
 										</a>
 									</li>
 
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
 										</a>
 									</li>
 								</ul>
@@ -68,7 +71,7 @@
 						<br>
 						<!-- ACCORDION -->
 						<div class="container" style="max-width: 1000px; overflow: hidden;">
-							<!-- MYSTERY CALL -->
+							<!-- OJK MELAYANI -->
 							<div class="block">
 								<div class="block-title">
 									<div class="block-options pull-right">
@@ -76,95 +79,139 @@
 											<i class="fa fa-arrows-v"></i>
 										</a>
 									</div>
-									<h2><strong>MYSTERY CALL</strong></h2>
+									<h2><strong>OJK MELAYANI</strong></h2>
 								</div>
 								<div class="block-content">
 									<div class="form-group">
-										<label class="col-md-3 control-label">Indikator Penilaian <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>50</h4>
+											<h4>Programnya</h4>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>50</h4>
+											<h4>Tujuan programnya</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
 										<div class="col-md-9">
-											<input type="file" name="file" class="form-control" required>
+											<input type="file" name="file" class="form-control" >
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<table class="table">
-												<tr id="field1">
-													<td>
-														<input type="text" class="form-control" placeholder="Nama">
-													</td>
-													<td><input type="email" class="form-control" placeholder="Email"></td>
-													<td><input type="text" class="form-control" placeholder="Instansi"></td>
-													<td><input type="text" class="form-control" placeholder="No Telp"></td>
-													<td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-												</tr>
-											</table>
+									<br>
+									<!-- MYSTERY CALL -->
+									<div class="block">
+										<h4><b>MYSTERY CALL</b></h4>
+										<!-- MANUAL -->
+										<div class="form-group">
+											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-							<!-- CLOSE MYSTERY CALL -->
+										<div class="form-group">
+											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
+												<output for="fader" id="volume">0</output>
+											</div>
+										</div>
+										<!-- TUTUP MANUAL -->
 
-							<!-- SURVEY STAKEHOLDER -->
-							<div class="block">
-								<div class="block-title">
-									<div class="block-options pull-right">
-										<a href="javascript:void(0)" class="btn btn-alt btn-sm btn-primary" data-toggle="block-toggle-content">
-											<i class="fa fa-arrows-v"></i>
-										</a>
-									</div>
-									<h2><strong>SURVEY STAKEHOLDER</strong></h2>
-								</div>
-								<div class="block-content" style="display: none;">
-									<div class="form-group">
-										<label class="col-md-3 control-label">Indikator Penilaian <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<h4>50</h4>
+										<!-- PARAMETERIZE -->
+										<div class="form-group">
+											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<select class="form-control">
+													<option>Nama Alat Ukurnya 1</option>
+													<option>Nama Alat Ukurnya 2</option>
+													<option>Nama Alat Ukurnya 3</option>
+													<option>Nama Alat Ukurnya 4</option>
+													<option>Nama Alat Ukurnya 5</option>
+													<option>Nama Alat Ukurnya 6</option>
+												</select>
+											</div>
+										</div>
+										<!-- TUTUP PARAMETERIZE -->
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<table class="table">
+													<tr id="field1">
+														<td>
+															<input type="text" class="form-control" placeholder="Nama">
+														</td>
+														<td><input type="email" class="form-control" placeholder="Email"></td>
+														<td><input type="text" class="form-control" placeholder="Instansi"></td>
+														<td><input type="text" class="form-control" placeholder="No Telp"></td>
+														<td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+													</tr>
+												</table>
+											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<h4>50</h4>
+									<!-- CLOSE MYSTERY CALL -->
+
+									<!-- MYSTERY CALL -->
+									<div class="block">
+										<h4><b>SURVEY STAKEHOLDER</b></h4>
+										<!-- MANUAL -->
+										<div class="form-group">
+											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
+												<output for="fader" id="volume">0</output>
+											</div>
+										</div>
+										<!-- TUTUP MANUAL -->
+
+										<!-- PARAMETERIZE -->
+										<div class="form-group">
+											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<select class="form-control">
+													<option>Nama Alat Ukurnya 1</option>
+													<option>Nama Alat Ukurnya 2</option>
+													<option>Nama Alat Ukurnya 3</option>
+													<option>Nama Alat Ukurnya 4</option>
+													<option>Nama Alat Ukurnya 5</option>
+													<option>Nama Alat Ukurnya 6</option>
+												</select>
+											</div>
+										</div>
+										<!-- TUTUP PARAMETERIZE -->
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<table class="table">
+													<tr id="field2">
+														<td>
+															<input type="text" class="form-control" placeholder="Nama">
+														</td>
+														<td><input type="email" class="form-control" placeholder="Email"></td>
+														<td><input type="text" class="form-control" placeholder="Instansi"></td>
+														<td><input type="text" class="form-control" placeholder="No Telp"></td>
+														<td><a onclick="tambah_SS()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+													</tr>
+												</table>
+											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="file" name="file" class="form-control" required>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<table class="table">
-												<tr id="field2">
-													<td>
-														<input type="text" class="form-control" placeholder="Nama">
-													</td>
-													<td><input type="email" class="form-control" placeholder="Email"></td>
-													<td><input type="text" class="form-control" placeholder="Instansi"></td>
-													<td><input type="text" class="form-control" placeholder="No Telp"></td>
-													<td><a onclick="tambah_SS()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-												</tr>
-											</table>
-										</div>
-									</div>
+									<!-- CLOSE MYSTERY CALL -->
 								</div>
 							</div>
-							<!-- CLOSE SURVEY STAKEHOLDER -->
+							<!-- OJK MELAYANI -->
+							
 
 							<!-- OJK PEDULI -->
 							<div class="block">
@@ -176,25 +223,57 @@
 									</div>
 									<h2><strong>OJK PEDULI</strong></h2>
 								</div>
-								<div class="block-content" style="display: none;">
+								<div class="block-content">
 									<div class="form-group">
-										<label class="col-md-3 control-label">Indikator Penilaian <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>50</h4>
+											<h4>Programnya</h4>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>50</h4>
+											<h4>Tujuan programnya</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
 										<div class="col-md-9">
-											<input type="file" name="file" class="form-control" required>
+											<input type="file" name="file" class="form-control" >
 										</div>
 									</div>
+									<!-- MANUAL -->
+									<div class="form-group">
+										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
+											<output for="fader" id="volume">0</output>
+										</div>
+									</div>
+									<!-- TUTUP MANUAL -->
+
+									<!-- PARAMETERIZE -->
+									<div class="form-group">
+										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<select class="form-control">
+												<option>Nama Alat Ukurnya 1</option>
+												<option>Nama Alat Ukurnya 2</option>
+												<option>Nama Alat Ukurnya 3</option>
+												<option>Nama Alat Ukurnya 4</option>
+												<option>Nama Alat Ukurnya 5</option>
+												<option>Nama Alat Ukurnya 6</option>
+											</select>
+										</div>
+									</div>
+									<!-- TUTUP PARAMETERIZE -->
+
 									<div class="form-group">
 										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
 										<div class="col-md-9">
@@ -225,43 +304,57 @@
 									</div>
 									<h2><strong>OJK INOVATIF</strong></h2>
 								</div>
-								<div class="block-content" style="display: none;">
+								<div class="block-content">
 									<div class="form-group">
-										<label class="col-md-3 control-label" for="val_username">Nama Program <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<input type="text" class="form-control" placeholder="Nama Program" required>	
+											<h4>Programnya</h4>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label" for="val_username">Tujuan Program <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<input type="text" class="form-control" placeholder="Tujuan Program" required>	
+											<h4>Tujuan programnya</h4>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label" for="val_username">Deskripsi Program <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
 										<div class="col-md-9">
-											<input type="text" class="form-control" placeholder="Deskripsi Program" required>	
+											<input type="file" name="file" class="form-control" >
+										</div>
+									</div>
+									<!-- MANUAL -->
+									<div class="form-group">
+										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="text" class="form-control">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label" for="val_username">Alat Ukur <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 										<div class="col-md-9">
-											<input type="text" class="form-control" placeholder="Alat Ukur" required>	
+											<input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
+											<output for="fader" id="volume">0</output>
 										</div>
 									</div>
+									<!-- TUTUP MANUAL -->
+
+									<!-- PARAMETERIZE -->
 									<div class="form-group">
-										<label class="col-md-3 control-label" for="val_username">Nilai <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
 										<div class="col-md-9">
-											<input type="text" class="form-control" placeholder="Niali" required>	
+											<select class="form-control">
+												<option>Nama Alat Ukurnya 1</option>
+												<option>Nama Alat Ukurnya 2</option>
+												<option>Nama Alat Ukurnya 3</option>
+												<option>Nama Alat Ukurnya 4</option>
+												<option>Nama Alat Ukurnya 5</option>
+												<option>Nama Alat Ukurnya 6</option>
+											</select>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label" for="val_username">Lampiran Berkas <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="file" class="form-control" required>	
-										</div>
-									</div>
+									<!-- TUTUP PARAMETERIZE -->
+
 									<div class="form-group">
 										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
 										<div class="col-md-9">
@@ -295,23 +388,23 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i> 1. Program Budaya Spesifik <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Program Budaya Spesifik <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-											2. Serapan Anggaran <big>15%</big></strong>
+											Serapan Anggaran <br> <big>15%</big></strong>
 										</a>
 									</li>
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+											<strong>Partisipan Pimpinan <br> <big>30%</big></strong>
 										</a>
 									</li>
 
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
 										</a>
 									</li>
 								</ul>
@@ -379,23 +472,23 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>1. Program Budaya Spesifik <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Program Budaya Spesifik <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-											<i class="fa fa-check"></i> 2. Serapan Anggaran <big>15%</big></strong>
+											<i class="fa fa-check"></i>Serapan Anggaran <br> <big>15%</big></strong>
 										</a>
 									</li>
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong>3. Partisipan Pimpinan <big>30%</big></strong>
+											<strong>Partisipan Pimpinan <br> <big>30%</big></strong>
 										</a>
 									</li>
 
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
 										</a>
 									</li>
 								</ul>
@@ -444,23 +537,23 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>1. Program Budaya Spesifik <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Program Budaya Spesifik <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-											<i class="fa fa-check"></i> 2. Serapan Anggaran <big>15%</big></strong>
+											<i class="fa fa-check"></i>Serapan Anggaran <br> <big>15%</big></strong>
 										</a>
 									</li>
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong> <i class="fa fa-check"></i> 3. Partisipan Pimpinan <big>30%</big></strong>
+											<strong> <i class="fa fa-check"></i>Partisipan Pimpinan <br> <big>30%</big></strong>
 										</a>
 									</li>
 
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>4. Kecepatan Pelaporan <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
 										</a>
 									</li>
 								</ul>
@@ -497,7 +590,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 					<!-- END Fourth Step -->
 
@@ -522,6 +614,7 @@
 <script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script>
 <script>$(function(){ FormsWizard.init(); });</script>
 <script type="text/javascript">
+
 	function tambah_MC(){
 		$('<tr id="baru">'+
 			'<td style="text-align:center;">'+
@@ -609,7 +702,11 @@
 			$(this).closest("tr").remove();
 		});
 	}
-
+</script>
+<script type="text/javascript">
+	function outputUpdate(vol) {
+		document.querySelector('#volume').value = vol;
+	}
 
 </script>
 @endsection

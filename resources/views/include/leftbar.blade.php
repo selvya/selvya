@@ -176,6 +176,33 @@
                                 <li>
                                     <a href="#" class="sidebar-nav-menu">
                                         <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                        <i class="gi gi-sort sidebar-nav-icon"></i>
+                                        <span class="sidebar-nav-mini-hide">Input Tambahan</span>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="{{url('lomba-kreasi-kreatif')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Lomba Kreasi Kreatif
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('budaya-internal')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Survey Budaya Internal
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('budaya-eksternal')}}">
+                                                <i class="gi gi-notes sidebar-nav-icon"></i> 
+                                                Survey Budaya Eksternal
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="sidebar-nav-menu">
+                                        <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
                                         <i class="gi gi-imac sidebar-nav-icon"></i>
                                         <span class="sidebar-nav-mini-hide">Monitoring</span>
                                     </a>
