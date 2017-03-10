@@ -226,8 +226,8 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="@if(Request::is('')) active @endif">
-                                <a href="{{url('')}}">
+                            <li class="@if(Request::is('grafik-budaya')) active @endif">
+                                <a href="{{url('grafik-budaya')}}">
                                     <i class="fa fa-line-chart sidebar-nav-icon"></i> 
                                     Grafik Budaya Satker
                                 </a>
