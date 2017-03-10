@@ -65,6 +65,7 @@ Route::get('arsip/inovatif', function () {
 Route::get('detail/inovatif', function () {
     return view('inovatif.detail-inovatif');
 });
+Route::post('proses/tambah/inovatif', 'InovatifController@tambah');
 //TUTUP OJK INOVATIF
 
 //MONITORING

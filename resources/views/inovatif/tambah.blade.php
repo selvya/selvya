@@ -25,29 +25,30 @@
 					<h2><strong>Form</strong></h2>
 				</div>
 				<div class="container" style="max-width: 1000px;">
-					<form>
+					<form action="{{url('proses/tambah/inovatif')}}" method="POST">
+					{{csrf_field()}}
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Nama Program</label>
 							<div class="col-md-10">
-								<input class="form-control" type="text" id="">
+								<input class="form-control" type="text" name="nama">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Deskripsi Program</label>
 							<div class="col-md-10">
-								<textarea class="form-control" rows="5"></textarea>
+								<textarea class="form-control" rows="5" name="deskripsi"></textarea>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Tujuan Program</label>
 							<div class="col-md-10">
-								<input class="form-control" type="text" id="">
+								<input class="form-control" type="text" name="tujuan">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Alat Ukur</label>
 							<div class="col-md-10">
-								<input type="checkbox" name="" id="cekalatukur1"> Gunakan alat ukur berikut (Centang bila digunakan)
+								<input type="checkbox" name="cekalatukur1" id="cekalatukur1"> Gunakan alat ukur berikut (Centang bila digunakan)
 								<br><br>
 								<input class="form-control alatukur1" type="text" placeholder="Alat Ukur I">
 							</div>
@@ -64,45 +65,45 @@
 									</tr>
 									<tr>
 										<td class="text-center">Skala 1</td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="def1_tw1" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="def1_tw2" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="def1_tw3" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 1" type="text" name="def1_tw4" class="form-control alatukur1"></td>
 									</tr>
 									<tr>
 										<td class="text-center">Skala 2</td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="def2_tw1" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="def2_tw2" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="def2_tw3" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 2" type="text" name="def2_tw4" class="form-control alatukur1"></td>
 									</tr>
 									<tr>
 										<td class="text-center">Skala 3</td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="def3_tw1" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="def3_tw2" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="def3_tw3" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 3" type="text" name="def3_tw4" class="form-control alatukur1"></td>
 									</tr>
 									<tr>
 										<td class="text-center">Skala 4</td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="def4_tw1" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="def4_tw2" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="def4_tw3" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 4" type="text" name="def4_tw4" class="form-control alatukur1"></td>
 									</tr>
 									<tr>
 										<td class="text-center">Skala 5</td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="def5_tw1" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="def5_tw2" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="def5_tw3" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 5" type="text" name="def5_tw4" class="form-control alatukur1"></td>
 									</tr>
 									<tr>
 										<td class="text-center">Skala 6</td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="def6_tw1" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="def6_tw2" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="def6_tw3" class="form-control alatukur1"></td>
+										<td><input placeholder="Definisi Nilai 6" type="text" name="def6_tw4" class="form-control alatukur1"></td>
 									</tr>
 								</table>
 							</div>
