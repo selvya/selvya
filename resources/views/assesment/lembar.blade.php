@@ -39,7 +39,7 @@
 			</table>
 		</div>
 		<div class="text-right">
-			<a href="{{url('arsip/assessment')}}" class="btn btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment"><i class="fa fa-eye"></i></a>
+			<a href="{{url('arsip/assessment')}}" class="btn btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment">Arsip</a>
 		</div>
 		<br>
 		<div class="table-responsive">
@@ -86,9 +86,9 @@
 					<tbody>
 
 						<tr class="odd">
-							<td class="sorting_1">Januari - Maret</td>
-							<td class=" ">2017</td>
-							<td class=" ">
+							<td class="text-center">Januari - Maret</td>
+							<td class="text-center">2017</td>
+							<td >
 								<div>
 									<p>
 										<strong>Terakhir diubah :</strong> 20-12-2019
@@ -101,19 +101,43 @@
 									</div>
 								</div>
 							</td>
-							<td align="center" valign="middle" class=" ">
-								<a href="{{url('edit-self-assessment')}}" style="min-width:35%" class="btn yellow">Ubah&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
+							<td class="text-center">
+							<br>
+								<a href="{{url('edit-self-assessment')}}" class="btn btn-warning">Ubah 
+								</a>
 							</td>
-						</tr></tbody>
-					</table><div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">Showing 1 to 1 of 1 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li></ul></div></div></div></div>
-				</div>
+						</tr>
+						<tr class="odd">
+							<td class="text-center">Januari - Maret</td>
+							<td class="text-center">2017</td>
+							<td >
+								<div>
+									<p>
+										<strong>Final pada :</strong> 20-12-2019
+										<span class="text-muted pull-right">100% Complete</span>
+									</p>
+									<div class="progress progress-striped">
+										<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+											<span class="sr-only">100% Complete</span>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">
+							<br>
+								<a href="{{url('#')}}" class="btn btn-primary">Preview </a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<!-- END Datatables Content -->
 		</div>
-		<!-- END Page Content -->
-		<!-- END Page Content -->
-		@endsection
-		@section('js')
-		<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
-		<script>$(function(){ TablesDatatables.init(); });</script>
-		@endsection
+		<!-- END Datatables Content -->
+	</div>
+	<!-- END Page Content -->
+	<!-- END Page Content -->
+	@endsection
+	@section('js')
+	<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
+	<script>$(function(){ TablesDatatables.init(); });</script>
+	@endsection

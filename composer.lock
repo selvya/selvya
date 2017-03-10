@@ -4,8 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6bbec48f76aad14527ecf26152d91099",
-    "content-hash": "f81d4bdac5eb59cb98cef64ccd88250c",
+    "hash": "aed59e777416a110f2b5b3546324c1bf",
+    "content-hash": "68a6368113024a12769601292c603b66",
+
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -269,6 +270,78 @@
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
             "time": "2016-05-11 00:36:29"
+<<<<<<< HEAD
+=======
+        },
+        {
+            "name": "graham-campbell/exceptions",
+            "version": "v9.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Laravel-Exceptions.git",
+                "reference": "b2001ce4e992ca473af6f470cddfcf6e0a83430d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Exceptions/zipball/b2001ce4e992ca473af6f470cddfcf6e0a83430d",
+                "reference": "b2001ce4e992ca473af6f470cddfcf6e0a83430d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "paragonie/random_compat": "^1.1|^2.0",
+                "php": ">=5.5.9",
+                "psr/log": "^1.0",
+                "symfony/debug": "^2.7|^3.0",
+                "symfony/http-foundation": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "filp/whoops": "^1.1|^2.0",
+                "graham-campbell/testbench": "^3.1",
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.8|^5.0"
+            },
+            "suggest": {
+                "filp/whoops": "Enables use of the debug displayer."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\Exceptions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "Provides A Powerful Error Response System For Both Development And Production",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Laravel Exceptions",
+                "Laravel-Exceptions",
+                "error",
+                "errors",
+                "exception",
+                "exceptions",
+                "framework",
+                "laravel",
+                "whoops"
+            ],
+            "time": "2017-01-21 16:49:20"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "graham-campbell/manager",
@@ -384,7 +457,11 @@
                 "obfuscate",
                 "youtube"
             ],
+<<<<<<< HEAD
             "time": "2016-01-21 04:26:38"
+=======
+            "time": "2017-01-01 13:33:33"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1198,7 +1275,11 @@
                 "pseudorandom",
                 "random"
             ],
+<<<<<<< HEAD
             "time": "2017-02-27 17:11:23"
+=======
+            "time": "2016-11-07 23:38:38"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phenx/php-font-lib",
@@ -1443,7 +1524,11 @@
                 "interactive",
                 "shell"
             ],
+<<<<<<< HEAD
             "time": "2017-03-01 00:13:29"
+=======
+            "time": "2017-01-15 17:54:13"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "ramsey/uuid",
@@ -2521,7 +2606,11 @@
                 "obfuscate",
                 "youtube"
             ],
+<<<<<<< HEAD
             "time": "2016-07-11 19:13:05"
+=======
+            "time": "2017-01-01 13:46:29"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2688,6 +2777,70 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
+<<<<<<< HEAD
+=======
+        },
+        {
+            "name": "filp/whoops",
+            "version": "2.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
+                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9 || ^7.0",
+                "psr/log": "^1.0.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "^4.8 || ^5.0",
+                "symfony/var-dumper": "^2.6 || ^3.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://filp.github.io/whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "whoops",
+                "zf2"
+            ],
+            "time": "2017-03-07 09:04:45"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "fzaninotto/faker",
@@ -2845,7 +2998,11 @@
                 "test double",
                 "testing"
             ],
+<<<<<<< HEAD
             "time": "2017-02-28 12:52:32"
+=======
+            "time": "2017-02-09 13:29:38"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "myclabs/deep-copy",
@@ -3159,7 +3316,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
             "time": "2017-02-23 07:38:02"
+=======
+            "time": "2017-01-20 15:06:43"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3296,7 +3457,11 @@
             "keywords": [
                 "timer"
             ],
+<<<<<<< HEAD
             "time": "2017-02-26 11:10:40"
+=======
+            "time": "2016-05-12 18:03:57"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phpunit/php-token-stream",
@@ -3345,7 +3510,11 @@
             "keywords": [
                 "tokenizer"
             ],
+<<<<<<< HEAD
             "time": "2017-02-27 10:12:30"
+=======
+            "time": "2016-11-15 14:06:22"
+>>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phpunit/phpunit",

@@ -18,6 +18,9 @@ Route::get('test', function () {
 Route::get('/', function () {
     return view('home.home');
 });
+Route::get('home-reviewer', function () {
+    return view('home.home-reviewer');
+});
 
 
 
@@ -56,6 +59,9 @@ Route::get('tambah/inovatif', function () {
 Route::get('arsip/inovatif', function () {
     return view('inovatif.arsip');
 });
+Route::get('detail/inovatif', function () {
+    return view('inovatif.detail-inovatif');
+});
 //TUTUP OJK INOVATIF
 
 //MONITORING
@@ -68,11 +74,16 @@ Route::get('rekap-monitoring', function () {
 Route::get('hasil-monitoring', function () {
     return view('monitoring.hasil');
 });
+
 Route::get('ubah-anggaran', function () {
     return view('monitoring.ubah');
 });
+
 Route::get('lihat-anggaran', function () {
     return view('monitoring.lihat');
+});
+Route::get('anggaran-budaya', function () {
+    return view('monitoring.anggaran-budaya');
 });
 //TUTUP MONITORING
 
@@ -190,6 +201,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('komisioner/hapus/{id}','KomisionerController@hapus');
     Route::get('komisioner/edit/{id}','KomisionerController@editview');
     Route::post('komisioner/edit/proses/{id}','KomisionerController@edit');
+
+    //KECEPATAN LAPORAN
+    Route::get('cek-simpan-pelaporan', 'SelfAssesmentController@cekSimpanPelaporan');
 });
 
 

@@ -1126,8 +1126,8 @@
         });
 
         $('#modal_simpan1').on('click', function() {
-            let s1 = $(this);
-            let sender_id = $('#sender_id1').val();
+            var s1 = $(this);
+            var sender_id = $('#sender_id1').val();
             var sender = $('#' + sender_id);
 
             if ($('#definisi1_6').val().length < 1) {
@@ -1203,8 +1203,8 @@
 
         //Simpan 2
         $('#modal_simpan2').on('click', function() {
-            let s2 = $(this);
-            let sender_id = $('#sender_id2').val();
+            var s2 = $(this);
+            var sender_id = $('#sender_id2').val();
             var sender = $('#' + sender_id);
 
             if ($('#definisi2_6').val().length < 1) {
@@ -1280,8 +1280,8 @@
 
         //Simpan 4
         $('#modal_simpan4').on('click', function() {
-            let s4 = $(this);
-            let sender_id = $('#sender_id4').val();
+            var s4 = $(this);
+            var sender_id = $('#sender_id4').val();
             var sender = $('#' + sender_id);
 
             if ($('#definisi4_6').val().length < 1) {
@@ -1467,8 +1467,10 @@
 
             if ($('select[name="jenis_program"] option:selected').val() == '3') {
 
-                $('#melayani_container').hide().find(':input').prop('disabled', true);
-                $('#peduli_container').hide().find(':input').prop('disabled', true);
+//                $('#melayani_container').hide().find(':input').prop('disabled', true);
+//                $('#peduli_container').hide().find(':input').prop('disabled', true);
+                $('#melayani_container').hide();
+                $('#peduli_container').hide();
 
                 $('[id^=keterangan3_]').hide().prop('disabled', true);
                 $('[id^=keterangan3_3]').show().prop('disabled', false);
@@ -1476,8 +1478,8 @@
                 $('[id^=modal_simpan3]').hide().prop('disabled', true);
                 $('[id^=modal_simpan3_3]').show().prop('disabled', false);
 
-                $('[id^=input_tipe3_').prop('checked', false).parent().hide();
-                $('#input_tipe3_3').prop('checked', true).parent().show();
+                 $('[id^=input_tipe3_').parent().hide();
+                // $('#input_tipe3_3').prop('checked', true).parent().show();
 
                 $('#inovatif_container').show().find(':input').prop('disabled', false);
 
@@ -1489,8 +1491,8 @@
                 $('[id^=keterangan3_]').hide().prop('disabled', true);
                 $('[id^=keterangan3_2]').show().prop('disabled', false);
 
-                $('[id^=modal_simpan3]').hide().prop('disabled', true);
-                $('[id^=modal_simpan3_2]').show().prop('disabled', false);
+                // $('[id^=modal_simpan3]').hide().prop('disabled', true);
+                // $('[id^=modal_simpan3_2]').show().prop('disabled', false);
 
                 $('[id^=input_tipe3_').prop('checked', false).parent().hide();
                 $('#input_tipe3_1').prop('checked', true).parent().show();
@@ -1498,7 +1500,7 @@
                 
                 $('#peduli_container').show().find(':input').prop('disabled', false);
 
-            } else {
+            } else if($('select[name="jenis_program"] option:selected').val() == '1') {
 
                 $('#inovatif_container').hide().find(':input').prop('disabled', true);
                 $('#peduli_container').hide().find(':input').prop('disabled', true);
@@ -1510,8 +1512,8 @@
                 $('[id^=modal_simpan3_1]').show().prop('disabled', false);
 
                 $('[id^=input_tipe3_').show().prop('checked', false).parent().hide();
-                $('#input_tipe3_1').prop('checked', true).parent().show();
-                $('#input_tipe3_3').prop('checked', false).parent().show();
+                // $('#input_tipe3_1').prop('checked', true).parent().show();
+                // $('#input_tipe3_3').prop('checked', false).parent().show();
 
                 $('#mc, #sks').prop('checked', true).prop('disabled', false);
 
@@ -1588,7 +1590,6 @@
                         alert(response.message);
                         $('#keterangan3_1, #persen3').prop('readonly', false);
                         $('#persen3').focus();
-
                     }
                     s3_1.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
                     $('#keterangan3_1, #persen3').prop('readonly', false);

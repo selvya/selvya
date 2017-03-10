@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'OJK Assesment',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -184,6 +184,8 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         //HashIDs
         Vinkla\Hashids\HashidsServiceProvider::class,
+        //Whoops
+        GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
     ],
 
     /*

@@ -5,6 +5,32 @@
 </style>
 @endsection
 @section('content')
+
+ 	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="modal1" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Indikator Pencapaian Kecepatan Laporan</h4>
+                </div>
+                <div class="modal-body">
+
+                	<div id="wadah">
+                		
+                	</div>
+                </div>
+            </div>
+        </div>
+   </div>
+{{-- 
+	<button id="anu" data-wara="ilahm"  onclick="showmodal($(this))">Show</button>
+	<button id="anu" data-wara="dgghg"  onclick="showmodal($(this))">Show</button>
+	<button id="anu" data-wara="fghfgh"  onclick="showmodal($(this))">Show</button>
+	<button id="anu" data-wara="ilaerythm"  onclick="showmodal($(this))">Show</button>
+	<button id="anu" data-wara="ilahfghhm"  onclick="showmodal($(this))">Show</button>
+	<button id="anu" data-wara="gdfg"  onclick="showmodal($(this))">Show</button>
+	<button id="anu" data-wara="ilaerthm"  onclick="showmodal($(this))">Show</button>
+	 --}}
+
 <!-- Page content -->
 <div id="page-content">
 	<!-- Datatables Header -->
@@ -68,4 +94,11 @@
 	@section('js')
 	<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
 	<script>$(function(){ TablesDatatables.init(); });</script>
+
+	<script type="text/javascript">
+		function showmodal(obj) {
+			$('#wadah').text(obj.attr('data-wara'));
+			$('#modal1').modal('show');
+		}
+	</script>
 	@endsection

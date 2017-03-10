@@ -25,4 +25,8 @@ class Iku extends Model
     public function getHashidAttribute() {
         return Hashids::connection('iku')->encode($this->attributes['id']);
     }
+
+    public function alat_ukur() {
+        return $this->hasMany('\App\AlatUkur', 'iku_id');
+    }
 }

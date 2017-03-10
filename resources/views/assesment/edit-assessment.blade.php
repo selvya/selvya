@@ -7,6 +7,9 @@
 	.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td, .table tbody + tbody, .table-bordered, .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
 		border:none;
 	}
+	.form-bordered .form-group{
+		padding: 10px 15px!important;
+	}
 </style>
 <div id="page-content">
 	<!-- Wizard Header -->
@@ -37,7 +40,7 @@
 				<!-- END Wizard with Validation Title -->
 
 				<!-- Wizard with Validation Content -->
-				<form id="advanced-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
+				<form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
 					<!-- First Step -->
 					<div id="clickable-first" class="step">
 
@@ -50,7 +53,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
+										<a href="javascript:void(0)" data-gotostep="clickable-second" class="stepnya"><strong>
 											Serapan Anggaran <br> <big>15%</big></strong>
 										</a>
 									</li>
@@ -593,9 +596,9 @@
 
 					<!-- Form Buttons -->
 					<div class="form-group form-actions">
-						<div class="col-md-8 col-md-offset-4">
-							<input type="reset" class="btn btn-sm btn-warning" id="back2" value="Back">
-							<input type="submit" class="btn btn-sm btn-primary" id="next2" value="Next">
+						<div class="col-md-8 col-md-offset-6">
+							<input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
+							<input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
 						</div>
 					</div>
 					<!-- END Form Buttons -->
@@ -700,11 +703,5 @@
 			$(this).closest("tr").remove();
 		});
 	}
-</script>
-<script type="text/javascript">
-	function outputUpdate(vol) {
-		document.querySelector('#volume').value = vol;
-	}
-
 </script>
 @endsection

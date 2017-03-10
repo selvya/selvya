@@ -7,11 +7,13 @@
     "require": {
         "php": ">=5.6.4",
         "barryvdh/laravel-dompdf": "^0.7.0",
+        "graham-campbell/exceptions": "^9.3",
         "laravel/framework": "5.3.*",
         "vinkla/hashids": "^2.0",
         "yajra/laravel-datatables-oracle": "^6.25"
     },
     "require-dev": {
+        "filp/whoops": "^2.1",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
