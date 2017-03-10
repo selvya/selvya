@@ -33,4 +33,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('\App\Sarker', 'id_satker');
     }
+
+    public function direktorat()
+    {
+        return $this->belongsTo('\App\Direktorat', 'direktorat_id');
+    }
 }

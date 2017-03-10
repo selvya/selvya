@@ -137,7 +137,7 @@ Route::get('hapus-maping/{id}', 'MappingController@hapus');
 | ADMIN
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['admin']], function () {
+// Route::group(['middleware' => ['admin']], function () {
 
     Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
     Route::get('persentase/detail/{hashid}', ['as' => 'persentase.detail', 'uses' => 'PengaturanController@getPersentaseAjax']);
@@ -212,7 +212,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     //Serapan Anggaran
     Route::get('cek-serapan-anggaran', 'SelfAssesmentController@cekSerapanAnggaran');
-});
+// });
 
 
 
