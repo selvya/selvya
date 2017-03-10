@@ -47,6 +47,9 @@ Route::get('hasil-assessment', function () {
 Route::get('rekap-budaya', function () {
     return view('assesment.rekap-budaya');
 });
+Route::get('detail/assessment', function () {
+    return view('assesment.detail-assessment');
+});
 //ASSESSMENT TUTUP
 
 //OJK INOVATIF
@@ -58,6 +61,9 @@ Route::get('tambah/inovatif', function () {
 });
 Route::get('arsip/inovatif', function () {
     return view('inovatif.arsip');
+});
+Route::get('detail/inovatif', function () {
+    return view('inovatif.detail-inovatif');
 });
 //TUTUP OJK INOVATIF
 
@@ -71,6 +77,7 @@ Route::get('rekap-monitoring', function () {
 Route::get('hasil-monitoring', function () {
     return view('monitoring.hasil');
 });
+
 
 Route::get('ubah-anggaran', function () {
     return view('monitoring.ubah');
@@ -173,6 +180,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('user','UserController@user');
     Route::get('user/tambah', 'UserController@usertambahview');
     Route::post('user/tambah/proses', 'UserController@tambahuser');
+    Route::get('user/hapus/{id}', 'UserController@hapususer');
 
     //DEPARTEMEN
     Route::get('departemen','DepartemenController@index');
@@ -217,6 +225,10 @@ Route::get('survey', function () {
 });
 
 Auth::routes();
+
+Route::get('grafik-budaya', function () {
+    return view('assesment.grafik-budaya');
+});
 
 Route::get('/home', 'HomeController@index');
 
