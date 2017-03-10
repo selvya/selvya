@@ -75,6 +75,7 @@ Route::get('hasil-monitoring', function () {
     return view('monitoring.hasil');
 });
 
+
 Route::get('ubah-anggaran', function () {
     return view('monitoring.ubah');
 });
@@ -176,6 +177,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('user','UserController@user');
     Route::get('user/tambah', 'UserController@usertambahview');
     Route::post('user/tambah/proses', 'UserController@tambahuser');
+    Route::get('user/hapus/{id}', 'UserController@hapususer');
 
     //DEPARTEMEN
     Route::get('departemen','DepartemenController@index');
@@ -217,5 +219,9 @@ Route::get('survey', function () {
 });
 
 Auth::routes();
+
+Route::get('grafik-budaya', function () {
+    return view('assesment.grafik-budaya');
+});
 
 Route::get('/home', 'HomeController@index');

@@ -35,4 +35,10 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User berhasil ditambahkan');
 
     }
+    public function hapususer($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('success', 'User berhasil dihapus');        
+    }
 }
