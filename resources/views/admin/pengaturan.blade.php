@@ -69,37 +69,61 @@
                             <tr>
                                 <th>Deskripsi Indikator 6</th>
                                 <td>
-                                    <input type="text" name="definisi1_6" id="definisi1_6" class="form-control" value="">
+                                    <div class="input-group col-md-6">
+                                        <span class="input-group-addon">=</span>
+                                        <input type="text" name="definisi1_6" id="definisi1_6" class="form-control" value="">
+                                        <span class="input-group-addon">Hari dari batas</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 5</th>
                                 <td>
-                                    <input type="text" name="definisi1_5" id="definisi1_5" class="form-control" value="">
+                                    <div class="input-group col-md-6">
+                                        <span class="input-group-addon">+</span>
+                                        <input type="text" name="definisi1_5" id="definisi1_5" class="form-control" value="">
+                                        <span class="input-group-addon">Hari dari batas</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 4</th>
                                 <td>
-                                    <input type="text" name="definisi1_4" id="definisi1_4" class="form-control" value="">
+                                    <div class="input-group col-md-6">
+                                        <span class="input-group-addon">+</span>
+                                        <input type="text" name="definisi1_4" id="definisi1_4" class="form-control" value="">
+                                        <span class="input-group-addon">Hari dari batas</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 3</th>
                                 <td>
-                                    <input type="text" name="definisi1_3" id="definisi1_3" class="form-control" value="">
+                                    <div class="input-group col-md-6">
+                                        <span class="input-group-addon">+</span>
+                                        <input type="text" name="definisi1_3" id="definisi1_3" class="form-control" value="">
+                                        <span class="input-group-addon">Hari dari batas</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 2</th>
                                 <td>
-                                    <input type="text" name="definisi1_2" id="definisi1_2" class="form-control" value="">
+                                    <div class="input-group col-md-6">
+                                        <span class="input-group-addon">></span>
+                                        <input type="text" name="definisi1_2" id="definisi1_2" class="form-control" value="">
+                                        <span class="input-group-addon">Hari dari batas</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 1</th>
                                 <td>
-                                    <input type="text" name="definisi1_1" id="definisi1_1" class="form-control" value="">
+                                    <div class="input-group col-md-6">
+                                        <span class="input-group-addon">!!!</span>
+                                        <input type="text" name="definisi1_1" id="definisi1_1" class="form-control" value="">
+                                        <span class="input-group-addon">Hari dari batas</span>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -176,37 +200,61 @@
                             <tr>
                                 <th>Deskripsi Indikator 6</th>
                                 <td>
-                                    <input type="text" name="definisi2_6" id="definisi2_6" class="form-control" value="">
+                                    <div class="col-md-6 input-group">
+                                        <span class="input-group-addon">>=</span>
+                                        <input type="text" name="definisi2_6" id="definisi2_6" class="form-control" value="">
+                                        <span class="input-group-addon">%</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 5</th>
                                 <td>
-                                    <input type="text" name="definisi2_5" id="definisi2_5" class="form-control" value="">
+                                    <div class="col-md-6 input-group">
+                                        <span class="input-group-addon">></span>
+                                        <input type="text" name="definisi2_5" id="definisi2_5" class="form-control" value="">
+                                        <span class="input-group-addon">%</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 4</th>
                                 <td>
-                                    <input type="text" name="definisi2_4" id="definisi2_4" class="form-control" value="">
+                                    <div class="col-md-6 input-group">
+                                        <span class="input-group-addon">></span>
+                                        <input type="text" name="definisi2_4" id="definisi2_4" class="form-control" value="">
+                                        <span class="input-group-addon">%</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 3</th>
                                 <td>
-                                    <input type="text" name="definisi2_3" id="definisi2_3" class="form-control" value="">
+                                    <div class="col-md-6 input-group">
+                                        <span class="input-group-addon">></span>
+                                        <input type="text" name="definisi2_3" id="definisi2_3" class="form-control" value="">
+                                        <span class="input-group-addon">%</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 2</th>
                                 <td>
-                                    <input type="text" name="definisi2_2" id="definisi2_2" class="form-control" value="">
+                                    <div class="col-md-6 input-group">
+                                        <span class="input-group-addon"><=</span>
+                                        <input type="text" name="definisi2_2" id="definisi2_2" class="form-control" value="">
+                                        <span class="input-group-addon">%</span>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Deskripsi Indikator 1</th>
                                 <td>
-                                    <input type="text" name="definisi2_1" id="definisi2_1" class="form-control" value="">
+                                    <div class="col-md-6 input-group">
+                                        <span class="input-group-addon">!!!</span>
+                                        <input type="text" name="definisi2_1" id="definisi2_1" class="form-control" value="NA">
+                                        <span class="input-group-addon">%</span>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
