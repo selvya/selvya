@@ -28,4 +28,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function satuan_kerja()
+    {
+        return $this->hasOne('\App\Sarker', 'id_satker');
+    }
+
+    public function direktorat()
+    {
+        return $this->belongsTo('\App\Direktorat', 'direktorat_id');
+    }
 }

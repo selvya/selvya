@@ -66,6 +66,10 @@
 						<div class="col-sm-10">
 							<select name="departemen" class="form-control">
 								<option value="kosong">-- Pilih --</option>
+								@forelse($departemen as $k => $v)
+									<option value="{{$v->id}}">{{$v->departemen_name}}</option>
+								@empty
+								@endforelse
 							</select>
 						</div>
 					</div>
@@ -74,6 +78,10 @@
 						<div class="col-sm-10">
 							<select name="kojk" class="form-control">
 								<option value="kosong">-- Pilih --</option>
+								@forelse($kojk as $k => $v)
+									<option value="{{$v->id}}">{{$v->direktorat_name}}</option>
+								@empty
+								@endforelse
 							</select>
 						</div>
 					</div>

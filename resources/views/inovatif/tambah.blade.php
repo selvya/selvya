@@ -25,31 +25,36 @@
 					<h2><strong>Form</strong></h2>
 				</div>
 				<div class="container" style="max-width: 1000px;">
-					<form>
+
+					@include('include.alert')
+
+					<form action="{{url('proses/tambah/inovatif')}}" method="POST">
+						{{csrf_field()}}
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Nama Program</label>
 							<div class="col-md-10">
-								<input class="form-control" type="text" id="">
+								<input class="form-control" type="text" name="nama">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Deskripsi Program</label>
 							<div class="col-md-10">
-								<textarea class="form-control" rows="5"></textarea>
+								<textarea class="form-control" rows="5" name="deskripsi"></textarea>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Tujuan Program</label>
 							<div class="col-md-10">
-								<input class="form-control" type="text" id="">
+								<input class="form-control" type="text" name="tujuan">
 							</div>
 						</div>
+						@for($k=1; $k <= 3; $k++)
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Alat Ukur</label>
 							<div class="col-md-10">
-								<input type="checkbox" name="" id="cekalatukur1"> Gunakan alat ukur berikut (Centang bila digunakan)
+								<input type="checkbox" name="cekalatukur{{$k}}" @if( $k == 1) checked required @endif value="1" id="cekalatukur{{$k}}"> Gunakan alat ukur berikut (Centang bila digunakan)
 								<br><br>
-								<input class="form-control alatukur1" type="text" placeholder="Alat Ukur I">
+								<input class="form-control alatukur{{$k}}" type="text" @if( $k == 1) required @endif placeholder="Alat Ukur {{$k}}">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -62,185 +67,27 @@
 										<th class="text-center">Triwulan III</th>
 										<th class="text-center">Triwulan IV</th>
 									</tr>
+									@for($i=1; $i<= 6; $i++)
+
 									<tr>
-										<td class="text-center">Skala 1</td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur1"></td>
+										<td class="text-center">Skala {{$i}}</td>
+										@for($j=1; $j<=4; $j++)
+										<td>
+											<input placeholder="Definisi Nilai {{$i}}" type="text" @if( $k == 1) required @endif name="alt{{$k}}_def{{$i}}_tw{{$j}}" class="form-control alatukur{{$k}}">
+										</td>
+
+										@endfor
 									</tr>
-									<tr>
-										<td class="text-center">Skala 2</td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur1"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 3</td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur1"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 4</td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur1"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 5</td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur1"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 6</td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur1"></td>
-									</tr>
+									@endfor
 								</table>
 							</div>
 						</div>
-
-						<div class="form-group row">
-							<label class="col-md-2 col-form-label">Alat Ukur</label>
-							<div class="col-md-10">
-								<input type="checkbox" name="" id="cekalatukur2"> Gunakan alat ukur berikut (Centang bila digunakan)
-								<br><br>
-								<input class="form-control alatukur2" type="text" placeholder="Alat Ukur II">
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-10 pull-right">
-								<table class="table table-condensed table-hover table-stripped">
-									<tr>
-										<th class="text-center" style="width: 10%!important;">Nilai</th>
-										<th class="text-center">Triwulan I</th>
-										<th class="text-center">Triwulan II</th>
-										<th class="text-center">Triwulan III</th>
-										<th class="text-center">Triwulan IV</th>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 1</td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur2"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 2</td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur2"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 3</td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur2"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 4</td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur2"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 5</td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur2"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 6</td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur2"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur2"></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-
-						<div class="form-group row">
-							<label class="col-md-2 col-form-label">Alat Ukur</label>
-							<div class="col-md-10">
-								<input type="checkbox" name="" id="cekalatukur3"> Gunakan alat ukur berikut (Centang bila digunakan)
-								<br><br>
-								<input class="form-control alatukur3" type="text" placeholder="Alat Ukur III">
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-10 pull-right">
-								<table class="table table-condensed table-hover table-stripped">
-									<tr>
-										<th class="text-center" style="width: 10%!important;">Nilai</th>
-										<th class="text-center">Triwulan I</th>
-										<th class="text-center">Triwulan II</th>
-										<th class="text-center">Triwulan III</th>
-										<th class="text-center">Triwulan IV</th>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 1</td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 1" type="text" name="" class="form-control alatukur3"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 2</td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 2" type="text" name="" class="form-control alatukur3"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 3</td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 3" type="text" name="" class="form-control alatukur3"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 4</td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 4" type="text" name="" class="form-control alatukur3"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 5</td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 5" type="text" name="" class="form-control alatukur3"></td>
-									</tr>
-									<tr>
-										<td class="text-center">Skala 6</td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur3"></td>
-										<td><input placeholder="Definisi Nilai 6" type="text" name="" class="form-control alatukur3"></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-
+						@endfor
 						<div class="form-group row">
 							<div class="col-md-12 text-center">
 								<a href="{{url('inovatif')}}" class="btn btn-default btn-lg"><i class="fa fa-arrow-left"></i> Kembali</a>
-								<button class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Simpan</button>
-								<button class="btn btn-success btn-lg"><i class=" fa fa-flag"></i> Finalisasi</button>
+								<button class="btn btn-primary btn-lg" name="simpan" value="t"><i class="fa fa-save"></i> Simpan</button>
+								<button class="btn btn-success btn-lg" name="simpan" value="y"><i class=" fa fa-flag"></i> Finalisasi</button>
 							</div>
 						</div>
 
@@ -257,39 +104,39 @@
 <script>$(function(){ FormsWizard.init(); });</script>
 <script type="text/javascript">
 	$(function() {
-  		alatukur1();
-  		$("#cekalatukur1").click(alatukur1);
+		// alatukur1();
+		// $("#cekalatukur1").click(alatukur1);
 
-  		alatukur2();
-  		$("#cekalatukur2").click(alatukur2);
+		alatukur2();
+		$("#cekalatukur2").click(alatukur2);
 
-  		alatukur3();
-  		$("#cekalatukur3").click(alatukur3);
+		alatukur3();
+		$("#cekalatukur3").click(alatukur3);
 	});
 
-	function alatukur1() {
-  		if (this.checked) {
-    		$(".alatukur1").removeAttr("disabled");
-    		
-  		} else {
-    		$(".alatukur1").attr("disabled", true);
-  		}
-	}
+	// function alatukur1() {
+	// 	if (this.checked) {
+	// 		$(".alatukur1").removeAttr("disabled");
+
+	// 	} else {
+	// 		$(".alatukur1").attr("disabled", true);
+	// 	}
+	// }
 	function alatukur2() {
-  		if (this.checked) {
-    		$(".alatukur2").removeAttr("disabled");
-    		
-  		} else {
-    		$(".alatukur2").attr("disabled", true);
-  		}
+		if (this.checked) {
+			$(".alatukur2").removeAttr("disabled").prop('required', true);
+
+		} else {
+			$(".alatukur2").attr("disabled", true).prop('required', false);
+		}
 	}
 	function alatukur3() {
-  		if (this.checked) {
-    		$(".alatukur3").removeAttr("disabled");
-    		
-  		} else {
-    		$(".alatukur3").attr("disabled", true);
-  		}
+		if (this.checked) {
+			$(".alatukur3").removeAttr("disabled").prop('required', true);
+
+		} else {
+			$(".alatukur3").attr("disabled", true).prop('required', false);
+		}
 	}
 </script>
 @endsection

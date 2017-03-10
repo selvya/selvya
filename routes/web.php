@@ -65,6 +65,7 @@ Route::get('arsip/inovatif', function () {
 Route::get('detail/inovatif', function () {
     return view('inovatif.detail-inovatif');
 });
+Route::post('proses/tambah/inovatif', 'InovatifController@tambah');
 //TUTUP OJK INOVATIF
 
 //MONITORING
@@ -137,7 +138,7 @@ Route::get('hapus-maping/{id}', 'MappingController@hapus');
 | ADMIN
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['admin']], function () {
+// Route::group(['middleware' => ['admin']], function () {
 
     Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
     Route::get('persentase/detail/{hashid}', ['as' => 'persentase.detail', 'uses' => 'PengaturanController@getPersentaseAjax']);
@@ -209,7 +210,10 @@ Route::group(['middleware' => ['admin']], function () {
 
     //KECEPATAN LAPORAN
     Route::get('cek-simpan-pelaporan', 'SelfAssesmentController@cekSimpanPelaporan');
-});
+
+    //Serapan Anggaran
+    Route::get('cek-serapan-anggaran', 'SelfAssesmentController@cekSerapanAnggaran');
+// });
 
 
 
@@ -226,5 +230,9 @@ Auth::routes();
 Route::get('grafik-budaya', function () {
     return view('assesment.grafik-budaya');
 });
+
+Route::get('/home', 'HomeController@index');
+
+Auth::routes();
 
 Route::get('/home', 'HomeController@index');
