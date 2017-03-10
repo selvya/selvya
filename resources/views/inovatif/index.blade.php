@@ -20,8 +20,8 @@
 	<!-- Datatables Content -->
 	<div class="block full">
 		<div class="text-right">
-			<a href="{{url('arsip/inovatif')}}"" class="btn btn-default" data-toggle="tooltip" title="Lihat OJK Inovatif"><i class="fa fa-eye"></i></a>
-			<a href="{{url('tambah/inovatif')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah OJK Inovatif"><i class="fa fa-plus"></i></a>
+			<a href="{{url('arsip/inovatif')}}"" class="btn btn-default" data-toggle="tooltip" title="Arsip OJK Inovatif">Arsip</a>
+			<a href="{{url('tambah/inovatif')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah OJK Inovatif">Tambah</a>
 		</div>
 		<br>
 		<div class="table-responsive">

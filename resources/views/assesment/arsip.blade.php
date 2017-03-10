@@ -100,7 +100,8 @@
 							</td>
 							<td class="text-center">
 							<br>
-								<a href="{{url('#')}}" class="btn btn-primary">Preview </a>
+								<a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
+								<span class="btn btn-success"> Sudah di Setujui</span>
 							</td>
 						</tr>
 					</tbody>

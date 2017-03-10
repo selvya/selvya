@@ -47,6 +47,9 @@ Route::get('hasil-assessment', function () {
 Route::get('rekap-budaya', function () {
     return view('assesment.rekap-budaya');
 });
+Route::get('detail/assessment', function () {
+    return view('assesment.detail-assessment');
+});
 //ASSESSMENT TUTUP
 
 //OJK INOVATIF
