@@ -201,6 +201,9 @@ Route::group(['middleware' => ['admin']], function () {
 
     //KECEPATAN LAPORAN
     Route::get('cek-simpan-pelaporan', 'SelfAssesmentController@cekSimpanPelaporan');
+
+    //Serapan Anggaran
+    Route::get('cek-serapan-anggaran', 'SelfAssesmentController@cekSerapanAnggaran');
 });
 
 
@@ -212,6 +215,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('survey', function () {
     return view('survey.index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
 
 Auth::routes();
 
