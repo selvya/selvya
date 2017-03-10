@@ -101,7 +101,7 @@
 							<td class="text-center">
 							<br>
 								<a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
-								<span class="btn btn-success"> Sudah di Setujui</span>
+								<span class="btn btn-success"> Sudah di Final</span>
 							</td>
 						</tr>
 					</tbody>
