@@ -11,6 +11,13 @@ use App\Persentase;
 
 class InovatifController extends Controller
 {
+
+    // private $satker;
+
+    // public function __construct()
+    // {
+    //     $satker = 10;
+    // }
     public function tambah(Request $r)
     {
         // $iku = new Iku;
@@ -22,48 +29,60 @@ class InovatifController extends Controller
         // $iku->daftarindikator_id = '3';
         // $iku->tahun = date('Y');
         // $iku->persen_id = '0';
-        $persentase = Persentase::where('triwulan','1')->where('daftarindikator','3')->first();
+        //$persentase = Persentase::where('triwulan','1')->where('daftarindikator','3')->first();
+        //$persentase = Persentase::where('triwulan','1')->where('daftarindikator','3')->first();
 
+        // for ($i=1; $i <=4 ; $i++) { 
+        //     $persentase[$i] = Persentase::where('tahun', date('Y'))
+        //                     ->where('triwulan',($i+1))
+        //                     ->where('daftarindikator','3')
+        //                     ->first();
+        // }
+        // dd($r->simpan);
         $iku = Iku::updateOrCreate([
-            'daftarindikator_id' => $persentase->daftarindikator_id,
-            'tahun' => date('Y'),
-            'namaprogram' => $r->namaprogram,
-            'persen_id' => $persentase->id
-        ]);
-
-        if ($r->cekalatukur1) {
-
-            $alatUkur1 = AlatUkur::updateOrCreate([
-                'iku_id' => $iku->id,
-                'name' => $iku->namaprogram
+                'persen_id' => 0,
+                'daftarindikator_id' => 3,
+                'tahun' => date('Y'),
+                'namaprogram' => $r->nama,
+                'tipe' => 'parameterized',
+                'keterangan' => $r->deksripsi,
+                'tujuan' => $r->tujuan,
+                'programbudaya_id' => 3,
+                'isfinal' => $r->simpan,
+                'satker' => 10
             ]);
 
-            // $alat = new AlatUkur;
-            // $alat->iku_id = '0';
-            // $alat->name = $r->cekalatukur1;
-            // $simpan_alat = $alat->save();
+        // return $iku;
+        $alatUkur = null;
+        $definisinilai = null;
+        for ($k=1; $k <= 3; $k++) { 
 
-            $definisiNilai1 = $alatUkur1->definisi;
+            if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {
 
-            if (count($alatUkur1->definisi) < 6)  {
-                for ($i=0; $i < 6; $i++) { 
-                    // $nilai = new DefinisiNilai;
-                    // $nilai->skala_nilai = $r->alatukur1;
-                    // $nilai->deskripsi = null;
-                    // $nilai->triwulan = null;
-                    // $nilai->alatukur_id = '0';
-                    // $nilai->iku_id = '0';
+                $alatUkur[$k] = AlatUkur::updateOrCreate([
+                    'iku_id' => $iku->id,
+                    'name' => $iku->namaprogram
+                ]);
+                for($i=1; $i<= 6; $i++) { 
 
-                    $definisiNilai1[$i] = DefinisiNilai::create([
-                        'iku_id' => $iku->id,
-                        'alatukur_id' => $alatUkur->id,
-                        'deskripsi' => request('def1'..'_tw1'),
-                        'triwulan' => $persentase->triwulan,
-                        'tahun' => $persentase->tahun
-                    ]);
+                    for ($j=1; $j <= 4 ; $j++) { 
+                        $definisinilai[$k][$i][$j] = DefinisiNilai::create([
+                            'iku_id' => $iku->id,
+                            'alatukur_id' => $alatUkur[$k]->id,
+                            'deskripsi' => request('alt'.$k.'_def'.$i.'_tw'.$j),
+                            'triwulan' => $j,
+                            'tahun' => date('Y')
+                        ]);   
+                    }
                 }
             }
-        }
-        return redirect()->back();
+         }
+
+         $rv = [
+            'AlatUkur' => $alatUkur,
+            'definisi' => $definisinilai
+         ];
+        // return $definisiNilai1[$i];
+        return redirect()->back()->with('success', 'Program OJK Inovatif Berhasil di Tambahkan');
     }
 }
