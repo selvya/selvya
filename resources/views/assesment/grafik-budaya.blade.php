@@ -98,9 +98,14 @@
 								}
 							},
 							series: [{
-								name: 'Nilai',
-								data: [10, 6 , 3,8,14]
-							}]
+								name: 'Reviewer',
+								data: [10, 6 , 3,8,14],
+							},
+							{
+								name: 'Satker',
+								data: [10, 6 , 3,8,14],
+							}
+							]
 						});
 
 							//CHART 2
@@ -131,9 +136,14 @@
 									}
 								},
 								series: [{
-									name: 'Nilai',
+									name: 'Reviewer',
 									data: [10, 6 , 3,8,14]
-								}]
+								},
+								{
+									name: 'Satker',
+									data: [10, 6 , 3,8,14]
+								}
+								]
 							});
 
 							//CHART 3
@@ -164,9 +174,14 @@
 									}
 								},
 								series: [{
-									name: 'Nilai',
+									name: 'Reviewer',
 									data: [10, 6 ]
-								}]
+								},
+								{
+									name: 'Satker',
+									data: [10, 6 ]
+								}
+								]
 							});
 
 							//CHART 4
@@ -197,9 +212,14 @@
 									}
 								},
 								series: [{
-									name: 'Nilai',
+									name: 'Reviewer',
 									data: [10, 6]
-								}]
+								},
+								{
+									name: 'Satker',
+									data: [10, 6]
+								}
+								]
 							});
 
 							//CHART 5
@@ -230,9 +250,14 @@
 									}
 								},
 								series: [{
-									name: 'Nilai',
+									name: 'Reviewer',
 									data: [10, 6]
-								}]
+								},
+								{
+									name: 'Satker',
+									data: [10, 6]
+								}
+								]
 							});
 
 							//CHART 6
@@ -263,9 +288,14 @@
 									}
 								},
 								series: [{
-									name: 'Nilai',
+									name: 'Reviewer',
 									data: [10, 6,8,4,6,7]
-								}]
+								},
+								{
+									name: 'Satker',
+									data: [10, 6,8,4,6,7]
+								}
+								]
 							});
 
 							//CHART 7
@@ -296,9 +326,14 @@
 									}
 								},
 								series: [{
-									name: 'Nilai',
+									name: 'Reviewer',
 									data: [10, 6,8,4]
-								}]
+								},
+								{
+									name: 'Satker',
+									data: [10, 6,8,4]
+								}
+								]
 							});
 
 										//CHART 8
@@ -329,9 +364,14 @@
 												}
 											},
 											series: [{
-												name: 'Nilai',
+												name: 'Reviewer',
 												data: [10, 6,8,4]
-											}]
+											},
+											{
+												name: 'Satker',
+												data: [10, 6,8,4]
+											}
+											]
 										});
 									</script>				
 									@endsection
