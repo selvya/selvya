@@ -20,25 +20,6 @@ class InovatifController extends Controller
     // }
     public function tambah(Request $r)
     {
-        // $iku = new Iku;
-        // $iku->namaprogram = $r->nama;
-        // $iku->keterangan = $r->deksripsi;
-        // $iku->tujuan = $r->tujuan;
-        // $iku->tipe = 'parameterized';
-        // $iku->programbudaya_id = '3';
-        // $iku->daftarindikator_id = '3';
-        // $iku->tahun = date('Y');
-        // $iku->persen_id = '0';
-        //$persentase = Persentase::where('triwulan','1')->where('daftarindikator','3')->first();
-        //$persentase = Persentase::where('triwulan','1')->where('daftarindikator','3')->first();
-
-        // for ($i=1; $i <=4 ; $i++) { 
-        //     $persentase[$i] = Persentase::where('tahun', date('Y'))
-        //                     ->where('triwulan',($i+1))
-        //                     ->where('daftarindikator','3')
-        //                     ->first();
-        // }
-        // dd($r->simpan);
         $iku = Iku::updateOrCreate([
                 'persen_id' => 0,
                 'daftarindikator_id' => 3,

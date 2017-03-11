@@ -180,8 +180,10 @@ Route::get('hapus-maping/{id}', 'MappingController@hapus');
     //USER
     Route::get('user','UserController@user');
     Route::get('user/tambah', 'UserController@usertambahview');
-    Route::post('user/tambah/proses', 'UserController@tambahuser');
     Route::get('user/hapus/{id}', 'UserController@hapususer');
+    Route::get('user/edit/{id}', 'UserController@editview');
+    Route::post('user/tambah/proses', 'UserController@tambahuser');
+    Route::post('user/edit/proses/{id}', 'UserController@edit');
 
     //DEPARTEMEN
     Route::get('departemen','DepartemenController@index');
