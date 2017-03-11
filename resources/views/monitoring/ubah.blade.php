@@ -141,7 +141,7 @@
 	<script>$(function(){ TablesDatatables.init(); });</script>
 	<script>
 		$('#finalisasi_total').on('click', function() {
-			var data = parseInt($.trim($('input[name="total_anggaran"]').val()));
+			var data = $('input[name="total_anggaran"]').val();
 			if (!confirm('Apakah anda yakin akan memfinalisasi anggaran ini? Tindakan ini tidak dapat diurungkan!')) {
 				return false;
 			}

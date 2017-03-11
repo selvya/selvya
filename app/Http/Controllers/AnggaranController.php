@@ -90,7 +90,8 @@ class AnggaranController extends Controller
         if (!$tahunAnggaran) {
             $tahunAnggaran = new AnggaranTahun();
         }
-        $tahunAnggaran->total_anggaran = str_replace('.', '', trim($r->anggaran));
+        $tahunAnggaran->total_anggaran = preg_replace("/[^0-9]/","", $r->anggaran);
+        // return $tahunAnggaran->total_anggaran;
         $tahunAnggaran->status = 1;
         $tahunAnggaran->save();
 
