@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-
+{{-- {{dd($anggaran->tahun)}} --}}
 
 <!-- Page content -->
 <div id="page-content">
@@ -53,39 +53,16 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="text-center">2017</td>
-						<td class="text-center">Rp 100.000.000</td>
+						<td class="text-center">{{$anggaran->tahun}}</td>
+						<td class="text-center">{{'Rp. ' . number_format($anggaran->total_anggaran, 0, ',' , '.')}}</td>
 						<td class="text-center">
 							<div class="btn-group">
 								<a href="{{url('lihat-anggaran')}}" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
 								<a href="{{url('ubah-anggaran')}}" data-toggle="tooltip" title="Ubah" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td class="text-center">2018</td>
-						<td class="text-center">Rp</td>
-						
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center">2019</td>
-						<td class="text-center">Rp</td>
-						<td class="text-center">
-							<div class="btn-group">
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Lihat" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-								<a href="javascript:void(0)" data-toggle="tooltip" title="Sunting" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-								
-							</div>
-						</td>
-					</tr>
+					
 				</tbody>
 			</table>
 		</div>

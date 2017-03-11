@@ -1,6 +1,14 @@
 <?php
 use Carbon\Carbon;
 
+function getSatker(){
+    if (Auth::check()) {
+        return Auth::user()->satker_id;
+    }
+
+    return 8;
+}
+
 function getBatasTanggalPelaporan($tahun = null, $triwulan = 1) {
     $rv = \App\TanggalLaporan::where('tahun', $tahun)
             ->where('triwulan', $triwulan)
