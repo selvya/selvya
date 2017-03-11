@@ -25,7 +25,7 @@ class AnggaranController extends Controller
 
     public function ubah(Request $r)
     {
-        
+
         // return getSatker();
         $satker = getSatker();
 
@@ -90,7 +90,7 @@ class AnggaranController extends Controller
         if (!$tahunAnggaran) {
             $tahunAnggaran = new AnggaranTahun();
         }
-        $tahunAnggaran->total_anggaran = (int) str_replace('.', '', trim($r->anggaran));
+        $tahunAnggaran->total_anggaran = str_replace('.', '', trim($r->anggaran));
         $tahunAnggaran->status = 1;
         $tahunAnggaran->save();
 
