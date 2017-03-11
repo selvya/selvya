@@ -34,7 +34,7 @@ class PengaturanController extends Controller
 
             for ($i=1; $i <= 4; $i++) { 
                 $field['triwulan'] = $i;
-                $iku = Persentase::updateOrCreate($field);
+                $persen = Persentase::updateOrCreate($field);
             }
         }
         // exit();
@@ -85,7 +85,7 @@ class PengaturanController extends Controller
                     $definisiNilai[$i] = DefinisiNilai::create([
                         'iku_id' => $iku->id,
                         'alatukur_id' => $alatUkur->id,
-                        'deskripsi' => null,
+                        'deskripsi' => ($persentase->daftarindikator_id == 2) ? 0 : null,
                         'triwulan' => $persentase->triwulan,
                         'tahun' => $persentase->tahun
                     ]);

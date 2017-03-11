@@ -18,4 +18,9 @@ class Persentase extends Model
     public function daftar_indikator() {
         return $this->belongsTo('\App\DaftarIndikator', 'daftarindikator_id');
     }
+
+    public function iku()
+    {
+        return $this->hasMany('\App\Iku', 'persen_id');
+    }
 }

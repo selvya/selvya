@@ -69,9 +69,8 @@ Route::post('proses/tambah/inovatif', 'InovatifController@tambah');
 //TUTUP OJK INOVATIF
 
 //MONITORING
-Route::get('monitoring-anggaran', function () {
-    return view('monitoring.anggaran');
-});
+Route::get('monitoring-anggaran', ['as' => 'monitoring-anggaran.index', 'uses' => 'AnggaranController@index']);
+
 Route::get('rekap-monitoring', function () {
     return view('monitoring.rekap');
 });
@@ -80,9 +79,8 @@ Route::get('hasil-monitoring', function () {
 });
 
 
-Route::get('ubah-anggaran', function () {
-    return view('monitoring.ubah');
-});
+Route::get('ubah-anggaran', ['as' => 'monitoring-anggaran.ubah', 'uses' => 'AnggaranController@ubah']);
+Route::post('ubah-anggaran-total', ['as' => 'monitoring-anggaran.ubah.total', 'uses' => 'AnggaranController@ubahTotal']);
 
 Route::get('lihat-anggaran', function () {
     return view('monitoring.lihat');
