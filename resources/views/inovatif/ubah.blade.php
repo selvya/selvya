@@ -140,7 +140,7 @@
 								</table>
 							</div>
 						</div>
-						<?php } while ($k < 4); }?>
+						<?php } while ($k < 3); }?>
 						<div class="form-group row">
 							<div class="col-md-12 text-center">
 								<a href="{{url('inovatif')}}" class="btn btn-default btn-lg"><i class="fa fa-arrow-left"></i> Kembali</a>

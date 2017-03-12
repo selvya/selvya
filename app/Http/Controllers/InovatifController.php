@@ -83,7 +83,7 @@ class InovatifController extends Controller
                     }
                 }
             }
-         }while($k<4);
+         }while($k<3);
 		 }
          $rv = [
             'AlatUkur' => $alatUkur,
