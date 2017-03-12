@@ -108,12 +108,12 @@
 									<div class="block">
 										<h4><b>MYSTERY CALL</b></h4>
 										<!-- MANUAL -->
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<input type="text" class="form-control">
 											</div>
-										</div>
+										</div> -->
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
@@ -125,7 +125,7 @@
 										<!-- TUTUP MANUAL -->
 
 										<!-- PARAMETERIZE -->
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
@@ -137,10 +137,10 @@
 													<option>Nama Alat Ukurnya 6</option>
 												</select>
 											</div>
-										</div>
+										</div> -->
 										<!-- TUTUP PARAMETERIZE -->
 
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<table class="table">
@@ -155,7 +155,7 @@
 													</tr>
 												</table>
 											</div>
-										</div>
+										</div> -->
 									</div>
 									<!-- CLOSE MYSTERY CALL -->
 
@@ -163,12 +163,12 @@
 									<div class="block">
 										<h4><b>SURVEY STAKEHOLDER</b></h4>
 										<!-- MANUAL -->
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<input type="text" class="form-control">
 											</div>
-										</div>
+										</div> -->
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
@@ -178,7 +178,7 @@
 										<!-- TUTUP MANUAL -->
 
 										<!-- PARAMETERIZE -->
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
@@ -190,10 +190,10 @@
 													<option>Nama Alat Ukurnya 6</option>
 												</select>
 											</div>
-										</div>
+										</div> -->
 										<!-- TUTUP PARAMETERIZE -->
 
-										<div class="form-group">
+							<!-- 			<div class="form-group">
 											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<table class="table">
@@ -208,7 +208,7 @@
 													</tr>
 												</table>
 											</div>
-										</div>
+										</div> -->
 									</div>
 									<!-- CLOSE MYSTERY CALL -->
 								</div>
