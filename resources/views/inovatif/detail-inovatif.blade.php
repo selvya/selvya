@@ -17,7 +17,7 @@
 		<li>Detail</li>
 	</ul>
 	<!-- END Datatables Header -->
-
+@include('include.alert')
 	<!-- Datatables Content -->
 	<div class="block full">
 		<form role="form" method="post" enctype="multipart/form-data" action="#">

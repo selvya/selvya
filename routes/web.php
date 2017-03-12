@@ -1,16 +1,4 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('test', function () {
     return str_slug('Here is where you can register web', '_');
 });
@@ -21,9 +9,6 @@ Route::get('/', function () {
 Route::get('home-reviewer', function () {
     return view('home.home-reviewer');
 });
-
-
-
 
 //ASSESSMENT
 Route::get('nilai-self-assessment', function () {
@@ -57,8 +42,17 @@ Route::get('inovatif', function () {
     return view('inovatif.index');
 });
 Route::get('tambah/inovatif', function () {
-    return view('inovatif.tambah');
+	
+ $iku = \App\Iku::where('satker','=',10)->where('tahun','=',date('Y'))->where('daftarindikator_id','=',3)->where('programbudaya_id','=',3)->first();
+	if (count($iku) > 0) {
+    return view('inovatif.ubah', compact('iku'));
+	}else{
+      return view('inovatif.tambah');
+	}
 });
+// Route::get('ubah/inovatif', function () {
+    // return view('inovatif.ubah');
+// });
 Route::get('arsip/inovatif', function () {
     return view('inovatif.arsip');
 });

@@ -24,26 +24,52 @@ class InovatifController extends Controller
                 'persen_id' => 0,
                 'daftarindikator_id' => 3,
                 'tahun' => date('Y'),
-                'namaprogram' => $r->nama,
                 'tipe' => 'parameterized',
-                'keterangan' => $r->deksripsi,
-                'tujuan' => $r->tujuan,
                 'programbudaya_id' => 3,
-                'isfinal' => $r->simpan,
                 'satker' => 10
-            ]);
+            ],[	'namaprogram' => $r->nama,
+				'keterangan' => $r->deskripsi,
+                'latarbelakang' => $r->latarbelakang,
+                'sasaran' => $r->sasaran,
+                'tahapan' => $r->tahapan,
+                'tujuan' => $r->tujuan,
+                'isfinal' => $r->simpan
+				]);
 
         // return $iku;
         $alatUkur = null;
         $definisinilai = null;
-        for ($k=1; $k <= 3; $k++) { 
-
+        foreach($r->alatnya as $k => $item) {
+				if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {           
+			 $alatUkur[$k] = AlatUkur::updateOrCreate([
+                    'id' => $item,
+                    'iku_id' => $iku->id
+                ],[ 'name' => request('name'.$k),'active' => '1']);
+				  }else{  
+			 $alatUkur[$k] = AlatUkur::updateOrCreate([
+                    'id' => $item,
+                    'iku_id' => $iku->id
+                ],[ 'name' => request('name'.$k),'active' => '0']);
+				  }
+                for($i=1; $i<= 6; $i++) {
+                    for ($j=1; $j <= 4 ; $j++) { 
+					\App\DefinisiNilai::updateOrCreate([
+                    'alatukur_id' => $item,
+                    'iku_id' => $iku->id,
+                    'tahun' => date('Y'),
+                    'skala_nilai' => $i,
+                    'triwulan' => $j
+                ],[ 'deskripsi' => request('alt'.$k.'_def'.$i.'_tw'.$j)]);
+                    }
+                }
+		}			
+		 if($k < 3){
+       do{$k++;
             if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {
 
-                $alatUkur[$k] = AlatUkur::updateOrCreate([
+                $alatUkur[$k] = AlatUkur::create([
                     'iku_id' => $iku->id,
-                    'name' => $iku->namaprogram
-                ]);
+                'name' => request('name'.$k),'active' => '1' ]);
                 for($i=1; $i<= 6; $i++) { 
 
                     for ($j=1; $j <= 4 ; $j++) { 
@@ -57,13 +83,13 @@ class InovatifController extends Controller
                     }
                 }
             }
-         }
-
+         }while($k<4);
+		 }
          $rv = [
             'AlatUkur' => $alatUkur,
             'definisi' => $definisinilai
          ];
         // return $definisiNilai1[$i];
-        return redirect()->back()->with('success', 'Program OJK Inovatif Berhasil di Tambahkan');
+        return redirect('inovatif')->with('success', 'Program OJK Inovatif Berhasil diperbaharui');
     }
 }

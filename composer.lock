@@ -270,8 +270,6 @@
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
             "time": "2016-05-11 00:36:29"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "graham-campbell/exceptions",
@@ -341,7 +339,6 @@
                 "whoops"
             ],
             "time": "2017-01-21 16:49:20"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "graham-campbell/manager",
@@ -457,11 +454,7 @@
                 "obfuscate",
                 "youtube"
             ],
-<<<<<<< HEAD
-            "time": "2016-01-21 04:26:38"
-=======
             "time": "2017-01-01 13:33:33"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1275,11 +1268,7 @@
                 "pseudorandom",
                 "random"
             ],
-<<<<<<< HEAD
-            "time": "2017-02-27 17:11:23"
-=======
             "time": "2016-11-07 23:38:38"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phenx/php-font-lib",
@@ -1524,11 +1513,7 @@
                 "interactive",
                 "shell"
             ],
-<<<<<<< HEAD
-            "time": "2017-03-01 00:13:29"
-=======
             "time": "2017-01-15 17:54:13"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "ramsey/uuid",
@@ -2606,11 +2591,7 @@
                 "obfuscate",
                 "youtube"
             ],
-<<<<<<< HEAD
-            "time": "2016-07-11 19:13:05"
-=======
             "time": "2017-01-01 13:46:29"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2777,8 +2758,6 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "filp/whoops",
@@ -2840,7 +2819,6 @@
                 "zf2"
             ],
             "time": "2017-03-07 09:04:45"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "fzaninotto/faker",
@@ -2998,11 +2976,7 @@
                 "test double",
                 "testing"
             ],
-<<<<<<< HEAD
-            "time": "2017-02-28 12:52:32"
-=======
             "time": "2017-02-09 13:29:38"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "myclabs/deep-copy",
@@ -3316,11 +3290,7 @@
                 "testing",
                 "xunit"
             ],
-<<<<<<< HEAD
-            "time": "2017-02-23 07:38:02"
-=======
             "time": "2017-01-20 15:06:43"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3457,11 +3427,7 @@
             "keywords": [
                 "timer"
             ],
-<<<<<<< HEAD
-            "time": "2017-02-26 11:10:40"
-=======
             "time": "2016-05-12 18:03:57"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phpunit/php-token-stream",
@@ -3510,11 +3476,7 @@
             "keywords": [
                 "tokenizer"
             ],
-<<<<<<< HEAD
-            "time": "2017-02-27 10:12:30"
-=======
             "time": "2016-11-15 14:06:22"
->>>>>>> 575ff8e7a1e7cd046a3b4e3618e51a5487fc11ba
         },
         {
             "name": "phpunit/phpunit",

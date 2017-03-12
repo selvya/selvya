@@ -9,7 +9,7 @@ class AlatUkur extends Model
 {
     //
     protected $table = 'alatukur';
-    protected $fillable = ['iku_id', 'name'];
+    protected $fillable = ['iku_id', 'name', 'tipe', 'active'];
 
     public function getHashidAttribute() {
         return Hashids::connection('alatukur')->encode($this->attributes['id']);

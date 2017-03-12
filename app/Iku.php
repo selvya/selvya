@@ -17,6 +17,10 @@ class Iku extends Model
         'persen_id',
         'tipe',
         'keterangan',
+        'sasaran',
+        'latarbelakang',
+        'tahapan',
+        'isfinal',
         'tujuan',
         'programbudaya_id',
         'satker'
