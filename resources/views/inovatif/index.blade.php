@@ -65,12 +65,12 @@
 						</tr>
 					</thead>
 					<tbody>
-					<?php 
+						<?php 
 
-					$ikunya = \App\Iku::where('daftarindikator_id','3')->where('tipe','parameterized')->where('programbudaya_id','3')->orderBy('id','DESC')->get();
+						$ikunya = \App\Iku::where('daftarindikator_id','3')->where('tipe','parameterized')->where('programbudaya_id','3')->orderBy('id','DESC')->get();
 
-					 ?>
-					 @foreach($ikunya as $data)
+						?>
+						@forelse($ikunya as $data)
 						<tr class="odd">
 							<td class="text-center sorting_1">{{$data->namaprogram}}</td>
 							<td class="text-center">{{$data->keterangan}}</td>
@@ -79,7 +79,11 @@
 								<a href="{{url('detail/inovatif')}}" class="btn btn-primary">View</a>			
 							</td>
 						</tr>
-						@endforeach
+						@empty
+						<tr>
+							<td colspan="4"> Data Kosong </td>
+						</tr>
+						@endforelse
 					</tbody>
 				</table>
 
