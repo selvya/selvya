@@ -65,14 +65,21 @@
 						</tr>
 					</thead>
 					<tbody>
+					<?php 
+
+					$ikunya = \App\Iku::where('daftarindikator_id','3')->where('tipe','parameterized')->where('programbudaya_id','3')->orderBy('id','DESC')->get();
+
+					 ?>
+					 @foreach($ikunya as $data)
 						<tr class="odd">
-							<td class="text-center sorting_1">DSMS Inovatif Oke!</td>
-							<td class="text-center">l agmklamglrmgl</td>
-							<td class="text-center">kf kafjklkfjkal</td>
+							<td class="text-center sorting_1">{{$data->namaprogram}}</td>
+							<td class="text-center">{{$data->keterangan}}</td>
+							<td class="text-center">{{$data->tujuan}}</td>
 							<td align="center">
 								<a href="{{url('detail/inovatif')}}" class="btn btn-primary">View</a>			
 							</td>
 						</tr>
+						@endforeach
 					</tbody>
 				</table>
 
