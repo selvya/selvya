@@ -62,6 +62,11 @@ return [
             'bucket' => 'your-bucket',
         ],
 
+        'lampiran_anggaran' => [
+            'driver' => 'local',
+            'root' => storage_path('uploads/lampiran_anggaran'),
+        ],
+
     ],
 
 ];
