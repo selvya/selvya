@@ -338,7 +338,7 @@
                                 </div>
                             </div>
                         </div>--}}
-						 <input type="hidden" name="input_tipe3" value="otomatis">
+                         <input type="hidden" name="input_tipe3" value="otomatis">
                         <div class="form-group">
                             <label for="keterangan3" class="control-label col-md-4">Keterangan</label>
                             <div class="col-md-8">
@@ -349,10 +349,10 @@
                         </div>
                         <div id="melayani_container">
                             <table class="table table-condensed table-bordered mtable" id="table_mc">
-									<tr>
+                                    <tr>
                                         <td colspan="2"><label><input type="checkbox" name="mc" value="1" aria-label="..." id="mc" checked style="width:36px;height:22px"> Mystery Call</label></td>
                                     </tr>
-									<tr>
+                                    <tr>
                                         <th>Tipe Nilai</th>
                                         <td>
                                            <label><input type="radio" id="input_tipe3_2_1_a" disabled name="input_tipe3_2_1" value="manual"> Manual</label>
@@ -390,10 +390,15 @@
                         </div>
                         <div id="peduli_container">
                             <table class="table table-condensed table-bordered kuantitastable" id="table_kuantitas">
-									<tr> 
-                                        <td colspan="2"><label><input type="checkbox" name="kuantitas" value="1" aria-label="..." id="kuantitas" checked style="width:36px;height:22px"> Kuantitas (Frekuensi & Partisipasi) </label></td>
+                                    <tr> 
+                                        <td colspan="2">
+                                            <label>
+                                                <input type="checkbox" name="kuantitas" value="1" aria-label="..." id="kuantitas" checked style="width:36px;height:22px">
+                                                 Kuantitas (Frekuensi & Partisipasi)
+                                            </label>
+                                        </td>
                                     </tr>
-									<tr>
+                                    <tr>
                                         <th>Tipe Nilai</th>
                                         <td>
                                            <label><input type="radio" id="input_tipe3_1_1_a" disabled name="input_tipe3_1_1" value="manual"> Manual</label>
@@ -869,7 +874,7 @@
         $(document).ready(function(){
             $('[id^=loading]').hide();
             $('#inovatif_container').hide().find(':input').prop('disabled', true);
-            $('#peduli_container').hide().find(':input').prop('disabled', true);
+            // $('#peduli_container').hide().find(':input').prop('disabled', true);
             $('#modal_simpan3_2, #modal_simpan3_3').hide();
         });
 
@@ -1000,944 +1005,983 @@
                             $('#keterangan3_2').val(response.data.iku2.keterangan);
                             $('#keterangan3_3').val(response.data.iku3.keterangan);
                             console.log(response);
-							// yg mc
-							if(response.data.alat_ukur1_1.active > 0) {
-								$('#mc').prop('checked', true);
-								$('[name=input_tipe3_2_1]').prop('disabled',false);	
-							if(response.data.alat_ukur1_1.tipe == "parameterized") {
-								$('#input_tipe3_2_1_b').prop('checked', true);								
-                            if ($.isArray(response.data.definisi1_1)) {
-                                if (response.data.definisi1_1.length > 0) {
-                                   $.each(response.data.definisi1_1, function (k, v) {
-                                        $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
-                                    });
+                            // yg mc
+                            if(response.data.alat_ukur1_1.active > 0) {
+                                $('#mc').prop('checked', true);
+                                $('[name=input_tipe3_2_1]').prop('disabled',false); 
+
+                                if(response.data.alat_ukur1_1.tipe == "parameterized") {
+                                    $('#input_tipe3_2_1_b').prop('checked', true);                              
+                                    
+                                    if ($.isArray(response.data.definisi1_1)) {
+                                        if (response.data.definisi1_1.length > 0) {
+                                            $.each(response.data.definisi1_1, function (k, v) {
+                                                $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                            });
+                                        }else{
+                                            $('[id^=mindikator_]').val('');
+                                        }
+                                    }
                                 }else{
-                                    $('[id^=mindikator_]').val('');
-                                }
-                            }
-							}else{
-							if(response.data.alat_ukur1_1.tipe == "manual") {
-								$('#input_tipe3_2_1_a').prop('checked', true);
-							}
-							   $.each(response.data.definisi1_1, function (k, v) {
+
+                                    if(response.data.alat_ukur1_1.tipe == "manual") {
+                                        $('#input_tipe3_2_1_a').prop('checked', true);
+                                    }
+                                    
+                                    $.each(response.data.definisi1_1, function (k, v) {
                                         $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
                                     });
-							}
-							}else{
-								$('#mc').prop('checked', false);	
-								$('[name=input_tipe3_2_1]').prop('checked', false).prop('disabled',true);	
-									$.each(response.data.definisi1_1, function (k, v) {
-                                        $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
-                                    });								
-							}
-							//survey yang
-							if(response.data.alat_ukur1_2.active > 0) {
-								$('#sks').prop('checked', true);
-								$('[name=input_tipe3_2_2]').prop('disabled',false);	
-							if(response.data.alat_ukur1_2.tipe == "parameterized") {
-								$('#input_tipe3_2_2_b').prop('checked', true);								
-                            if ($.isArray(response.data.definisi1_2)) {
-                                if (response.data.definisi1_2.length > 0) {
-                                   $.each(response.data.definisi1_2, function (k, v) {
-                                        $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
-                                    });
-                                }else{
-                                    $('[id^=sindikator_]').val('');
                                 }
+
+                            }else{
+
+                                $('#mc').prop('checked', false);    
+                                $('[name=input_tipe3_2_1]').prop('checked', false).prop('disabled',true);   
+                                
+                                $.each(response.data.definisi1_1, function (k, v) {
+                                    $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                });                             
                             }
-							}else{
-							if(response.data.alat_ukur1_2.tipe == "manual") {
-								$('#input_tipe3_2_2_a').prop('checked', true);
-							}
-							   $.each(response.data.definisi1_2, function (k, v) {
+                            //survey yang
+                            if(response.data.alat_ukur1_2.active > 0) {
+
+                                $('#sks').prop('checked', true);
+                                $('[name=input_tipe3_2_2]').prop('disabled',false);
+
+                                if(response.data.alat_ukur1_2.tipe == "parameterized") {
+
+                                    $('#input_tipe3_2_2_b').prop('checked', true);                              
+
+                                    if ($.isArray(response.data.definisi1_2)) {
+
+                                        if (response.data.definisi1_2.length > 0) {
+                                            
+                                            $.each(response.data.definisi1_2, function (k, v) {
+                                                $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                            });
+
+                                        }else{
+
+                                            $('[id^=sindikator_]').val('');
+                                        }
+                                    }
+                                }else{
+
+                                    if(response.data.alat_ukur1_2.tipe == "manual") {
+                                        $('#input_tipe3_2_2_a').prop('checked', true);
+                                    }
+
+                                    $.each(response.data.definisi1_2, function (k, v) {
                                         $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
                                     });
-							}
-							}else{
-								$('#sks').prop('checked', false);	
-								$('[name=input_tipe3_2_2]').prop('checked', false).prop('disabled',true);	
-									$.each(response.data.definisi1_2, function (k, v) {
-                                        $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
-                                    });								
-							}
-							if(response.data.alat_ukur2_1.active > 0) {
-								$('#kuantitas').prop('checked', true);
-								$('[name=input_tipe3_1_1]').prop('disabled',false);	
-							if(response.data.alat_ukur2_1.tipe == "parameterized") {
-								$('#input_tipe3_1_1_b').prop('checked', true);								
-                            if ($.isArray(response.data.definisi2_1)) {
-                                if (response.data.definisi2_1.length > 0) {
-                                   $.each(response.data.definisi2_1, function (k, v) {
-                                        $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
-                                    });
-                                }else{
-                                    $('[id^=kuantitasindikator_]').val('');
                                 }
+
+                            }else{
+                                $('#sks').prop('checked', false);   
+                                $('[name=input_tipe3_2_2]').prop('checked', false).prop('disabled',true);   
+                                $.each(response.data.definisi1_2, function (k, v) {
+                                    $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                });                             
                             }
-							}else{
-							if(response.data.alat_ukur2_1.tipe == "manual") {
-								$('#input_tipe3_1_1_a').prop('checked', true);
-							}
-							   $.each(response.data.definisi2_1, function (k, v) {
-                                        $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
-                                    });
-							}
-							}else{
-								$('#kuantitas').prop('checked', false);	
-								$('[name=input_tipe3_1_1]').prop('checked', false).prop('disabled',true);	
-									$.each(response.data.definisi2_1, function (k, v) {
-                                        $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
-                                    });								
-							}
-							//survey yang
-							if(response.data.alat_ukur2_2.active > 0) {
-								$('#kualitas').prop('checked', true);
-								$('[name=input_tipe3_1_2]').prop('disabled',false);	
-							if(response.data.alat_ukur1_2.tipe == "parameterized") {
-								$('#input_tipe3_1_2_b').prop('checked', true);								
-                            if ($.isArray(response.data.definisi2_2)) {
-                                if (response.data.definisi2_2.length > 0) {
-                                   $.each(response.data.definisi2_2, function (k, v) {
-                                        $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
-                                    });
-                                }else{
-                                    $('[id^=kualitasindikator_]').val('');
+
+                            if(response.data.alat_ukur2_1.active > 0) {
+
+                                $('#kuantitas').prop('checked', true);
+                                $('[name=input_tipe3_1_1]').prop('disabled',false);
+
+                            if(response.data.alat_ukur2_1.tipe == "parameterized") {
+
+                                $('#input_tipe3_1_1_b').prop('checked', true);                              
+                                
+                                if ($.isArray(response.data.definisi2_1)) {
+                                    
+                                    if (response.data.definisi2_1.length > 0) {
+                                    
+                                        $.each(response.data.definisi2_1, function (k, v) {
+                                            $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                        });
+                                    
+                                    }else{
+                                        $('[id^=kuantitasindikator_]').val('');
+                                    }
                                 }
-                            }
-							}else{
-							if(response.data.alat_ukur2_2.tipe == "manual") {
-								$('#input_tipe3_1_2_a').prop('checked', true);
-							}
-							   $.each(response.data.definisi2_2, function (k, v) {
-                                        $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
-                                    });
-							}
-							}else{
-								$('#kualitas').prop('checked', false);	
-								$('[name=input_tipe3_1_2]').prop('checked', false).prop('disabled',true);	
-									$.each(response.data.definisi2_2, function (k, v) {
-                                        $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
-                                    });								
-							}
-                            
-							
-							// if ($.isArray(response.data.definisi2)) {
-                                // $.each(response.data.definisi2, function(k, v) {
-                                    // $('#pindikator_' + (k+1)).val(v.deskripsi);
-                                // });
-                            // }
 
-							
-                            $('#loading3').hide();
-                            $('#modal-form3').show();
-                        }else{
-                            alert('Ups terjadi kesalahan');
-                            $('#modal3').modal('hide');
-                        }
-                    },
-                    error: function(response) {
-                        alert('Ups terjadi kesalahan');
-                        $('#modal3').modal('hide');
-                    }
-                });
-                
-                $('#modal3').modal('show');
-                // return false; 
-            } else if (t.attr('data-component') == 4) {
-                $.ajax({
-                    url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
-                    type: 'GET',
-                    dataType: 'JSON',
-                    beforeSend: function() {
-                        $('#periode4').val('').val('Triwulan ' + t.attr('data-triwulan'));
-                        $('#persen4').val('').val(0);
-                        $('#sender_id4').val('').val(t.attr('id'));
-                        $('#keterangan4').val('').prop('readonly', false);
-                        $('#modal_triwulan4').val('').val((parseInt(t.attr('data-triwulan')) + 1));
-                        $('[id^=definisi4_]').val('').prop('readonly', false);
+                            }else{
 
-                        $('#modal-form4').hide();
-                        $('#loading4').show();
-                    },
-                    success: function(response) {
-                        if (response.status) {
-                            $('#periode4').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
-                            $('#persen4').val('').val(response.data.persentase.nilai).prop('readonly', false);
-                            $('#sender_id4').val('').val(t.attr('id'));
-                            $('#keterangan4').val(response.data.iku.keterangan);
-                            
-                            console.log(response);
-                            if ($.isArray(response.data.alat_ukur.definisi)) {
-                                $.each(response.data.alat_ukur.definisi, function(k, v) {
-                                   $('#definisi4_' + (k+1)).val(v.deskripsi);
-                                   console.log(k);
+                                if(response.data.alat_ukur2_1.tipe == "manual") {
+                                    $('#input_tipe3_1_1_a').prop('checked', true);
+                                }
+
+                                $.each(response.data.definisi2_1, function (k, v) {
+                                    $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
                                 });
                             }
 
-                            $('#loading4').hide();
-                            $('#modal-form4').show();
                         }else{
-                            alert('Ups terjadi kesalahan');
-                            $('#modal4').modal('hide');
+                            
+                            $('#kuantitas').prop('checked', false); 
+                            $('[name=input_tipe3_1_1]').prop('checked', false).prop('disabled',true);
+
+                            $.each(response.data.definisi2_1, function (k, v) {
+                                $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                            });                             
                         }
-                    },
-                    error: function(response) {
+
+                            //survey yang
+                        if(response.data.alat_ukur2_2.active > 0) {
+
+                            $('#kualitas').prop('checked', true);
+                            $('[name=input_tipe3_1_2]').prop('disabled',false); 
+                            
+                            if(response.data.alat_ukur1_2.tipe == "parameterized") {
+
+                                $('#input_tipe3_1_2_b').prop('checked', true);                              
+
+                                if ($.isArray(response.data.definisi2_2)) {
+
+                                    if (response.data.definisi2_2.length > 0) {
+
+                                        $.each(response.data.definisi2_2, function (k, v) {
+                                            $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                        });
+                                    }else{
+                                        $('[id^=kualitasindikator_]').val('');
+                                    }
+                                }
+
+                            }else{
+                                
+                                if(response.data.alat_ukur2_2.tipe == "manual") {
+                                    $('#input_tipe3_1_2_a').prop('checked', true);
+                                }
+
+                                $.each(response.data.definisi2_2, function (k, v) {
+                                    $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                });
+                            }
+                            
+                        }else{
+
+                            $('#kualitas').prop('checked', false);  
+                            $('[name=input_tipe3_1_2]').prop('checked', false).prop('disabled',true);   
+                            
+                            $.each(response.data.definisi2_2, function (k, v) {
+                                $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                            });                             
+                            
+                        }                            
+                            $('#loading3').hide();
+                            $('#modal-form3').show();
+                    }else{
+                            alert('Ups terjadi kesalahan');
+                            $('#modal3').modal('hide');
+                    }
+                },
+                error: function(response) {
+                    alert('Ups terjadi kesalahan');
+                    $('#modal3').modal('hide');
+                }
+            });
+                
+            $('#modal3').modal('show');
+                // return false; 
+        } else if (t.attr('data-component') == 4) {
+            $.ajax({
+                url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
+                type: 'GET',
+                dataType: 'JSON',
+                beforeSend: function() {
+                    $('#periode4').val('').val('Triwulan ' + t.attr('data-triwulan'));
+                    $('#persen4').val('').val(0);
+                    $('#sender_id4').val('').val(t.attr('id'));
+                    $('#keterangan4').val('').prop('readonly', false);
+                    $('#modal_triwulan4').val('').val((parseInt(t.attr('data-triwulan')) + 1));
+                    $('[id^=definisi4_]').val('').prop('readonly', false);
+
+                    $('#modal-form4').hide();
+                    $('#loading4').show();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        $('#periode4').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
+                        $('#persen4').val('').val(response.data.persentase.nilai).prop('readonly', false);
+                        $('#sender_id4').val('').val(t.attr('id'));
+                        $('#keterangan4').val(response.data.iku.keterangan);
+                        
+                        console.log(response);
+                        if ($.isArray(response.data.alat_ukur.definisi)) {
+                            $.each(response.data.alat_ukur.definisi, function(k, v) {
+                               $('#definisi4_' + (k+1)).val(v.deskripsi);
+                               console.log(k);
+                            });
+                        }
+
+                        $('#loading4').hide();
+                        $('#modal-form4').show();
+                    }else{
                         alert('Ups terjadi kesalahan');
                         $('#modal4').modal('hide');
                     }
-                });
-                
-                $('#modal4').modal('show');
-            } else if (t.attr('data-component') == 5) {
-                $.ajax({
-                    url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
-                    type: 'GET',
-                    dataType: 'JSON',
-                    beforeSend: function() {
-                        $('#periode5').val('').val('Triwulan ' + t.attr('data-triwulan'));
-                        $('#persen5').val('').val(0);
+                },
+                error: function(response) {
+                    alert('Ups terjadi kesalahan');
+                    $('#modal4').modal('hide');
+                }
+            });
+            
+            $('#modal4').modal('show');
+        } else if (t.attr('data-component') == 5) {
+            $.ajax({
+                url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
+                type: 'GET',
+                dataType: 'JSON',
+                beforeSend: function() {
+                    $('#periode5').val('').val('Triwulan ' + t.attr('data-triwulan'));
+                    $('#persen5').val('').val(0);
+                    $('#sender_id5').val('').val(t.attr('id'));
+                    $('#keterangan5').val('').prop('readonly', false);
+                    $('#modal_triwulan5').val('').val((parseInt(t.attr('data-triwulan')) + 1));
+
+                    $('#modal-form5').hide();
+                    $('#loading5').show();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        $('#periode5').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
+                        $('#persen5').val('').val(response.data.persentase.nilai).prop('readonly', false);
                         $('#sender_id5').val('').val(t.attr('id'));
-                        $('#keterangan5').val('').prop('readonly', false);
-                        $('#modal_triwulan5').val('').val((parseInt(t.attr('data-triwulan')) + 1));
+                        $('#keterangan5').val(response.data.iku.keterangan);
 
-                        $('#modal-form5').hide();
-                        $('#loading5').show();
-                    },
-                    success: function(response) {
-                        if (response.status) {
-                            $('#periode5').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
-                            $('#persen5').val('').val(response.data.persentase.nilai).prop('readonly', false);
-                            $('#sender_id5').val('').val(t.attr('id'));
-                            $('#keterangan5').val(response.data.iku.keterangan);
-
-                            $('#loading5').hide();
-                            $('#modal-form5').show();
-                        }else{
-                            alert('Ups terjadi kesalahan');
-                            $('#modal5').modal('hide');
-                        }
-                    },
-                    error: function(response) {
+                        $('#loading5').hide();
+                        $('#modal-form5').show();
+                    }else{
                         alert('Ups terjadi kesalahan');
                         $('#modal5').modal('hide');
                     }
-                });
-                
-                $('#modal5').modal('show');
-            } else if (t.attr('data-component') == 6) {
-                $.ajax({
-                    url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
-                    type: 'GET',
-                    dataType: 'JSON',
-                    beforeSend: function() {
-                        $('#periode6').val('').val('Triwulan ' + t.attr('data-triwulan'));
-                        $('#persen6').val('').val(0);
+                },
+                error: function(response) {
+                    alert('Ups terjadi kesalahan');
+                    $('#modal5').modal('hide');
+                }
+            });
+            
+            $('#modal5').modal('show');
+        } else if (t.attr('data-component') == 6) {
+            $.ajax({
+                url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
+                type: 'GET',
+                dataType: 'JSON',
+                beforeSend: function() {
+                    $('#periode6').val('').val('Triwulan ' + t.attr('data-triwulan'));
+                    $('#persen6').val('').val(0);
+                    $('#sender_id6').val('').val(t.attr('id'));
+                    $('#keterangan6').val('').prop('readonly', false);
+                    $('#modal_triwulan6').val('').val((parseInt(t.attr('data-triwulan')) + 1));
+
+                    $('#modal-form6').hide();
+                    $('#loading6').show();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        $('#periode6').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
+                        $('#persen6').val('').val(response.data.persentase.nilai).prop('readonly', false);
                         $('#sender_id6').val('').val(t.attr('id'));
-                        $('#keterangan6').val('').prop('readonly', false);
-                        $('#modal_triwulan6').val('').val((parseInt(t.attr('data-triwulan')) + 1));
+                        $('#keterangan6').val(response.data.iku.keterangan);
 
-                        $('#modal-form6').hide();
-                        $('#loading6').show();
-                    },
-                    success: function(response) {
-                        if (response.status) {
-                            $('#periode6').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
-                            $('#persen6').val('').val(response.data.persentase.nilai).prop('readonly', false);
-                            $('#sender_id6').val('').val(t.attr('id'));
-                            $('#keterangan6').val(response.data.iku.keterangan);
-
-                            $('#loading6').hide();
-                            $('#modal-form6').show();
-                        }else{
-                            alert('Ups terjadi kesalahan');
-                            $('#modal6').modal('hide');
-                        }
-                    },
-                    error: function(response) {
+                        $('#loading6').hide();
+                        $('#modal-form6').show();
+                    }else{
                         alert('Ups terjadi kesalahan');
                         $('#modal6').modal('hide');
                     }
-                });
-                
-                $('#modal6').modal('show');
-            } else if (t.attr('data-component') == 7) {
-                $.ajax({
-                    url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
-                    type: 'GET',
-                    dataType: 'JSON',
-                    beforeSend: function() {
-                        $('#periode7').val('').val('Triwulan ' + t.attr('data-triwulan'));
-                        $('#persen7').val('').val(0);
+                },
+                error: function(response) {
+                    alert('Ups terjadi kesalahan');
+                    $('#modal6').modal('hide');
+                }
+            });
+            
+            $('#modal6').modal('show');
+        } else if (t.attr('data-component') == 7) {
+            $.ajax({
+                url: '{{url('persentase/detail/')}}/' + t.attr('data-id'),
+                type: 'GET',
+                dataType: 'JSON',
+                beforeSend: function() {
+                    $('#periode7').val('').val('Triwulan ' + t.attr('data-triwulan'));
+                    $('#persen7').val('').val(0);
+                    $('#sender_id7').val('').val(t.attr('id'));
+                    $('#keterangan7').val('').prop('readonly', false);
+                    $('#modal_triwulan7').val('').val((parseInt(t.attr('data-triwulan')) + 1));
+
+                    $('#modal-form7').hide();
+                    $('#loading7').show();
+                },
+                success: function(response) {
+                    if (response.status) {
+                        $('#periode7').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
+                        $('#persen7').val('').val(response.data.persentase.nilai).prop('readonly', false);
                         $('#sender_id7').val('').val(t.attr('id'));
-                        $('#keterangan7').val('').prop('readonly', false);
-                        $('#modal_triwulan7').val('').val((parseInt(t.attr('data-triwulan')) + 1));
+                        $('#keterangan7').val(response.data.iku.keterangan);
 
-                        $('#modal-form7').hide();
-                        $('#loading7').show();
-                    },
-                    success: function(response) {
-                        if (response.status) {
-                            $('#periode7').val('').val('Triwulan ' + (parseInt(t.attr('data-triwulan')) + 1));
-                            $('#persen7').val('').val(response.data.persentase.nilai).prop('readonly', false);
-                            $('#sender_id7').val('').val(t.attr('id'));
-                            $('#keterangan7').val(response.data.iku.keterangan);
-
-                            $('#loading7').hide();
-                            $('#modal-form7').show();
-                        }else{
-                            alert('Ups terjadi kesalahan');
-                            $('#modal7').modal('hide');
-                        }
-                    },
-                    error: function(response) {
+                        $('#loading7').hide();
+                        $('#modal-form7').show();
+                    }else{
                         alert('Ups terjadi kesalahan');
                         $('#modal7').modal('hide');
                     }
-                });
-                
-                $('#modal7').modal('show');
-            }
-        });
-
-        $('#modal_simpan1').on('click', function() {
-            var s1 = $(this);
-            var sender_id = $('#sender_id1').val();
-            var sender = $('#' + sender_id);
-
-            if ($('#definisi1_6').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi1_6').focus();
-
-                return false;
-            }
-
-            if ($('#definisi1_5').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi1_5').focus();
-                
-                return false;
-            }
-
-            if ($('#definisi1_4').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi1_4').focus();
-                
-                return false;
-            }
-
-            if ($('#definisi1_3').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi1_3').focus();
-                
-                return false;
-            }
-            
-            if ($('#definisi1_2').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi1_2').focus();
-                
-                return false;
-            }
-
-            if ($('#definisi1_1').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi1_1').focus();
-                
-                return false;
-            }
-
-            $.ajax({
-                url: '{{url('persentaseEdit1')}}',
-                data: $('#modal-form1').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s1.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan1, #persen1, [id^=definisi1_]').prop('readonly', true);
                 },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#modal1').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan1, #persen1, [id^=definisi1_]').prop('readonly', false);
-                        $('#persen1').focus();
+                error: function(response) {
+                    alert('Ups terjadi kesalahan');
+                    $('#modal7').modal('hide');
+                }
+            });
+            
+            $('#modal7').modal('show');
+        }
+    });
 
-                    }
-                    s1.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+    $('#modal_simpan1').on('click', function() {
+        var s1 = $(this);
+        var sender_id = $('#sender_id1').val();
+        var sender = $('#' + sender_id);
+
+        if ($('#definisi1_6').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi1_6').focus();
+
+            return false;
+        }
+
+        if ($('#definisi1_5').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi1_5').focus();
+            
+            return false;
+        }
+
+        if ($('#definisi1_4').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi1_4').focus();
+            
+            return false;
+        }
+
+        if ($('#definisi1_3').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi1_3').focus();
+            
+            return false;
+        }
+        
+        if ($('#definisi1_2').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi1_2').focus();
+            
+            return false;
+        }
+
+        if ($('#definisi1_1').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi1_1').focus();
+            
+            return false;
+        }
+
+        $.ajax({
+            url: '{{url('persentaseEdit1')}}',
+            data: $('#modal-form1').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s1.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan1, #persen1, [id^=definisi1_]').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                    $('#modal1').modal('hide');
+                }else{
+                    alert(response.message);
                     $('#keterangan1, #persen1, [id^=definisi1_]').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#persen1').focus();
+
                 }
-            });
+                s1.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan1, #persen1, [id^=definisi1_]').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
-        //Simpan 2
-        $('#modal_simpan2').on('click', function() {
-            var s2 = $(this);
-            var sender_id = $('#sender_id2').val();
-            var sender = $('#' + sender_id);
+    //Simpan 2
+    $('#modal_simpan2').on('click', function() {
+        var s2 = $(this);
+        var sender_id = $('#sender_id2').val();
+        var sender = $('#' + sender_id);
 
-            if ($('#definisi2_6').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi2_6').focus();
+        if ($('#definisi2_6').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi2_6').focus();
 
-                return false;
-            }
+            return false;
+        }
 
-            if ($('#definisi2_5').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi2_5').focus();
-                
-                return false;
-            }
-
-            if ($('#definisi2_4').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi2_4').focus();
-                
-                return false;
-            }
-
-            if ($('#definisi2_3').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi2_3').focus();
-                
-                return false;
-            }
+        if ($('#definisi2_5').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi2_5').focus();
             
-            if ($('#definisi2_2').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi2_2').focus();
-                
-                return false;
-            }
+            return false;
+        }
 
-            if ($('#definisi2_1').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi2_1').focus();
-                
-                return false;
-            }
+        if ($('#definisi2_4').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi2_4').focus();
+            
+            return false;
+        }
 
-            $.ajax({
-                url: '{{url('persentaseEdit2')}}',
-                data: $('#modal-form2').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s2.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan2, #persen2, [id^=definisi2_]').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#modal2').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan2, #persen2, [id^=definisi2_]').prop('readonly', false);
-                        $('#persen2').focus();
+        if ($('#definisi2_3').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi2_3').focus();
+            
+            return false;
+        }
+        
+        if ($('#definisi2_2').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi2_2').focus();
+            
+            return false;
+        }
 
-                    }
-                    s2.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+        if ($('#definisi2_1').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi2_1').focus();
+            
+            return false;
+        }
+
+        $.ajax({
+            url: '{{url('persentaseEdit2')}}',
+            data: $('#modal-form2').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s2.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan2, #persen2, [id^=definisi2_]').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                    $('#modal2').modal('hide');
+                }else{
+                    alert(response.message);
                     $('#keterangan2, #persen2, [id^=definisi2_]').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#persen2').focus();
+
                 }
-            });
+                s2.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan2, #persen2, [id^=definisi2_]').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
-        //Simpan 4
-        $('#modal_simpan4').on('click', function() {
-            var s4 = $(this);
-            var sender_id = $('#sender_id4').val();
-            var sender = $('#' + sender_id);
+    //Simpan 4
+    $('#modal_simpan4').on('click', function() {
+        var s4 = $(this);
+        var sender_id = $('#sender_id4').val();
+        var sender = $('#' + sender_id);
 
-            if ($('#definisi4_6').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi4_6').focus();
+        if ($('#definisi4_6').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi4_6').focus();
 
-                return false;
-            }
+            return false;
+        }
 
-            if ($('#definisi4_5').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi4_5').focus();
-                
-                return false;
-            }
-
-            if ($('#definisi4_4').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi4_4').focus();
-                
-                return false;
-            }
-
-            if ($('#definisi4_3').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi4_3').focus();
-                
-                return false;
-            }
+        if ($('#definisi4_5').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi4_5').focus();
             
-            if ($('#definisi4_2').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi4_2').focus();
-                
-                return false;
-            }
+            return false;
+        }
 
-            if ($('#definisi4_1').val().length < 1) {
-                alert('Harap isi semua definisi');
-                $('#definisi4_1').focus();
-                
-                return false;
-            }
+        if ($('#definisi4_4').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi4_4').focus();
+            
+            return false;
+        }
 
-            $.ajax({
-                url: '{{url('persentaseEdit4')}}',
-                data: $('#modal-form4').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s4.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan4, #persen4, [id^=definisi4_]').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#modal4').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan4, #persen4, [id^=definisi4_]').prop('readonly', false);
-                        $('#persen4').focus();
+        if ($('#definisi4_3').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi4_3').focus();
+            
+            return false;
+        }
+        
+        if ($('#definisi4_2').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi4_2').focus();
+            
+            return false;
+        }
 
-                    }
-                    s4.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+        if ($('#definisi4_1').val().length < 1) {
+            alert('Harap isi semua definisi');
+            $('#definisi4_1').focus();
+            
+            return false;
+        }
+
+        $.ajax({
+            url: '{{url('persentaseEdit4')}}',
+            data: $('#modal-form4').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s4.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan4, #persen4, [id^=definisi4_]').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                    $('#modal4').modal('hide');
+                }else{
+                    alert(response.message);
                     $('#keterangan4, #persen4, [id^=definisi4_]').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#persen4').focus();
+
                 }
-            });
+                s4.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan4, #persen4, [id^=definisi4_]').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
-        //Simpan 5
-        $('#modal_simpan5').on('click', function() {
-            var s5 = $(this);
-            var sender_id = $('#sender_id5').val();
-            var sender = $('#' + sender_id);
+    //Simpan 5
+    $('#modal_simpan5').on('click', function() {
+        var s5 = $(this);
+        var sender_id = $('#sender_id5').val();
+        var sender = $('#' + sender_id);
 
-            $.ajax({
-                url: '{{url('persentaseEdit5')}}',
-                data: $('#modal-form5').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s5.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan5, #persen5').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#modal5').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan5, #persen5').prop('readonly', false);
-                        $('#persen5').focus();
-
-                    }
-                    s5.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+        $.ajax({
+            url: '{{url('persentaseEdit5')}}',
+            data: $('#modal-form5').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s5.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan5, #persen5').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                    $('#modal5').modal('hide');
+                }else{
+                    alert(response.message);
                     $('#keterangan5, #persen5').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#persen5').focus();
+
                 }
-            });
+                s5.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan5, #persen5').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
-        //Simpan 6
-        $('#modal_simpan6').on('click', function() {
-            var s6 = $(this);
-            var sender_id = $('#sender_id6').val();
-            var sender = $('#' + sender_id);
+    //Simpan 6
+    $('#modal_simpan6').on('click', function() {
+        var s6 = $(this);
+        var sender_id = $('#sender_id6').val();
+        var sender = $('#' + sender_id);
 
-            $.ajax({
-                url: '{{url('persentaseEdit6')}}',
-                data: $('#modal-form6').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s6.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan6, #persen6').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#modal6').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan6, #persen6').prop('readonly', false);
-                        $('#persen6').focus();
+        $.ajax({
+            url: '{{url('persentaseEdit6')}}',
+            data: $('#modal-form6').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s6.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan6, #persen6').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                    $('#modal6').modal('hide');
+                }else{
+                    alert(response.message);
+                    $('#keterangan6, #persen6').prop('readonly', false);
+                    $('#persen6').focus();
 
-                    }
-                    s6.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
-                    $('#keterangan6, #persen5').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
                 }
-            });
+                s6.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan6, #persen5').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
-        //Simpan 7
-        $('#modal_simpan7').on('click', function() {
-            var s7 = $(this);
-            var sender_id = $('#sender_id7').val();
-            var sender = $('#' + sender_id);
+    //Simpan 7
+    $('#modal_simpan7').on('click', function() {
+        var s7 = $(this);
+        var sender_id = $('#sender_id7').val();
+        var sender = $('#' + sender_id);
 
-            $.ajax({
-                url: '{{url('persentaseEdit7')}}',
-                data: $('#modal-form7').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s7.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan7, #persen7').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#modal7').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan7, #persen7').prop('readonly', false);
-                        $('#persen7').focus();
-
-                    }
-                    s7.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+        $.ajax({
+            url: '{{url('persentaseEdit7')}}',
+            data: $('#modal-form7').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s7.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan7, #persen7').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
+                    $('#modal7').modal('hide');
+                }else{
+                    alert(response.message);
                     $('#keterangan7, #persen7').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#persen7').focus();
+
                 }
-            });
+                s7.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan7, #persen7').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
 
-        // OOOOO
+    // OOOOO
 
-        $(document).on('change', 'select[name="jenis_program"]', function(argument) {
+    $(document).on('change', 'select[name="jenis_program"]', function(argument) {
 
-            if ($('select[name="jenis_program"] option:selected').val() == '3') {
+        if ($('select[name="jenis_program"] option:selected').val() == '3') {
 
 //                $('#melayani_container').hide().find(':input').prop('disabled', true);
 //                $('#peduli_container').hide().find(':input').prop('disabled', true);
-                $('#melayani_container').hide();
-                $('#peduli_container').hide();
+            $('#melayani_container').hide();
+            $('#peduli_container').hide();
 
-                $('[id^=keterangan3_]').hide();
-                $('[id^=keterangan3_3]').show();
+            $('[id^=keterangan3_]').hide();
+            $('[id^=keterangan3_3]').show();
 
-                $('[id^=modal_simpan3]').hide();
-                $('[id^=modal_simpan3_3]').show();
+            $('[id^=modal_simpan3]').hide();
+            $('[id^=modal_simpan3_3]').show();
 
-                 $('[id^=input_tipe3_').parent().hide();
-                // $('#input_tipe3_3').prop('checked', true).parent().show();
+             $('[id^=input_tipe3_').parent().hide();
+            // $('#input_tipe3_3').prop('checked', true).parent().show();
 
-                $('#inovatif_container').show();
+            $('#inovatif_container').show();
 
-            } else if ($('select[name="jenis_program"] option:selected').val() == '2') {
+        } else if ($('select[name="jenis_program"] option:selected').val() == '2') {
 
-                $('#inovatif_container').hide();
-                $('#melayani_container').hide();
+            $('#inovatif_container').hide();
+            $('#melayani_container').hide();
 
-                $('[id^=keterangan3_]').hide();
-                $('[id^=keterangan3_2]').show();
+            $('[id^=keterangan3_]').hide();
+            $('[id^=keterangan3_2]').show();
 
-                // $('[id^=modal_simpan3]').hide().prop('disabled', true);
-                // $('[id^=modal_simpan3_2]').show().prop('disabled', false);
+            // $('[id^=modal_simpan3]').hide().prop('disabled', true);
+            // $('[id^=modal_simpan3_2]').show().prop('disabled', false);
 
-                // $('[id^=input_tipe3_').prop('checked', false).parent().hide();
-                // $('#input_tipe3_1').prop('checked', true).parent().show();
-                // $('#input_tipe3_3').prop('checked', false).parent().show();
-                $('#peduli_container').show();
-                
-
-            } else if($('select[name="jenis_program"] option:selected').val() == '1') {
-
-                $('#inovatif_container').hide();
-                $('#peduli_container').hide();
-
-                $('[id^=keterangan3_]').hide();
-                $('[id^=keterangan3_1]').show();
-                
-                $('[id^=modal_simpan3]').hide();
-                $('[id^=modal_simpan3_1]').show();
-
-                $('[id^=input_tipe3_').show().parent().hide();
-                // $('#input_tipe3_1').prop('checked', true).parent().show();
-                // $('#input_tipe3_3').prop('checked', false).parent().show();
-				
-                $('#input_tipe3_2_1_b').parent().show();
-                $('#input_tipe3_2_1_a').parent().show();
-				
-                $('#input_tipe3_2_2_b').parent().show();
-                $('#input_tipe3_2_2_a').parent().show();
-				
-               // $('#mc, #sks').prop('disabled', false);
-
-                $('#melayani_container').show();
-            }
-        });
-
-        $('#sks').on('change', function() {
-            if ($(this).is(':checked')) {
-				$('[name=input_tipe3_2_2]').prop('disabled', false);
-				$('#input_tipe3_2_2_b').prop('checked', true);
-                $('[id^=sindikator_]').val('').prop('disabled', false);
-            }else{
-				$('[name=input_tipe3_2_2]').prop('disabled', true);
-				$('#input_tipe3_2_2_b').prop('checked', false);
-                $('[id^=sindikator_]').val('').prop('disabled', true);
-            }
-        });
-        $('#input_tipe3_2_2_a').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=sindikator_]').val('').prop('disabled', true);
-            }else{
-                $('[id^=sindikator_]').val('').prop('disabled', false);
-            }
-        });
-        $('#input_tipe3_2_2_b').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=sindikator_]').val('').prop('disabled', false);
-            }else{
-                $('[id^=sindikator_]').val('').prop('disabled', true);
-            }
-        });
-
-        $('#kualitas').on('change', function() {
-            if ($(this).is(':checked')) {
-				$('[name=input_tipe3_1_2]').prop('disabled', false);
-				$('#input_tipe3_1_2_b').prop('checked', true);
-                $('[id^=kualitasindikator_]').val('').prop('disabled', false);
-            }else{
-				$('[name=input_tipe3_1_2]').prop('disabled', true);
-				$('#input_tipe3_1_2_b').prop('checked', false);
-                $('[id^=kualitasindikator_]').val('').prop('disabled', true);
-            }
-        });
-        $('#input_tipe3_1_2_a').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=kualitasindikator_]').val('').prop('disabled', true);
-            }else{
-                $('[id^=kualitasindikator_]').val('').prop('disabled', false);
-            }
-        });
-        $('#input_tipe3_1_2_b').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=kualitasindikator_]').val('').prop('disabled', false);
-            }else{
-                $('[id^=kualitasindikator_]').val('').prop('disabled', true);
-            }
-        });
-
-        $('#kuantitas').on('change', function() {
-            if ($(this).is(':checked')) {
-				$('[name=input_tipe3_1_1]').prop('disabled', false);
-				$('#input_tipe3_1_1_b').prop('checked', true);
-                $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
-            }else{
-				$('[name=input_tipe3_1_1]').prop('disabled', true);
-				$('#input_tipe3_1_1_b').prop('checked', false);
-                $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
-            }
-        });
-        $('#input_tipe3_1_2_a').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
-            }else{
-                $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
-            }
-        });
-        $('#input_tipe3_1_2_b').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
-            }else{
-                $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
-            }
-        });
-
-        $('#mc').on('change', function() {
-            if ($(this).is(':checked')) {
-				$('[name=input_tipe3_2_1]').prop('disabled', false);
-				$('#input_tipe3_2_1_b').prop('checked', true);
-                $('[id^=mindikator_]').val('').prop('disabled', false);
-            }else{
-				$('[name=input_tipe3_2_1]').prop('disabled', true);
-				$('#input_tipe3_2_1_b').prop('checked', false);
-                $('[id^=mindikator_]').val('').prop('disabled', true);
-            }
-        });
-		 $('#input_tipe3_2_1_a').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=mindikator_]').val('').prop('disabled', true);
-            }else{
-                $('[id^=mindikator_]').val('').prop('disabled', false);
-            }
-        });
-		$('#input_tipe3_2_1_b').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('[id^=mindikator_]').val('').prop('disabled', false);
-            }else{
-                $('[id^=mindikator_]').val('').prop('disabled', true);
-            }
-        });
-        $(document).on('change', 'input[name="input_tipe3"]', function() {
-
-            if ($('#input_tipe3_1').is(':checked')) {
-
-                if ($('#jenis_program').val() == 1) {
+            // $('[id^=input_tipe3_').prop('checked', false).parent().hide();
+            // $('#input_tipe3_1').prop('checked', true).parent().show();
+            // $('#input_tipe3_3').prop('checked', false).parent().show();
+            $('#peduli_container').show();
             
-                    $('#mc, #sks').prop('checked', true).prop('disabled', false);
-                    $('[id^=mindikator_], [id^=sindikator_]').val('').prop('disabled', false);
+
+        } else if($('select[name="jenis_program"] option:selected').val() == '1') {
+
+            $('#inovatif_container').hide();
+            $('#peduli_container').hide();
+
+            $('[id^=keterangan3_]').hide();
+            $('[id^=keterangan3_1]').show();
             
-                } else if($('#jenis_program').val() == 2) {
+            $('[id^=modal_simpan3]').hide();
+            $('[id^=modal_simpan3_1]').show();
+
+            $('[id^=input_tipe3_').show().parent().hide();
+            // $('#input_tipe3_1').prop('checked', true).parent().show();
+            // $('#input_tipe3_3').prop('checked', false).parent().show();
             
-                    $('[id^=pindikator_]').val('').prop('disabled', false);
-                }
+            $('#input_tipe3_2_1_b').parent().show();
+            $('#input_tipe3_2_1_a').parent().show();
             
-            } else if ($('#input_tipe3_3').is(':checked')){
+            $('#input_tipe3_2_2_b').parent().show();
+            $('#input_tipe3_2_2_a').parent().show();
             
-                if ($('#jenis_program').val() == 1) {
-            
-                    $('#mc, #sks').prop('checked', false).prop('disabled', true);
-                    $('[id^=mindikator_], [id^=sindikator_]').val('').prop('disabled', true);
-            
-                } else if ($('#jenis_program').val() == 2) {
-            
-                    $('[id^=pindikator_]').val('').prop('disabled', true);
-            
-                }
+           // $('#mc, #sks').prop('disabled', false);
+
+            $('#melayani_container').show();
+        }
+    });
+
+    $('#sks').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[name=input_tipe3_2_2]').prop('disabled', false);
+            $('#input_tipe3_2_2_b').prop('checked', true);
+            $('[id^=sindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[name=input_tipe3_2_2]').prop('disabled', true);
+            $('#input_tipe3_2_2_b').prop('checked', false);
+            $('[id^=sindikator_]').val('').prop('disabled', true);
+        }
+    });
+    $('#input_tipe3_2_2_a').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=sindikator_]').val('').prop('disabled', true);
+        }else{
+            $('[id^=sindikator_]').val('').prop('disabled', false);
+        }
+    });
+    $('#input_tipe3_2_2_b').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=sindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[id^=sindikator_]').val('').prop('disabled', true);
+        }
+    });
+
+    $('#kualitas').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[name=input_tipe3_1_2]').prop('disabled', false);
+            $('#input_tipe3_1_2_b').prop('checked', true);
+            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[name=input_tipe3_1_2]').prop('disabled', true);
+            $('#input_tipe3_1_2_b').prop('checked', false);
+            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+        }
+    });
+    $('#input_tipe3_1_2_a').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+        }else{
+            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+        }
+    });
+    $('#input_tipe3_1_2_b').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+        }
+    });
+
+    $('#kuantitas').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[name=input_tipe3_1_1]').prop('disabled', false);
+            $('#input_tipe3_1_1_b').prop('checked', true);
+            $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[name=input_tipe3_1_1]').prop('disabled', true);
+            $('#input_tipe3_1_1_b').prop('checked', false);
+            $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
+        }
+    });
+
+    $('#input_tipe3_1_2_a').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
+        }else{
+            $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
+        }
+    });
+    $('#input_tipe3_1_2_b').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
+        }
+    });
+
+    $('#mc').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[name=input_tipe3_2_1]').prop('disabled', false);
+            $('#input_tipe3_2_1_b').prop('checked', true);
+            $('[id^=mindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[name=input_tipe3_2_1]').prop('disabled', true);
+            $('#input_tipe3_2_1_b').prop('checked', false);
+            $('[id^=mindikator_]').val('').prop('disabled', true);
+        }
+    });
+     $('#input_tipe3_2_1_a').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=mindikator_]').val('').prop('disabled', true);
+        }else{
+            $('[id^=mindikator_]').val('').prop('disabled', false);
+        }
+    });
+    $('#input_tipe3_2_1_b').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=mindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[id^=mindikator_]').val('').prop('disabled', true);
+        }
+    });
+    $(document).on('change', 'input[name="input_tipe3"]', function() {
+
+        if ($('#input_tipe3_1').is(':checked')) {
+
+            if ($('#jenis_program').val() == 1) {
+        
+                $('#mc, #sks').prop('checked', true).prop('disabled', false);
+                $('[id^=mindikator_], [id^=sindikator_]').val('').prop('disabled', false);
+        
+            } else if($('#jenis_program').val() == 2) {
+        
+                $('[id^=pindikator_]').val('').prop('disabled', false);
             }
-        });
+        
+        } else if ($('#input_tipe3_3').is(':checked')){
+        
+            if ($('#jenis_program').val() == 1) {
+        
+                $('#mc, #sks').prop('checked', false).prop('disabled', true);
+                $('[id^=mindikator_], [id^=sindikator_]').val('').prop('disabled', true);
+        
+            } else if ($('#jenis_program').val() == 2) {
+        
+                $('[id^=pindikator_]').val('').prop('disabled', true);
+        
+            }
+        }
+    });
 
-        //Simpan 3_1
-        $('#modal_simpan3_1').on('click', function() {
-            var s3_1 = $(this);
-            var sender_id = $('#sender_id3').val();
-            var sender = $('#' + sender_id);
+    //Simpan 3_1
+    $('#modal_simpan3_1').on('click', function() {
+        var s3_1 = $(this);
+        var sender_id = $('#sender_id3').val();
+        var sender = $('#' + sender_id);
 
-            $.ajax({
-                url: '{{url('persentaseEdit3_1')}}',
-                data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s3_1.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan3_1, #persen3').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#keterangan3_1, #persen3').prop('readonly', false);
-                        $('#modal3').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan3_1, #persen3').prop('readonly', false);
-                        $('#persen3').focus();
-                    }
-                    s3_1.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+        $.ajax({
+            url: '{{url('persentaseEdit3_1')}}',
+            data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s3_1.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan3_1, #persen3').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
                     $('#keterangan3_1, #persen3').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#modal3').modal('hide');
+                }else{
+                    alert(response.message);
+                    $('#keterangan3_1, #persen3').prop('readonly', false);
+                    $('#persen3').focus();
                 }
-            });
+
+                s3_1.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan3_1, #persen3').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
-        //Simpan 3_2
-        $('#modal_simpan3_2').on('click', function() {
-            var s3_2 = $(this);
-            var sender_id = $('#sender_id3').val();
-            var sender = $('#' + sender_id);
+    //Simpan 3_2
+    $('#modal_simpan3_2').on('click', function() {
+        var s3_2 = $(this);
+        var sender_id = $('#sender_id3').val();
+        var sender = $('#' + sender_id);
 
-            $.ajax({
-                url: '{{url('persentaseEdit3_2')}}',
-                data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s3_2.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan3_2, #persen3').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#keterangan3_2, #persen3').prop('readonly', false);
-                        $('#modal3').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan3_2, #persen3').prop('readonly', false);
-                        $('#persen3').focus();
-
-                    }
-                    s3_2.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+        $.ajax({
+            url: '{{url('persentaseEdit3_2')}}',
+            data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s3_2.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan3_2, #persen3').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
                     $('#keterangan3_2, #persen3').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#modal3').modal('hide');
+                }else{
+                    alert(response.message);
+                    $('#keterangan3_2, #persen3').prop('readonly', false);
+                    $('#persen3').focus();
+
                 }
-            });
+                s3_2.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan3_2, #persen3').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
+    });
 
-        //Simpan 3_3
-        $('#modal_simpan3_3').on('click', function() {
-            var s3_3 = $(this);
-            var sender_id = $('#sender_id3').val();
-            var sender = $('#' + sender_id);
+    //Simpan 3_3
+    $('#modal_simpan3_3').on('click', function() {
+        var s3_3 = $(this);
+        var sender_id = $('#sender_id3').val();
+        var sender = $('#' + sender_id);
 
-            $.ajax({
-                url: '{{url('persentaseEdit3_3')}}',
-                data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
-                type: 'POST',
-                dataType: 'JSON',
-                beforeSend: function(){
-                    s3_3.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
-                    $('#keterangan3_3, #persen3').prop('readonly', true);
-                },
-                success: function(response){
-                    if (response.status) {
-                        sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
-                        $('#keterangan3_3, #persen3').prop('readonly', false);
-                        $('#modal3').modal('hide');
-                    }else{
-                        alert(response.message);
-                        $('#keterangan3_3, #persen3').prop('readonly', false);
-                        $('#persen3').focus();
-
-                    }
-                    s3_3.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+        $.ajax({
+            url: '{{url('persentaseEdit3_3')}}',
+            data: $('#modal-form3').serialize() + '&hashid=' + sender.attr('data-id'),
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                s3_3.html('<i class="fa fa-cog fa-spin"></i> Memuat...').prop('disabled', true);
+                $('#keterangan3_3, #persen3').prop('readonly', true);
+            },
+            success: function(response){
+                if (response.status) {
+                    sender.attr('data-id', response.data.hashid).val(response.data.persen + ' %');
                     $('#keterangan3_3, #persen3').prop('readonly', false);
-                },
-                error: function(response) {
-                    console.log(response);
-                    alert('error');
+                    $('#modal3').modal('hide');
+                }else{
+                    alert(response.message);
+                    $('#keterangan3_3, #persen3').prop('readonly', false);
+                    $('#persen3').focus();
+
                 }
-            });
+                s3_3.prop('disabled', false).html('Simpan <i class="fa fa-save"></i>');
+                $('#keterangan3_3, #persen3').prop('readonly', false);
+            },
+            error: function(response) {
+                console.log(response);
+                alert('error');
+            }
         });
-    </script>
+    });
+</script>
 @endsection
