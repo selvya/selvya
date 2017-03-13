@@ -114,14 +114,14 @@
                                                                     class="form-control realisasi"
                                                                     value="{{number_format($v->realisasi, 0, ',', '.')}}"
                                                                     @php
-                                                                        $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
+                                                                        // $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
                                                                         $triwulan[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
                                                                                     ->where('triwulan', ($k+1))
                                                                                     ->first();
                                                                         $awal[$k] = \Carbon\Carbon::parse($triwulan[$k]->sejak);
                                                                         $akhir[$k] = \Carbon\Carbon::parse($triwulan[$k]->hingga);
-                                                                        // $now[$k] = \Carbon\Carbon::now();
-                                                                        $now[$k] = $no;
+                                                                        $now[$k] = \Carbon\Carbon::now();
+                                                                        // $now[$k] = $no;
                                                                     @endphp
 
                                                                     @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))

@@ -248,3 +248,6 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('hapus-maping/{id}', 'MappingController@hapus');
 // });
 
+//Download
+    Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
+
