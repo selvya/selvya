@@ -26,7 +26,7 @@
                     </div>
                     <form class="form-horizontal" id="modal-form1">
                         <div class="form-group">
-                            <label for="komponen_iku1" class="control-label col-md-4">Komponen Iku</label>
+                            <label for="komponen_iku1" class="control-label col-md-4">Komponen IKU</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" readonly id="" value="Kecepatan Pelaporan">
                             </div>
@@ -52,7 +52,7 @@
                                 <div class="col-md-9" id="radioContainer">
                                     <div class="radio">
                                         <label for="input_tipe1">
-                                            <input type="radio" id="input_tipe1" name="input_tipe1" checked value="otomatis"> Parameterize
+                                            <input type="radio" id="input_tipe1" name="input_tipe1" checked value="otomatis"> Parameterized
                                         </label>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                 <th>Deskripsi Indikator 6</th>
                                 <td>
                                     <div class="input-group col-md-6">
-                                        <span class="input-group-addon">=</span>
+                                        <span class="input-group-addon">+</span>
                                         <input type="text" name="definisi1_6" id="definisi1_6" class="form-control" value="">
                                         <span class="input-group-addon">Hari dari batas</span>
                                     </div>
@@ -121,7 +121,7 @@
                                 <td>
                                     <div class="input-group col-md-6">
                                         <span class="input-group-addon">!!!</span>
-                                        <input type="text" name="definisi1_1" id="definisi1_1" class="form-control" value="">
+                                        <input type="text" name="definisi1_1" id="definisi1_1" class="form-control" placeholder="NA" value="">
                                         <span class="input-group-addon">Hari dari batas</span>
                                     </div>
                                 </td>
@@ -157,7 +157,7 @@
                     </div>
                     <form class="form-horizontal" id="modal-form2">
                         <div class="form-group">
-                            <label for="komponen_iku2" class="control-label col-md-4">Komponen Iku</label>
+                            <label for="komponen_iku2" class="control-label col-md-4">Komponen IKU</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" readonly id="" value="Serapan Anggaran">
                             </div>
@@ -183,7 +183,7 @@
                                 <div class="col-md-9" id="radioContainer">
                                     <div class="radio">
                                         <label for="input_tipe2">
-                                            <input type="radio" id="input_tipe2" name="input_tipe2" checked value="otomatis"> Parameterize
+                                            <input type="radio" id="input_tipe2" name="input_tipe2" checked value="otomatis"> Parameterized
                                         </label>
                                     </div>
                                 </div>
@@ -288,7 +288,7 @@
                     </div>
                     <form class="form-horizontal" id="modal-form3">
                         <div class="form-group">
-                            <label for="komponen_iku3" class="control-label col-md-4">Komponen Iku</label>
+                            <label for="komponen_iku3" class="control-label col-md-4">Komponen IKU</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" readonly id="" value="Pelaksanaan Program Budaya">
                             </div>
@@ -318,26 +318,27 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                       {{--  <div class="form-group">
                             <label for="input_tipe3" class="control-label col-md-4">Input Nilai</label>
                             <div class="col-md-8">
                                 <div class="col-md-9" id="radioContainer">
                                     <div class="radio">
                                         <label for="input_tipe3_1">
-                                            <input type="radio" id="input_tipe3_1" name="input_tipe3" checked value="parameterized"> Parameterize
+                                            <input type="radio" id="input_tipe3_1" name="input_tipe3" checked value="parameterized"> Parameterized
                                         </label>
                                         <br>
-                                        {{-- <label for="input_tipe3_2">
+                                        <label for="input_tipe3_2">
                                             <input type="radio" id="input_tipe3_2" name="input_tipe3" value="otomatis"> Otomatis
-                                        </label> --}}
-                                        {{-- <br> --}}
+                                        </label> 
+                                         <br> 
                                         <label for="input_tipe3_3">
                                             <input type="radio" id="input_tipe3_3" name="input_tipe3" value="manual"> Manual
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
+						 <input type="hidden" name="input_tipe3" value="otomatis">
                         <div class="form-group">
                             <label for="keterangan3" class="control-label col-md-4">Keterangan</label>
                             <div class="col-md-8">
@@ -348,16 +349,16 @@
                         </div>
                         <div id="melayani_container">
                             <table class="table table-condensed table-bordered mtable" id="table_mc">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" name="mc" value="1" aria-label="..." id="mc" checked>
-                                            </span>
-                                            <input type="text" class="form-control" aria-label="..." value="Mystery Call" readonly>
-                                        </div><!-- /input-group -->
-                                    </div><!-- /.col-lg-6 -->
-                                </div><!-- /.row -->
+									<tr>
+                                        <td colspan="2"><label><input type="checkbox" name="mc" value="1" aria-label="..." id="mc" checked style="width:36px;height:22px"> Mystery Call</label></td>
+                                    </tr>
+									<tr>
+                                        <th>Tipe Nilai</th>
+                                        <td>
+                                           <label><input type="radio" id="input_tipe3_2_1_a" disabled name="input_tipe3_2_1" value="manual"> Manual</label>
+                                           <label><input type="radio" id="input_tipe3_2_1_b" disabled name="input_tipe3_2_1" value="parameterized"> Parameterized</label>
+                                        </td>
+                                    </tr>
                                 @for($i = 6; $i >= 1; $i--)
                                     <tr>
                                         <th>Deskripsi Indikator {{$i}}</th>
@@ -368,16 +369,15 @@
                                 @endfor
                             </table>
                             <table class="table table-condensed table-bordered skstable" id="table_sks">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" name="sks" value="1" aria-label="..." id="sks" checked>
-                                            </span>
-                                            <input type="text" class="form-control" aria-label="..." value="Survei Kepuasan Stakeholder" readonly>
-                                        </div>
-                                    </div>
-                                </div>
+                                <tr>
+                                        <td colspan="2"><label><input type="checkbox" name="sks" value="1" aria-label="..." id="sks" style="width:36px;height:22px"> Survei Kepuasan Stakeholder</label></td>
+                                    </tr><tr>
+                                        <th>Tipe Nilai</th>
+                                        <td>
+                                           <label><input type="radio" id="input_tipe3_2_2_a" disabled name="input_tipe3_2_2" value="manual"> Manual</label>
+                                           <label><input type="radio" id="input_tipe3_2_2_b"disabled name="input_tipe3_2_2" value="parameterized"> Parameterized</label>
+                                        </td>
+                                    </tr>
                                 @for($i = 6; $i >= 1; $i--)
                                     <tr>
                                         <th>Deskripsi Indikator {{$i}}</th>
@@ -395,6 +395,44 @@
                                         <th>Deskripsi Indikator {{$i}}</th>
                                         <td>
                                             <input type="text" name="pindikator_{{$i}}" id="pindikator_{{$i}}" class="form-control" value="" required>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            </table> <table class="table table-condensed table-bordered kuantitastable" id="table_kuantitas">
+									<tr>
+                                        <td colspan="2"><label><input type="checkbox" name="kuantitas" value="1" aria-label="..." id="kuantitas" checked style="width:36px;height:22px"> Kuantitas (Frekuensi & Partisipasi) </label></td>
+                                    </tr>
+									<tr>
+                                        <th>Tipe Nilai</th>
+                                        <td>
+                                           <label><input type="radio" id="input_tipe3_1_1_a" disabled name="input_tipe3_2_1" value="manual"> Manual</label>
+                                           <label><input type="radio" id="input_tipe3_1_1_b"disabled name="input_tipe3_2_1" value="parameterized"> Parameterized</label>
+                                        </td>
+                                    </tr>
+                                @for($i = 6; $i >= 1; $i--)
+                                    <tr>
+                                        <th>Deskripsi Indikator {{$i}}</th>
+                                        <td>
+                                            <input type="text" name="kuantitasindikator_{{$i}}" id="kuantitasindikator_{{$i}}" class="form-control" value="" required>
+                                        </td>
+                                    </tr>
+                                @endfor
+                            </table>
+                            <table class="table table-condensed table-bordered kualitastable" id="table_kualitas">
+                                <tr>
+                                        <td colspan="2"><label><input type="checkbox" name="sks" value="1" aria-label="..." id="sks" style="width:36px;height:22px"> Kualitas (Survey)</label></td>
+                                    </tr><tr>
+                                        <th>Tipe Nilai</th>
+                                        <td>
+                                           <label><input type="radio" id="input_tipe3_1_2_a" disabled name="input_tipe3_2_2" value="manual"> Manual</label>
+                                           <label><input type="radio" id="input_tipe3_1_2_b"disabled name="input_tipe3_2_2" value="parameterized"> Parameterized</label>
+                                        </td>
+                                    </tr>
+                                @for($i = 6; $i >= 1; $i--)
+                                    <tr>
+                                        <th>Deskripsi Indikator {{$i}}</th>
+                                        <td>
+                                            <input type="text" name="kualitasindikator_{{$i}}" id="kualitasindikator_{{$i}}" class="form-control" value="" required>
                                         </td>
                                     </tr>
                                 @endfor
@@ -437,7 +475,7 @@
                     </div>
                     <form class="form-horizontal" id="modal-form4">
                         <div class="form-group">
-                            <label for="komponen_iku4" class="control-label col-md-4">Komponen Iku</label>
+                            <label for="komponen_iku4" class="control-label col-md-4">Komponen IKU</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" readonly id="" value="Partisipasi Pimpinan">
                             </div>
@@ -463,7 +501,7 @@
                                 <div class="col-md-9" id="radioContainer">
                                     <div class="radio">
                                         <label for="input_tipe4">
-                                            <input type="radio" id="input_tipe4" name="input_tipe4" checked value="otomatis"> Parameterize
+                                            <input type="radio" id="input_tipe4" name="input_tipe4" checked value="otomatis"> Parameterized
                                         </label>
                                     </div>
                                 </div>
@@ -544,7 +582,7 @@
                     </div>
                     <form class="form-horizontal" id="modal-form5">
                         <div class="form-group">
-                            <label for="komponen_iku5" class="control-label col-md-4">Komponen Iku</label>
+                            <label for="komponen_iku5" class="control-label col-md-4">Komponen IKU</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" readonly id="" value="Lomba Kreasi Kreatif">
                             </div>
@@ -682,7 +720,7 @@
                     </div>
                     <form class="form-horizontal" id="modal-form7">
                         <div class="form-group">
-                            <label for="komponen_iku7" class="control-label col-md-4">Komponen Iku</label>
+                            <label for="komponen_iku7" class="control-label col-md-4">Komponen IKU</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" readonly id="" value="Survei Budaya Eksternal">
                             </div>
@@ -970,32 +1008,67 @@
                             $('#keterangan3_1').val(response.data.iku1.keterangan).show();
                             $('#keterangan3_2').val(response.data.iku2.keterangan);
                             $('#keterangan3_3').val(response.data.iku3.keterangan);
-                            
                             console.log(response);
+							// yg mc
+							if(response.data.alat_ukur1_1.active > 0) {
+								$('#mc').prop('checked', true);
+								$('[name=input_tipe3_2_1]').prop('disabled',false);	
+							if(response.data.alat_ukur1_1.tipe == "parameterized") {
+								$('#input_tipe3_2_1_b').prop('checked', true);								
                             if ($.isArray(response.data.definisi1_1)) {
                                 if (response.data.definisi1_1.length > 0) {
-                                    $('#mc').prop('checked', true);
-                                    $.each(response.data.definisi1_1, function (k, v) {
+                                   $.each(response.data.definisi1_1, function (k, v) {
                                         $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
                                     });
                                 }else{
-                                    $('#mc').prop('checked', false);
-                                    $('[id^=mindikator_]').val('').prop('disabled', true);
+                                    $('[id^=mindikator_]').val('');
                                 }
                             }
-
+							}else{
+							if(response.data.alat_ukur1_1.tipe == "manual") {
+								$('#input_tipe3_2_1_a').prop('checked', true);
+							}
+							   $.each(response.data.definisi1_1, function (k, v) {
+                                        $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });
+							}
+							}else{
+								$('#mc').prop('checked', false);	
+								$('[name=input_tipe3_2_1]').prop('checked', false).prop('disabled',true);	
+									$.each(response.data.definisi1_1, function (k, v) {
+                                        $('#mindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });								
+							}
+							//survey yang
+							if(response.data.alat_ukur1_2.active > 0) {
+								$('#sks').prop('checked', true);
+								$('[name=input_tipe3_2_2]').prop('disabled',false);	
+							if(response.data.alat_ukur1_2.tipe == "parameterized") {
+								$('#input_tipe3_2_2_b').prop('checked', true);								
                             if ($.isArray(response.data.definisi1_2)) {
-                                if(response.data.definisi1_2.length > 0) {
-                                    $('#sks').prop('checked', true);
-                                    $.each(response.data.definisi1_2, function (k, v) {
+                                if (response.data.definisi1_2.length > 0) {
+                                   $.each(response.data.definisi1_2, function (k, v) {
                                         $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
                                     });
                                 }else{
-                                    $('#sks').prop('checked', false);
-                                    $('[id^=sindikator_]').val('').prop('disabled', true);
+                                    $('[id^=sindikator_]').val('');
                                 }
                             }
-
+							}else{
+							if(response.data.alat_ukur1_2.tipe == "manual") {
+								$('#input_tipe3_2_2_a').prop('checked', true);
+							}
+							   $.each(response.data.definisi1_2, function (k, v) {
+                                        $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });
+							}
+							}else{
+								$('#sks').prop('checked', false);	
+								$('[name=input_tipe3_2_2]').prop('checked', false).prop('disabled',true);	
+									$.each(response.data.definisi1_2, function (k, v) {
+                                        $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });								
+							}
                             if ($.isArray(response.data.definisi2)) {
                                 $.each(response.data.definisi2, function(k, v) {
                                     $('#pindikator_' + (k+1)).val(v.deskripsi);
@@ -1520,56 +1593,80 @@
                 $('#melayani_container').hide();
                 $('#peduli_container').hide();
 
-                $('[id^=keterangan3_]').hide().prop('disabled', true);
-                $('[id^=keterangan3_3]').show().prop('disabled', false);
+                $('[id^=keterangan3_]').hide();
+                $('[id^=keterangan3_3]').show();
 
-                $('[id^=modal_simpan3]').hide().prop('disabled', true);
-                $('[id^=modal_simpan3_3]').show().prop('disabled', false);
+                $('[id^=modal_simpan3]').hide();
+                $('[id^=modal_simpan3_3]').show();
 
                  $('[id^=input_tipe3_').parent().hide();
                 // $('#input_tipe3_3').prop('checked', true).parent().show();
 
-                $('#inovatif_container').show().find(':input').prop('disabled', false);
+                $('#inovatif_container').show();
 
             } else if ($('select[name="jenis_program"] option:selected').val() == '2') {
 
-                $('#inovatif_container').hide().find(':input').prop('disabled', true);
-                $('#melayani_container').hide().find(':input').prop('disabled', true);
+                $('#inovatif_container').hide();
+                $('#melayani_container').hide();
 
-                $('[id^=keterangan3_]').hide().prop('disabled', true);
-                $('[id^=keterangan3_2]').show().prop('disabled', false);
+                $('[id^=keterangan3_]').hide();
+                $('[id^=keterangan3_2]').show();
 
                 // $('[id^=modal_simpan3]').hide().prop('disabled', true);
                 // $('[id^=modal_simpan3_2]').show().prop('disabled', false);
 
-                $('[id^=input_tipe3_').prop('checked', false).parent().hide();
-                $('#input_tipe3_1').prop('checked', true).parent().show();
-                $('#input_tipe3_3').prop('checked', false).parent().show();
+                // $('[id^=input_tipe3_').prop('checked', false).parent().hide();
+                // $('#input_tipe3_1').prop('checked', true).parent().show();
+                // $('#input_tipe3_3').prop('checked', false).parent().show();
+                $('#peduli_container').show();
                 
-                $('#peduli_container').show().find(':input').prop('disabled', false);
 
             } else if($('select[name="jenis_program"] option:selected').val() == '1') {
 
-                $('#inovatif_container').hide().find(':input').prop('disabled', true);
-                $('#peduli_container').hide().find(':input').prop('disabled', true);
+                $('#inovatif_container').hide();
+                $('#peduli_container').hide();
 
-                $('[id^=keterangan3_]').hide().prop('disabled', true);
-                $('[id^=keterangan3_1]').show().prop('disabled', false);
+                $('[id^=keterangan3_]').hide();
+                $('[id^=keterangan3_1]').show();
                 
-                $('[id^=modal_simpan3]').hide().prop('disabled', true);
-                $('[id^=modal_simpan3_1]').show().prop('disabled', false);
+                $('[id^=modal_simpan3]').hide();
+                $('[id^=modal_simpan3_1]').show();
 
-                $('[id^=input_tipe3_').show().prop('checked', false).parent().hide();
+                $('[id^=input_tipe3_').show().parent().hide();
                 // $('#input_tipe3_1').prop('checked', true).parent().show();
                 // $('#input_tipe3_3').prop('checked', false).parent().show();
+				
+                $('#input_tipe3_2_1_b').parent().show();
+                $('#input_tipe3_2_1_a').parent().show();
+				
+                $('#input_tipe3_2_2_b').parent().show();
+                $('#input_tipe3_2_2_a').parent().show();
+				
+               // $('#mc, #sks').prop('disabled', false);
 
-                $('#mc, #sks').prop('checked', true).prop('disabled', false);
-
-                $('#melayani_container').show().find(':input').prop('disabled', false);
+                $('#melayani_container').show();
             }
         });
 
         $('#sks').on('change', function() {
+            if ($(this).is(':checked')) {
+				$('[name=input_tipe3_2_2]').prop('disabled', false);
+				$('#input_tipe3_2_2_b').prop('checked', true);
+                $('[id^=sindikator_]').val('').prop('disabled', false);
+            }else{
+				$('[name=input_tipe3_2_2]').prop('disabled', true);
+				$('#input_tipe3_2_2_b').prop('checked', false);
+                $('[id^=sindikator_]').val('').prop('disabled', true);
+            }
+        });
+        $('#input_tipe3_2_2_a').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=sindikator_]').val('').prop('disabled', true);
+            }else{
+                $('[id^=sindikator_]').val('').prop('disabled', false);
+            }
+        });
+        $('#input_tipe3_2_2_b').on('change', function() {
             if ($(this).is(':checked')) {
                 $('[id^=sindikator_]').val('').prop('disabled', false);
             }else{
@@ -1579,12 +1676,29 @@
 
         $('#mc').on('change', function() {
             if ($(this).is(':checked')) {
+				$('[name=input_tipe3_2_1]').prop('disabled', false);
+				$('#input_tipe3_2_1_b').prop('checked', true);
+                $('[id^=mindikator_]').val('').prop('disabled', false);
+            }else{
+				$('[name=input_tipe3_2_1]').prop('disabled', true);
+				$('#input_tipe3_2_1_b').prop('checked', false);
+                $('[id^=mindikator_]').val('').prop('disabled', true);
+            }
+        });
+		 $('#input_tipe3_2_1_a').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=mindikator_]').val('').prop('disabled', true);
+            }else{
+                $('[id^=mindikator_]').val('').prop('disabled', false);
+            }
+        });
+		$('#input_tipe3_2_1_b').on('change', function() {
+            if ($(this).is(':checked')) {
                 $('[id^=mindikator_]').val('').prop('disabled', false);
             }else{
                 $('[id^=mindikator_]').val('').prop('disabled', true);
             }
         });
-
         $(document).on('change', 'input[name="input_tipe3"]', function() {
 
             if ($('#input_tipe3_1').is(':checked')) {
