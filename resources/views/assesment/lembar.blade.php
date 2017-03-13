@@ -55,7 +55,7 @@
 				<tbody>
 					<?php 
 					$triwulan = cekCurrentTriwulan();
-					$report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->orderBy('created_at','DESC')->get();
+					$report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->get();
 					?>
 					@forelse($report as $data)
 					<tr class="odd">
@@ -63,26 +63,27 @@
 						<td class="text-center">{{$data->tahun}}</td>
 						<td >
 							<div>
-								@if(count($report) < 4)
-								<p>
-									<strong>Terakhir diubah :</strong> {{date('d-M-Y', strtotime($data->created_at))}}
-									<span class="text-muted pull-right">20% Complete</span>
-								</p>
-								<div class="progress progress-striped active">
-									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-										<span class="sr-only">20% Complete</span>
-									</div>
-								</div>
-
-								@elseif(count($report) == 4)
-								<strong>Final pada :</strong> 20-12-2019
-								<span class="text-muted pull-right">100% Complete</span>
-								<div class="progress progress-striped">
-									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-										<span class="sr-only">100% Complete</span>
-									</div>
-								</div>
+								@if(count($report) == 4)
+								<strong>Final pada :</strong> {{date('d-M-Y', strtotime($data->created_at))}}
+								@else
+								<strong>Terakhir diubah pada :</strong> {{date('d-M-Y', strtotime($data->created_at))}}
 								@endif
+
+								<span class="text-muted pull-right">@if(count($report) == 1) 25% @elseif(count($report) == 2) 50% @elseif(count($report) == 3) 75% @else 100% @endif Complete</span>
+								<div class="progress progress-striped">
+									<div class="progress-bar @if(count($report) <= 3) progress-bar-danger @else progress-bar-success  @endif" role="progressbar" aria-valuenow="@if(count($report) == 1) 25 @elseif(count($report) == 2) 50 @elseif(count($report) == 3) 75 @else 100 @endif" aria-valuemin="0" aria-valuemax="100" style="width: @if(count($report) == 1) 25% @elseif(count($report) == 2) 50% @elseif(count($report) == 3) 75% @else 100% @endif;">
+										<span class="sr-only">
+											@if(count($report) == 1) 25% 
+											@elseif(count($report) == 2) 50% 
+											@elseif(count($report) == 3) 75% 
+											@else 100% 
+											@endif 
+
+											Complete
+										</span>
+									</div>
+								</div>
+								
 
 							</div>
 						</td>
@@ -91,7 +92,7 @@
 							<a href="{{url('edit-self-assessment')}}" class="btn btn-warning">Ubah 
 							</a>
 							<a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
-							@if($data->final_status == 1)
+							@if((count($report) == 4)  && ($data->final_status == 1))
 							<span class="btn btn-success"> Sudah di Final</span>
 							@endif
 						</td>
