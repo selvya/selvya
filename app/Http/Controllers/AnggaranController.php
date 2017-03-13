@@ -124,9 +124,20 @@ class AnggaranController extends Controller
     {
         $satker = getSatker();
 
+
         $tahunAnggaran = AnggaranTahun::where('tahun', date('Y'))
                         ->where('user_id', $satker)
                         ->first();
+
+        $tmpNilai = 0;
+        for ($i=1; $i <= 4 ; $i++) {
+            $tmpNilai += request('rencana_' . $i);
+        }
+
+        if ($tmpNilai > $tahunAnggaran->total_anggaran) {
+            Session::flash('msg', '<div class="alert alert-danger">Rencana Angaran Tidak boleh melebihi Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+            return redirect()->back();
+        }
 
         for ($i=1; $i <= 4 ; $i++) { 
             $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
