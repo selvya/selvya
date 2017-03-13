@@ -24,42 +24,30 @@
 
 	<!-- Datatables Content -->
 	<div class="block full">
-		<div class="table-responsive">
-			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-				<div class="row">
-					<div class="col-sm-12">
-						<div id="dataTables-example_filter" class="dataTables_filter">
-							<label>Search:<input type="search" class="form-control input-sm" aria-controls="dataTables-example">
-							</label>
-						</div>
-					</div>
-				</div>
-				<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
-					<thead>
-						<tr role="row">
-							<th>Nama</th>
-							<th>Otoritas</th>
-							<th>Deputi</th>
-							<th>Departemen</th>
-							<th>KOJK</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="odd text-center">
-							<td>Satker DSMS</td>
-							<td>DSMS</td>
-							<td>DSMS</td>
-							<td>DSMS</td>
-							<td>DSMS</td>
-							<td>
-								<a href="{{url('tambah/lomba/')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Lomba Kreasi Kreatif">Tambah</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+	<table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" aria-describedby="dataTables-example_info">
+			<thead>
+				<tr role="row">
+					<th>Nama</th>
+					<th>Otoritas</th>
+					<th>Deputi</th>
+					<th>Departemen</th>
+					<th>KOJK</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="odd text-center">
+					<td>Satker DSMS</td>
+					<td>DSMS</td>
+					<td>DSMS</td>
+					<td>DSMS</td>
+					<td>DSMS</td>
+					<td>
+						<a href="{{url('tambah/lomba/')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Lomba Kreasi Kreatif">Tambah</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<!-- END Datatables Content -->
 	</div>
 	<!-- END Page Content -->
@@ -68,4 +56,10 @@
 	@section('js')
 	<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
 	<script>$(function(){ TablesDatatables.init(); });</script>
+	<script>$(function(){ TablesDatatables.init(); });</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#myTable').DataTable();
+		});
+	</script>
 	@endsection
