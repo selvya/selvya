@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
+
 use App\AnggaranTahun;
+use App\AnggaranTriwulan;
 use App\Persentase;
 use App\Iku;
 use App\AlatUkur;
@@ -15,10 +18,22 @@ class AnggaranController extends Controller
     public function index(Request $r)
     {
         $satker = getSatker();
+        // dd($satker);
 
-        $anggaran = AnggaranTahun::with('anggaran_triwulan')->updateOrCreate(
+        $anggaran = AnggaranTahun::updateOrCreate(
             ['user_id' => $satker, 'tahun' => date('Y')]
         );
+
+        for ($i=1; $i <= 4 ; $i++) { 
+            $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
+                [
+                    'user_id' => $satker,
+                    'anggaran_tahun_id' => $anggaran->id,
+                    'triwulan' => $i
+                ]
+            );
+        }
+        
 
         return view('monitoring.anggaran', compact('anggaran'));
     }
@@ -70,9 +85,13 @@ class AnggaranController extends Controller
         $target = Persentase::with('iku.alat_ukur.definisi')->where('tahun', date('Y'))
                 ->where('daftarindikator_id', 2)
                 ->get();
+
+        $rencana = AnggaranTriwulan::where('user_id', $satker)
+                        ->where('anggaran_tahun_id', $anggaran->id)
+                        ->get();
         // return $target;
 
-        return view('monitoring.ubah', compact('anggaran', 'target'));
+        return view('monitoring.ubah', compact('anggaran', 'target', 'rencana'));
     }
 
     public function ubahTotal(Request $r)
@@ -99,5 +118,29 @@ class AnggaranController extends Controller
         $resp['data'] = $tahunAnggaran;
 
         return response()->json($resp, 200);
+    }
+
+    public function ubahAnggaran(Request $r)
+    {
+        $satker = getSatker();
+
+        $tahunAnggaran = AnggaranTahun::where('tahun', date('Y'))
+                        ->where('user_id', $satker)
+                        ->first();
+
+        for ($i=1; $i <= 4 ; $i++) { 
+            $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
+                [
+                    'user_id' => $satker,
+                    'anggaran_tahun_id' => $tahunAnggaran->id,
+                    'triwulan' => $i
+                ],
+
+                ['rencana' => preg_replace("/[^0-9]/","", request('rencana_' . $i))]
+            );
+        }
+
+        Session::flash('msg', '<div class="alert alert-success">Berhasil menyimpan</div>');
+        return redirect()->back();
     }
 }

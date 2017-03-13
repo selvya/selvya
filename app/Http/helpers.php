@@ -2,9 +2,9 @@
 use Carbon\Carbon;
 
 function getSatker(){
-    if (Auth::check()) {
-        return Auth::user()->satker_id;
-    }
+    // if (Auth::check()) {
+    //     return Auth::user()->id;
+    // }
 
     return 8;
 }
@@ -15,6 +15,32 @@ function getBatasTanggalPelaporan($tahun = null, $triwulan = 1) {
             ->first();
 
     $rv->tanggal = Carbon::parse($rv->tanggal);
+
+    return $rv;
+}
+
+function cekCurrentTriwulan()
+{
+    $rv = [];
+    $triwulan = \App\TanggalLaporan::where('tahun', date('Y'))
+                ->get();
+    if ($triwulan) {
+        foreach ($triwulan as $k => $v) {
+            $awal[($k+1)] = \Carbon\Carbon::parse($v->sejak);
+            $akhir[($k+1)] = \Carbon\Carbon::parse($v->hingga);
+            $now[($k+1)] = \Carbon\Carbon::parse('2017-12-07 00:00:00');
+
+            $rv['triwulan'][($k+1)] = [
+                'batas_laporan' => $v->tanggal,
+                'awal_triwulan' => $v->sejak,
+                'akhir_triwulan' => $v->hingga
+            ];
+
+            if ($now[($k+1)]->between($awal[($k+1)], $akhir[($k+1)])) {
+                $rv['current'] = $v;
+            }
+        }
+    }
 
     return $rv;
 }
