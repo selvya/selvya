@@ -1,5 +1,9 @@
 @extends('layout.master')
 @section('content')
+<style type="text/css">
+	.dataTables_paginate{display: none!important;}
+	.dataTables_info{display: none;}
+</style>
 <!-- Page content -->
 <div id="page-content">
 	<!-- Datatables Header -->
@@ -53,10 +57,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php 
-					$triwulan = cekCurrentTriwulan();
-					$report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->get();
-					?>
 					@forelse($report as $data)
 					<tr class="odd">
 						<td class="text-center">{{date('M', strtotime($triwulan['current']['sejak']))}} - {{date('M', strtotime($triwulan['current']['hingga']))}}</td>
@@ -101,6 +101,9 @@
 					@endforelse
 				</tbody>
 			</table>
+			<div class="col-md-12 text-center">
+				{{$report->render()}}
+			</div>
 		</div>
 		<!-- END Datatables Content -->
 	</div>

@@ -416,7 +416,7 @@
                             </table>
                             <table class="table table-condensed table-bordered kualitastable" id="table_kualitas">
                                 <tr>
-                                        <td colspan="2"><label><input type="checkbox" name="sks" value="1" aria-label="..." id="sks" style="width:36px;height:22px"> Kualitas (Survey)</label></td>
+                                        <td colspan="2"><label><input type="checkbox" name="kualitas" value="1" aria-label="..." id="kualitas" style="width:36px;height:22px"> Kualitas (Survey)</label></td>
                                     </tr><tr>
                                         <th>Tipe Nilai</th>
                                         <td>
@@ -1133,7 +1133,7 @@
                             $('#kualitas').prop('checked', true);
                             $('[name=input_tipe3_1_2]').prop('disabled',false); 
                             
-                            if(response.data.alat_ukur1_2.tipe == "parameterized") {
+                            if(response.data.alat_ukur2_2.tipe == "parameterized") {
 
                                 $('#input_tipe3_1_2_b').prop('checked', true);                              
 
@@ -1713,6 +1713,11 @@
             // $('[id^=input_tipe3_').prop('checked', false).parent().hide();
             // $('#input_tipe3_1').prop('checked', true).parent().show();
             // $('#input_tipe3_3').prop('checked', false).parent().show();
+			 $('#input_tipe3_1_1_b').parent().show();
+            $('#input_tipe3_1_1_a').parent().show();
+            
+            $('#input_tipe3_1_2_b').parent().show();
+            $('#input_tipe3_1_2_a').parent().show();
             $('#peduli_container').show();
             
 
@@ -1769,32 +1774,6 @@
         }
     });
 
-    $('#kualitas').on('change', function() {
-        if ($(this).is(':checked')) {
-            $('[name=input_tipe3_1_2]').prop('disabled', false);
-            $('#input_tipe3_1_2_b').prop('checked', true);
-            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
-        }else{
-            $('[name=input_tipe3_1_2]').prop('disabled', true);
-            $('#input_tipe3_1_2_b').prop('checked', false);
-            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
-        }
-    });
-    $('#input_tipe3_1_2_a').on('change', function() {
-        if ($(this).is(':checked')) {
-            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
-        }else{
-            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
-        }
-    });
-    $('#input_tipe3_1_2_b').on('change', function() {
-        if ($(this).is(':checked')) {
-            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
-        }else{
-            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
-        }
-    });
-
     $('#kuantitas').on('change', function() {
         if ($(this).is(':checked')) {
             $('[name=input_tipe3_1_1]').prop('disabled', false);
@@ -1806,19 +1785,45 @@
             $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
         }
     });
-
-    $('#input_tipe3_1_2_a').on('change', function() {
+    $('#input_tipe3_1_1_a').on('change', function() {
         if ($(this).is(':checked')) {
             $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
         }else{
             $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
         }
     });
-    $('#input_tipe3_1_2_b').on('change', function() {
+    $('#input_tipe3_1_1_b').on('change', function() {
         if ($(this).is(':checked')) {
             $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
         }else{
             $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
+        }
+    });
+    
+    $('#kualitas').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[name=input_tipe3_1_2]').prop('disabled', false);
+            $('#input_tipe3_1_2_b').prop('checked', true);
+            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[name=input_tipe3_1_2]').prop('disabled', true);
+            $('#input_tipe3_1_2_b').prop('checked', false);
+            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+        }
+    });
+	
+$('#input_tipe3_1_2_a').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+        }else{
+            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+        }
+    });
+    $('#input_tipe3_1_2_b').on('change', function() {
+        if ($(this).is(':checked')) {
+            $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+        }else{
+            $('[id^=kualitasindikator_]').val('').prop('disabled', true);
         }
     });
 

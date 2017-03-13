@@ -1,5 +1,10 @@
 @extends('layout.master')
+
 @section('content')
+<style type="text/css">
+	.dataTables_paginate{display: none!important;}
+	.dataTables_info{display: none;}
+</style>
 <!-- Page content -->
 <div id="page-content">
 	<!-- Datatables Header -->
@@ -41,75 +46,49 @@
 		</div>
 		<br>
 		<div class="table-responsive">
-			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="dataTables_length" id="dataTables-example_length">
-							<label>
-								<select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-									<option value="10">10</option>
-									<option value="25">25</option>
-									<option value="50">50</option>
-									<option value="100">100</option>
-								</select>
-								records per page
-							</label>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div id="dataTables-example_filter" class="dataTables_filter">
-							<label>
-								Search:<input type="search" class="form-control input-sm" aria-controls="dataTables-example">
-							</label>
-						</div>
-					</div>
-				</div>
-				<table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
-					<thead>
-						<tr role="row">
-							<th style="width: 113px;" class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Bulan/Periode: activate to sort column ascending">
-								Bulan/Periode
-							</th>
-							<th style="width: 83px;" class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Tahun: activate to sort column ascending">
-								Tahun
-							</th>
-							<th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Progress: activate to sort column ascending" style="width: 471px;">
-								Progress
-							</th>
-							<th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Pengaturan: activate to sort column ascending" style="width: 273px;">
-								Pengaturan
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="odd">
-							<td class="text-center">Januari - Maret</td>
-							<td class="text-center">2017</td>
-							<td >
-								<div>
-									<p>
-										<strong>Final pada :</strong> 20-12-2019
-										<span class="text-muted pull-right">100% Complete</span>
-									</p>
-									<div class="progress progress-striped">
-										<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-											<span class="sr-only">100% Complete</span>
-										</div>
+			<table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" aria-describedby="dataTables-example_info">
+				<thead>
+					<tr role="row">
+						<th>Bulan/Periode</th>
+						<th>Tahun</th>
+						<th>Progress</th>
+						<th>Pengaturan</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($arsip as $data)
+					<tr class="odd">
+						<td class="text-center">{{date('M', strtotime($triwulan['current']['sejak']))}} - {{date('M', strtotime($triwulan['current']['hingga']))}}</td>
+						<td class="text-center">{{$data->tahun}}</td>
+						<td >
+							<div>
+								<strong>Final pada :</strong> {{date('d-M-Y', strtotime($data->created_at))}}
+
+								<span class="text-muted pull-right">100% Complete</span>
+								
+								<div class="progress progress-striped">
+									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+										<span class="sr-only">100% Complete</span>
 									</div>
 								</div>
-							</td>
-							<td class="text-center">
+							</div>
+						</td>
+						<td class="text-center">
 							<br>
-								<a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
-								<span class="btn btn-success"> Sudah di Setujui</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+							<a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
+							<span class="btn btn-success"> Sudah di Setujui</span>
+						</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
+			<div class="col-md-12 text-center">
+				{{$arsip->render()}}
 			</div>
 		</div>
 	</div>
-	<!-- END Datatables Content -->
+</div>
+<!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <!-- END Page Content -->
@@ -117,4 +96,9 @@
 @section('js')
 <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
 <script>$(function(){ TablesDatatables.init(); });</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#myTable').DataTable();
+	});
+</script>
 @endsection
