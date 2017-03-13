@@ -19,6 +19,8 @@
     <link rel="apple-touch-icon" href="{{asset('vendor/img/icon152.png')}}" sizes="152x152">
     <link rel="apple-touch-icon" href="{{asset('vendor/img/icon180.png')}}" sizes="180x180">
     <link rel="stylesheet" href="{{asset('vendor/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/notie.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/plugins.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/themes.css')}}">
@@ -56,6 +58,7 @@
     <script src="{{asset('vendor/js/vendor/bootstrap.min.js')}}"></script>
     <script src="{{asset('vendor/js/plugins.js')}}"></script>
     <script src="{{asset('vendor/js/app.js')}}"></script>    
+    <script src="{{asset('js/notie.min.js')}}"></script>    
     @yield('js')
 </body>
 </html>
