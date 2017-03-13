@@ -499,12 +499,12 @@
 						<div class="container" style="max-width: 1000px; overflow: hidden;">
 							<div class="block">
 								<div class="block-content">
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="col-md-3 control-label">Nama Program <span class="text-danger">*</span></label>
 										<div class="col-md-9">
 											<input type="text" class="form-control">
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Peran Pimpinan <span class="text-danger">*</span></label>
 										<div class="col-md-9">
@@ -518,7 +518,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Lampiran Pendukung <span class="text-danger">*</span></label>
 										<div class="col-md-9">
 											<input type="file" class="form-control">
 										</div>

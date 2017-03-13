@@ -44,15 +44,14 @@ Route::get('home-reviewer', function () {
 Route::get('nilai-self-assessment', function () {
     return view('assesment.nilai');
 });
-Route::get('lembar-self-assessment', function () {
-    return view('assesment.lembar');
-});
+
+Route::get('lembar-self-assessment', 'SelfAssesmentController@lembarassesment');
+
 Route::get('edit-self-assessment', function () {
     return view('assesment.edit-assessment');
 });
-Route::get('arsip/assessment', function () {
-    return view('assesment.arsip');
-});
+Route::get('arsip/assessment', 'SelfAssesmentController@arsipassesment');
+
 Route::get('rekap-assessment', function () {
     return view('assesment.rekap');
 });

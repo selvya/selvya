@@ -12,7 +12,7 @@ class SelfAssesmentController extends Controller {
     //
 
     public function __construct() {
-        
+
     }
 
 
@@ -56,7 +56,7 @@ class SelfAssesmentController extends Controller {
         //FInalisasi lebih dari batas
 
         if ($tanggalKirim > $batas->tanggal) {
-            
+
             if($batas->tanggal->diffInDays($tanggalKirim) == (int) $iku->alat_ukur[0]->definisi[5]->deskripsi) {
                 $nilai = 6;
                 return $nilai;
@@ -161,11 +161,26 @@ class SelfAssesmentController extends Controller {
     //DUMMY SETTtanggalKirimER
     public function setSatker($id = 1, $triwulan = 1, $tanggal = null) {
         $data = [
-            'satker' => $id,
-            'triwulan' => $triwulan,
-            'tanggal' => $tanggal
+        'satker' => $id,
+        'triwulan' => $triwulan,
+        'tanggal' => $tanggal
         ];
 
         return $data;
+    }
+
+    public function lembarassesment()
+    {   
+        $triwulan = cekCurrentTriwulan();
+        $report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->paginate(10);
+
+        return view('assesment.lembar', compact('report','triwulan'));
+    }
+    public function arsipassesment()
+    {
+        $triwulan = cekCurrentTriwulan();
+        $arsip = \App\ReportAssessment::where('user_id','1')->where('final_status','1')->paginate(10);
+
+        return view('assesment.arsip', compact('arsip','triwulan'));
     }
 }
