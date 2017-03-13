@@ -54,46 +54,18 @@
 				</thead>
 				<tbody>
 					<?php 
-					$datenya = date('m');
-					if (date('m') == '1' || date('m') == '2' || date('m') == '3') {
-						$tri = '1';
-					}
-					elseif(date('m') == '4' || date('m') == '5' || date('m') == '6') {
-						$tri = '2';
-					}
-					elseif(date('m') == '7' || date('m') == '8' || date('m') == '9') {
-						$tri = '3';
-					}
-					elseif(date('m') == '10' || date('m') == '11' || date('m') == '12') {
-						$tri = '4';
-					}
-
-					$report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$tri)->orderBy('created_at','DESC')->get();
-
+					$triwulan = cekCurrentTriwulan();
+					$report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->orderBy('created_at','DESC')->get();
 					?>
 					@forelse($report as $data)
-					<?php
-					if($data->triwulan == '1') {
-						$triwulan = 'Januari - Maret';
-					}
-					elseif($data->triwulan == '2'){
-						$triwulan = 'April - Juni';
-					}
-					elseif($data->triwulan == '3'){
-						$triwulan = 'Juli - September';
-					}
-					elseif($data->triwulan == '4'){
-						$triwulan = 'Oktober - Desember';
-					}
-					?>
 					<tr class="odd">
-						<td class="text-center">{{$triwulan}}</td>
+						<td class="text-center">{{date('M', strtotime($triwulan['current']['sejak']))}} - {{date('M', strtotime($triwulan['current']['hingga']))}}</td>
 						<td class="text-center">{{$data->tahun}}</td>
 						<td >
 							<div>
-
+								@if(count($report) < 4)
 								<p>
-									<strong>Terakhir diubah :</strong> 20-12-2019
+									<strong>Terakhir diubah :</strong> {{date('d-M-Y', strtotime($data->created_at))}}
 									<span class="text-muted pull-right">20% Complete</span>
 								</p>
 								<div class="progress progress-striped active">
@@ -102,6 +74,7 @@
 									</div>
 								</div>
 
+								@elseif(count($report) == 4)
 								<strong>Final pada :</strong> 20-12-2019
 								<span class="text-muted pull-right">100% Complete</span>
 								<div class="progress progress-striped">
@@ -109,6 +82,7 @@
 										<span class="sr-only">100% Complete</span>
 									</div>
 								</div>
+								@endif
 
 							</div>
 						</td>
