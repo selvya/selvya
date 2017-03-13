@@ -19,6 +19,10 @@
 	<!-- END Datatables Header -->
 
 	<!-- Datatables Content -->
+	@if(Session::has('msg'))
+		{!!Session('msg')!!}
+	@endif
+
 	<div class="block full">
 		<div class="row">
 			<div class="col-lg-12">
@@ -62,7 +66,7 @@
 												<tr>
 													<td>Rencana Anggaran</td>
 
-                                                    @foreach($target as $k => $v)
+                                                   {{--  @foreach($target as $k => $v)
                                                         
                                                         <td>
                                                             <div class="input-group">
@@ -76,37 +80,54 @@
                                                                 <span class="input-group-addon">({{$v->iku->first()->alat_ukur->first()->definisi->last()->deskripsi}}%)</span>
                                                             </div>
                                                         </td>
-                                                    @endforeach
+                                                    @endforeach --}}
 
                                                     {{--<td colspan="4"><div class="alert alert-info">Target belum ditetapkan!!</div> </td>--}}
+                                                    @foreach($rencana as $k => $v)
+                                                    	<td>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">Rp.</span>
+                                                                <input
+                                                                	name="rencana_{{($k+1)}}"
+                                                                	id="rencana_{{($k+1)}}"
+                                                                    type="text"
+                                                                    class="form-control rencana"
+                                                                    value="{{number_format($v->rencana, 0, ',', '.')}}"
+                                                                    @if($v->rencana > 0)
+                                                                    @endif
+                                                                    required
+                                                                >
+                                                            </div>
+                                                        </td>
+                                                    @endforeach
 												</tr>
 												<tr>
 													<td>Realisasi Anggaran</td>
-													<td>
-														<div class="input-group">
-															<span class="input-group-addon">Rp.</span>
-															<input class="form-control" name="real1" id="real1" type="text" maxlength="14" placeholder="Realisasi Anggaran" value="" required>
-                                                            <span class="input-group-addon">(<span id="p1">0</span>%)</span>
-														</div>
-													</td>
-													<td>
-														<div class="input-group">
-															<span class="input-group-addon">Rp.</span>														
-															<input class="form-control" name="real2" id="real2" type="text" maxlength="14" value="Rp. 0" disabled="">
-                                                            <span class="input-group-addon">(<span id="p2">0</span>%)</span>
-														</div>
-													<td>
-														<div class="input-group">
-															<span class="input-group-addon">Rp.</span>
-															<input class="form-control" name="real3" id="real3" type="text" maxlength="14" value="Rp. 0" disabled="">
-                                                            <span class="input-group-addon">(<span id="p3">0</span>%)</span>
-														</div>
-													<td>
-														<div class="input-group">
-															<span class="input-group-addon">Rp.</span>
-															<input class="form-control" name="real4" id="real4" type="text" maxlength="14" value="Rp. 0" disabled="">
-                                                            <span class="input-group-addon">(<span id="p4">0</span>%)</span>
-														</div>
+													@foreach($rencana as $k => $v)
+														<td>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">Rp.</span>
+																<input 
+																	type="text"
+																	name="realisasi_{{$k+1}}"
+																	class="form-control realisasi"
+																	value="{{number_format($v->realisasi, 0, ',', '.')}}"
+																	@php
+																		$triwulan[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
+															            			->where('triwulan', ($k+1))
+															            			->first();
+															            $awal[$k] = \Carbon\Carbon::parse($triwulan[$k]->sejak);
+															            $akhir[$k] = \Carbon\Carbon::parse($triwulan[$k]->hingga);
+															            $now[$k] = \Carbon\Carbon::now();
+																	@endphp
+
+																	@if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
+																		disabled 
+																	@endif
+																>
+															</div>
+														</td>
+													@endforeach
 												</tr>
 												<tr>
 													<td>
@@ -125,6 +146,7 @@
 								</div>
 							</div>
 							<a href="{{url('monitoring-anggaran')}}" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;Kembali</a>
+							{{csrf_field()}}
 							<button type="submit" id="done" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;Submit</button>
 						</form>
 					</div>
@@ -141,7 +163,7 @@
 	<script>$(function(){ TablesDatatables.init(); });</script>
 	<script>
 		$('#finalisasi_total').on('click', function() {
-			var data = $('input[name="total_anggaran"]').val();
+			var data = $('input[name="total_anggaran"]').val();	
 			if (!confirm('Apakah anda yakin akan memfinalisasi anggaran ini? Tindakan ini tidak dapat diurungkan!')) {
 				return false;
 			}
@@ -171,7 +193,7 @@
 				p.text(berapaPersen({{$anggaran->total_anggaran}}, parseInt($(this).val())));
 			},
 			keyup: function() {
-				console.log(100/10);
+				// console.log(100/10);
 				var p = $('#p1');
 				p.text(berapaPersen({{$anggaran->total_anggaran}}, parseInt($(this).val())));
 			}

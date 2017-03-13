@@ -1,11 +1,40 @@
 <?php
 Route::get('test', function () {
-    return str_slug('Here is where you can register web', '_');
+    // return str_slug('Here is where you can register web', '_');
+    return cekCurrentTriwulan();
 });
 
+
+Route::post('customlogin', ['as'=> 'customlogin', 'uses' => 'MyCustomController@authenticate']);
+
 Route::get('/', function () {
-    return view('home.home');
+    if (Auth::check()) {
+        return redirect('dashboard');
+    }
+ 
+    return redirect('login');
 });
+
+Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'DashboardController@index']);
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('survey', function () {
+    return view('survey.index');
+});
+
+// Auth::routes();
+
+Route::get('grafik-budaya', function () {
+    return view('assesment.grafik-budaya');
+});
+
+Route::get('/home', 'HomeController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
 Route::get('home-reviewer', function () {
     return view('home.home-reviewer');
 });
@@ -75,6 +104,7 @@ Route::get('hasil-monitoring', function () {
 
 Route::get('ubah-anggaran', ['as' => 'monitoring-anggaran.ubah', 'uses' => 'AnggaranController@ubah']);
 Route::post('ubah-anggaran-total', ['as' => 'monitoring-anggaran.ubah.total', 'uses' => 'AnggaranController@ubahTotal']);
+Route::post('ubah-anggaran', ['as' => 'ubah-anggaran', 'uses' => 'AnggaranController@ubahAnggaran']);
 
 Route::get('lihat-anggaran', function () {
     return view('monitoring.lihat');
@@ -116,21 +146,22 @@ Route::get('kontak', function () {
     return view('kontak.index');
 });
 
-//MAPPING
-Route::get('map-report', 'MappingController@report');
-Route::get('report/tambah', 'MappingController@tambah_mapping');
-Route::post('proses/mapping/tambah', 'MappingController@proses_tambah_mapping');
-Route::get('edit/mapping/{id}', 'MappingController@editmapping');
-Route::post('edit/mapping/proses/{id}', 'MappingController@proseseditmapping');
-Route::get('hapus-maping/{id}', 'MappingController@hapus');
 
 
+/*
+|--------------------------------------------------------------------------
+| REVIEWER
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['reviewer']], function () {
+
+});
 /*
 |--------------------------------------------------------------------------
 | ADMIN
 |--------------------------------------------------------------------------
 */
-// Route::group(['middleware' => ['admin']], function () {
+Route::group(['middleware' => ['admin']], function () {
 
     Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
     Route::get('persentase/detail/{hashid}', ['as' => 'persentase.detail', 'uses' => 'PengaturanController@getPersentaseAjax']);
@@ -207,26 +238,13 @@ Route::get('hapus-maping/{id}', 'MappingController@hapus');
 
     //Serapan Anggaran
     Route::get('cek-serapan-anggaran', 'SelfAssesmentController@cekSerapanAnggaran');
-// });
 
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
-Route::get('survey', function () {
-    return view('survey.index');
+    //MAPPING
+    Route::get('map-report', 'MappingController@report');
+    Route::get('report/tambah', 'MappingController@tambah_mapping');
+    Route::post('proses/mapping/tambah', 'MappingController@proses_tambah_mapping');
+    Route::get('edit/mapping/{id}', 'MappingController@editmapping');
+    Route::post('edit/mapping/proses/{id}', 'MappingController@proseseditmapping');
+    Route::get('hapus-maping/{id}', 'MappingController@hapus');
 });
 
-Auth::routes();
-
-Route::get('grafik-budaya', function () {
-    return view('assesment.grafik-budaya');
-});
-
-Route::get('/home', 'HomeController@index');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');

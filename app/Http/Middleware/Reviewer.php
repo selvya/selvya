@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
 
-class admin
+class Reviewer
 {
     /**
      * Handle an incoming request.
@@ -16,11 +15,10 @@ class admin
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() OR Auth::user()->username !== 'admin') {
-            return redirect('dashboard');            
+        if (!Auth::check() OR Auth::user()->username !== 'reviewer') {
+            return redirect('dashboard');
         }
 
         return $next($request);
-        // return redirect(url('login'));
     }
 }
