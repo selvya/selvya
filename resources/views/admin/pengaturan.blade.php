@@ -389,24 +389,15 @@
                             </table>
                         </div>
                         <div id="peduli_container">
-                            <table class="table table-condensed table-bordered peduli_table" id="peduli_table">
-                                @for($i = 6; $i >= 1; $i--)
-                                    <tr>
-                                        <th>Deskripsi Indikator {{$i}}</th>
-                                        <td>
-                                            <input type="text" name="pindikator_{{$i}}" id="pindikator_{{$i}}" class="form-control" value="" required>
-                                        </td>
-                                    </tr>
-                                @endfor
-                            </table> <table class="table table-condensed table-bordered kuantitastable" id="table_kuantitas">
-									<tr>
+                            <table class="table table-condensed table-bordered kuantitastable" id="table_kuantitas">
+									<tr> 
                                         <td colspan="2"><label><input type="checkbox" name="kuantitas" value="1" aria-label="..." id="kuantitas" checked style="width:36px;height:22px"> Kuantitas (Frekuensi & Partisipasi) </label></td>
                                     </tr>
 									<tr>
                                         <th>Tipe Nilai</th>
                                         <td>
-                                           <label><input type="radio" id="input_tipe3_1_1_a" disabled name="input_tipe3_2_1" value="manual"> Manual</label>
-                                           <label><input type="radio" id="input_tipe3_1_1_b"disabled name="input_tipe3_2_1" value="parameterized"> Parameterized</label>
+                                           <label><input type="radio" id="input_tipe3_1_1_a" disabled name="input_tipe3_1_1" value="manual"> Manual</label>
+                                           <label><input type="radio" id="input_tipe3_1_1_b"disabled name="input_tipe3_1_1" value="parameterized"> Parameterized</label>
                                         </td>
                                     </tr>
                                 @for($i = 6; $i >= 1; $i--)
@@ -424,8 +415,8 @@
                                     </tr><tr>
                                         <th>Tipe Nilai</th>
                                         <td>
-                                           <label><input type="radio" id="input_tipe3_1_2_a" disabled name="input_tipe3_2_2" value="manual"> Manual</label>
-                                           <label><input type="radio" id="input_tipe3_1_2_b"disabled name="input_tipe3_2_2" value="parameterized"> Parameterized</label>
+                                           <label><input type="radio" id="input_tipe3_1_2_a" disabled name="input_tipe3_1_2" value="manual"> Manual</label>
+                                           <label><input type="radio" id="input_tipe3_1_2_b"disabled name="input_tipe3_1_2" value="parameterized"> Parameterized</label>
                                         </td>
                                     </tr>
                                 @for($i = 6; $i >= 1; $i--)
@@ -1069,12 +1060,74 @@
                                         $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
                                     });								
 							}
-                            if ($.isArray(response.data.definisi2)) {
-                                $.each(response.data.definisi2, function(k, v) {
-                                    $('#pindikator_' + (k+1)).val(v.deskripsi);
-                                });
+							if(response.data.alat_ukur2_1.active > 0) {
+								$('#kuantitas').prop('checked', true);
+								$('[name=input_tipe3_1_1]').prop('disabled',false);	
+							if(response.data.alat_ukur2_1.tipe == "parameterized") {
+								$('#input_tipe3_1_1_b').prop('checked', true);								
+                            if ($.isArray(response.data.definisi2_1)) {
+                                if (response.data.definisi2_1.length > 0) {
+                                   $.each(response.data.definisi2_1, function (k, v) {
+                                        $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                    });
+                                }else{
+                                    $('[id^=kuantitasindikator_]').val('');
+                                }
                             }
+							}else{
+							if(response.data.alat_ukur2_1.tipe == "manual") {
+								$('#input_tipe3_1_1_a').prop('checked', true);
+							}
+							   $.each(response.data.definisi2_1, function (k, v) {
+                                        $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });
+							}
+							}else{
+								$('#kuantitas').prop('checked', false);	
+								$('[name=input_tipe3_1_1]').prop('checked', false).prop('disabled',true);	
+									$.each(response.data.definisi2_1, function (k, v) {
+                                        $('#kuantitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });								
+							}
+							//survey yang
+							if(response.data.alat_ukur2_2.active > 0) {
+								$('#kualitas').prop('checked', true);
+								$('[name=input_tipe3_1_2]').prop('disabled',false);	
+							if(response.data.alat_ukur1_2.tipe == "parameterized") {
+								$('#input_tipe3_1_2_b').prop('checked', true);								
+                            if ($.isArray(response.data.definisi2_2)) {
+                                if (response.data.definisi2_2.length > 0) {
+                                   $.each(response.data.definisi2_2, function (k, v) {
+                                        $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', false);
+                                    });
+                                }else{
+                                    $('[id^=kualitasindikator_]').val('');
+                                }
+                            }
+							}else{
+							if(response.data.alat_ukur2_2.tipe == "manual") {
+								$('#input_tipe3_1_2_a').prop('checked', true);
+							}
+							   $.each(response.data.definisi2_2, function (k, v) {
+                                        $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });
+							}
+							}else{
+								$('#kualitas').prop('checked', false);	
+								$('[name=input_tipe3_1_2]').prop('checked', false).prop('disabled',true);	
+									$.each(response.data.definisi2_2, function (k, v) {
+                                        $('#kualitasindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
+                                    });								
+							}
+                            
+							
+							// if ($.isArray(response.data.definisi2)) {
+                                // $.each(response.data.definisi2, function(k, v) {
+                                    // $('#pindikator_' + (k+1)).val(v.deskripsi);
+                                // });
+                            // }
 
+							
                             $('#loading3').hide();
                             $('#modal-form3').show();
                         }else{
@@ -1671,6 +1724,58 @@
                 $('[id^=sindikator_]').val('').prop('disabled', false);
             }else{
                 $('[id^=sindikator_]').val('').prop('disabled', true);
+            }
+        });
+
+        $('#kualitas').on('change', function() {
+            if ($(this).is(':checked')) {
+				$('[name=input_tipe3_1_2]').prop('disabled', false);
+				$('#input_tipe3_1_2_b').prop('checked', true);
+                $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+            }else{
+				$('[name=input_tipe3_1_2]').prop('disabled', true);
+				$('#input_tipe3_1_2_b').prop('checked', false);
+                $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+            }
+        });
+        $('#input_tipe3_1_2_a').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+            }else{
+                $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+            }
+        });
+        $('#input_tipe3_1_2_b').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=kualitasindikator_]').val('').prop('disabled', false);
+            }else{
+                $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+            }
+        });
+
+        $('#kuantitas').on('change', function() {
+            if ($(this).is(':checked')) {
+				$('[name=input_tipe3_1_1]').prop('disabled', false);
+				$('#input_tipe3_1_1_b').prop('checked', true);
+                $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
+            }else{
+				$('[name=input_tipe3_1_1]').prop('disabled', true);
+				$('#input_tipe3_1_1_b').prop('checked', false);
+                $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
+            }
+        });
+        $('#input_tipe3_1_2_a').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
+            }else{
+                $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
+            }
+        });
+        $('#input_tipe3_1_2_b').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('[id^=kuantitasindikator_]').val('').prop('disabled', false);
+            }else{
+                $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
             }
         });
 
