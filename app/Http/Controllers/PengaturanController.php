@@ -164,9 +164,13 @@ class PengaturanController extends Controller
             'name' => $iku1->namaprogram . '#survei_stake_holder'
         ]);
 
-        $alatUkur2 = AlatUkur::updateOrCreate([
+        $alatUkur2_1 = AlatUkur::updateOrCreate([
             'iku_id' => $iku2->id,
-            'name' => $iku2->namaprogram
+            'name' => $iku2->namaprogram. '#kuantitas'
+        ]);
+        $alatUkur2_2 = AlatUkur::updateOrCreate([
+            'iku_id' => $iku2->id,
+            'name' => $iku2->namaprogram. '#kualitas'
         ]);
 
         $alatUkur3 = AlatUkur::updateOrCreate([
@@ -201,18 +205,30 @@ class PengaturanController extends Controller
 //        }
 
 
-        $definisiNilai2 = $alatUkur2->definisi;
-        if (count($definisiNilai2) == 0) {
-            for ($i=0; $i < 6 ; $i++) { 
-                $definisiNilai2[$i] = DefinisiNilai::create([
-                    'iku_id' => $iku2->id,
-                    'alatukur_id' => $alatUkur2->id,
-                    'deskripsi' => null,
-                    'triwulan' => $persentase->triwulan,
-                    'tahun' => $persentase->tahun
-                ]);
-            }
-        }
+        $definisiNilai2_1 = $alatUkur2_1->definisi;
+        // if (count($definisiNilai2) == 0) {
+            // for ($i=0; $i < 6 ; $i++) { 
+                // $definisiNilai2[$i] = DefinisiNilai::create([
+                    // 'iku_id' => $iku2->id,
+                    // 'alatukur_id' => $alatUkur2->id,
+                    // 'deskripsi' => null,
+                    // 'triwulan' => $persentase->triwulan,
+                    // 'tahun' => $persentase->tahun
+                // ]);
+            // }
+        //}
+		$definisiNilai2_2 = $alatUkur2_2->definisi;
+        // if (count($definisiNilai2) == 0) {
+            // for ($i=0; $i < 6 ; $i++) { 
+                // $definisiNilai2[$i] = DefinisiNilai::create([
+                    // 'iku_id' => $iku2->id,
+                    // 'alatukur_id' => $alatUkur2->id,
+                    // 'deskripsi' => null,
+                    // 'triwulan' => $persentase->triwulan,
+                    // 'tahun' => $persentase->tahun
+                // ]);
+            // }
+    //    }
 
         $definisiNilai3 = $alatUkur3->definisi;
         if (count($definisiNilai3) == 0) {
@@ -234,11 +250,15 @@ class PengaturanController extends Controller
         $response['data']['iku3'] = $iku3;
         $response['data']['alat_ukur1_1'] = $alatUkur1_1;
         $response['data']['alat_ukur1_2'] = $alatUkur1_2;
-        $response['data']['alat_ukur2'] = $alatUkur2;
+        $response['data']['alat_ukur2_1'] = $alatUkur2_1;
+        $response['data']['alat_ukur2_2'] = $alatUkur2_2;
+        //$response['data']['alat_ukur2'] = $alatUkur2;
         $response['data']['alat_ukur3'] = $alatUkur3;
         $response['data']['definisi1_1'] = $definisiNilai1_1;
         $response['data']['definisi1_2'] = $definisiNilai1_2;
-        $response['data']['definisi2'] = $definisiNilai2;
+        $response['data']['definisi2_1'] = $definisiNilai2_1;
+        $response['data']['definisi2_2'] = $definisiNilai2_2;
+       // $response['data']['definisi2'] = $definisiNilai2;
         $response['data']['definisi3'] = $definisiNilai3;
         $response['status'] = true;
         
