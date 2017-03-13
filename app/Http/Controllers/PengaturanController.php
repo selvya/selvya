@@ -627,12 +627,14 @@ class PengaturanController extends Controller
         //Hapus Definisi dan Alat Ukur
         DefinisiNilai::where('iku_id', $iku->id)->delete();
         AlatUkur::where('iku_id', $iku->id)->delete();
-
+		
+		if($r->input_tipe3_2_1 == null){$tipe_1 = 'iku';}else{$tipe_1 = $r->input_tipe3_2_1;}
         if ($r->mc == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
                 'name' => $iku->namaprogram . '#mystery_call'
-            ]);
+            ],['tipe' => $tipe_1,
+                'active' => '1']);
 
             for ($i=0; $i < 6; $i++) { 
                 $definisiNilai1[$i] = DefinisiNilai::create([
@@ -643,13 +645,20 @@ class PengaturanController extends Controller
                     'tahun' => $persentase->tahun
                 ]);
             }
-        }
-
+        }else{
+			$alatUkur = AlatUkur::updateOrCreate([
+                'iku_id' => $iku->id,
+                'name' => $iku->namaprogram . '#mystery_call'
+            ],['tipe' => $tipe_1,
+                'active' => '0']);
+		}
+		if($r->input_tipe3_2_2 == null){$tipe_2 = 'iku';}else{$tipe_2 = $r->input_tipe3_2_2;}
         if ($r->sks == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
                 'name' => $iku->namaprogram . '#survei_stake_holder'
-            ]);
+            ],['tipe' => $tipe_2,
+                'active' => '1']);
 
             for ($i=0; $i < 6; $i++) { 
                 $definisiNilai2[$i] = DefinisiNilai::create([
@@ -660,7 +669,13 @@ class PengaturanController extends Controller
                     'tahun' => $persentase->tahun
                 ]);
             }
-        }
+        }else{ 
+			$alatUkur = AlatUkur::updateOrCreate([
+                'iku_id' => $iku->id,
+                'name' => $iku->namaprogram . '#survei_stake_holder'
+            ],['tipe' => $tipe_2,
+                'active' => '0']);
+		}
 
 
         $response['status'] = true;
