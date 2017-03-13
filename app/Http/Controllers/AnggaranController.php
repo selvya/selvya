@@ -131,7 +131,7 @@ class AnggaranController extends Controller
 
         $tmpNilai = 0;
         for ($i=1; $i <= 4 ; $i++) {
-            $tmpNilai += request('rencana_' . $i);
+            $tmpNilai += preg_replace("/[^0-9]/","", request('rencana_' . $i));
         }
 
         if ($tmpNilai > $tahunAnggaran->total_anggaran) {

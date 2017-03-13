@@ -212,6 +212,26 @@
 		$(document).on({
 			focus: function() {
 				$(this).val('');
+			},
+			blur: function() {
+				var val = $(this).val();
+				if (val.length == 0) {
+					$(this).val('0');
+				}else{
+					$(this).val(val);
+				}
+			},
+			keyup: function() {
+				var total = 0;
+				var max = parseInt({{$anggaran->total_anggaran}});
+				$('.rencana').each(function (index, value) {
+					total += parseInt($(value).val());
+				});
+
+				if (total > max) {
+					notie.alert({type: 'error', text: 'Rencana tidak boleh lebih dari anggaran Rp. ' + max, time: 1});
+					$(this).addClass('animated shake').val('0').focus();
+				}
 			}
 		}, '.rencana');
 	</script>

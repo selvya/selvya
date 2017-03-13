@@ -164,8 +164,8 @@ Route::group(['middleware' => ['reviewer']], function () {
 */
 // Route::group(['middleware' => ['admin']], function () {
 
-    Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
-    Route::get('persentase/detail/{hashid}', ['as' => 'persentase.detail', 'uses' => 'PengaturanController@getPersentaseAjax']);
+    Route::get('admin/pengaturan',            ['as' => 'pengaturan.index',   'uses' => 'PengaturanController@index']);
+    Route::get('persentase/detail/{hashid}',  ['as' => 'persentase.detail',  'uses' => 'PengaturanController@getPersentaseAjax']);
     Route::get('persentase/detail3/{hashid}', ['as' => 'persentase.detail3', 'uses' => 'PengaturanController@getPersentaseAjax3']);
 
     Route::post('persentaseEdit1', ['as' => 'persentaseEdit1', 'uses' => 'PengaturanController@persentaseEdit1']);
