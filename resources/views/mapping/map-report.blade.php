@@ -25,8 +25,7 @@
 		<br>
 		@include('include.alert')
 		<br>
-		<div class="table-responsive">
-			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="dataTables-example_length"><label><select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> records per page</label></div></div><div class="col-sm-6"><div id="dataTables-example_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" aria-controls="dataTables-example"></label></div></div></div><table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+		<table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" aria-describedby="dataTables-example_info">
 			<thead>
 				<tr role="row">
 					<th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Urutan: activate to sort column ascending" style="width: 79px;">Urutan</th><th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Nama Mapping: activate to sort column ascending" style="width: 342px;">Nama Mapping</th><th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Group: activate to sort column ascending" style="width: 132px;">Group</th><th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Pengaturan: activate to sort column ascending" style="width: 387px;">
@@ -57,8 +56,6 @@
 		</div>
 	</div>
 </div>
-</div>
-</div>
 <!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
@@ -67,4 +64,9 @@
 @section('js')
 <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
 <script>$(function(){ TablesDatatables.init(); });</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#myTable').DataTable();
+	});
+</script>
 @endsection

@@ -28,6 +28,16 @@
 	</ul>
 	<!-- END Wizard Header -->
 
+	<?php 
+	$triwulan = cekCurrentTriwulan();
+	$data = \App\SelfAssesment::with('iku.alat_ukur.definisi')->where('tahun', date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->first();
+
+	$persentase = \App\Persentase::where('tahun',date('Y'))->where('triwulan', $triwulan['current']['triwulan'])->where('daftarindikator_id','3')->first();
+	
+	
+	?>
+
+
 	<!-- Wizards Row -->
 	<div class="row">
 		<div class="col-md-12">
@@ -49,7 +59,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong>Program Budaya Spesifik <br> <big>40%</big></strong>
+											<strong>Pelaksanaan Program Budaya <br> <big>{{$persentase->nilai}}%</big></strong>
 										</a>
 									</li>
 									<li>
@@ -84,29 +94,22 @@
 									</div>
 									<h2><strong>OJK MELAYANI</strong></h2>
 								</div>
-								<div class="block-content">
+								<div class="block-content" style="display: none;">
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Programnya</h4>
+											<h4>{{$data->iku->namaprogram}}</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>Tujuan programnya</h4>
+											<h4>{{$data->iku->tujuan}}</h4>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="file" name="file" class="form-control" >
-										</div>
-									</div>
-									<br>
 									<!-- MYSTERY CALL -->
-									<div class="block">
-										<h4><b>MYSTERY CALL</b></h4>
+									<div class="">
+										<h5><b>MYSTERY CALL</b></h5>
 										<!-- MANUAL -->
 										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -160,8 +163,8 @@
 									<!-- CLOSE MYSTERY CALL -->
 
 									<!-- MYSTERY CALL -->
-									<div class="block">
-										<h4><b>SURVEY STAKEHOLDER</b></h4>
+									<div class="">
+										<h5><b>SURVEY STAKEHOLDER</b></h5>
 										<!-- MANUAL -->
 										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -211,6 +214,12 @@
 										</div> -->
 									</div>
 									<!-- CLOSE MYSTERY CALL -->
+									<div class="form-group">
+										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="file" name="file" class="form-control" >
+										</div>
+									</div>
 								</div>
 							</div>
 							<!-- OJK MELAYANI -->
@@ -226,23 +235,17 @@
 									</div>
 									<h2><strong>OJK PEDULI</strong></h2>
 								</div>
-								<div class="block-content">
+								<div class="block-content" style="display: none;">
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Programnya</h4>
+											<h4>{{$data->iku->namaprogram}}</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>Tujuan programnya</h4>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="file" name="file" class="form-control" >
+											<h4>{{$data->iku->tujuan}}</h4>
 										</div>
 									</div>
 									<!-- MANUAL -->
@@ -260,6 +263,7 @@
 									</div>
 									<!-- TUTUP MANUAL -->
 
+									@if($data->tipe == 'parameterized')
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
@@ -275,6 +279,7 @@
 										</div>
 									</div>
 									<!-- TUTUP PARAMETERIZE -->
+									@endif
 
 									<div class="form-group">
 										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
@@ -292,6 +297,12 @@
 											</table>
 										</div>
 									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="file" name="file" class="form-control" >
+										</div>
+									</div>
 								</div>
 							</div>
 							<!-- CLOSE OJK PEDULI -->
@@ -306,23 +317,17 @@
 									</div>
 									<h2><strong>OJK INOVATIF</strong></h2>
 								</div>
-								<div class="block-content">
+								<div class="block-content" style="display: none;">
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Programnya</h4>
+											<h4>{{$data->iku->namaprogram}}</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>Tujuan programnya</h4>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="file" name="file" class="form-control" >
+											<h4>{{$data->iku->tujuan}}</h4>
 										</div>
 									</div>
 									<!-- MANUAL -->
@@ -340,6 +345,7 @@
 									</div>
 									<!-- TUTUP MANUAL -->
 
+									@if($data->tipe == 'parameterized')
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
@@ -355,6 +361,7 @@
 										</div>
 									</div>
 									<!-- TUTUP PARAMETERIZE -->
+									@endif
 
 									<div class="form-group">
 										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
@@ -370,6 +377,12 @@
 													<td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
 												</tr>
 											</table>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<input type="file" name="file" class="form-control" >
 										</div>
 									</div>
 								</div>
@@ -389,7 +402,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Program Budaya Spesifik <br> <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$data->persennya}}%</big></strong>
 										</a>
 									</li>
 									<li class="active">
@@ -473,7 +486,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Program Budaya Spesifik <br> <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$data->persennya}}%</big></strong>
 										</a>
 									</li>
 									<li>
@@ -538,7 +551,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Program Budaya Spesifik <br> <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$data->persennya}}%</big></strong>
 										</a>
 									</li>
 									<li>

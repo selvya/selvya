@@ -71,11 +71,11 @@
                                 <i class="gi gi-user sidebar-nav-icon"></i> Semua User
                             </a>
                         </li>
-                        <li class="@if(Request::is('map-report')) active @endif">
+                      <!--   <li class="@if(Request::is('map-report')) active @endif">
                             <a href="{{url('map-report')}}">
                                 <i class="gi gi-google_maps sidebar-nav-icon"></i> Mapping Report
                             </a>
-                        </li>
+                        </li> -->
                         <li class="@if(Request::is('upload')) active @endif">
                             <a href="#" class="sidebar-nav-menu">
                                 <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
@@ -91,22 +91,22 @@
                                 <li>
                                     <a href="{{url('upload/dmpb')}}">
                                         <i class="gi gi-group sidebar-nav-icon"></i> 
-                                        Manual Pengguna DMPB
+                                        Manual Pengguna Reviewer
                                     </a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="">
                                         <i class="gi gi-notes sidebar-nav-icon"></i> 
                                         Catatan Dinas
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
-                        <li class="@if(Request::is('survey')) active @endif">
+                        <!-- <li class="@if(Request::is('survey')) active @endif">
                             <a href="{{url('survey')}}">
                                 <i class="gi gi-notes sidebar-nav-icon"></i> Rekap Survey
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="#" class="sidebar-nav-menu">
                                 <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>

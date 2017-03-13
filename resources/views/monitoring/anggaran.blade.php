@@ -43,7 +43,7 @@
 		</div>
 		<br>
 		<div class="table-responsive">
-			<table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+			<table id="myTable" class="table table-vcenter table-condensed table-bordered">
 				<thead>
 					<tr>
 						<th class="text-center">Tahun</th>
@@ -74,4 +74,9 @@
 @section('js')
 	<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
 	<script>$(function(){ TablesDatatables.init(); });</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		$('#myTable').DataTable();
+	});
+	</script>
 @endsection

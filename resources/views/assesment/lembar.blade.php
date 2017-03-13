@@ -89,10 +89,10 @@
 						</td>
 						<td class="text-center">
 							<br>
-							<a href="{{url('edit-self-assessment')}}" class="btn btn-warning">Ubah 
+							<a href="{{url('edit-self-assessment/'.$data->id)}}" class="btn btn-warning">Ubah 
 							</a>
-							<a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
 							@if((count($report) == 4)  && ($data->final_status == 1))
+							<a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
 							<span class="btn btn-success"> Sudah di Final</span>
 							@endif
 						</td>
