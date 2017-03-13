@@ -208,5 +208,11 @@
 
 		    return r;
 		}
+
+		$(document).on({
+			focus: function() {
+				$(this).val('');
+			}
+		}, '.rencana');
 	</script>
 @endsection

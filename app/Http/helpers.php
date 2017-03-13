@@ -28,7 +28,7 @@ function cekCurrentTriwulan()
         foreach ($triwulan as $k => $v) {
             $awal[($k+1)] = \Carbon\Carbon::parse($v->sejak);
             $akhir[($k+1)] = \Carbon\Carbon::parse($v->hingga);
-            $now[($k+1)] = \Carbon\Carbon::parse('2017-12-07 00:00:00');
+            $now[($k+1)] = \Carbon\Carbon::now();
 
             $rv['triwulan'][($k+1)] = [
                 'batas_laporan' => $v->tanggal,

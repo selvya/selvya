@@ -1,6 +1,7 @@
 <?php
 Route::get('test', function () {
-    // return str_slug('Here is where you can register web', '_');
+    return Hash::make('qwerty');
+    return str_slug('Here is where you can register web', '_');
     return cekCurrentTriwulan();
 });
 
@@ -161,7 +162,7 @@ Route::group(['middleware' => ['reviewer']], function () {
 | ADMIN
 |--------------------------------------------------------------------------
 */
-Route::group(['middleware' => ['admin']], function () {
+// Route::group(['middleware' => ['admin']], function () {
 
     Route::get('admin/pengaturan',['as' => 'pengaturan.index', 'uses' => 'PengaturanController@index']);
     Route::get('persentase/detail/{hashid}', ['as' => 'persentase.detail', 'uses' => 'PengaturanController@getPersentaseAjax']);
@@ -246,5 +247,5 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('edit/mapping/{id}', 'MappingController@editmapping');
     Route::post('edit/mapping/proses/{id}', 'MappingController@proseseditmapping');
     Route::get('hapus-maping/{id}', 'MappingController@hapus');
-});
+// });
 
