@@ -1,7 +1,7 @@
 <?php
 Route::get('test', function () {
-    // return gen('kmp.kmp', 'admin');
-    return cek('$2y$10$2V9fSSmCwvtTQlVoVtOyEe4Dr9agYbyKFrOq39B5ZRh16Y.LDE7gm');
+    return gen('kmp.kmp', 'admin');
+    return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
     // return str_slug('Here is where you can register web', '_');
     // return cekCurrentTriwulan();
 });
