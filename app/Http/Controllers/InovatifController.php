@@ -66,9 +66,10 @@ class InovatifController extends Controller
                     }
                 }
 		}			
-		}else{$k = 0;}			
-		 if($k < 3){
-       do{
+		}
+        else{$k = 0;}			
+		if($k <= 3){
+        do{
             if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {
 
                 $alatUkur[$k] = AlatUkur::updateOrCreate([
@@ -82,13 +83,14 @@ class InovatifController extends Controller
                             'alatukur_id' => $alatUkur[$k]->id,
                             'deskripsi' => request('alt'.$k.'_def'.$i.'_tw'.$j),
                             'triwulan' => $j,
-                    'skala_nilai' => $i,
+                            'skala_nilai' => $i,
                             'tahun' => date('Y')
                         ]);   
                     }
                 }
             }$k++;
-         }while($k<3);
+         }
+            while($k<=3);
 		 }
          $rv = [
             'AlatUkur' => $alatUkur,

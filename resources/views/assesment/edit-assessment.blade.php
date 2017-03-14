@@ -168,7 +168,7 @@
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
 													@foreach($definisi as $data)
@@ -273,13 +273,13 @@
 										</div>
 										@endif
 
-										@elseif($v->tipe == 'parameterized')
+										@else
 										<?php 
 										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
 													@foreach($definisi as $data)
@@ -342,9 +342,21 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Tujuan </label>
+										<label class="col-md-3 control-label">Latarbelakang </label>
 										<div class="col-md-9">
-											<h4>{{$inovatif->tujuan}}</h4>
+											<h4>{{$inovatif->latarbelakang}}</h4>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Sasaran </label>
+										<div class="col-md-9">
+											<h4>{{$inovatif->sasaran}}</h4>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Tahapan </label>
+										<div class="col-md-9">
+											<h4>{{$inovatif->tahapan}}</h4>
 										</div>
 									</div>
 
@@ -356,20 +368,26 @@
 									$nama[$k] = collect(explode('#', $v->name));
 
 									?>
-									
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nama alat ukur {{$k+1}}</label>
+										<div class="col-md-9">
+											<h4>{{$v->name}}</h4>
+										</div>
+									</div>
+
 									<div class="">
 										@if($v->tipe == 'iku')
 										@if($inovatif->tipe == 'parameterized')
 										<?php 
-										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
+										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
 													@foreach($definisi as $data)
-													<option value="{{$data->deskripsi}}">{{$data->deskripsi}}</option>
+													<option value="{{$data->skala_nilai}}">{{$data->skala_nilai}} - {{$data->deskripsi}}</option>
 													@endforeach
 												</select>
 											</div>
