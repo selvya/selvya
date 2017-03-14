@@ -58,7 +58,12 @@
     <script src="{{asset('vendor/js/vendor/bootstrap.min.js')}}"></script>
     <script src="{{asset('vendor/js/plugins.js')}}"></script>
     <script src="{{asset('vendor/js/app.js')}}"></script>    
-    <script src="{{asset('js/notie.min.js')}}"></script>    
+    <script src="{{asset('js/notie.min.js')}}"></script>
+    <script type="text/javascript">
+        $('#logout').click(function(){
+            $('#logout-form').submit();
+        });
+    </script> 
     @yield('js')
 </body>
 </html>
