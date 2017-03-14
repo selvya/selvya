@@ -8,6 +8,7 @@ use Validator;
 use Session;
 use Carbon\Carbon;
 use \App\ReportAssessment;
+use Auth;
 
 class SelfAssesmentController extends Controller {
     //
@@ -177,7 +178,7 @@ class SelfAssesmentController extends Controller {
             [
                 'triwulan'      => $triwulan['current']['triwulan'], 
                 'tahun'         => date('Y'),
-                'user_id'       => '1'
+                'user_id'       => Auth::user()->id
             ]
         );
 
@@ -186,7 +187,7 @@ class SelfAssesmentController extends Controller {
     public function arsipassesment()
     {
         $triwulan = cekCurrentTriwulan();
-        $arsip = \App\ReportAssessment::where('user_id','1')->where('final_status','1')->paginate(10);
+        $arsip = \App\ReportAssessment::where('user_id',Auth::user()->id)->where('final_status','1')->paginate(10);
 
         return view('assesment.arsip', compact('arsip','triwulan'));
     }

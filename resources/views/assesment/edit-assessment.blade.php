@@ -29,12 +29,7 @@
 	<!-- END Wizard Header -->
 
 	<?php 
-	$triwulan = cekCurrentTriwulan();
-	$data = \App\SelfAssesment::with('iku.alat_ukur.definisi')->where('tahun', date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->first();
-
-	$persentase = \App\Persentase::where('tahun',date('Y'))->where('triwulan', $triwulan['current']['triwulan'])->where('daftarindikator_id','3')->first();
 	
-
 	?>
 
 
@@ -59,7 +54,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong>Pelaksanaan Program Budaya <br> <big>{{$persentase->nilai}}%</big></strong>
+											<strong>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li>
@@ -98,13 +93,13 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>{{$data->iku->namaprogram}}</h4>
+											<h4>Nama Program</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>{{$data->iku->tujuan}}</h4>
+											<h4>Tujuan IKU</h4>
 										</div>
 									</div>
 									<!-- MYSTERY CALL -->
@@ -239,16 +234,16 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>{{$data->iku->namaprogram}}</h4>
+											<h4>Nama Program</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>{{$data->iku->tujuan}}</h4>
+											<h4>TUJUAN IKU</h4>
 										</div>
 									</div>
-									@if(!$data->iku->tipe == 'parameterized')
+									
 									<!-- MANUAL -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -263,9 +258,9 @@
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
-									@endif
+									
 
-									@if($data->iku->tipe == 'parameterized')
+									
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
@@ -281,7 +276,7 @@
 										</div>
 									</div>
 									<!-- TUTUP PARAMETERIZE -->
-									@endif
+									
 
 									<div class="form-group">
 										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
@@ -323,16 +318,16 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>{{$data->iku->namaprogram}}</h4>
+											<h4>Nama Program</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>{{$data->iku->tujuan}}</h4>
+											<h4>Tujuan IKU</h4>
 										</div>
 									</div>
-									@if(!$data->iku->tipe == 'parameterized')
+									
 									<!-- MANUAL -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -347,9 +342,9 @@
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
-									@endif
+									
 
-									@if($data->iku->tipe == 'parameterized')
+									
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
@@ -365,7 +360,7 @@
 										</div>
 									</div>
 									<!-- TUTUP PARAMETERIZE -->
-									@endif
+									
 
 									<div class="form-group">
 										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
@@ -406,7 +401,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$data->persennya}}%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li class="active">
@@ -490,7 +485,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$data->persennya}}%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li>
@@ -555,7 +550,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$data->persennya}}%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
 										</a>
 									</li>
 									<li>
