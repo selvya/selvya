@@ -10,13 +10,13 @@ Route::post('customlogin', ['as'=> 'customlogin', 'uses' => 'MyCustomController@
 
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect('dashboard');
+        return redirect('home');
     }
  
     return redirect('login');
 });
 
-Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'DashboardController@index']);
+// Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'DashboardController@index']);
 
 Route::get('/home', 'HomeController@index');
 
@@ -30,11 +30,9 @@ Route::get('grafik-budaya', function () {
     return view('assesment.grafik-budaya');
 });
 
-Route::get('/home', 'HomeController@index');
+// Route::get('/home', 'HomeController@index');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
 
 Route::get('home-reviewer', function () {
     return view('home.home-reviewer');
@@ -121,31 +119,31 @@ Route::get('lomba-kreasi-kreatif', function () {
 Route::get('budaya-internal', function () {
     return view('tambahan.budaya-internal');
 });
+
 Route::get('budaya-eksternal', function () {
     return view('tambahan.budaya-eksternal');
 });
-Route::get('tambah/budaya-eksternal', function () {
-    return view('tambahan.tambah-budaya-eksternal');
-});
-Route::get('tambah/budaya-internal', function () {
-    return view('tambahan.tambah-budaya-internal');
-});
-Route::get('tambah/lomba', function () {
-    return view('tambahan.tambah-lomba');
-});
+
+// Route::get('tambah/lomba', function () {
+//     return view('tambahan.tambah-lomba');
+// });
 //TUTUP INPUT TAMBAHAN
 
-//MANUAL PENGGUNA
-Route::get('manual-pengguna-satker', 'PanduanController@satker');
-Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
-Route::get('upload/satker','PanduanController@uploadsatkerview');
-Route::get('upload/dmpb', 'PanduanController@uploadreviewer');
-Route::post('upload/manual-book/proses', 'PanduanController@uploadpost');
 
 Route::get('kontak', function () {
     return view('kontak.index');
 });
 
+/*
+|--------------------------------------------------------------------------
+| SATKER
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['satker']], function () {
+
+    //MANUAL BOOK
+    Route::get('manual-pengguna-satker', 'PanduanController@satker');
+});
 
 
 /*
@@ -155,13 +153,24 @@ Route::get('kontak', function () {
 */
 Route::group(['middleware' => ['reviewer']], function () {
 
+    Route::get('tambah/budaya-eksternal', function () {
+        return view('tambahan.tambah-budaya-eksternal');
+    });
+
+    Route::get('tambah/budaya-internal', function () {
+        return view('tambahan.tambah-budaya-internal');
+    });
+
+
+    //MANUAL BOOK
+    Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
 });
 /*
 |--------------------------------------------------------------------------
 | ADMIN
 |--------------------------------------------------------------------------
 */
-// Route::group(['middleware' => ['admin']], function () {
+Route::group(['middleware' => ['admin']], function () {
 
     Route::get('admin/pengaturan',            ['as' => 'pengaturan.index',   'uses' => 'PengaturanController@index']);
     Route::get('persentase/detail/{hashid}',  ['as' => 'persentase.detail',  'uses' => 'PengaturanController@getPersentaseAjax']);
@@ -246,7 +255,12 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('edit/mapping/{id}', 'MappingController@editmapping');
     Route::post('edit/mapping/proses/{id}', 'MappingController@proseseditmapping');
     Route::get('hapus-maping/{id}', 'MappingController@hapus');
-// });
+
+    //MANUAL PENGGUNA
+    Route::get('upload/satker','PanduanController@uploadsatkerview');
+    Route::get('upload/dmpb', 'PanduanController@uploadreviewer');
+    Route::post('upload/manual-book/proses', 'PanduanController@uploadpost');
+});
 
 //Download
     Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);

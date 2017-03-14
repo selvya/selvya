@@ -16,8 +16,8 @@ class admin
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() OR Auth::user()->username !== 'admin') {
-            return redirect('dashboard');            
+        if (!Auth::check() OR Auth::user()->level !== 'admin') {
+            return redirect('home');   
         }
 
         return $next($request);

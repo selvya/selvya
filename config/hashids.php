@@ -77,6 +77,11 @@ return [
             'alphabet' => 'DEFINSLA1234567890'
         ],
 
+        'user' => [
+            'salt' => 'Shirathalladzinaanamtaalaihim',
+            'length' => 10,
+            'alphabet' => 'PENGUASTKR1234567890'
+        ],
     ],
 
 ];

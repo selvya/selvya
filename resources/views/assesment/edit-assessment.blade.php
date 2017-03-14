@@ -34,7 +34,7 @@
 
 	$persentase = \App\Persentase::where('tahun',date('Y'))->where('triwulan', $triwulan['current']['triwulan'])->where('daftarindikator_id','3')->first();
 	
-	
+
 	?>
 
 
@@ -248,6 +248,7 @@
 											<h4>{{$data->iku->tujuan}}</h4>
 										</div>
 									</div>
+									@if(!$data->iku->tipe == 'parameterized')
 									<!-- MANUAL -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -262,8 +263,9 @@
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
+									@endif
 
-									@if($data->tipe == 'parameterized')
+									@if($data->iku->tipe == 'parameterized')
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
@@ -330,6 +332,7 @@
 											<h4>{{$data->iku->tujuan}}</h4>
 										</div>
 									</div>
+									@if(!$data->iku->tipe == 'parameterized')
 									<!-- MANUAL -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -344,8 +347,9 @@
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
+									@endif
 
-									@if($data->tipe == 'parameterized')
+									@if($data->iku->tipe == 'parameterized')
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
