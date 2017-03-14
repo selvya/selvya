@@ -7,6 +7,7 @@ use Hashids;
 use Validator;
 use Session;
 use Carbon\Carbon;
+use \App\ReportAssessment;
 
 class SelfAssesmentController extends Controller {
     //
@@ -172,9 +173,15 @@ class SelfAssesmentController extends Controller {
     public function lembarassesment()
     {   
         $triwulan = cekCurrentTriwulan();
-        $report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->paginate(10);
+        $report = ReportAssessment::updateOrCreate(
+            [
+                'triwulan'      => $triwulan['current']['triwulan'], 
+                'tahun'         => date('Y'),
+                'user_id'       => '1'
+            ]
+        );
 
-        return view('assesment.lembar', compact('report','triwulan'));
+        return view('assesment.lembar',compact('report','triwulan'));
     }
     public function arsipassesment()
     {

@@ -27,14 +27,15 @@ class InovatifController extends Controller
                 'tipe' => 'parameterized',
                 'programbudaya_id' => 3,
                 'satker' => 10
-            ],[	'namaprogram' => $r->nama,
+            ],[	
+                'namaprogram' => $r->nama,
 				'keterangan' => $r->deskripsi,
                 'latarbelakang' => $r->latarbelakang,
                 'sasaran' => $r->sasaran,
                 'tahapan' => $r->tahapan,
                 'tujuan' => $r->tujuan,
                 'isfinal' => $r->simpan
-				]);
+			   ]);
 
         // return $iku;
         $alatUkur = null;
