@@ -32,6 +32,7 @@
 
         <ul class="sidebar-nav">
             <!-- MENU SATKER ,DKIN,DSMS  -->
+            @if(Auth::check() AND Auth::user()->level == 'satker')
             <li class="sidebar-header">
                 <span class="sidebar-header-options clearfix">
                     <i class="gi gi-user"></i></span>
@@ -60,6 +61,8 @@
                         <a href="{{url('kontak')}}"><i class="gi gi-circle_info sidebar-nav-icon"></i> Kontak</a>
                     </li>
                     <!-- TUTUP MENU SATKER ,DKIN,DSMS  -->
+                    @endif
+                    @if(Auth::check() AND Auth::user()->level == 'admin')
                     <!-- MENU ADMIN -->
                     <li class="sidebar-header">
                         <span class="sidebar-header-options clearfix">
@@ -140,6 +143,8 @@
                             </a>
                         </li>
                         <!-- TUTUP MENU ADMIN -->
+                        @endif
+                        @if(Auth::check() AND Auth::user()->level == 'reviewer')
                         <!-- MENU REVIEWER -->
                         <li class="sidebar-header">
                             <span class="sidebar-header-options clearfix">
@@ -245,6 +250,7 @@
                                 </a>
                             </li>
                             <!-- TUTUP MENU REVIEWER -->
+                            @endif
                         </ul>
                         <!-- END Sidebar Navigation -->
                     </div>
