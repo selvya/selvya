@@ -15,8 +15,8 @@ class Reviewer
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() OR Auth::user()->username !== 'reviewer') {
-            return redirect('dashboard');
+        if (!Auth::check() OR Auth::user()->level !== 'reviewer') {
+            return redirect('home');
         }
 
         return $next($request);

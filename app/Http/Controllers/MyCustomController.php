@@ -26,11 +26,9 @@ class MyCustomController extends Controller
             'password' => 'required'
         ]);
 
-
-
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('home');
             // dd($request->session()->all());
         }
 

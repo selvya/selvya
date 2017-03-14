@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hashids;
 
 class User extends Authenticatable
 {
@@ -29,10 +30,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function satuan_kerja()
+    public function getHashidAttribute()
     {
-        return $this->hasOne('\App\Sarker', 'id_satker');
+        return Hashids::connection('user')->encode($this->attributes['id']);
     }
+
+    // public function satuan_kerja()
+    // {
+    //     return $this->hasOne('\App\Sarker', 'id_satker');
+    // }
 
     public function direktorat()
     {
