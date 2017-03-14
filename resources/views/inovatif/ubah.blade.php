@@ -166,7 +166,7 @@
 <script type="text/javascript">
 <?php
 	if($iku->isfinal == 'y'){
-echo '$("#ubah input,#ubah textarea").prop("readonly", true);';
+echo '$("input,textarea").prop("disabled", true);';
 	}
 ?>
 	$(function() {

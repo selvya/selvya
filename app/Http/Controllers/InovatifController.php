@@ -70,13 +70,13 @@ class InovatifController extends Controller
        do{
             if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {
 
-                $alatUkur[$k] = AlatUkur::create([
+                $alatUkur[$k] = AlatUkur::updateOrCreate([
                     'iku_id' => $iku->id,
                 'name' => request('name'.$k),'active' => '1' ]);
                 for($i=1; $i<= 6; $i++) { 
 
                     for ($j=1; $j <= 4 ; $j++) { 
-                        $definisinilai[$k][$i][$j] = DefinisiNilai::create([
+                        $definisinilai[$k][$i][$j] = DefinisiNilai::updateOrCreate([
                             'iku_id' => $iku->id,
                             'alatukur_id' => $alatUkur[$k]->id,
                             'deskripsi' => request('alt'.$k.'_def'.$i.'_tw'.$j),
