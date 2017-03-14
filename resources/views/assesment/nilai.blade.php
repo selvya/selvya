@@ -1,5 +1,6 @@
 @extends('layout.master')
 @section('content')
+<style>.highcharts-3d-chart{margin-left:-10px}</style>
 <div id="page-content">
 	<!-- Charts Header -->
 	<div class="content-header">
@@ -41,8 +42,8 @@
 			type: 'column',
 			options3d: {
 				enabled: true,
-				alpha: 10,
-				beta: 25,
+				alpha: 1,
+				beta: 2,
 				depth: 70
 			}
 		},
@@ -51,11 +52,35 @@
 		},
 		plotOptions: {
 			column: {
-				depth: 25
-			}
-		},
+				depth: 25,
+            	zones: [{
+                	value: 50, // Values up to 10 (not including) ...
+                    color: 'red' // ... have the color blue.
+                },{
+                	value: 70, // Values up to 10 (not including) ...
+                    color: 'orange' // ... have the color blue.
+                },{
+                	color: 'green' // Values from 10 (including) and up have the color red
+                }]
+            }
+		}, 
+			
 		xAxis: {
-			categories: ['Jan-Mar 2016', 'Apr-Jun 2016' , 'Jul-Sep 2016']
+			categories: [
+			<?php $ssks = \App\NilaiAkhir::where('user_id',10)->get();$xxx ="";$yyy = "";
+			foreach($ssks as $nilainya){
+				$xxx .= $nilainya->nilai.','; 
+				if($nilainya->triwulan == 1){
+				echo "'Januari - Maret ".$nilainya->tahun."',"; 					
+				}elseif($nilainya->triwulan == 2){
+				echo "'April - Juni ".$nilainya->tahun."',"; 					
+				}elseif($nilainya->triwulan == 3){
+				echo  "'Juli - September ".$nilainya->tahun."',"; 				
+				}else{
+				echo  "'Oktober - Desember ".$nilainya->tahun."',"; 			
+				}
+			}?>
+			]
 		},
 		yAxis: {
 			title: {
@@ -63,10 +88,11 @@
 			}
 		},
 		series: [{
-			name: 'Nilai',
-			data: [1, 2 , 3]
+			name: 'Triwulan',
+			data: [
+			{{rtrim($xxx, ',')}}
+			]
 		}]
 	});
 </script>
-<!-- TUTUP CHART BAR -->
 @endsection

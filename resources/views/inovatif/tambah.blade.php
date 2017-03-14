@@ -59,14 +59,14 @@
 							<div class="col-md-10">
 								<input class="form-control" type="text" name="tahapan">
 							</div>
-						</div>
+						</div> 
 						@for($k=1; $k <= 3; $k++)
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Alat Ukur</label>
 							<div class="col-md-10">
 								<label><input type="checkbox" name="cekalatukur{{$k}}" @if( $k == 1) checked required @endif value="1" id="cekalatukur{{$k}}"> Gunakan alat ukur berikut (Centang bila digunakan)</label>
 								<br><br>
-								<input class="form-control alatukur{{$k}}" name="name" type="text" @if( $k == 1) required @endif placeholder="Alat Ukur {{$k}}">
+								<input class="form-control alatukur{{$k}}" name="name{{$k}}" type="text" @if( $k == 1) required @endif placeholder="Alat Ukur {{$k}}">
 							</div>
 						</div>
 						<div class="form-group row">

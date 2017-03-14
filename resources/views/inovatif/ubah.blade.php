@@ -110,7 +110,7 @@
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Alat Ukur</label>
 							<div class="col-md-10">
-								<label><input type="checkbox" name="cekalatukur{{$k}}" value="1" id="cekalatukur{{$k}}"> Gunakan alat ukur berikut (Centang bila digunakan)</label>
+								<label><input type="checkbox" name="cekalatukur{{$k}}" value="1"@if( $k == 1) checked required @endif  id="cekalatukur{{$k}}"> Gunakan alat ukur berikut (Centang bila digunakan)</label>
 								<br><br>
 								<input class="form-control alatukur{{$k}}" type="text" name="name{{$k}}"  placeholder="Alat Ukur {{$k}}">
 							</div>

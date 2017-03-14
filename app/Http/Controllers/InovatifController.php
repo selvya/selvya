@@ -40,6 +40,7 @@ class InovatifController extends Controller
         // return $iku;
         $alatUkur = null;
         $definisinilai = null;
+		if($r->alatnya !== null){
         foreach($r->alatnya as $k => $item) {
 				if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {           
 			 $alatUkur[$k] = AlatUkur::updateOrCreate([
@@ -64,8 +65,9 @@ class InovatifController extends Controller
                     }
                 }
 		}			
+		}else{$k = 0;}			
 		 if($k < 3){
-       do{$k++;
+       do{
             if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {
 
                 $alatUkur[$k] = AlatUkur::create([
@@ -79,11 +81,12 @@ class InovatifController extends Controller
                             'alatukur_id' => $alatUkur[$k]->id,
                             'deskripsi' => request('alt'.$k.'_def'.$i.'_tw'.$j),
                             'triwulan' => $j,
+                    'skala_nilai' => $i,
                             'tahun' => date('Y')
                         ]);   
                     }
                 }
-            }
+            }$k++;
          }while($k<3);
 		 }
          $rv = [
