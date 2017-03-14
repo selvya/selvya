@@ -261,6 +261,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('upload/satker','PanduanController@uploadsatkerview');
     Route::get('upload/dmpb', 'PanduanController@uploadreviewer');
     Route::post('upload/manual-book/proses', 'PanduanController@uploadpost');
+
+    // HIRARKI
+    Route::get('hirarki', ['as' => 'hirarki.index', 'uses' => 'HirarkiController@index']);
 });
 
 //Download
