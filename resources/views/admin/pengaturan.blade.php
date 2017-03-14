@@ -1085,7 +1085,7 @@
                                     $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
                                 });                             
                             }
-
+							// kuantitas 
                             if(response.data.alat_ukur2_1.active > 0) {
 
                                 $('#kuantitas').prop('checked', true);
@@ -1129,7 +1129,7 @@
                             });                             
                         }
 
-                            //survey yang
+                            //kualitas yang
                         if(response.data.alat_ukur2_2.active > 0) {
 
                             $('#kualitas').prop('checked', true);
@@ -1693,8 +1693,8 @@
             $('[id^=keterangan3_]').hide();
             $('[id^=keterangan3_3]').show();
 
-            $('[id^=modal_simpan3]').hide();
-            $('[id^=modal_simpan3_3]').show();
+             $('[id^=modal_simpan3]').hide().prop('disabled', true);
+             $('[id^=modal_simpan3_3]').show().prop('disabled', false);
 
              $('[id^=input_tipe3_').parent().hide();
             // $('#input_tipe3_3').prop('checked', true).parent().show();
