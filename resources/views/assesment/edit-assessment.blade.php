@@ -368,7 +368,13 @@
 									$nama[$k] = collect(explode('#', $v->name));
 
 									?>
-									
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nama alat ukur {{$k+1}}</label>
+										<div class="col-md-9">
+											<h4>{{$v->name}}</h4>
+										</div>
+									</div>
+
 									<div class="">
 										@if($v->tipe == 'iku')
 										@if($inovatif->tipe == 'parameterized')
