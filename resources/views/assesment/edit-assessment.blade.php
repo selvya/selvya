@@ -29,7 +29,31 @@
 	<!-- END Wizard Header -->
 
 	<?php 
-	
+	use \App\Iku;
+	use \App\AlatUkur;
+	$triwulan = cekCurrentTriwulan();
+	$inovatif = Iku::where('tahun',date('Y'))
+	->where('satker', Auth::user()->id)
+	->where('daftarindikator_id','3')
+	//->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_inovatif')
+	->first();
+
+	$peduli = Iku::where('tahun',date('Y'))
+	->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
+	->first();
+
+	$melayani = Iku::where('tahun',date('Y'))
+	->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
+	->first();
+
+	$alatino = AlatUkur::where('iku_id',$inovatif->id)->get();
+	$alatpeduli = AlatUkur::where('iku_id',$peduli->id)->get();
+	$alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
+		// dd(count($alatmelayani));
+	$persen = \App\Persentase::where('tahun',date('Y'))
+	->where('triwulan',$triwulan['current']['triwulan'])
+	->where('daftarindikator_id','3')->first();
+		// dd($alatpeduli);
 	?>
 
 
@@ -54,7 +78,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
+											<strong>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
 										</a>
 									</li>
 									<li>
@@ -89,84 +113,40 @@
 									</div>
 									<h2><strong>OJK MELAYANI</strong></h2>
 								</div>
-								<div class="block-content" style="display: none;">
-									<div class="form-group">
+								<div class="block-content">
+									<!-- <div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Nama Program</h4>
+											<h4>Ojk Melayani</h4>
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>Tujuan IKU</h4>
+											<h4>{{$melayani->tujuan}}</h4>
 										</div>
 									</div>
+									@if(count($alatmelayani) > 0)
+
+									@foreach($alatmelayani as $k => $v)
+									<?php
+									$nama[$k] = collect(explode('#', $v->name));
+
+									?>
 									<!-- MYSTERY CALL -->
 									<div class="">
-										<h5><b>MYSTERY CALL</b></h5>
+										<h5><b>{{title_case(str_replace('_', ' ', $nama[$k]->last()))}}</b></h5>
+
+										@if($v->tipe == 'iku')
+										@if($melayani->tipe == 'manual')
 										<!-- MANUAL -->
-										<!-- <div class="form-group">
-											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div> -->
 										<div class="form-group">
-											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<!-- <input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
-												<output for="fader" id="volume">0</output> -->
-												<input type="number" name="" min="0" max="6" class="form-control">
-											</div>
-										</div>
-										<!-- TUTUP MANUAL -->
-
-										<!-- PARAMETERIZE -->
-										<!-- <div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<select class="form-control">
-													<option>Nama Alat Ukurnya 1</option>
-													<option>Nama Alat Ukurnya 2</option>
-													<option>Nama Alat Ukurnya 3</option>
-													<option>Nama Alat Ukurnya 4</option>
-													<option>Nama Alat Ukurnya 5</option>
-													<option>Nama Alat Ukurnya 6</option>
-												</select>
-											</div>
-										</div> -->
-										<!-- TUTUP PARAMETERIZE -->
-
-										<!-- <div class="form-group">
-											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<table class="table">
-													<tr id="field1">
-														<td>
-															<input type="text" class="form-control" placeholder="Nama">
-														</td>
-														<td><input type="email" class="form-control" placeholder="Email"></td>
-														<td><input type="text" class="form-control" placeholder="Instansi"></td>
-														<td><input type="text" class="form-control" placeholder="No Telp"></td>
-														<td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-													</tr>
-												</table>
-											</div>
-										</div> -->
-									</div>
-									<!-- CLOSE MYSTERY CALL -->
-
-									<!-- MYSTERY CALL -->
-									<div class="">
-										<h5><b>SURVEY STAKEHOLDER</b></h5>
-										<!-- MANUAL -->
-										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<input type="text" class="form-control">
 											</div>
-										</div> -->
+										</div>
+
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
@@ -174,45 +154,58 @@
 											</div>
 										</div>
 										<!-- TUTUP MANUAL -->
+										@else
+										<div class="form-group">
+											<div class="col-md-12 text-center">
+												<h5>Menggunakan Data Secara Otomatis dari sistem</h5>
+											</div>
+										</div>
+										@endif
 
+										@elseif($v->tipe == 'parameterized')
+										<?php 
+										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
+										?>
 										<!-- PARAMETERIZE -->
-										<!-- <div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+										<div class="form-group">
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
-													<option>Nama Alat Ukurnya 1</option>
-													<option>Nama Alat Ukurnya 2</option>
-													<option>Nama Alat Ukurnya 3</option>
-													<option>Nama Alat Ukurnya 4</option>
-													<option>Nama Alat Ukurnya 5</option>
-													<option>Nama Alat Ukurnya 6</option>
+													@foreach($definisi as $data)
+													<option value="{{$data->deskripsi}}">{{$data->deskripsi}}</option>
+													@endforeach
 												</select>
 											</div>
-										</div> -->
+										</div>
 										<!-- TUTUP PARAMETERIZE -->
-
-							<!-- 			<div class="form-group">
-											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<table class="table">
-													<tr id="field2">
-														<td>
-															<input type="text" class="form-control" placeholder="Nama">
-														</td>
-														<td><input type="email" class="form-control" placeholder="Email"></td>
-														<td><input type="text" class="form-control" placeholder="Instansi"></td>
-														<td><input type="text" class="form-control" placeholder="No Telp"></td>
-														<td><a onclick="tambah_SS()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-													</tr>
-												</table>
-											</div>
-										</div> -->
+										@endif
 									</div>
 									<!-- CLOSE MYSTERY CALL -->
+									@endforeach
+									@else
+									KOSONG
+									@endif
+									
 									<div class="form-group">
 										<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
 										<div class="col-md-9">
 											<input type="file" name="file" class="form-control" >
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
+										<div class="col-md-9">
+											<table class="table">
+												<tr id="field1">
+													<td>
+														<input type="text" class="form-control" placeholder="Nama">
+													</td>
+													<td><input type="email" class="form-control" placeholder="Email"></td>
+													<td><input type="text" class="form-control" placeholder="Instansi"></td>
+													<td><input type="text" class="form-control" placeholder="No Telp"></td>
+													<td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+												</tr>
+											</table>
 										</div>
 									</div>
 								</div>
@@ -230,52 +223,79 @@
 									</div>
 									<h2><strong>OJK PEDULI</strong></h2>
 								</div>
-								<div class="block-content" style="display: none;">
-									<div class="form-group">
+								<div class="block-content">
+									<!-- <div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Nama Program</h4>
+											<h4>Ojk Peduli</h4>
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>TUJUAN IKU</h4>
+											<h4>{{$peduli->tujuan}}</h4>
 										</div>
 									</div>
-									
-									<!-- MANUAL -->
-									<div class="form-group">
-										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="text" class="form-control">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="number" name="" min="0" max="6" class="form-control">
-										</div>
-									</div>
-									<!-- TUTUP MANUAL -->
-									
 
+									@if(count($alatpeduli) > 0)
+
+									@foreach($alatpeduli as $k => $v)
+									<?php
+									$nama[$k] = collect(explode('#', $v->name));
+
+									?>
 									
-									<!-- PARAMETERIZE -->
-									<div class="form-group">
-										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<select class="form-control">
-												<option>Nama Alat Ukurnya 1</option>
-												<option>Nama Alat Ukurnya 2</option>
-												<option>Nama Alat Ukurnya 3</option>
-												<option>Nama Alat Ukurnya 4</option>
-												<option>Nama Alat Ukurnya 5</option>
-												<option>Nama Alat Ukurnya 6</option>
-											</select>
+									<div class="">
+										<h5><b>{{title_case(str_replace('_', ' ', $nama[$k]->last()))}}</b></h5>
+
+										@if($v->tipe == 'iku')
+										@if($peduli->tipe == 'manual')
+										<!-- MANUAL -->
+										<div class="form-group">
+											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<input type="text" class="form-control">
+											</div>
 										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<input type="number" name="" min="0" max="6" class="form-control">
+											</div>
+										</div>
+										<!-- TUTUP MANUAL -->
+										@else
+										<div class="form-group">
+											<div class="col-md-12 text-center">
+												<h5>Menggunakan Data Secara Otomatis dari sistem</h5>
+											</div>
+										</div>
+										@endif
+
+										@else
+										<?php 
+										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
+										?>
+										<!-- PARAMETERIZE -->
+										<div class="form-group">
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<select class="form-control">
+													@foreach($definisi as $data)
+													<option value="{{$data->deskripsi}}">{{$data->deskripsi}}</option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+										<!-- TUTUP PARAMETERIZE -->
+										@endif
 									</div>
-									<!-- TUTUP PARAMETERIZE -->
+									@endforeach
+									@else
+									KOSONG
+									@endif
+									
 									
 
 									<div class="form-group">
@@ -314,52 +334,73 @@
 									</div>
 									<h2><strong>OJK INOVATIF</strong></h2>
 								</div>
-								<div class="block-content" style="display: none;">
+								<div class="block-content">
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Nama Program</h4>
+											<h4>{{$inovatif->namaprogram}}</h4>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Tujuan </label>
+										<label class="col-md-3 control-label">Latarbelakang </label>
 										<div class="col-md-9">
-											<h4>Tujuan IKU</h4>
-										</div>
-									</div>
-									
-									<!-- MANUAL -->
-									<div class="form-group">
-										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
-										<div class="col-md-9">
-											<input type="text" class="form-control">
+											<h4>{{$inovatif->latarbelakang}}</h4>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Sasaran </label>
 										<div class="col-md-9">
-											<input type="number" name="" min="0" max="6" class="form-control">
+											<h4>{{$inovatif->sasaran}}</h4>
 										</div>
 									</div>
-									<!-- TUTUP MANUAL -->
-									
+									<div class="form-group">
+										<label class="col-md-3 control-label">Tahapan </label>
+										<div class="col-md-9">
+											<h4>{{$inovatif->tahapan}}</h4>
+										</div>
+									</div>
 
 									
-									<!-- PARAMETERIZE -->
+									@if(count($alatino) > 0)
+
+									@foreach($alatino as $k => $v)
+									<?php
+									$nama[$k] = collect(explode('#', $v->name));
+
+									?>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+										<label class="col-md-3 control-label">Nama alat ukur {{$k+1}}</label>
 										<div class="col-md-9">
-											<select class="form-control">
-												<option>Nama Alat Ukurnya 1</option>
-												<option>Nama Alat Ukurnya 2</option>
-												<option>Nama Alat Ukurnya 3</option>
-												<option>Nama Alat Ukurnya 4</option>
-												<option>Nama Alat Ukurnya 5</option>
-												<option>Nama Alat Ukurnya 6</option>
-											</select>
+											<h4>{{$v->name}}</h4>
 										</div>
 									</div>
-									<!-- TUTUP PARAMETERIZE -->
+
+									<div class="">
+										@if($v->tipe == 'iku')
+										@if($inovatif->tipe == 'parameterized')
+										<?php 
+										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+										?>
+										<!-- PARAMETERIZE -->
+										<div class="form-group">
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
+											<div class="col-md-9">
+												<select class="form-control">
+													@foreach($definisi as $data)
+													<option value="{{$data->skala_nilai}}">{{$data->skala_nilai}} - {{$data->deskripsi}}</option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+										<!-- TUTUP PARAMETERIZE -->
+										@endif
+										@endif
+									</div>
+									@endforeach
+									@else
+									KOSONG
+									@endif
+
 									
 
 									<div class="form-group">

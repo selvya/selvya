@@ -7,6 +7,7 @@ use App\Iku;
 use App\DefinisiNilai;
 use App\AlatUkur;
 use App\Persentase;
+use Auth;
 
 
 class InovatifController extends Controller
@@ -26,7 +27,7 @@ class InovatifController extends Controller
                 'tahun' => date('Y'),
                 'tipe' => 'parameterized',
                 'programbudaya_id' => 3,
-                'satker' => 10
+                'satker' => Auth::user()->id
             ],[	
                 'namaprogram' => $r->nama,
 				'keterangan' => $r->deskripsi,
@@ -65,9 +66,10 @@ class InovatifController extends Controller
                     }
                 }
 		}			
-		}else{$k = 0;}			
-		 if($k < 3){
-       do{
+		}
+        else{$k = 0;}			
+		if($k <= 3){
+        do{
             if (null != request('cekalatukur'.$k) AND request('cekalatukur'.$k) == 1) {
 
                 $alatUkur[$k] = AlatUkur::updateOrCreate([
@@ -81,13 +83,14 @@ class InovatifController extends Controller
                             'alatukur_id' => $alatUkur[$k]->id,
                             'deskripsi' => request('alt'.$k.'_def'.$i.'_tw'.$j),
                             'triwulan' => $j,
-                    'skala_nilai' => $i,
+                            'skala_nilai' => $i,
                             'tahun' => date('Y')
                         ]);   
                     }
                 }
             }$k++;
-         }while($k<3);
+         }
+            while($k<=3);
 		 }
          $rv = [
             'AlatUkur' => $alatUkur,

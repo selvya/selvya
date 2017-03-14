@@ -1,8 +1,9 @@
 <?php
 Route::get('test', function () {
-    return Hash::make('qwerty');
-    return str_slug('Here is where you can register web', '_');
-    return cekCurrentTriwulan();
+    return gen('kmp.kmp', 'admin');
+    return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
+    // return str_slug('Here is where you can register web', '_');
+    // return cekCurrentTriwulan();
 });
 
 
