@@ -1707,8 +1707,8 @@
             $('[id^=keterangan3_]').hide();
             $('[id^=keterangan3_2]').show();
 
-            // $('[id^=modal_simpan3]').hide().prop('disabled', true);
-            // $('[id^=modal_simpan3_2]').show().prop('disabled', false);
+             $('[id^=modal_simpan3]').hide().prop('disabled', true);
+             $('[id^=modal_simpan3_2]').show().prop('disabled', false);
 
             // $('[id^=input_tipe3_').prop('checked', false).parent().hide();
             // $('#input_tipe3_1').prop('checked', true).parent().show();
