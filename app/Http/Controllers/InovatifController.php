@@ -7,6 +7,7 @@ use App\Iku;
 use App\DefinisiNilai;
 use App\AlatUkur;
 use App\Persentase;
+use Auth;
 
 
 class InovatifController extends Controller
@@ -26,7 +27,7 @@ class InovatifController extends Controller
                 'tahun' => date('Y'),
                 'tipe' => 'parameterized',
                 'programbudaya_id' => 3,
-                'satker' => 10
+                'satker' => Auth::user()->id
             ],[	
                 'namaprogram' => $r->nama,
 				'keterangan' => $r->deskripsi,

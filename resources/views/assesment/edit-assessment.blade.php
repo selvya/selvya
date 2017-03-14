@@ -32,15 +32,17 @@
 	use \App\Iku;
 	use \App\AlatUkur;
 	$triwulan = cekCurrentTriwulan();
-	$inovatif = Iku::where('iku.tahun',date('Y'))
-	->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_inovatif')
+	$inovatif = Iku::where('tahun',date('Y'))
+	->where('satker', Auth::user()->id)
+	->where('daftarindikator_id','3')
+	//->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_inovatif')
 	->first();
 
-	$peduli = Iku::where('iku.tahun',date('Y'))
+	$peduli = Iku::where('tahun',date('Y'))
 	->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
 	->first();
 
-	$melayani = Iku::where('iku.tahun',date('Y'))
+	$melayani = Iku::where('tahun',date('Y'))
 	->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
 	->first();
 
@@ -112,12 +114,12 @@
 									<h2><strong>OJK MELAYANI</strong></h2>
 								</div>
 								<div class="block-content">
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
 											<h4>Ojk Melayani</h4>
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
@@ -222,12 +224,12 @@
 									<h2><strong>OJK PEDULI</strong></h2>
 								</div>
 								<div class="block-content">
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
 											<h4>Ojk Peduli</h4>
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
@@ -336,7 +338,7 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Ojk Inovatif</h4>
+											<h4>{{$inovatif->namaprogram}}</h4>
 										</div>
 									</div>
 									<div class="form-group">
@@ -357,31 +359,7 @@
 									
 									<div class="">
 										@if($v->tipe == 'iku')
-										@if($inovatif->tipe == 'manual')
-										<!-- MANUAL -->
-										<div class="form-group">
-											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<input type="number" name="" min="0" max="6" class="form-control">
-											</div>
-										</div>
-										<!-- TUTUP MANUAL -->
-										@else
-										<div class="form-group">
-											<div class="col-md-12 text-center">
-												<h5>Menggunakan Data Secara Otomatis dari sistem</h5>
-											</div>
-										</div>
-										@endif
-
-										@elseif($v->tipe == 'parameterized')
+										@if($inovatif->tipe == 'parameterized')
 										<?php 
 										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
 										?>
@@ -397,6 +375,7 @@
 											</div>
 										</div>
 										<!-- TUTUP PARAMETERIZE -->
+										@endif
 										@endif
 									</div>
 									@endforeach
