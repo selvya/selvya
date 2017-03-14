@@ -29,7 +29,13 @@
 	<!-- END Wizard Header -->
 
 	<?php 
-	
+	use \App\Iku;
+	$triwulan = cekCurrentTriwulan();
+	$inovatif = Iku::where('iku.tahun',date('Y'))->where('iku.daftarindikator_id','3')->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_inovatif')->join('persentase', 'iku.persen_id', '=', 'persentase.id')->select('iku.*','persentase.*')->first();
+	$peduli = Iku::where('iku.tahun',date('Y'))->where('iku.daftarindikator_id','3')->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')->join('persentase', 'iku.persen_id', '=', 'persentase.id')->select('iku.*','persentase.*')->first();
+	$melayani = Iku::where('iku.tahun',date('Y'))->where('iku.daftarindikator_id','3')->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')->join('persentase', 'iku.persen_id', '=', 'persentase.id')->select('iku.*','persentase.*')->first();
+
+		// dd($melayani);
 	?>
 
 
@@ -54,7 +60,7 @@
 								<ul class="nav nav-pills nav-justified clickable-steps">
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
+											<strong>Pelaksanaan Program Budaya <br> <big>{{$inovatif->nilai}}%</big></strong>
 										</a>
 									</li>
 									<li>
@@ -93,19 +99,20 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Nama Program</h4>
+											<h4>Ojk Melayani</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>Tujuan IKU</h4>
+											<h4>{{$melayani->tujuan}}</h4>
 										</div>
 									</div>
 									<!-- MYSTERY CALL -->
 									<div class="">
 										<h5><b>MYSTERY CALL</b></h5>
 										<!-- MANUAL -->
+										@if($melayani->tipe == 'manual')
 										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
@@ -115,15 +122,14 @@
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
-												<!-- <input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
-												<output for="fader" id="volume">0</output> -->
 												<input type="number" name="" min="0" max="6" class="form-control">
 											</div>
 										</div>
 										<!-- TUTUP MANUAL -->
-
+										@endif
+										@if($melayani->tipe == 'parameterize')
 										<!-- PARAMETERIZE -->
-										<!-- <div class="form-group">
+										<div class="form-group">
 											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
@@ -135,9 +141,9 @@
 													<option>Nama Alat Ukurnya 6</option>
 												</select>
 											</div>
-										</div> -->
+										</div>
 										<!-- TUTUP PARAMETERIZE -->
-
+										@endif
 										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
 											<div class="col-md-9">
@@ -161,6 +167,7 @@
 									<div class="">
 										<h5><b>SURVEY STAKEHOLDER</b></h5>
 										<!-- MANUAL -->
+										@if($melayani->tipe == 'manual')
 										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
@@ -174,9 +181,11 @@
 											</div>
 										</div>
 										<!-- TUTUP MANUAL -->
+										@endif
+										@if($melayani->tipe == 'parameterized')
 
 										<!-- PARAMETERIZE -->
-										<!-- <div class="form-group">
+										<div class="form-group">
 											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
@@ -188,8 +197,9 @@
 													<option>Nama Alat Ukurnya 6</option>
 												</select>
 											</div>
-										</div> -->
+										</div>
 										<!-- TUTUP PARAMETERIZE -->
+										@endif
 
 							<!-- 			<div class="form-group">
 											<label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
@@ -234,16 +244,16 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Nama Program</h4>
+											<h4>Ojk Peduli</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>TUJUAN IKU</h4>
+											<h4>{{$peduli->tujuan}}</h4>
 										</div>
 									</div>
-									
+									@if($peduli->tipe == 'manual')
 									<!-- MANUAL -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -258,8 +268,10 @@
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
+									@endif
 									
 
+									@if($peduli->tipe == 'parameterized')
 									
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
@@ -276,6 +288,7 @@
 										</div>
 									</div>
 									<!-- TUTUP PARAMETERIZE -->
+									@endif
 									
 
 									<div class="form-group">
@@ -318,16 +331,16 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
-											<h4>Nama Program</h4>
+											<h4>Ojk Inovatif</h4>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tujuan </label>
 										<div class="col-md-9">
-											<h4>Tujuan IKU</h4>
+											<h4>{{$inovatif->tujuan}}</h4>
 										</div>
 									</div>
-									
+									@if($inovatif->tipe == 'manual')
 									<!-- MANUAL -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
@@ -342,9 +355,10 @@
 										</div>
 									</div>
 									<!-- TUTUP MANUAL -->
+									@endif
 									
 
-									
+									@if($inovatif->tipe == 'parameterized')
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
@@ -360,6 +374,7 @@
 										</div>
 									</div>
 									<!-- TUTUP PARAMETERIZE -->
+									@endif
 									
 
 									<div class="form-group">
