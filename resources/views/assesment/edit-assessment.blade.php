@@ -168,7 +168,7 @@
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
 													@foreach($definisi as $data)
@@ -273,13 +273,13 @@
 										</div>
 										@endif
 
-										@elseif($v->tipe == 'parameterized')
+										@else
 										<?php 
 										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
 													@foreach($definisi as $data)
@@ -365,7 +365,7 @@
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
-											<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
+											<label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
 											<div class="col-md-9">
 												<select class="form-control">
 													@foreach($definisi as $data)
