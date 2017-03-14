@@ -106,7 +106,7 @@ function cek($token = null)
     /*|-------------------------------------------------
      *|!!!!!! Variable $secret JANGAN DIGANTI!!!!!
      *|-------------------------------------------------*/
-    $secret = env('SKRT_KEY', 'rj"|:"<>HJFhgcdU857641923RYFGHolfs346346xckjhrw243rhYRjyf^%mnY%$#~()=-=-$%&~!@!@xvxjfw%$#!%@$&^@#d+');
+    $secret = env('SKRT_KEY', '$2y$10$2V9fSSmCwvtTQlVoVtOyEe4Dr9agYbyKFrOq39B5ZRh16Y.LDE7gm');
     // $secret = 'token.rahasia..';
     $data = [
         'status' => false,
@@ -146,7 +146,7 @@ function gen($username, $level)
     /*|-------------------------------------------------
      *|!!!!!! Variable $secret JANGAN DIGANTI!!!!!
      *|-------------------------------------------------*/
-    $secret = env('SKRT_KEY', 'rj"|:"<>HJFhgcdU857641923RYFGHolfs346346xckjhrw243rhYRjyf^%mnY%$#~()=-=-$%&~!@!@xvxjfw%$#!%@$&^@#d+');
+    $secret = env('SKRT_KEY', '$2y$10$2V9fSSmCwvtTQlVoVtOyEe4Dr9agYbyKFrOq39B5ZRh16Y.LDE7gm');
 
 
     $api_token = new \App\ApiToken();
