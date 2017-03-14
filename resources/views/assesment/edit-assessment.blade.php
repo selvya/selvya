@@ -272,7 +272,7 @@
 									
 
 									@if($peduli->tipe == 'parameterized')
-									{{$peduli->alat_ukur()->name}}
+									
 									<!-- PARAMETERIZE -->
 									<div class="form-group">
 										<label class="col-md-3 control-label">Alatukur <span class="text-danger">*</span></label>
