@@ -342,9 +342,21 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Tujuan </label>
+										<label class="col-md-3 control-label">Latarbelakang </label>
 										<div class="col-md-9">
-											<h4>{{$inovatif->tujuan}}</h4>
+											<h4>{{$inovatif->latarbelakang}}</h4>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Sasaran </label>
+										<div class="col-md-9">
+											<h4>{{$inovatif->sasaran}}</h4>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Tahapan </label>
+										<div class="col-md-9">
+											<h4>{{$inovatif->tahapan}}</h4>
 										</div>
 									</div>
 
@@ -361,7 +373,7 @@
 										@if($v->tipe == 'iku')
 										@if($inovatif->tipe == 'parameterized')
 										<?php 
-										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
+										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
@@ -369,7 +381,7 @@
 											<div class="col-md-9">
 												<select class="form-control">
 													@foreach($definisi as $data)
-													<option value="{{$data->deskripsi}}">{{$data->deskripsi}}</option>
+													<option value="{{$data->skala_nilai}}">{{$data->skala_nilai}} - {{$data->deskripsi}}</option>
 													@endforeach
 												</select>
 											</div>
