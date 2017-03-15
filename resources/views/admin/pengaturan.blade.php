@@ -350,7 +350,7 @@
                         <div id="melayani_container">
                             <table class="table table-condensed table-bordered mtable" id="table_mc">
                                     <tr>
-                                        <td colspan="2"><label><input type="checkbox" name="mc" value="1" aria-label="..." id="mc" checked style="width:36px;height:22px"> Mystery Call</label></td>
+                                        <td colspan="2"><label><input type="checkbox" name="mc" value="1" aria-label="..." id="mc" style="width:36px;height:22px"> Mystery Call</label></td>
                                     </tr>
                                     <tr>
                                         <th>Tipe Nilai</th>
@@ -393,7 +393,7 @@
                                     <tr> 
                                         <td colspan="2">
                                             <label>
-                                                <input type="checkbox" name="kuantitas" value="1" aria-label="..." id="kuantitas" checked style="width:36px;height:22px">
+                                                <input type="checkbox" name="kuantitas" value="1" aria-label="..." id="kuantitas"  style="width:36px;height:22px">
                                                  Kuantitas (Frekuensi & Partisipasi)
                                             </label>
                                         </td>
@@ -984,9 +984,11 @@
                         $('#modal_triwulan3').val('').val((parseInt(t.attr('data-triwulan')) + 1));
                         $('[id^=definisi3_]').val('').prop('readonly', false);
                         $('[id^=keterangan3]').val('').prop('readonly', false).hide();
-                        $('[id^=mindikator_]').val('').prop('disabled', false);
-                        $('[id^=sindikator_]').val('').prop('disabled', false);
-                        $('[id^=pindikator_]').val('').prop('disabled', false);
+                        $('[id^=kuantitasindikator_]').val('').prop('disabled', true);
+                        $('[id^=kualitasindikator_]').val('').prop('disabled', true);
+                        $('[id^=mindikator_]').val('').prop('disabled', true);
+                        $('[id^=sindikator_]').val('').prop('disabled', true);
+ //                       $('[id^=pindikator_]').val('').prop('disabled', false);
                         $('#jenis_program option').prop('selected', false).prop('readonly', false);
                         $('#jenis_program option[value="1"]').prop('selected',true);
                         $('#keterangan3_1').prop('disabled', false).show();
@@ -1083,7 +1085,7 @@
                                     $('#sindikator_' + (k + 1)).val(v.deskripsi).prop('disabled', true);
                                 });                             
                             }
-
+							// kuantitas 
                             if(response.data.alat_ukur2_1.active > 0) {
 
                                 $('#kuantitas').prop('checked', true);
@@ -1127,7 +1129,7 @@
                             });                             
                         }
 
-                            //survey yang
+                            //kualitas yang
                         if(response.data.alat_ukur2_2.active > 0) {
 
                             $('#kualitas').prop('checked', true);
@@ -1691,8 +1693,8 @@
             $('[id^=keterangan3_]').hide();
             $('[id^=keterangan3_3]').show();
 
-            $('[id^=modal_simpan3]').hide();
-            $('[id^=modal_simpan3_3]').show();
+             $('[id^=modal_simpan3]').hide().prop('disabled', true);
+             $('[id^=modal_simpan3_3]').show().prop('disabled', false);
 
              $('[id^=input_tipe3_').parent().hide();
             // $('#input_tipe3_3').prop('checked', true).parent().show();

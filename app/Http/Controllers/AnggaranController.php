@@ -179,7 +179,7 @@ class AnggaranController extends Controller
             $validFile = in_array(pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
 
             if (!$validFile) {
-                Session::flash('msg', '<div class="alert alert-success">File Lampiran hairs berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                Session::flash('msg', '<div class="alert alert-danger">File Lampiran hairs berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
                 return redirect()->back();
             }
 
