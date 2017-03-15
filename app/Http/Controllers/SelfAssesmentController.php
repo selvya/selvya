@@ -11,6 +11,9 @@ use \App\ReportAssessment;
 use Auth;
 use \App\Iku;
 use \App\AlatUkur;
+use App\AnggaranTahun;
+use App\AnggaranTriwulan;
+use App\Persentase;
 
 class SelfAssesmentController extends Controller {
     //
@@ -31,6 +34,7 @@ class SelfAssesmentController extends Controller {
         $nilai = 1;
 
         $now = Carbon::now();
+        //!!!!!!!
         $data = $this->setSatker(2, 2, $now);
         $batas = getBatasTanggalPelaporan(date('Y'), $data['triwulan']);
         $persen = cekPersenLaporan(date('Y'), 1, $data['triwulan']);
@@ -193,6 +197,7 @@ class SelfAssesmentController extends Controller {
 
         return view('assesment.arsip', compact('arsip','triwulan'));
     }
+
     public function editassesment($id)
     {
 
@@ -205,12 +210,12 @@ class SelfAssesmentController extends Controller {
 
         if ($inovatif == null) {
          return redirect(url('inovatif'))->with('warning', 'Anda harus menambahkan program ojk inovatif terlebih dahulu');
-     }
+        }
 
 
      $peduli = Iku::where('tahun',date('Y'))
-     ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
-     ->first();
+         ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
+         ->first();
 
      $melayani = Iku::where('tahun',date('Y'))
      ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
@@ -225,10 +230,72 @@ class SelfAssesmentController extends Controller {
      $alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
         // dd(count($alatmelayani));
      $persen = \App\Persentase::where('tahun',date('Y'))
-     ->where('triwulan',$triwulan['current']['triwulan'])
-     ->where('daftarindikator_id','3')->first();
+         ->where('triwulan',$triwulan['current']['triwulan'])
+         ->where('daftarindikator_id','3')->first();
         // dd($alatpeduli);
 
-     return view('assesment.edit-assessment', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan'));
+         //----------
+         //-----------
+         $satker = getSatker();
+
+        $anggaranN = AnggaranTahun::updateOrCreate(
+            ['user_id' => $satker, 'tahun' => date('Y')]
+        );
+
+        //Cek Persen
+        for ($tw = 1; $tw <= 4; $tw++){
+            $persen[$tw] = Persentase::updateOrCreate([
+                'daftarindikator_id' => 2,
+                'tahun' => date('Y'),
+                'triwulan' => $tw
+            ]);
+
+            $iku[$tw] = Iku::updateOrCreate([
+                'daftarindikator_id' => $persen[$tw]->daftar_indikator->id,
+                'tahun' => $persen[$tw]->tahun,
+                'namaprogram' => str_slug($persen[$tw]->daftar_indikator->name, '_') . '#' . $persen[$tw]->tahun . '#' . $persen[$tw]->triwulan,
+                'persen_id' => $persen[$tw]->id
+            ]);
+
+            $alatUkur[$tw] = AlatUkur::updateOrCreate([
+                'iku_id' => $iku[$tw]->id,
+                'name' => $iku[$tw]->namaprogram
+            ]);
+
+            $jumlahDefinisi[$tw] = count($alatUkur[$tw]->definisi);
+            if ($jumlahDefinisi[$tw] < 6) {
+                for ($i=1; $i <= (6 - $jumlahDefinisi[$tw]); $i++) { 
+                    $definisiNilai[$tw][$i] = DefinisiNilai::create([
+                        'iku_id' => $iku[$tw]->id,
+                        'alatukur_id' => $alatUkur[$tw]->id,
+                        'triwulan' => $persen[$tw]->triwulan,
+                        'tahun' => $persen[$tw]->tahun
+                    ]);
+                }
+            }
+            
+        }
+
+        $targetN = Persentase::with('iku.alat_ukur.definisi')->where('tahun', date('Y'))
+                ->where('daftarindikator_id', 2)
+                ->get();
+
+        $rencanaN = AnggaranTriwulan::where('user_id', $satker)
+                        ->where('anggaran_tahun_id', $anggaranN->id)
+                        ->get();
+
+     return view('assesment.edit-assessment', compact(
+        'peduli',
+        'melayani',
+        'inovatif',
+        'alatino',
+        'alatpeduli',
+        'alatmelayani',
+        'persen',
+        'triwulan',
+        'anggaranN',
+        'targetN',
+        'rencanaN'
+    ));
  }
 }
