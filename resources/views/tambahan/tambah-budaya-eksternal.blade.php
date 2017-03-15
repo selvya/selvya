@@ -61,6 +61,19 @@
 							</div>
 						</div> 
 						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Alat Ukur <span class="text-danger">*</span></label>
+							<div class="col-md-10">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Nilai <span class="text-danger">*</span></label>
+							<div class="col-md-10">
+								<input type="number" name="" min="0" max="6" class="form-control">
+							</div>
+						</div>
+						<div class="form-group row">
 							<div class="col-md-12 text-center">
 								<a href="{{url('budaya-eksternal')}}" class="btn btn-default btn-lg"><i class="fa fa-arrow-left"></i> Kembali</a>
 								<button class="btn btn-primary btn-lg" type="submit" name="simpan" value="t"><i class="fa fa-save"></i> Simpan</button>

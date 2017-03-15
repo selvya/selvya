@@ -69,7 +69,7 @@ Route::get('inovatif', function () {
 });
 Route::get('tambah/inovatif', function () {
 	
-   $iku = \App\Iku::where('satker','=',10)->where('tahun','=',date('Y'))->where('daftarindikator_id','=',3)->where('programbudaya_id','=',3)->first();
+   $iku = \App\Iku::where('satker','=',Auth::user()->id)->where('tahun','=',date('Y'))->where('daftarindikator_id','=',3)->where('programbudaya_id','=',3)->first();
    if (count($iku) > 0) {
     return view('inovatif.ubah', compact('iku'));
 }else{
