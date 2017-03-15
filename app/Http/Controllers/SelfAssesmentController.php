@@ -9,6 +9,8 @@ use Session;
 use Carbon\Carbon;
 use \App\ReportAssessment;
 use Auth;
+use \App\Iku;
+use \App\AlatUkur;
 
 class SelfAssesmentController extends Controller {
     //
@@ -176,11 +178,11 @@ class SelfAssesmentController extends Controller {
         $triwulan = cekCurrentTriwulan();
         $report = ReportAssessment::updateOrCreate(
             [
-                'triwulan'      => $triwulan['current']['triwulan'], 
-                'tahun'         => date('Y'),
-                'user_id'       => Auth::user()->id
+            'triwulan'      => $triwulan['current']['triwulan'], 
+            'tahun'         => date('Y'),
+            'user_id'       => Auth::user()->id
             ]
-        );
+            );
 
         return view('assesment.lembar',compact('report','triwulan'));
     }
@@ -191,4 +193,38 @@ class SelfAssesmentController extends Controller {
 
         return view('assesment.arsip', compact('arsip','triwulan'));
     }
+    public function editassesment($id)
+    {
+
+        $triwulan = cekCurrentTriwulan();
+
+        $inovatif = Iku::where('tahun',date('Y'))
+        ->where('satker', Auth::user()->id)
+        ->where('daftarindikator_id','3')
+        ->first();
+
+        if ($inovatif == null) {
+           return redirect(url('inovatif'))->with('warning', 'Anda harus menambahkan program ojk inovatif terlebih dahulu');
+       }
+
+
+       $peduli = Iku::where('tahun',date('Y'))
+       ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
+       ->first();
+
+       $melayani = Iku::where('tahun',date('Y'))
+       ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
+       ->first();
+
+       $alatino = AlatUkur::where('iku_id',$inovatif->id)->get();
+       $alatpeduli = AlatUkur::where('iku_id',$peduli->id)->get();
+       $alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
+        // dd(count($alatmelayani));
+       $persen = \App\Persentase::where('tahun',date('Y'))
+       ->where('triwulan',$triwulan['current']['triwulan'])
+       ->where('daftarindikator_id','3')->first();
+        // dd($alatpeduli);
+
+       return view('assesment.edit-assessment', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan'));
+   }
 }

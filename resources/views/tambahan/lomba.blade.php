@@ -21,10 +21,29 @@
 		<li>Lomba Kreasi Kreatif</li>
 	</ul>
 	<!-- END Datatables Header -->
+	@if($persen != null)
+		@if($persen->nilai > 0 )
+			<div class="col-sm-6 col-lg-4">
+				<!-- Widget -->
+				<a href="" class="widget widget-hover-effect1">
+					<div class="widget-simple">
+						<div class="widget-icon pull-left themed-background-spring animation-fadeIn">
+							<i class="fa fa-line-chart"></i>
+						</div>
+						<h3 class="widget-content text-right animation-pullDown">
+							{{$persen->nilai}}% <strong>Persentase</strong><br>
+							<small>Triwulan {{$triwulan['current']['triwulan']}}</small>
+						</h3>
+					</div>
+				</a>
+				<!-- END Widget -->
+			</div>
+		@endif
+	@endif
 
 	<!-- Datatables Content -->
-	<div class="block full">
-	<table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" aria-describedby="dataTables-example_info">
+	<div class="block full col-md-12" style="overflow: hidden;">
+		<table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" aria-describedby="dataTables-example_info">
 			<thead>
 				<tr role="row">
 					<th>Nama</th>
@@ -36,16 +55,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="odd text-center">
-					<td>Satker DSMS</td>
-					<td>DSMS</td>
-					<td>DSMS</td>
-					<td>DSMS</td>
-					<td>DSMS</td>
-					<td>
-						<a href="{{url('tambah/lomba/')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Lomba Kreasi Kreatif">Tambah</a>
-					</td>
-				</tr>
+				@if($persen != null)
+					@if($persen->nilai > 0 )
+						@foreach($user as $data)
+						<tr class="odd text-center">
+							<td>{{$data->username}}</td>
+							<td>{{$data->ototritas}}</td>
+							<td>{{$data->deputi_kom}}</td>
+							<td>{{$data->departemen}}</td>
+							<td>{{$data->kojk}}</td>
+							<td>
+								<a href="{{url('tambah/lomba/'.$data->id)}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Lomba Kreasi Kreatif">Tambah</a>
+							</td>
+						</tr>
+						@endforeach
+						@else
+							<div class="alert alert-warning">
+								Pada triwulan ini Lomba Kreasi Kreatif tidak dapat di input
+							</div>
+					@endif
+				@endif
 			</tbody>
 		</table>
 		<!-- END Datatables Content -->
