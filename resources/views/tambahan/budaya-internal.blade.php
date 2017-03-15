@@ -22,22 +22,24 @@
 	</ul>
 	<!-- END Datatables Header -->
 
-	@if($persen->nilai > 0 )
-	<div class="col-sm-6 col-lg-4">
-		<!-- Widget -->
-		<a href="" class="widget widget-hover-effect1">
-			<div class="widget-simple">
-				<div class="widget-icon pull-left themed-background-spring animation-fadeIn">
-					<i class="fa fa-line-chart"></i>
-				</div>
-				<h3 class="widget-content text-right animation-pullDown">
-					{{$persen->nilai}}% <strong>Persentase</strong><br>
-					<small>Triwulan {{$triwulan['current']['triwulan']}}</small>
-				</h3>
+	@if($persen != null)
+		@if($persen->nilai > 0)
+			<div class="col-sm-6 col-lg-4">
+				<!-- Widget -->
+				<a href="" class="widget widget-hover-effect1">
+					<div class="widget-simple">
+						<div class="widget-icon pull-left themed-background-spring animation-fadeIn">
+							<i class="fa fa-line-chart"></i>
+						</div>
+						<h3 class="widget-content text-right animation-pullDown">
+							{{$persen->nilai}}% <strong>Persentase</strong><br>
+							<small>Triwulan {{$triwulan['current']['triwulan']}}</small>
+						</h3>
+					</div>
+				</a>
+				<!-- END Widget -->
 			</div>
-		</a>
-		<!-- END Widget -->
-	</div>
+		@endif
 	@endif
 
 	<!-- Datatables Content -->

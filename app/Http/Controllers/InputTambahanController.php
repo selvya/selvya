@@ -16,6 +16,7 @@ class InputTambahanController extends Controller
         ->where('triwulan', $triwulan['current']['triwulan'])
         ->where('daftarindikator_id','5')
         ->first();
+        
         return view('tambahan.lomba' ,compact('user','persen','triwulan'));
     }
     public function budayainternal()
@@ -36,7 +37,7 @@ class InputTambahanController extends Controller
         ->where('triwulan', $triwulan['current']['triwulan'])
         ->where('daftarindikator_id','7')
         ->first();
-    	return view('tambahan.budaya-eksternal',compact('user','persen','triwulan'));
+        return view('tambahan.budaya-eksternal',compact('user','persen','triwulan'));
     }
     public function tambahlomba($id)
     {

@@ -21,7 +21,7 @@
 		<li>Budaya Eksternal</li>
 	</ul>
 	<!-- END Datatables Header -->
-
+	@if($persen != null)
 	@if($persen->nilai > 0 )
 	<div class="col-sm-6 col-lg-4">
 		<!-- Widget -->
@@ -39,6 +39,7 @@
 		<!-- END Widget -->
 	</div>
 	@endif
+	@endif
 
 	<!-- Datatables Content -->
 	<div class="block full col-md-12" style="overflow: hidden;">				
@@ -54,6 +55,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				@if($persen != null)
 				@if($persen->nilai > 0 )
 				@foreach($user as $data)
 				<tr class="odd text-center">
@@ -71,6 +73,7 @@
 				<div class="alert alert-warning">
 					Pada triwulan ini Survei Budaya Eksternal tidak dapat di input
 				</div>
+				@endif
 				@endif
 			</tbody>
 		</table>
