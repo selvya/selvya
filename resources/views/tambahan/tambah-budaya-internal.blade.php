@@ -22,51 +22,61 @@
 		<div class="col-md-12">
 			<div class="block">
 				<div class="block-title">
+					<h2><strong>Satker</strong></h2>
+				</div>
+				<div class="container" style="max-width:100%">
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label">Nama</label>
+						<div class="col-md-10">
+							<h4>{{$satker->username}}</h4>
+						</div>
+					</div>
+					<!-- <div class="form-group row">
+						<label class="col-md-2 col-form-label">Deputi Komisioner</label>
+						<div class="col-md-10">
+							<h4>{{$satker->deputi_kom}}</h4>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label">Direktorat</label>
+						<div class="col-md-10">
+							<h4>{{$satker->direktorat_id}}</h4>
+						</div>
+					</div> -->
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label">KOJK</label>
+						<div class="col-md-10">
+							<h4>{{$satker->kojk}}</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="block">
+				<div class="block-title">
 					<h2><strong>Form </strong></h2>
 				</div>
 				<div class="container" style="max-width:100%">
 
 					@include('include.alert')
-
-					<form action="{{url('proses/tambah/inovatif')}}" method="POST">
+					<?php 
+					$nama = collect(explode('#', $iku->namaprogram));
+					?>
+					<form action="{{url('proses-internal/'.$satker->id)}}" method="POST">
 						{{csrf_field()}}
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Nama Program</label>
 							<div class="col-md-10">
-								<input class="form-control" type="text" name="nama">
+								<h4>{{title_case(str_replace('_',' ',$nama->first()))}}</h4>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Deskripsi Program</label>
 							<div class="col-md-10">
-								<textarea class="form-control" rows="5" name="deskripsi"></textarea>
+								<h4>{{$iku->keterangan}}</h4>
 							</div>
 						</div>
-						<div class="form-group row">
-							<label class="col-md-2 col-form-label">Latar Belakang </label>
-							<div class="col-md-10">
-								<input class="form-control" type="text" name="latarbelakang">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-md-2 col-form-label">Sasaran Program</label>
-							<div class="col-md-10">
-								<input class="form-control" type="text" name="sasaran">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-md-2 col-form-label">Tahapan Pelaksanaan </label>
-							<div class="col-md-10">
-								<input class="form-control" type="text" name="tahapan">
-							</div>
-						</div> 
-						<div class="form-group row">
-							<label class="col-md-2 col-form-label">Alat Ukur <span class="text-danger">*</span></label>
-							<div class="col-md-10">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Nilai <span class="text-danger">*</span></label>
 							<div class="col-md-10">

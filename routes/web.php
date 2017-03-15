@@ -68,8 +68,13 @@ Route::get('inovatif', function () {
     return view('inovatif.index');
 });
 Route::get('tambah/inovatif', function () {
-	
-   $iku = \App\Iku::where('satker','=',Auth::user()->id)->where('tahun','=',date('Y'))->where('daftarindikator_id','=',3)->where('programbudaya_id','=',3)->first();
+    $triwulan = cekCurrentTriwulan();
+   $iku = \App\Iku::where('satker','=',Auth::user()->id)
+            ->where('tahun','=',date('Y'))
+            ->where('daftarindikator_id','=','3')
+            ->where('programbudaya_id','=','3')
+            ->where('inovatif_triwulan',$triwulan['current']['triwulan'])
+            ->first();
    if (count($iku) > 0) {
     return view('inovatif.ubah', compact('iku'));
 }else{
@@ -142,6 +147,9 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('tambah/lomba/{id}','InputTambahanController@tambahlomba');
     Route::get('tambah/budaya-eksternal/{id}','InputTambahanController@tambahbudayaeksternal');
     Route::get('tambah/budaya-internal/{id}','InputTambahanController@tambahbudayainternal');
+    Route::post('proses-lomba','InputTambahanController@proseslomba');
+    Route::post('proses-internal','InputTambahanController@prosesinternal');
+    Route::post('proses-eksternal','InputTambahanController@proseseksternal');
     //TUTUP INPUT TAMBAHAN
 
     //MANUAL BOOK

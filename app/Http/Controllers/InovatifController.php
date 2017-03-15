@@ -21,13 +21,16 @@ class InovatifController extends Controller
     // }
     public function tambah(Request $r)
     {
+        $triwulan = cekCurrentTriwulan();
+
         $iku = Iku::updateOrCreate([
                 'persen_id' => 0,
                 'daftarindikator_id' => 3,
                 'tahun' => date('Y'),
                 'tipe' => 'parameterized',
                 'programbudaya_id' => 3,
-                'satker' => Auth::user()->id
+                'satker' => Auth::user()->id,
+                'inovatif_triwulan' => $triwulan['current']['triwulan']
             ],[	
                 'namaprogram' => $r->nama,
 				'keterangan' => $r->deskripsi,
@@ -35,7 +38,8 @@ class InovatifController extends Controller
                 'sasaran' => $r->sasaran,
                 'tahapan' => $r->tahapan,
                 'tujuan' => $r->tujuan,
-                'isfinal' => $r->simpan
+                'isfinal' => $r->simpan,
+                'inovatif_triwulan' => $triwulan['current']['triwulan']
 			   ]);
 
         // return $iku;

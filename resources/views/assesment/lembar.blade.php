@@ -46,6 +46,7 @@
 			<a href="{{url('arsip/assessment')}}" class="btn btn-lg btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment"><i class="fa fa-book"></i> Arsip</a>
 		</div>
 		<br>
+		@include('include.alert')
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" aria-describedby="dataTables-example_info">
 				<thead>

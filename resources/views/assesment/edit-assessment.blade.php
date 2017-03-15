@@ -46,17 +46,29 @@
 
 						<div class="form-group">
 							<div class="col-xs-12">
+								<?php 
+
+								$anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+								->where('iku.daftarindikator_id','2')
+								->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+								->first();
+								
+								?>
 								<ul class="nav nav-pills nav-justified clickable-steps">
+									@if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
 											<strong>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
+									@if($anggaran != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-second" class="stepnya"><strong>
-											Serapan Anggaran <br> <big>15%</big></strong>
+											Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
 											<strong>Partisipan Pimpinan <br> <big>30%</big></strong>
@@ -71,6 +83,7 @@
 								</ul>
 							</div>
 						</div>
+
 						<br>
 						<!-- ACCORDION -->
 						<div class="container" style="max-width: 1000px; overflow: hidden;">
@@ -85,16 +98,16 @@
 									<h2><strong>OJK MELAYANI</strong></h2>
 								</div>
 								<div class="block-content">
-									<!-- <div class="form-group">
+									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
 											<h4>Ojk Melayani</h4>
 										</div>
-									</div> -->
+									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Tujuan </label>
+										<label class="col-md-3 control-label">Deskripsi</label>
 										<div class="col-md-9">
-											<h4>{{$melayani->tujuan}}</h4>
+											<h4>{{$melayani->keterangan}}</h4>
 										</div>
 									</div>
 									@if(count($alatmelayani) > 0)
@@ -111,12 +124,6 @@
 										@if($v->tipe == 'iku')
 										@if($melayani->tipe == 'manual')
 										<!-- MANUAL -->
-										<div class="form-group">
-											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
 
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
@@ -135,7 +142,7 @@
 
 										@elseif($v->tipe == 'parameterized')
 										<?php 
-										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
+										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
@@ -195,16 +202,16 @@
 									<h2><strong>OJK PEDULI</strong></h2>
 								</div>
 								<div class="block-content">
-									<!-- <div class="form-group">
+									<div class="form-group">
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
 											<h4>Ojk Peduli</h4>
 										</div>
-									</div> -->
+									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Tujuan </label>
+										<label class="col-md-3 control-label">Deskripsi</label>
 										<div class="col-md-9">
-											<h4>{{$peduli->tujuan}}</h4>
+											<h4>{{$peduli->keterangan}}</h4>
 										</div>
 									</div>
 
@@ -222,12 +229,6 @@
 										@if($v->tipe == 'iku')
 										@if($peduli->tipe == 'manual')
 										<!-- MANUAL -->
-										<div class="form-group">
-											<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
 
 										<div class="form-group">
 											<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
@@ -246,7 +247,7 @@
 
 										@else
 										<?php 
-										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->get();
+										$definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
 										?>
 										<!-- PARAMETERIZE -->
 										<div class="form-group">
@@ -310,6 +311,12 @@
 										<label class="col-md-3 control-label">Nama Program </label>
 										<div class="col-md-9">
 											<h4>{{$inovatif->namaprogram}}</h4>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 control-label">Deskripsi</label>
+										<div class="col-md-9">
+											<h4>{{$inovatif->keterangan}}</h4>
 										</div>
 									</div>
 									<div class="form-group">

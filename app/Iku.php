@@ -23,7 +23,8 @@ class Iku extends Model
         'isfinal',
         'tujuan',
         'programbudaya_id',
-        'satker'
+        'satker',
+        'inovatif_triwulan',
     ];
 
     public function getHashidAttribute() {

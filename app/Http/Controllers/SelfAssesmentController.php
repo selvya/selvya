@@ -204,27 +204,31 @@ class SelfAssesmentController extends Controller {
         ->first();
 
         if ($inovatif == null) {
-           return redirect(url('inovatif'))->with('warning', 'Anda harus menambahkan program ojk inovatif terlebih dahulu');
-       }
+         return redirect(url('inovatif'))->with('warning', 'Anda harus menambahkan program ojk inovatif terlebih dahulu');
+     }
 
 
-       $peduli = Iku::where('tahun',date('Y'))
-       ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
-       ->first();
+     $peduli = Iku::where('tahun',date('Y'))
+     ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
+     ->first();
 
-       $melayani = Iku::where('tahun',date('Y'))
-       ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
-       ->first();
+     $melayani = Iku::where('tahun',date('Y'))
+     ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
+     ->first();
 
-       $alatino = AlatUkur::where('iku_id',$inovatif->id)->get();
-       $alatpeduli = AlatUkur::where('iku_id',$peduli->id)->get();
-       $alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
+     if (($peduli == null) || ($inovatif == null) || ($melayani == null)) {
+         return redirect()->back()->with('warning', 'Data masih belum di masukan oleh admin');
+     }
+
+     $alatino = AlatUkur::where('iku_id',$inovatif->id)->get();
+     $alatpeduli = AlatUkur::where('iku_id',$peduli->id)->get();
+     $alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
         // dd(count($alatmelayani));
-       $persen = \App\Persentase::where('tahun',date('Y'))
-       ->where('triwulan',$triwulan['current']['triwulan'])
-       ->where('daftarindikator_id','3')->first();
+     $persen = \App\Persentase::where('tahun',date('Y'))
+     ->where('triwulan',$triwulan['current']['triwulan'])
+     ->where('daftarindikator_id','3')->first();
         // dd($alatpeduli);
 
-       return view('assesment.edit-assessment', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan'));
-   }
+     return view('assesment.edit-assessment', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan'));
+ }
 }
