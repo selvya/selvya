@@ -27,36 +27,7 @@
 		<li>Edit Self Assessment</li>
 	</ul>
 	<!-- END Wizard Header -->
-
-	<?php 
-	use \App\Iku;
-	use \App\AlatUkur;
-	$triwulan = cekCurrentTriwulan();
-	$inovatif = Iku::where('tahun',date('Y'))
-	->where('satker', Auth::user()->id)
-	->where('daftarindikator_id','3')
-	//->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_inovatif')
-	->first();
-
-	$peduli = Iku::where('tahun',date('Y'))
-	->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
-	->first();
-
-	$melayani = Iku::where('tahun',date('Y'))
-	->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
-	->first();
-
-	$alatino = AlatUkur::where('iku_id',$inovatif->id)->get();
-	$alatpeduli = AlatUkur::where('iku_id',$peduli->id)->get();
-	$alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
-		// dd(count($alatmelayani));
-	$persen = \App\Persentase::where('tahun',date('Y'))
-	->where('triwulan',$triwulan['current']['triwulan'])
-	->where('daftarindikator_id','3')->first();
-		// dd($alatpeduli);
-	?>
-
-
+	
 	<!-- Wizards Row -->
 	<div class="row">
 		<div class="col-md-12">

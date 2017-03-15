@@ -6,4 +6,8 @@
 <div class="alert alert-danger">
 	{{ Session::get('error') }}
 </div>
+@elseif(Session::has('warning'))
+<div class="alert alert-warning">
+	{{ Session::get('warning') }}
+</div>
 @endif

@@ -36,16 +36,18 @@
 				</tr>
 			</thead>
 			<tbody>
+				@foreach($user as $data)
 				<tr class="odd text-center">
-					<td>Satker DSMS</td>
-					<td>DSMS</td>
-					<td>DSMS</td>
-					<td>DSMS</td>
-					<td>DSMS</td>
+					<td>{{$data->username}}</td>
+					<td>{{$data->ototritas}}</td>
+					<td>{{$data->deputi_kom}}</td>
+					<td>{{$data->departemen}}</td>
+					<td>{{$data->kojk}}</td>
 					<td>
-						<a href="{{url('tambah/budaya-internal/')}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Budaya Internal">Tambah</a>
+						<a href="{{url('tambah/budaya-internal/'.$data->id)}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Budaya Internal">Tambah</a>
 					</td>
 				</tr>
+				@endforeach
 			</tbody>
 		</table>
 		<!-- END Datatables Content -->

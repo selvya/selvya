@@ -1,18 +1,12 @@
 @extends('layout.master')
-@section('css')
-<style type="text/css">
-	th{text-align: center;}
-</style>
-@endsection
 @section('content')
-<!-- Page content -->
 <div id="page-content">
-	<!-- Datatables Header -->
+	<!-- Wizard Header -->
 	<div class="content-header">
 		<div class="header-section">
 			<h1>
-				<i class="gi gi-tags"></i>
-				<b>Tambah Budaya Internal</b>
+				<i class="fa fa-magic"></i>
+				Tambah Budaya Internal
 			</h1>
 		</div>
 	</div>
@@ -21,58 +15,65 @@
 		<li><a href="{{url('budaya-internal')}}">Budaya Internal</a></li>
 		<li>Tambah Budaya Internal</li>
 	</ul>
+	<!-- END Wizard Header -->
 
-	<div class="block full" style="overflow: hidden;">
-		<form action="" method="POST">
-			<div class="form-group">
-				<label class="col-md-3 control-label">Nama Program </label>
-				<div class="col-md-9">
-					<h4>Programnya</h4>
+	<!-- Wizards Row -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="block">
+				<div class="block-title">
+					<h2><strong>Form </strong></h2>
+				</div>
+				<div class="container" style="max-width:100%">
+
+					@include('include.alert')
+
+					<form action="{{url('proses/tambah/inovatif')}}" method="POST">
+						{{csrf_field()}}
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Nama Program</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" name="nama">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Deskripsi Program</label>
+							<div class="col-md-10">
+								<textarea class="form-control" rows="5" name="deskripsi"></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Latar Belakang </label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" name="latarbelakang">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Sasaran Program</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" name="sasaran">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2 col-form-label">Tahapan Pelaksanaan </label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" name="tahapan">
+							</div>
+						</div> 
+						<div class="form-group row">
+							<div class="col-md-12 text-center">
+								<a href="{{url('budaya-internal')}}" class="btn btn-default btn-lg"><i class="fa fa-arrow-left"></i> Kembali</a>
+								<button class="btn btn-primary btn-lg" type="submit" name="simpan" value="t"><i class="fa fa-save"></i> Simpan</button>
+							</div>
+						</div>
+
+					</form>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-md-3 control-label">Tujuan </label>
-				<div class="col-md-9">
-					<h4>Tujuan programnya</h4>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-				<div class="col-md-9">
-					<input type="file" name="file" class="form-control" >
-				</div>
-			</div>
-			<br>
-			<div class="form-group">
-				<label class="col-md-3 control-label">Alat Ukur <span class="text-danger">*</span></label>
-				<div class="col-md-9">
-					<input type="text" class="form-control">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
-				<div class="col-md-9">
-					<!-- <input type="range" min="0" max="6" value="0" step="0.01" id="fader" oninput="outputUpdate(value)" class="form-control">
-					<output for="fader" id="volume">0</output> -->
-					<input type="number" name="" class="form-control" min="0" max="6">
-				</div>
-			</div>
-			<br><br>
-			<div class="form-group">
-				<div class="pull-right">
-				<br><br>
-					<button class="btn btn-success">Tambah</button>
-				</div>
-			</div>
-		</form>
+		</div>
 	</div>
-	<!-- END Page Content -->
-	@endsection
-	@section('js')
-	<script type="text/javascript">
-		function outputUpdate(vol) {
-			document.querySelector('#volume').value = vol;
-		}
-
-	</script>
-	@endsection
+	<!-- END Wizards Row -->	
+</div>
+@endsection
+@section('js')
+@endsection

@@ -13,7 +13,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('home');
     }
- 
+
     return redirect('login');
 });
 
@@ -46,9 +46,7 @@ Route::get('nilai-self-assessment', function () {
 
 Route::get('lembar-self-assessment', 'SelfAssesmentController@lembarassesment');
 
-Route::get('edit-self-assessment/{id}', function () {
-    return view('assesment.edit-assessment');
-});
+Route::get('edit-self-assessment/{id}', 'SelfAssesmentController@editassesment');
 Route::get('arsip/assessment', 'SelfAssesmentController@arsipassesment');
 
 Route::get('rekap-assessment', function () {
@@ -71,12 +69,12 @@ Route::get('inovatif', function () {
 });
 Route::get('tambah/inovatif', function () {
 	
- $iku = \App\Iku::where('satker','=',10)->where('tahun','=',date('Y'))->where('daftarindikator_id','=',3)->where('programbudaya_id','=',3)->first();
-	if (count($iku) > 0) {
+   $iku = \App\Iku::where('satker','=',10)->where('tahun','=',date('Y'))->where('daftarindikator_id','=',3)->where('programbudaya_id','=',3)->first();
+   if (count($iku) > 0) {
     return view('inovatif.ubah', compact('iku'));
-	}else{
-      return view('inovatif.tambah');
-	}
+}else{
+  return view('inovatif.tambah');
+}
 });
 // Route::get('ubah/inovatif', function () {
     // return view('inovatif.ubah');
@@ -113,23 +111,6 @@ Route::get('anggaran-budaya', function () {
 });
 //TUTUP MONITORING
 
-//INPUT TAMBAHAN
-Route::get('lomba-kreasi-kreatif', function () {
-    return view('tambahan.lomba');
-});
-Route::get('budaya-internal', function () {
-    return view('tambahan.budaya-internal');
-});
-
-Route::get('budaya-eksternal', function () {
-    return view('tambahan.budaya-eksternal');
-});
-
-// Route::get('tambah/lomba', function () {
-//     return view('tambahan.tambah-lomba');
-// });
-//TUTUP INPUT TAMBAHAN
-
 
 Route::get('kontak', function () {
     return view('kontak.index');
@@ -154,14 +135,14 @@ Route::group(['middleware' => ['satker']], function () {
 */
 Route::group(['middleware' => ['reviewer']], function () {
 
-    Route::get('tambah/budaya-eksternal', function () {
-        return view('tambahan.tambah-budaya-eksternal');
-    });
-
-    Route::get('tambah/budaya-internal', function () {
-        return view('tambahan.tambah-budaya-internal');
-    });
-
+    //INPUT TAMBAHAN
+    Route::get('lomba-kreasi-kreatif', 'InputTambahanController@lomba');
+    Route::get('budaya-internal','InputTambahanController@budayainternal');
+    Route::get('budaya-eksternal','InputTambahanController@budayaeksternal');
+    Route::get('tambah/lomba/{id}','InputTambahanController@tambahlomba');
+    Route::get('tambah/budaya-eksternal/{id}','InputTambahanController@tambahbudayaeksternal');
+    Route::get('tambah/budaya-internal/{id}','InputTambahanController@tambahbudayainternal');
+    //TUTUP INPUT TAMBAHAN
 
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
@@ -264,5 +245,5 @@ Route::group(['middleware' => ['admin']], function () {
 });
 
 //Download
-    Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
+Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
 
