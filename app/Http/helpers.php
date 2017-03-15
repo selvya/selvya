@@ -141,7 +141,7 @@ function cek($token = null)
     die(json_encode($data));
 }
 
-function gen($username, $level)
+function gen($username)
 {
     /*|-------------------------------------------------
      *|!!!!!! Variable $secret JANGAN DIGANTI!!!!!
@@ -155,15 +155,11 @@ function gen($username, $level)
     $api_token->username = $username;
     $api_token->token = $token;
 
-    $user = \App\User::updateOrCreate(
-        [
-            'username' => $username,
-            'password' => null
-        ],
-        [
-            'level' => $level
-        ]
-    );
+    $user = \App\User::where('username', $username)->first();
+
+    if (count($user) == 0) {
+        die(json_encode(['status' => false, 'data' => '', 'message' => 'Unautorized']));
+    }
 
     if($api_token->save()) {
         return ['token' => $api_token->token];

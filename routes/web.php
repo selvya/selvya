@@ -258,3 +258,8 @@ Route::group(['middleware' => ['admin']], function () {
 //Download
 Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
 
+
+//TOKEN
+    Route::get('auth/verify', ['as' => 'auth/verify', 'uses' => 'TokenController@verify']);
+    Route::get('auth/gen', ['as' => 'auth/gen', 'uses' => 'TokenController@gen']);
+
