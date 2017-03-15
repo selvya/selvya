@@ -52,6 +52,16 @@
 								->where('iku.daftarindikator_id','2')
 								->join('persentase', 'iku.persen_id' ,'=','persentase.id')
 								->first();
+
+								$pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+								->where('iku.daftarindikator_id','4')
+								->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+								->first();
+
+								$pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+								->where('iku.daftarindikator_id','1')
+								->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+								->first();
 								
 								?>
 								<ul class="nav nav-pills nav-justified clickable-steps">
@@ -69,17 +79,20 @@
 										</a>
 									</li>
 									@endif
+									@if($pimpinan != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong>Partisipan Pimpinan <br> <big>30%</big></strong>
+											<strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
 										</a>
 									</li>
-
+									@endif
+									@if($pelaporan != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
 								</ul>
 							</div>
 						</div>
@@ -418,27 +431,34 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<ul class="nav nav-pills nav-justified clickable-steps">
+								@if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
+									@if($anggaran != null)
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-											Serapan Anggaran <br> <big>15%</big></strong>
+											Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
+									@if($pimpinan != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong>Partisipan Pimpinan <br> <big>30%</big></strong>
+											<strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
 										</a>
 									</li>
-
+									@endif
+									@if($pelaporan != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
 								</ul>
 							</div>
 						</div>
@@ -652,27 +672,34 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<ul class="nav nav-pills nav-justified clickable-steps">
+								@if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
+									@if($anggaran != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-											<i class="fa fa-check"></i>Serapan Anggaran <br> <big>15%</big></strong>
+											<i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
+									@if($pimpinan != null)
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong>Partisipan Pimpinan <br> <big>30%</big></strong>
+											<strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
 										</a>
 									</li>
-
+									@endif
+									@if($pelaporan != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
 								</ul>
 							</div>
 						</div>
@@ -717,27 +744,34 @@
 						<div class="form-group">
 							<div class="col-xs-12">
 								<ul class="nav nav-pills nav-justified clickable-steps">
+								@if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-first">
-											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>40%</big></strong>
+											<strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
+									@if($anggaran != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-											<i class="fa fa-check"></i>Serapan Anggaran <br> <big>15%</big></strong>
+											<i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
+									@if($pimpinan != null)
 									<li>
 										<a href="javascript:void(0)" data-gotostep="clickable-third">
-											<strong> <i class="fa fa-check"></i>Partisipan Pimpinan <br> <big>30%</big></strong>
+											<strong> <i class="fa fa-check"></i>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
 										</a>
 									</li>
-
+									@endif
+									@if($pelaporan != null)
 									<li class="active">
 										<a href="javascript:void(0)" data-gotostep="clickable-fourth">
-											<strong>Kecepatan Pelaporan <br> <big>15%</big></strong>
+											<strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
 										</a>
 									</li>
+									@endif
 								</ul>
 							</div>
 						</div>
