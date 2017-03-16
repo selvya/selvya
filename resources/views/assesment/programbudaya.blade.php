@@ -23,7 +23,7 @@
     </div>
     <ul class="breadcrumb breadcrumb-top">
         <li><a href="{{url('/')}}">Beranda</a></li>
-        <li><a href="{{url('inovatif')}}">Self Assessment</a></li>
+        <li><a href="{{url('lembar-self-assessment')}}">Self Assessment</a></li>
         <li>Edit Self Assessment</li>
     </ul>
     <!-- END Wizard Header -->
@@ -40,7 +40,7 @@
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
+                <form action="{{url('proses/programbudaya')}}" method="POST" class="form-horizontal form-bordered">
                     <!-- First Step -->
                     <div id="clickable-first" class="step">
 
@@ -123,7 +123,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="" min="0" max="6" class="form-control">
+                                                <input type="number" name="nilai_manual_melayani" min="0" max="6" class="form-control">
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
@@ -143,9 +143,9 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <select class="form-control">
-                                                    @foreach($definisi as $data)
-                                                    <option value="{{$data->deskripsi}}">{{$data->deskripsi}}</option>
+                                                <select class="form-control" name="alatukur_melayani[]">
+                                                    @foreach($definisi as $c => $data )
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$c+1}}">{{($c+1)}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -162,7 +162,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="file" name="file" class="form-control" >
+                                            <input type="file" name="file_melayani" class="form-control" >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -171,11 +171,11 @@
                                             <table class="table">
                                                 <tr id="field1">
                                                     <td>
-                                                        <input type="text" class="form-control" placeholder="Nama">
+                                                        <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Nama">
                                                     </td>
-                                                    <td><input type="email" class="form-control" placeholder="Email"></td>
-                                                    <td><input type="text" class="form-control" placeholder="Instansi"></td>
-                                                    <td><input type="text" class="form-control" placeholder="No Telp"></td>
+                                                    <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email"></td>
+                                                    <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi"></td>
+                                                    <td><input type="text" name="telp_stake_melayani[]" class="form-control" placeholder="No Telp"></td>
                                                     <td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -228,7 +228,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="" min="0" max="6" class="form-control">
+                                                <input type="number" name="nilai_manual_peduli" min="0" max="6" class="form-control">
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
@@ -249,9 +249,9 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <select class="form-control">
-                                                    @foreach($definisi as $data)
-                                                    <option value="{{$data->deskripsi}}">{{$data->deskripsi}}</option>
+                                                <select class="form-control" name="alatukur_peduli[]">
+                                                    @foreach($definisi as $b => $data)
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$b+1}}">{{$b+1}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -272,11 +272,11 @@
                                             <table class="table">
                                                 <tr id="field3">
                                                     <td>
-                                                        <input type="text" class="form-control" placeholder="Nama">
+                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama">
                                                     </td>
-                                                    <td><input type="email" class="form-control" placeholder="Email"></td>
-                                                    <td><input type="text" class="form-control" placeholder="Instansi"></td>
-                                                    <td><input type="text" class="form-control" placeholder="No Telp"></td>
+                                                    <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email"></td>
+                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi"></td>
+                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" placeholder="No Telp"></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -285,7 +285,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="file" name="file" class="form-control" >
+                                            <input type="file" name="file_peduli" class="form-control" >
                                         </div>
                                     </div>
                                 </div>
@@ -359,9 +359,9 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <select class="form-control">
+                                                <select class="form-control" name="alatukur_inovatif[]">
                                                     @foreach($definisi as $data)
-                                                    <option value="{{$data->skala_nilai}}">{{$data->skala_nilai}} - {{$data->deskripsi}}</option>
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$data->skala_nilai}}">{{$data->skala_nilai}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -382,12 +382,10 @@
                                         <div class="col-md-9">
                                             <table class="table">
                                                 <tr id="field4">
-                                                    <td>
-                                                        <input type="text" class="form-control" placeholder="Nama">
-                                                    </td>
-                                                    <td><input type="email" class="form-control" placeholder="Email"></td>
-                                                    <td><input type="text" class="form-control" placeholder="Instansi"></td>
-                                                    <td><input type="text" class="form-control" placeholder="No Telp"></td>
+                                                    <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama"></td>
+                                                    <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email"></td>
+                                                    <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi"></td>
+                                                    <td><input type="text" name="telp_stake_inovatif[]" class="form-control" placeholder="No Telp"></td>
                                                     <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -396,7 +394,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="file" name="file" class="form-control" >
+                                            <input type="file" name="file_inovatif" class="form-control" >
                                         </div>
                                     </div>
                                 </div>
@@ -411,6 +409,8 @@
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-6">
+                        {{csrf_field()}}
+                        <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
                             <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
                             <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                         </div>
@@ -433,15 +433,15 @@
     function tambah_MC(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_melayani[]" placeholder="Nama" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" placeholder="Email" class="form-control">'+
+            '<input type="email" name="email_stake_melayani[]" placeholder="Email" class="form-control">'+
             '<td>'+
-            '<input type="text" placeholder="Instansi" class="form-control">'+
+            '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="text" placeholder="No Telp" class="form-control">'+
+            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" class="form-control">'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -477,15 +477,15 @@
     function tambah_OP(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_peduli[]" placeholder="Nama" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" placeholder="Email" class="form-control">'+
+            '<input type="email" name="email_stake_peduli[]" placeholder="Email" class="form-control">'+
             '<td>'+
-            '<input type="text" placeholder="Instansi" class="form-control">'+
+            '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="text" placeholder="No Telp" class="form-control">'+
+            '<input type="text" name="telp_stake_peduli[]" placeholder="No Telp" class="form-control">'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -499,15 +499,15 @@
     function tambah_INO(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" placeholder="Email" class="form-control">'+
+            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control">'+
             '<td>'+
-            '<input type="text" placeholder="Instansi" class="form-control">'+
+            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="text" placeholder="No Telp" class="form-control">'+
+            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" class="form-control">'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+

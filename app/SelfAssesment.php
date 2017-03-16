@@ -9,6 +9,17 @@ class SelfAssesment extends Model
     //
     protected $table = 'selfassesment';
 
+    protected $fillable = [
+    	 'user_id',
+          'tahun',               
+          'triwulan',            
+          'iku_id',              
+          'alatukur_id',         
+          'definisinilai_id',
+          'reportassesment_id', 
+          'filelampiran'
+    ];
+
 
     public function iku()
     {
