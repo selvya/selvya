@@ -156,28 +156,20 @@ class PengaturanController extends Controller
 
         $alatUkur1_1 = AlatUkur::updateOrCreate([
             'iku_id' => $iku1->id,
-            'active' => 0,
-            'tipe' => 'manual',
             'name' => $iku1->namaprogram . '#mystery_call'
         ]);
 
         $alatUkur1_2 = AlatUkur::updateOrCreate([
             'iku_id' => $iku1->id,
-            'active' => 0,
-            'tipe' => 'manual',
             'name' => $iku1->namaprogram . '#survei_stake_holder'
         ]);
 
         $alatUkur2_1 = AlatUkur::updateOrCreate([
             'iku_id' => $iku2->id,
-            'active' => 0,
-            'tipe' => 'manual',
             'name' => $iku2->namaprogram. '#kuantitas'
         ]);
         $alatUkur2_2 = AlatUkur::updateOrCreate([
             'iku_id' => $iku2->id,
-            'active' => 0,
-            'tipe' => 'manual',
             'name' => $iku2->namaprogram. '#kualitas'
         ]);
 
@@ -759,31 +751,31 @@ class PengaturanController extends Controller
         //Hapus Definisi dan Alat Ukur
         DefinisiNilai::where('iku_id', $iku->id)->delete();
         AlatUkur::where('iku_id', $iku->id)->delete();
+//GATAU ERROR KEKNYA
+        // if ($r->input_tipe3 == 'parameterized') {
+            // $alatUkur = AlatUkur::updateOrCreate([
+                // 'iku_id' => $iku->id,
+                // 'name' => $iku->namaprogram
+            // ]);
 
-        if ($r->input_tipe3 == 'parameterized') {
-            $alatUkur = AlatUkur::updateOrCreate([
-                'iku_id' => $iku->id,
-                'name' => $iku->namaprogram
-            ]);
-
-            for ($i=0; $i < 6; $i++) {
-                $definisiNilai2[$i] = DefinisiNilai::create([
-                    'iku_id' => $iku->id,
-                    'alatukur_id' => $alatUkur->id,
-                    'deskripsi' => request('pindikator_' . ($i+1)),
-                    'triwulan' => $persentase->triwulan,
-                    'tahun' => $persentase->tahun
-                ]);
-            }
-        }
+            // for ($i=0; $i < 6; $i++) {
+                // $definisiNilai2[$i] = DefinisiNilai::create([
+                    // 'iku_id' => $iku->id,
+                    // 'alatukur_id' => $alatUkur->id,
+                    // 'deskripsi' => request('pindikator_' . ($i+1)),
+                    // 'triwulan' => $persentase->triwulan,
+                    // 'tahun' => $persentase->tahun
+                // ]);
+            // }
+        // }
 
 		//
 		
 		if($r->input_tipe3_1_1 == null){$tipe_1 = 'iku';}else{$tipe_1 = $r->input_tipe3_1_1;}
-        if ($r->mc == 1) {
+        if ($r->kuantitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#mystery_call'
+                'name' => $iku->namaprogram . '#kuantitas'
             ],['tipe' => $tipe_1,
                 'active' => '1']);
 
@@ -791,7 +783,7 @@ class PengaturanController extends Controller
                 $definisiNilai1[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
                     'alatukur_id' => $alatUkur->id,
-                    'deskripsi' => request('mindikator_' . ($i+1)),
+                    'deskripsi' => request('kuantitasindikator_' . ($i+1)),
                     'triwulan' => $persentase->triwulan,
                     'tahun' => $persentase->tahun
                 ]);
@@ -799,15 +791,15 @@ class PengaturanController extends Controller
         }else{
 			$alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#mystery_call'
+                'name' => $iku->namaprogram . '#kuantitas'
             ],['tipe' => $tipe_1,
                 'active' => '0']);
 		}
 		if($r->input_tipe3_1_2 == null){$tipe_2 = 'iku';}else{$tipe_2 = $r->input_tipe3_1_2;}
-        if ($r->sks == 1) {
+        if ($r->kualitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#survei_stake_holder'
+                'name' => $iku->namaprogram . '#kualitas'
             ],['tipe' => $tipe_2,
                 'active' => '1']);
 
@@ -815,7 +807,7 @@ class PengaturanController extends Controller
                 $definisiNilai2[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
                     'alatukur_id' => $alatUkur->id,
-                    'deskripsi' => request('sindikator_' . ($i+1)),
+                    'deskripsi' => request('kualitasindikator_' . ($i+1)),
                     'triwulan' => $persentase->triwulan,
                     'tahun' => $persentase->tahun
                 ]);
@@ -823,7 +815,7 @@ class PengaturanController extends Controller
         }else{ 
 			$alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#survei_stake_holder'
+                'name' => $iku->namaprogram . '#kualitas'
             ],['tipe' => $tipe_2,
                 'active' => '0']);
 		}
