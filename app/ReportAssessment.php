@@ -12,7 +12,7 @@ class ReportAssessment extends Model
     protected $fillable = [
     	'nilai',
         'daftarindikator_id',
-        'persentase', 
+        'persentase',
         'hasil',
         'triwulan',
         'tahun',

@@ -167,3 +167,80 @@ function gen($username)
 
     return 'Token Salah Ulangi Kembali';
 }
+
+
+function hitungNilaiSerapan($tahun, $triwulan, $satker_id)
+{
+    $nilai = 1;
+
+    $tahun = $tahun;
+
+    $persen = cekPersenSerapan($tahun, 2, $triwulan);
+
+    $iku = cekIkuSerapan($tahun, $triwulan);
+    
+    $anggaranTahun = \App\AnggaranTahun::where('user_id', $satker_id)
+                    ->where('tahun', $tahun)
+                    ->first();
+
+    $totalAnggaran = $anggaranTahun->total_anggaran;
+
+    $realisasi = 0;
+
+    
+    $semuaRealisasi = \App\AnggaranTriwulan::where('anggaran_tahun_id', $anggaranTahun->id)
+                    ->where('user_id', $satker_id)
+                    ->get();
+
+    if ($semuaRealisasi[$triwulan-1]->realisasi == 0) {
+        return $nilai;    
+    }
+
+    for ($i=1; $i <= $triwulan ; $i++) {
+        $realisasi += $semuaRealisasi[$i-1]->realisasi;
+    }
+
+    $targetPersen = (float) getPercentOfNumber($totalAnggaran, $iku->alat_ukur[0]->definisi[5]->deskripsi);
+    // return number_format($targetPersen, 2);
+    
+    //Tidak melapor
+    if (! isset($realisasi) OR $realisasi == null) {
+        return $nilai;
+    }
+
+    // dd((float) $iku->alat_ukur[0]->definisi[1]->deskripsi);
+    // echo "Total Anggaran: " . $totalAnggaran . '<br>';
+    // echo "Realisasi: " . $realisasi . '<br>';
+    // echo "Definisi 1: " . (float) $iku->alat_ukur[0]->definisi[1]->deskripsi . '<br>';
+    // echo "getPercentOfNumber: " . getPercentOfNumber($totalAnggaran, (float) $iku->alat_ukur[0]->definisi[1]->deskripsi) . '<br>';
+
+    // exit();
+    if (! isset($realisasi) OR $realisasi == null OR $realisasi == 0) {
+        return $nilai;
+    }
+
+    if ($realisasi <= (float) getPercentOfNumber($totalAnggaran, (float) $iku->alat_ukur[0]->definisi[1]->deskripsi)) {
+        $nilai = 2;
+        return $nilai;
+    }
+
+    if ($realisasi > (float) getPercentOfNumber($totalAnggaran, (float) $iku->alat_ukur[0]->definisi[2]->deskripsi) AND $realisasi <= (float) getPercentOfNumber($totalAnggaran, $iku->alat_ukur[0]->definisi[3]->deskripsi)) {
+        $nilai = 3;
+        return $nilai;
+    }
+
+    if ($realisasi > (float) getPercentOfNumber($totalAnggaran, (float) $iku->alat_ukur[0]->definisi[3]->deskripsi) AND $realisasi <= (float) getPercentOfNumber($totalAnggaran, $iku->alat_ukur[0]->definisi[4]->deskripsi)) {
+        $nilai = 4;
+        return $nilai;
+    }
+
+    if ($realisasi > (float) getPercentOfNumber($totalAnggaran, (float) $iku->alat_ukur[0]->definisi[4]->deskripsi) AND $realisasi < (float) getPercentOfNumber($totalAnggaran, $iku->alat_ukur[0]->definisi[5]->deskripsi)) {
+        $nilai = 5;
+        return $nilai;
+    }
+
+    if ($realisasi >= (float) getPercentOfNumber($totalAnggaran, (float) $iku->alat_ukur[0]->definisi[5]->deskripsi)) {
+        $nilai = 6;
+        return $nilai;
+    }
+}

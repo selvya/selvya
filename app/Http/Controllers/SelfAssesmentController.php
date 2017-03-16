@@ -119,7 +119,8 @@ class SelfAssesmentController extends Controller {
         $nilai = 1;
 
         $tahun = date('Y');
-        $triwulan = 1;
+        $triwulan = cekCurrentTriwulan()['triwulan'];
+        dd($triwulan);
 
         $persen = cekPersenSerapan($tahun, 2, 1);
 
@@ -363,7 +364,57 @@ class SelfAssesmentController extends Controller {
             ->where('anggaran_tahun_id', $anggaranN->id)
             ->get();
 
-        return view('assesment.serapananggaran', compact('anggaranN','targetN','rencanaN','inovatif','peduli','melayani','persen','triwulan','anggaran','pimpinan','pelaporan'));
+        $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+        
+        for ($i=1; $i <= 4 ; $i++) { 
+            $reportAssesment = ReportAssessment::updateOrCreate(
+                [
+                    'daftarindikator_id' => 2,
+                    'triwulan' => $i,
+                    'tahun' => date('Y'),
+                    'user_id' => $satker
+                ],
+                [
+                    'hasil' => $atasWizard,
+                    'nilai' => hitungNilaiSerapan(date('Y'), $i, Auth::user()->id)
+                ]
+            );
+        }
+
+
+        // dd(hitungNilaiSerapan(date('Y'), $triwulan['current'], Auth::user()->id));
+        
+        // return $atasWizard;
+         $warna = ReportAssessment::where('daftarindikator_id', 2)
+                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                ->where('tahun', date('Y'))
+                ->where('user_id', $satker)
+                ->first()->hasil;
+        
+        if ($warna > 0) {
+            $warna = 'ijo';
+        }else{
+            $warna = 'biru';
+        }
+
+        return view(
+            'assesment.serapananggaran',
+            compact(
+                'anggaranN',
+                'targetN',
+                'rencanaN',
+                'inovatif',
+                'peduli',
+                'melayani',
+                'persen',
+                'triwulan',
+                'anggaran',
+                'pimpinan',
+                'pelaporan',
+                'atasWizard',
+                'warna'
+            )
+        );
     }
 
     public function pelaporan($id)

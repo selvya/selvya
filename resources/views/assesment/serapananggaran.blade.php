@@ -57,7 +57,7 @@
                                     @if($anggaran != null)
                                     <li class="active">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
+                                            Serapan Anggaran <br> <big>{{$atasWizard}}% / {{$anggaran->nilai}}%</big></strong>
                                         </a>
                                     </li>
                                     @endif
@@ -90,7 +90,7 @@
                                                 @endif
                                                 <form method="post" class="form-horizontal" enctype="multipart/form-data" action="">
                                                     <div class="form-group">
-                                                        <label for="disabledSelect" class="control-label col-md-2">Total Anggaran</label>
+                                                        <label for="disabledSelect" class="control-label col-md-2">Total Anggaran</label> <span class="pull-right">{{hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id)}}/6</span>
                                                         <div class="col-md-6">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Rp</span>
@@ -136,28 +136,30 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Realisasi Anggaran</td>
+                                                                            {{-- {{dd($rencanaN)}} --}}
                                                                             @foreach($rencanaN as $k => $v)
                                                                             <td>
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon">Rp.</span>
                                                                                     <input 
-                                                                                    type="text"
-                                                                                    name="realisasi_{{$k+1}}"
-                                                                                    class="form-control realisasi"
-                                                                                    value="{{number_format($v->realisasi, 0, ',', '.')}}"
-                                                                                    @php
-                                                                                    // $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
-                                                                                    $triwulan[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
-                                                                                    ->where('triwulan', ($k+1))
-                                                                                    ->first();
-                                                                                    $awal[$k] = \Carbon\Carbon::parse($triwulan[$k]->sejak);
-                                                                                    $akhir[$k] = \Carbon\Carbon::parse($triwulan[$k]->hingga);
-                                                                                    $now[$k] = \Carbon\Carbon::now();
-                                                                                    // $now[$k] = $no;
-                                                                                    @endphp
+                                                                                        type="text"
+                                                                                        name="realisasi_{{$k+1}}"
+                                                                                        class="form-control realisasi"
+                                                                                        value="{{number_format($v->realisasi, 0, ',', '.')}}"
+                                                                                        @php
+
+                                                                                        // $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
+                                                                                        $twww[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
+                                                                                                        ->where('triwulan', ($k+1))
+                                                                                                        ->first();
+                                                                                        $awal[$k] = \Carbon\Carbon::parse($twww[$k]->sejak);
+                                                                                        $akhir[$k] = \Carbon\Carbon::parse($twww[$k]->hingga);
+                                                                                        $now[$k] = \Carbon\Carbon::now();
+                                                                                        // $now[$k] = $no;
+                                                                                        @endphp
 
                                                                                     @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
-                                                                                    readonly 
+                                                                                        readonly 
                                                                                     @endif
                                                                                     >
                                                                                 </div>
