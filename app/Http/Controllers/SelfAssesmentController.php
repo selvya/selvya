@@ -427,9 +427,58 @@ public function prosesprogrambudaya(Request $r)
 
   $report_id = ReportAssessment::findOrFail($rid[0]);
 
-   $persen = \App\Persentase::where('tahun',date('Y'))
-   ->where('triwulan',$triwulan['current']['triwulan'])
-   ->where('daftarindikator_id','3')->first();
+
+  foreach($r->alatukur_inovatif as $b => $data){
+
+    $alat[$b] = collect(explode('#', $data));
+
+    $iku_id[$b] = $alat[$b][0];
+    $alat_id[$b] = $alat[$b][1];
+    $def_id[$b] = $alat[$b][2];
+    $nilai[$b] = $alat[$b][3];
+    $isialat[$b] = SelfAssesment::updateOrCreate([
+          'user_id'             => Auth::user()->id,
+          'tahun'               => date('Y'),
+          'triwulan'            => $triwulan['current']['triwulan'],
+          'alatukur_id'         => $alat_id[$b]
+      ],
+      [
+          'iku_id'              => $iku_id[$b],
+          'definisinilai_id'    => $def_id[$b],
+          'filelampiran'        => $r->file_melayani,
+          'reportassesment_id'  => $rid[0],
+          'skala_nilai'         => $nilai[$b],
+          'filelampiran'        => $r->file_inovatif
+      ]
+      );
+  }
+
+
+foreach($r->alatukur_peduli as $a => $data){
+
+    $alat[$a] = collect(explode('#', $data));
+
+    $iku_id[$a] = $alat[$a][0];
+    $alat_id[$a] = $alat[$a][1];
+    $def_id[$a] = $alat[$a][2];
+    $nilai[$a] = $alat[$a][3];
+    $isialat[$a] = SelfAssesment::updateOrCreate([
+          'user_id'             => Auth::user()->id,
+          'tahun'               => date('Y'),
+          'triwulan'            => $triwulan['current']['triwulan'],
+          'alatukur_id'         => $alat_id[$a]
+      ],
+      [
+          'iku_id'              => $iku_id[$a],
+          'definisinilai_id'    => $def_id[$a],
+          'filelampiran'        => $r->file_melayani,
+          'reportassesment_id'  => $rid[0],
+          'skala_nilai'         => $nilai[$a],
+          'filelampiran'        => $r->file_peduli
+      ]
+      );
+  }
+
 
 
   foreach($r->alatukur_melayani as $k => $data){
@@ -440,9 +489,6 @@ public function prosesprogrambudaya(Request $r)
     $alat_id[$k] = $alat[$k][1];
     $def_id[$k] = $alat[$k][2];
     $nilai[$k] = $alat[$k][3];
-
-    // echo $alat[$k];
-
     $isialat[$k] = SelfAssesment::updateOrCreate([
           'user_id'             => Auth::user()->id,
           'tahun'               => date('Y'),
@@ -453,11 +499,21 @@ public function prosesprogrambudaya(Request $r)
           'iku_id'              => $iku_id[$k],
           'definisinilai_id'    => $def_id[$k],
           'filelampiran'        => $r->file_melayani,
-          'reportassesment_id'  => $rid[0]
+          'reportassesment_id'  => $rid[0],
+          'skala_nilai'         => $nilai[$k],
+          'filelampiran'        => $r->file_melayani
       ]
       );
   }
 
-  
+     // $persen = \App\Persentase::where('tahun',date('Y'))
+   // ->where('triwulan',$triwulan['current']['triwulan'])
+   // ->where('daftarindikator_id','3')->first();
+
+    foreach($r->stake_melayani as $s => $data){
+
+    }
+
+
 }
 }
