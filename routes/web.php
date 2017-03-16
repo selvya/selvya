@@ -131,6 +131,7 @@ Route::group(['middleware' => ['satker']], function () {
     Route::get('ubah-anggaran', ['as' => 'monitoring-anggaran.ubah', 'uses' => 'AnggaranController@ubah']);
     Route::post('ubah-anggaran-total', ['as' => 'monitoring-anggaran.ubah.total', 'uses' => 'AnggaranController@ubahTotal']);
     Route::post('ubah-anggaran', ['as' => 'ubah-anggaran', 'uses' => 'AnggaranController@ubahAnggaran']);
+    Route::post('edit-self-assessment/{id}/serapan-anggaran', 'AnggaranController@ubahAnggaran');
 
     Route::get('lihat-anggaran', function () {
         return view('monitoring.lihat');

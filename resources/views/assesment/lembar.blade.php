@@ -25,20 +25,23 @@
 	<div class="block full">
 		<div class="table-responsive">
 			<table>
+				@php
+					$satkerObj = \App\User::findOrFail(getSatker());
+				@endphp
 				<tr>
-					<td><b>Deputi Komisioner</b></td>
+					<td>Deputi Komisioner</td>
 					<td>:</td>
-					<td>Manajemen Strategis IB</td>
+					<td>{{$satkerObj->nm_deputi_komisioner}}</td>
 				</tr>
 				<tr>
-					<td><b>Satuan Kerja</b></td>
+					<td>Satuan Kerja</td>
 					<td>:</td>
-					<td>Perencanaan Strategis, Manajemen Perubahan dan Sekretariat Dewan Komisioner</td>
+					<td>{{$satkerObj->nm_bidang}}</td>
 				</tr>
 				<tr>
-					<td><b>Direktorat/KOJK</b></td>
+					<td>Direktorat/KOJK</td>
 					<td>:</td>
-					<td>N/A</td>
+					<td>{{$satkerObj->nm_unit_kerja}}</td>
 				</tr>
 			</table>
 		</div>
