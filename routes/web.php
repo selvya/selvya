@@ -39,80 +39,8 @@ Route::get('home-reviewer', function () {
     return view('home.home-reviewer');
 });
 
-//ASSESSMENT
-Route::get('nilai-self-assessment', function () {
-    return view('assesment.nilai');
-});
-
-Route::get('lembar-self-assessment', 'SelfAssesmentController@lembarassesment');
-
-Route::get('edit-self-assessment/{id}', 'SelfAssesmentController@editassesment');
-Route::get('arsip/assessment', 'SelfAssesmentController@arsipassesment');
-
-Route::get('rekap-assessment', function () {
-    return view('assesment.rekap');
-});
-Route::get('hasil-assessment', function () {
-    return view('assesment.hasil');
-});
-Route::get('rekap-budaya', function () {
-    return view('assesment.rekap-budaya');
-});
-Route::get('detail/assessment', function () {
-    return view('assesment.detail-assessment');
-});
-//ASSESSMENT TUTUP
-
-//OJK INOVATIF
-Route::get('inovatif', function () {
-    return view('inovatif.index');
-});
-Route::get('tambah/inovatif', function () {
-    $triwulan = cekCurrentTriwulan();
-   $iku = \App\Iku::where('satker','=',Auth::user()->id)
-            ->where('tahun','=',date('Y'))
-            ->where('daftarindikator_id','=','3')
-            ->where('programbudaya_id','=','3')
-            ->where('inovatif_triwulan',$triwulan['current']['triwulan'])
-            ->first();
-   if (count($iku) > 0) {
-    return view('inovatif.ubah', compact('iku'));
-}else{
-  return view('inovatif.tambah');
-}
-});
-// Route::get('ubah/inovatif', function () {
-    // return view('inovatif.ubah');
-// });
-Route::get('arsip/inovatif', function () {
-    return view('inovatif.arsip');
-});
-Route::get('detail/inovatif', function () {
-    return view('inovatif.detail-inovatif');
-});
-Route::post('proses/tambah/inovatif', 'InovatifController@tambah');
-//TUTUP OJK INOVATIF
 
 
-Route::get('rekap-monitoring', function () {
-    return view('monitoring.rekap');
-});
-Route::get('hasil-monitoring', function () {
-    return view('monitoring.hasil');
-});
-
-
-Route::get('ubah-anggaran', ['as' => 'monitoring-anggaran.ubah', 'uses' => 'AnggaranController@ubah']);
-Route::post('ubah-anggaran-total', ['as' => 'monitoring-anggaran.ubah.total', 'uses' => 'AnggaranController@ubahTotal']);
-Route::post('ubah-anggaran', ['as' => 'ubah-anggaran', 'uses' => 'AnggaranController@ubahAnggaran']);
-
-Route::get('lihat-anggaran', function () {
-    return view('monitoring.lihat');
-});
-Route::get('anggaran-budaya', function () {
-    return view('monitoring.anggaran-budaya');
-});
-//TUTUP MONITORING
 
 
 Route::get('kontak', function () {
@@ -129,9 +57,88 @@ Route::group(['middleware' => ['satker']], function () {
     //MANUAL BOOK
     Route::get('manual-pengguna-satker', 'PanduanController@satker');
 
+    //ASSESSMENT
+    Route::get('nilai-self-assessment', function () {
+        return view('assesment.nilai');
+    });
+
+    Route::get('lembar-self-assessment', 'SelfAssesmentController@lembarassesment');
+
+    // Route::get('edit-self-assessment/{id}', 'SelfAssesmentController@editassesment');
+
+    Route::get('edit-self-assessment/{id}/programbudaya', 'SelfAssesmentController@programbudaya');
+    Route::get('edit-self-assessment/{id}/serapan-anggaran', 'SelfAssesmentController@serapananggaran');
+    Route::get('edit-self-assessment/{id}/partisipasi-pimpinan', 'SelfAssesmentController@pimpinan');
+    Route::get('edit-self-assessment/{id}/kecepatan-pelaporan', 'SelfAssesmentController@pelaporan');
+
+    Route::get('arsip/assessment', 'SelfAssesmentController@arsipassesment');
+
+    Route::get('rekap-assessment', function () {
+        return view('assesment.rekap');
+    });
+    Route::get('hasil-assessment', function () {
+        return view('assesment.hasil');
+    });
+    Route::get('rekap-budaya', function () {
+        return view('assesment.rekap-budaya');
+    });
+    Route::get('detail/assessment', function () {
+        return view('assesment.detail-assessment');
+    });
+    //ASSESSMENT TUTUP
+
+    //OJK INOVATIF
+    Route::get('inovatif', function () {
+        return view('inovatif.index');
+    });
+    Route::get('tambah/inovatif', function () {
+        $triwulan = cekCurrentTriwulan();
+       $iku = \App\Iku::where('satker','=',Auth::user()->id)
+                ->where('tahun','=',date('Y'))
+                ->where('daftarindikator_id','=','3')
+                ->where('programbudaya_id','=','3')
+                ->where('inovatif_triwulan',$triwulan['current']['triwulan'])
+                ->first();
+       if (count($iku) > 0) {
+        return view('inovatif.ubah', compact('iku'));
+    }else{
+      return view('inovatif.tambah');
+    }
+    });
+    // Route::get('ubah/inovatif', function () {
+        // return view('inovatif.ubah');
+    // });
+    Route::get('arsip/inovatif', function () {
+        return view('inovatif.arsip');
+    });
+    Route::get('detail/inovatif', function () {
+        return view('inovatif.detail-inovatif');
+    });
+    Route::post('proses/tambah/inovatif', 'InovatifController@tambah');
+    //TUTUP OJK INOVATIF
+
     //MONITORING
     Route::get('monitoring-anggaran', ['as' => 'monitoring-anggaran.index', 'uses' => 'AnggaranController@index']);
 
+    Route::get('rekap-monitoring', function () {
+        return view('monitoring.rekap');
+    });
+    Route::get('hasil-monitoring', function () {
+        return view('monitoring.hasil');
+    });
+
+
+    Route::get('ubah-anggaran', ['as' => 'monitoring-anggaran.ubah', 'uses' => 'AnggaranController@ubah']);
+    Route::post('ubah-anggaran-total', ['as' => 'monitoring-anggaran.ubah.total', 'uses' => 'AnggaranController@ubahTotal']);
+    Route::post('ubah-anggaran', ['as' => 'ubah-anggaran', 'uses' => 'AnggaranController@ubahAnggaran']);
+
+    Route::get('lihat-anggaran', function () {
+        return view('monitoring.lihat');
+    });
+    Route::get('anggaran-budaya', function () {
+        return view('monitoring.anggaran-budaya');
+    });
+    //TUTUP MONITORING
 });
 
 

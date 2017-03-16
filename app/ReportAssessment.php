@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Hashids;
 
 class ReportAssessment extends Model
 {
@@ -18,4 +19,9 @@ class ReportAssessment extends Model
         'user_id',
         'final_status'
     ];
+
+    public function getHashidAttribute()
+    {
+        return Hashids::connection('report')->encode($this->attributes['id']);
+    }
 }

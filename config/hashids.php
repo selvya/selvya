@@ -82,6 +82,12 @@ return [
             'length' => 10,
             'alphabet' => 'PENGUASTKR1234567890'
         ],
+
+        'report' => [
+            'salt' => 'jhashagsjhajhavdmnabsmanbs234/@%$56',
+            'length' => 25,
+            'alphabet' => 'REPOT1234567890MN'
+        ],
     ],
 
 ];
