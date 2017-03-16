@@ -11,10 +11,11 @@ use \App\ReportAssessment;
 use Auth;
 use \App\Iku;
 use \App\AlatUkur;
-use App\AnggaranTahun;
-use App\AnggaranTriwulan;
-use App\Persentase;
-use App\DefinisiNilai;
+use \App\AnggaranTahun;
+use \App\AnggaranTriwulan;
+use \App\Persentase;
+use \App\DefinisiNilai;
+use \App\SelfAssesment;
 
 class SelfAssesmentController extends Controller {
     //
@@ -404,5 +405,59 @@ public function pimpinan($id)
    ->first(); 
 
     return view('assesment.pimpinan', compact('inovatif','anggaran','pimpinan','pelaporan','persen'));
+}
+public function prosesprogrambudaya(Request $r)
+{
+  // dd(request()->all());
+
+  $triwulan = cekCurrentTriwulan();
+
+  $validation = Validator::make($r->all(),[
+      'report_id' => 'required'
+  ]);
+
+  if ($validation->fails()) {
+    return redirect()->back();
+  }
+
+  $rid = Hashids::connection('report')->decode($r->report_id);
+  if (count($rid) < 1) {
+    return redirect()->back();
+  }
+
+  $report_id = ReportAssessment::findOrFail($rid[0]);
+
+   $persen = \App\Persentase::where('tahun',date('Y'))
+   ->where('triwulan',$triwulan['current']['triwulan'])
+   ->where('daftarindikator_id','3')->first();
+
+
+  foreach($r->alatukur_melayani as $k => $data){
+
+    $alat[$k] = collect(explode('#', $data));
+
+    $iku_id[$k] = $alat[$k][0];
+    $alat_id[$k] = $alat[$k][1];
+    $def_id[$k] = $alat[$k][2];
+    $nilai[$k] = $alat[$k][3];
+
+    // echo $alat[$k];
+
+    $isialat[$k] = SelfAssesment::updateOrCreate([
+          'user_id'             => Auth::user()->id,
+          'tahun'               => date('Y'),
+          'triwulan'            => $triwulan['current']['triwulan'],
+          'alatukur_id'         => $alat_id[$k]
+      ],
+      [
+          'iku_id'              => $iku_id[$k],
+          'definisinilai_id'    => $def_id[$k],
+          'filelampiran'        => $r->file_melayani,
+          'reportassesment_id'  => $rid[0]
+      ]
+      );
+  }
+
+  
 }
 }

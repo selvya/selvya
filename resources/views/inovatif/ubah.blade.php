@@ -89,7 +89,7 @@
 										<th class="text-center">Triwulan III</th>
 										<th class="text-center">Triwulan IV</th>
 									</tr>
-								@for($i=6; $i>= 1; $i--)
+								@for($i=1; $i<= 6; $i++)
 
 									<tr>
 										<td class="text-center">Skala {{$i}}</td>
