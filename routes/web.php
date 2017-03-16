@@ -93,8 +93,6 @@ Route::get('detail/inovatif', function () {
 Route::post('proses/tambah/inovatif', 'InovatifController@tambah');
 //TUTUP OJK INOVATIF
 
-//MONITORING
-Route::get('monitoring-anggaran', ['as' => 'monitoring-anggaran.index', 'uses' => 'AnggaranController@index']);
 
 Route::get('rekap-monitoring', function () {
     return view('monitoring.rekap');
@@ -130,6 +128,10 @@ Route::group(['middleware' => ['satker']], function () {
 
     //MANUAL BOOK
     Route::get('manual-pengguna-satker', 'PanduanController@satker');
+
+    //MONITORING
+    Route::get('monitoring-anggaran', ['as' => 'monitoring-anggaran.index', 'uses' => 'AnggaranController@index']);
+
 });
 
 

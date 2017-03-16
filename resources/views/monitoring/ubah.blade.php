@@ -180,8 +180,7 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
-    <script>$(function(){ TablesDatatables.init(); });</script>
+
     <script>
         $('#finalisasi_total').on('click', function() {
             var data = $('input[name="total_anggaran"]').val(); 
