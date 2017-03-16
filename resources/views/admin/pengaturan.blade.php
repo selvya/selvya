@@ -1692,7 +1692,7 @@
 
             $('[id^=keterangan3_]').hide();
             $('[id^=keterangan3_3]').show();
-
+ 
              $('[id^=modal_simpan3]').hide().prop('disabled', true);
              $('[id^=modal_simpan3_3]').show().prop('disabled', false);
 
