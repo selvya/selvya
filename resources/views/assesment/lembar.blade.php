@@ -96,7 +96,7 @@
 						</td>
 						<td class="text-center">
 							<br>
-							<a href="{{url('edit-self-assessment/'.$report->id)}}" class="btn btn-warning">
+							<a href="{{url('edit-self-assessment/'.$report->hashid.'/programbudaya')}}" class="btn btn-warning">
 								Ubah 
 							</a>							
 							@if((count($report) == 4)  && ($report->final_status == 1))

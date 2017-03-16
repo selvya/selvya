@@ -46,49 +46,31 @@
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <?php 
-
-                                $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-                                ->where('iku.daftarindikator_id','2')
-                                ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-                                ->first();
-
-                                $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-                                ->where('iku.daftarindikator_id','4')
-                                ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-                                ->first();
-
-                                $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-                                ->where('iku.daftarindikator_id','1')
-                                ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-                                ->first();
-                                
-                                ?>
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
                                     <li class="active">
-                                        <a href="javascript:void(0)" data-gotostep="clickable-first">
+                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/programbudaya')}}" data-gotostep="clickable-first">
                                             <strong>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
                                         </a>
                                     </li>
                                     @endif
                                     @if($anggaran != null)
                                     <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-second" class="stepnya"><strong>
+                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
                                             Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
                                         </a>
                                     </li>
                                     @endif
                                     @if($pimpinan != null)
                                     <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-third">
+                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
                                             <strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
                                         </a>
                                     </li>
                                     @endif
                                     @if($pelaporan != null)
                                     <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-fourth">
+                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
                                             <strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
                                         </a>
                                     </li>
@@ -425,308 +407,6 @@
                         <!-- CLOSE ACCORDION -->
                     </div>
                     <!-- END First Step -->
-
-                    <!-- Second Step -->
-                    <div id="clickable-second" class="step" style="overflow: hidden;">
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <ul class="nav nav-pills nav-justified clickable-steps">
-                                    @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($anggaran != null)
-                                    <li class="active">
-                                        <a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-                                            Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($pimpinan != null)
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-third">
-                                            <strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($pelaporan != null)
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-fourth">
-                                            <strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="container" style="max-width: 1000px; overflow: hidden;">
-                            <div class="block">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <form method="post" class="form-horizontal" enctype="multipart/form-data" action="">
-                                                    <div class="form-group">
-                                                        <label for="disabledSelect" class="control-label col-md-2">Total Anggaran</label>
-                                                        <div class="col-md-6">
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon">Rp</span>
-                                                                <input class="form-control" type="text" name="total_anggaran" min="1" step="1" value="{{number_format($anggaranN->total_anggaran, 0, ',', '.')}}" @if($anggaran->status == 1) disabled @endif >
-                                                                @if($anggaranN->status == 0)
-                                                                <span class="input-group-btn">
-                                                                    <button type="button" class="btn btn-success" id="finalisasi_total">Finalisasi</button>
-                                                                </span>
-                                                                @endif
-                                                            </div>  
-                                                        </div>                              
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <table class="table table-striped table-bordered">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>Triwulan I</td>
-                                                                            <td>Triwulan II</td>
-                                                                            <td>Triwulan III</td>
-                                                                            <td>Triwulan IV</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Rencana Anggaran</td>
-                                                                            @foreach($rencanaN as $k => $v)
-                                                                            <td>
-                                                                                <div class="input-group">
-                                                                                    <span class="input-group-addon">Rp.</span>
-                                                                                    <input name="rencana_{{($k+1)}}" id="rencana_{{($k+1)}}" type="text" class="form-control rencana" value="{{number_format($v->rencana, 0, ',', '.')}}" @if($v->rencana > 0) readonly @endif required >
-                                                                                </div>
-                                                                            </td>
-                                                                            @endforeach
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Realisasi Anggaran</td>
-                                                                            @foreach($rencanaN as $k => $v)
-                                                                            <td>
-                                                                                <div class="input-group">
-                                                                                    <span class="input-group-addon">Rp.</span>
-                                                                                    <input 
-                                                                                    type="text"
-                                                                                    name="realisasi_{{$k+1}}"
-                                                                                    class="form-control realisasi"
-                                                                                    value="{{number_format($v->realisasi, 0, ',', '.')}}"
-                                                                                    @php
-                                                                                    // $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
-                                                                                    $triwulan[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
-                                                                                    ->where('triwulan', ($k+1))
-                                                                                    ->first();
-                                                                                    $awal[$k] = \Carbon\Carbon::parse($triwulan[$k]->sejak);
-                                                                                    $akhir[$k] = \Carbon\Carbon::parse($triwulan[$k]->hingga);
-                                                                                    $now[$k] = \Carbon\Carbon::now();
-                                                                                    // $now[$k] = $no;
-                                                                                    @endphp
-
-                                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
-                                                                                    readonly 
-                                                                                    @endif
-                                                                                    >
-                                                                                </div>
-                                                                            </td>
-                                                                            @endforeach
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <label for="exampleInputFile">Lampiran<br>(Max. 20MB)<br>(.zip,.rar, .pdf, .jpg)</label>
-                                                                            </td>
-                                                                            @foreach($rencanaN as $k => $v)
-                                                                            @if($v->file == null)
-                                                                            <td>
-                                                                                <input 
-                                                                                class="form-control" 
-                                                                                type="file"
-                                                                                name="lampiran_{{$k+1}}"
-                                                                                @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
-                                                                                disabled 
-                                                                                @endif
-                                                                                >
-                                                                            </td>
-                                                                            @else
-                                                                            <td>
-                                                                                <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}">{{str_limit($v->file, 20)}}</a>
-                                                                            </td>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            {{-- <td>
-                                                                            <input class="form-control" type="file" id="exampleInputFile1" name="userfile1" onchange="AlertFilesize(document.getElementById('exampleInputFile1').getAttribute('id'),1)">
-                                                                        </td>
-                                                                        <td>Belum ada Lampiran</td>
-                                                                        <td>Belum ada Lampiran</td>
-                                                                        <td>Belum ada Lampiran</td> --}}
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a href="{{url('monitoring-anggaran')}}" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;Kembali</a>
-                                                {{csrf_field()}}
-                                                <button type="submit" id="done" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- </div>
-                        </div>
-                    </div> --}}
-                    <!-- END Second Step -->
-
-                    <!-- Third Step -->
-                    <div id="clickable-third" class="step">
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <ul class="nav nav-pills nav-justified clickable-steps">
-                                    @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($anggaran != null)
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-                                            <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($pimpinan != null)
-                                    <li class="active">
-                                        <a href="javascript:void(0)" data-gotostep="clickable-third">
-                                            <strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($pelaporan != null)
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-fourth">
-                                            <strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="container" style="max-width: 1000px; overflow: hidden;">
-                            <div class="block">
-                                <div class="block-content">
-                                    <!-- <div class="form-group">
-                                        <label class="col-md-3 control-label">Nama Program <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div> -->
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Peran Pimpinan <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Partisipasi Pimpinan <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control" min="0" max="10">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Lampiran Pendukung <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="file" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <!-- END Third Step -->
-
-                    <!-- Fourth Step -->
-                    <div id="clickable-fourth" class="step">
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <ul class="nav nav-pills nav-justified clickable-steps">
-                                    @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($anggaran != null)
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-second"><strong>
-                                            <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($pimpinan != null)
-                                    <li>
-                                        <a href="javascript:void(0)" data-gotostep="clickable-third">
-                                            <strong> <i class="fa fa-check"></i>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    @if($pelaporan != null)
-                                    <li class="active">
-                                        <a href="javascript:void(0)" data-gotostep="clickable-fourth">
-                                            <strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
-                                        </a>
-                                    </li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="container" style="max-width: 1000px; overflow: hidden;">
-                            <div class="block">
-                                <div class="block-content">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Nama Program <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Penjelasan Nilai <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="file" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END Fourth Step -->
 
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
