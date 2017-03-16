@@ -23,7 +23,7 @@
     </div>
     <ul class="breadcrumb breadcrumb-top">
         <li><a href="{{url('/')}}">Beranda</a></li>
-        <li><a href="{{url('inovatif')}}">Self Assessment</a></li>
+        <li><a href="{{url('lembar-self-assessment')}}">Self Assessment</a></li>
         <li>Edit Self Assessment</li>
     </ul>
     <!-- END Wizard Header -->
@@ -44,6 +44,8 @@
 
                     <!-- Third Step -->
                     <div id="clickable-third" class="step">
+
+                    @include('include.alert')
 
                         <div class="form-group">
                             <div class="col-xs-12">

@@ -23,7 +23,7 @@
     </div>
     <ul class="breadcrumb breadcrumb-top">
         <li><a href="{{url('/')}}">Beranda</a></li>
-        <li><a href="{{url('inovatif')}}">Self Assessment</a></li>
+        <li><a href="{{url('lembar-self-assessment')}}">Self Assessment</a></li>
         <li>Edit Self Assessment</li>
     </ul>
     <!-- END Wizard Header -->
@@ -41,6 +41,8 @@
 
                 <!-- Wizard with Validation Content -->
                 <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
+
+                @include('include.alert')
 
                     <!-- Fourth Step -->
                     <div id="clickable-fourth" class="step">

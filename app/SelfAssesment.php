@@ -17,6 +17,8 @@ class SelfAssesment extends Model
           'alatukur_id',         
           'definisinilai_id',
           'reportassesment_id', 
+          'filelampiran',
+          'skala_nilai',
           'filelampiran'
     ];
 
