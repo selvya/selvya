@@ -171,9 +171,9 @@ class SelfAssesmentController extends Controller {
     //DUMMY SETTtanggalKirimER
     public function setSatker($id = 1, $triwulan = 1, $tanggal = null) {
         $data = [
-        'satker' => $id,
-        'triwulan' => $triwulan,
-        'tanggal' => $tanggal
+            'satker' => $id,
+            'triwulan' => $triwulan,
+            'tanggal' => $tanggal
         ];
 
         return $data;
@@ -182,16 +182,15 @@ class SelfAssesmentController extends Controller {
     public function lembarassesment()
     {   
         $triwulan = cekCurrentTriwulan();
-        $report = ReportAssessment::updateOrCreate(
-            [
+        $report = ReportAssessment::updateOrCreate([
             'triwulan'      => $triwulan['current']['triwulan'], 
             'tahun'         => date('Y'),
             'user_id'       => Auth::user()->id
-            ]
-            );
+        ]);
 
         return view('assesment.lembar',compact('report','triwulan'));
     }
+
     public function arsipassesment()
     {
         $triwulan = cekCurrentTriwulan();
@@ -200,264 +199,288 @@ class SelfAssesmentController extends Controller {
         return view('assesment.arsip', compact('arsip','triwulan'));
     }
 
-public function programbudaya($id)
-{
-   $triwulan = cekCurrentTriwulan();
+    public function programbudaya($id)
+    {
+        $triwulan = cekCurrentTriwulan();
 
-   $inovatif = Iku::where('tahun',date('Y'))
-   ->where('satker', Auth::user()->id)
-   ->where('daftarindikator_id','3')
-   ->first();
+        $inovatif = Iku::where('tahun',date('Y'))
+            ->where('satker', Auth::user()->id)
+            ->where('daftarindikator_id','3')
+            ->first();
 
-   if ($inovatif == null) {
-       return redirect(url('inovatif'))->with('warning', 'Anda harus menambahkan program ojk inovatif terlebih dahulu');
-   }
-
-
-   $peduli = Iku::where('tahun',date('Y'))
-   ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
-   ->first();
-
-   $melayani = Iku::where('tahun',date('Y'))
-   ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
-   ->first();
-
-   if (($peduli == null) || ($inovatif == null) || ($melayani == null)) {
-       return redirect()->back()->with('warning', 'Data masih belum di masukan oleh admin');
-   }
-
-   $alatino = AlatUkur::where('iku_id',$inovatif->id)->get();
-   $alatpeduli = AlatUkur::where('iku_id',$peduli->id)->get();
-   $alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
-        // dd(count($alatmelayani));
-   $persen = \App\Persentase::where('tahun',date('Y'))
-   ->where('triwulan',$triwulan['current']['triwulan'])
-   ->where('daftarindikator_id','3')->first();
-        // dd($alatpeduli);
-
-
-
-   $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','2')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
-
-   $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','4')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
-
-   $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','1')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();  
-
-   return view('assesment.programbudaya', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan','anggaran','pimpinan','pelaporan'));
-
-}
-
-public function serapananggaran($id)
-{ 
-
-    $triwulan = cekCurrentTriwulan();
-
-    $inovatif = Iku::where('tahun',date('Y'))
-   ->where('satker', Auth::user()->id)
-   ->where('daftarindikator_id','3')
-   ->first();
-
-  $peduli = Iku::where('tahun',date('Y'))
-   ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
-   ->first();
-
-   $melayani = Iku::where('tahun',date('Y'))
-   ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
-   ->first();
-
-      $persen = \App\Persentase::where('tahun',date('Y'))
-   ->where('triwulan',$triwulan['current']['triwulan'])
-   ->where('daftarindikator_id','3')->first();
-
-     $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','2')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
-
-   $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','4')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
-
-   $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','1')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first(); 
-
-         //----------
-         //-----------
-   $satker = getSatker();
-
-   $anggaranN = AnggaranTahun::updateOrCreate(
-    ['user_id' => $satker, 'tahun' => date('Y')]
-    );
-
-        //Cek Persen
-   for ($tw = 1; $tw <= 4; $tw++){
-    $persen[$tw] = Persentase::updateOrCreate([
-        'daftarindikator_id' => 2,
-        'tahun' => date('Y'),
-        'triwulan' => $tw
-        ]);
-
-    $iku[$tw] = Iku::updateOrCreate([
-        'daftarindikator_id' => $persen[$tw]->daftar_indikator->id,
-        'tahun' => $persen[$tw]->tahun,
-        'namaprogram' => str_slug($persen[$tw]->daftar_indikator->name, '_') . '#' . $persen[$tw]->tahun . '#' . $persen[$tw]->triwulan,
-        'persen_id' => $persen[$tw]->id
-        ]);
-
-    $alatUkur[$tw] = AlatUkur::updateOrCreate([
-        'iku_id' => $iku[$tw]->id,
-        'name' => $iku[$tw]->namaprogram
-        ]);
-
-    $jumlahDefinisi[$tw] = count($alatUkur[$tw]->definisi);
-    if ($jumlahDefinisi[$tw] < 6) {
-        for ($i=1; $i <= (6 - $jumlahDefinisi[$tw]); $i++) { 
-            $definisiNilai[$tw][$i] = DefinisiNilai::create([
-                'iku_id' => $iku[$tw]->id,
-                'alatukur_id' => $alatUkur[$tw]->id,
-                'triwulan' => $persen[$tw]->triwulan,
-                'tahun' => $persen[$tw]->tahun
-                ]);
+        if ($inovatif == null) {
+            return redirect(url('inovatif'))->with('warning', 'Anda harus menambahkan program ojk inovatif terlebih dahulu');
         }
+
+
+        $peduli = Iku::where('tahun',date('Y'))
+            ->where(
+                'namaprogram',
+                'pelaksanaan_program_budaya' . 
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan'] .
+                '#ojk_peduli'
+            )->first();
+
+        $melayani = Iku::where('tahun',date('Y'))
+            ->where(
+                'namaprogram',
+                'pelaksanaan_program_budaya' .
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan'] .
+                '#ojk_melayani'
+            )->first();
+
+        if (($peduli == null) || ($inovatif == null) || ($melayani == null)) {
+            return redirect()->back()->with('warning', 'Data masih belum di masukan oleh admin');
+        }
+
+        $alatino = AlatUkur::where('iku_id',$inovatif->id)->get();
+        $alatpeduli = AlatUkur::where('iku_id',$peduli->id)->get();
+        $alatmelayani = AlatUkur::where('iku_id',$melayani->id)->get();
+
+
+        $persen = \App\Persentase::where('tahun',date('Y'))
+            ->where('triwulan',$triwulan['current']['triwulan'])
+            ->where('daftarindikator_id','3')->first();
+
+        $anggaran = \App\Iku::where(
+                'iku.namaprogram',
+                'serapan_anggaran' .
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan']
+            )
+            ->where('iku.daftarindikator_id','2')
+            ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+            ->first();
+
+        $pimpinan = \App\Iku::where(
+                'iku.namaprogram',
+                'partisipasi_pimpinan'.
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan']
+            )
+            ->where('iku.daftarindikator_id','4')
+            ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+            ->first();
+
+       $pelaporan = \App\Iku::where('iku.namaprogram',
+                'kecepatan_pelaporan' .
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan']
+            )
+           ->where('iku.daftarindikator_id','1')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first();  
+
+       return view('assesment.programbudaya', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan','anggaran','pimpinan','pelaporan'));
     }
 
-}
+    public function serapananggaran($id)
+    { 
 
-$targetN = Persentase::with('iku.alat_ukur.definisi')->where('tahun', date('Y'))
-->where('daftarindikator_id', 2)
-->get();
+        $triwulan = cekCurrentTriwulan();
 
-$rencanaN = AnggaranTriwulan::where('user_id', $satker)
-->where('anggaran_tahun_id', $anggaranN->id)
-->get();
+        $inovatif = Iku::where('tahun',date('Y'))
+           ->where('satker', Auth::user()->id)
+           ->where('daftarindikator_id','3')
+           ->first();
 
-return view('assesment.serapananggaran', compact('anggaranN','targetN','rencanaN','inovatif','peduli','melayani','persen','triwulan','anggaran','pimpinan','pelaporan'));
-}
+        $peduli = Iku::where('tahun',date('Y'))
+           ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
+           ->first();
 
-public function pelaporan($id)
-{
-    $triwulan = cekCurrentTriwulan();
+        $melayani = Iku::where('tahun',date('Y'))
+           ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
+           ->first();
 
-    $inovatif = Iku::where('tahun',date('Y'))
-   ->where('satker', Auth::user()->id)
-   ->where('daftarindikator_id','3')
-   ->first();
+        $persen = \App\Persentase::where('tahun',date('Y'))
+           ->where('triwulan',$triwulan['current']['triwulan'])
+           ->where('daftarindikator_id','3')->first();
 
-    $persen = \App\Persentase::where('tahun',date('Y'))
-   ->where('triwulan',$triwulan['current']['triwulan'])
-   ->where('daftarindikator_id','3')->first();
+        $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+           ->where('iku.daftarindikator_id','2')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first();
 
-    $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','2')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
+        $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+           ->where('iku.daftarindikator_id','4')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first();
 
-   $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','4')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
+        $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+           ->where('iku.daftarindikator_id','1')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first(); 
 
-   $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','1')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first(); 
+             //----------
+             //-----------
+        $satker = getSatker();
 
-    return view('assesment.pelaporan', compact('inovatif','anggaran','pimpinan','pelaporan','persen'));
-}
-public function pimpinan($id)
-{
-    $triwulan = cekCurrentTriwulan();
+        $anggaranN = AnggaranTahun::updateOrCreate(
+            ['user_id' => $satker, 'tahun' => date('Y')]
+        );
 
-    $inovatif = Iku::where('tahun',date('Y'))
-   ->where('satker', Auth::user()->id)
-   ->where('daftarindikator_id','3')
-   ->first();
+        //Cek Persen
+        for ($tw = 1; $tw <= 4; $tw++){
+            $persen[$tw] = Persentase::updateOrCreate([
+                'daftarindikator_id' => 2,
+                'tahun' => date('Y'),
+                'triwulan' => $tw
+            ]);
 
-    $persen = \App\Persentase::where('tahun',date('Y'))
-   ->where('triwulan',$triwulan['current']['triwulan'])
-   ->where('daftarindikator_id','3')->first();
+            $iku[$tw] = Iku::updateOrCreate([
+                'daftarindikator_id' => $persen[$tw]->daftar_indikator->id,
+                'tahun' => $persen[$tw]->tahun,
+                'namaprogram' => str_slug($persen[$tw]->daftar_indikator->name, '_') . '#' . $persen[$tw]->tahun . '#' . $persen[$tw]->triwulan,
+                'persen_id' => $persen[$tw]->id
+            ]);
 
-    $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','2')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
+            $alatUkur[$tw] = AlatUkur::updateOrCreate([
+                'iku_id' => $iku[$tw]->id,
+                'name' => $iku[$tw]->namaprogram
+            ]);
 
-   $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','4')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first();
+            $jumlahDefinisi[$tw] = count($alatUkur[$tw]->definisi);
+            if ($jumlahDefinisi[$tw] < 6) {
+                for ($i=1; $i <= (6 - $jumlahDefinisi[$tw]); $i++) { 
+                    $definisiNilai[$tw][$i] = DefinisiNilai::create([
+                        'iku_id' => $iku[$tw]->id,
+                        'alatukur_id' => $alatUkur[$tw]->id,
+                        'triwulan' => $persen[$tw]->triwulan,
+                        'tahun' => $persen[$tw]->tahun
+                    ]);
+                }
+            }
 
-   $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-   ->where('iku.daftarindikator_id','1')
-   ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-   ->first(); 
+        }
 
-    return view('assesment.pimpinan', compact('inovatif','anggaran','pimpinan','pelaporan','persen'));
-}
-public function prosesprogrambudaya(Request $r)
-{
+        $targetN = Persentase::with('iku.alat_ukur.definisi')->where('tahun', date('Y'))
+            ->where('daftarindikator_id', 2)
+            ->get();
+
+        $rencanaN = AnggaranTriwulan::where('user_id', $satker)
+            ->where('anggaran_tahun_id', $anggaranN->id)
+            ->get();
+
+        return view('assesment.serapananggaran', compact('anggaranN','targetN','rencanaN','inovatif','peduli','melayani','persen','triwulan','anggaran','pimpinan','pelaporan'));
+    }
+
+    public function pelaporan($id)
+    {
+        $triwulan = cekCurrentTriwulan();
+
+        $inovatif = Iku::where('tahun',date('Y'))
+            ->where('satker', Auth::user()->id)
+            ->where('daftarindikator_id','3')
+            ->first();
+
+        $persen = \App\Persentase::where('tahun',date('Y'))
+           ->where('triwulan',$triwulan['current']['triwulan'])
+           ->where('daftarindikator_id','3')->first();
+
+        $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+           ->where('iku.daftarindikator_id','2')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first();
+
+       $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+           ->where('iku.daftarindikator_id','4')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first();
+
+        $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+           ->where('iku.daftarindikator_id','1')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first(); 
+
+        return view('assesment.pelaporan', compact('inovatif','anggaran','pimpinan','pelaporan','persen'));
+    }
+
+
+    public function pimpinan($id)
+    {
+        $triwulan = cekCurrentTriwulan();
+
+        $inovatif = Iku::where('tahun',date('Y'))
+           ->where('satker', Auth::user()->id)
+           ->where('daftarindikator_id','3')
+           ->first();
+
+        $persen = \App\Persentase::where('tahun',date('Y'))
+           ->where('triwulan',$triwulan['current']['triwulan'])
+           ->where('daftarindikator_id','3')->first();
+
+        $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+            ->where('iku.daftarindikator_id','2')
+            ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+            ->first();
+
+        $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+            ->where('iku.daftarindikator_id','4')
+            ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+            ->first();
+
+        $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
+           ->where('iku.daftarindikator_id','1')
+           ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+           ->first(); 
+
+        return view('assesment.pimpinan', compact('inovatif','anggaran','pimpinan','pelaporan','persen'));
+    }
+
+
+    public function prosesprogrambudaya(Request $r)
+    {
   // dd(request()->all());
 
-  $triwulan = cekCurrentTriwulan();
+        $triwulan = cekCurrentTriwulan();
 
-  $validation = Validator::make($r->all(),[
-      'report_id' => 'required'
-  ]);
+        $validation = Validator::make($r->all(),[
+            'report_id' => 'required'
+        ]);
 
-  if ($validation->fails()) {
-    return redirect()->back();
-  }
+        if ($validation->fails()) {
+            return redirect()->back();
+        }
 
-  $rid = Hashids::connection('report')->decode($r->report_id);
-  if (count($rid) < 1) {
-    return redirect()->back();
-  }
+        $rid = Hashids::connection('report')->decode($r->report_id);
+        if (count($rid) < 1) {
+            return redirect()->back();
+        }
 
-  $report_id = ReportAssessment::findOrFail($rid[0]);
+        $report_id = ReportAssessment::findOrFail($rid[0]);
 
-   $persen = \App\Persentase::where('tahun',date('Y'))
-   ->where('triwulan',$triwulan['current']['triwulan'])
-   ->where('daftarindikator_id','3')->first();
+        $persen = \App\Persentase::where('tahun',date('Y'))
+            ->where('triwulan',$triwulan['current']['triwulan'])
+            ->where('daftarindikator_id','3')->first();
 
 
-  foreach($r->alatukur_melayani as $k => $data){
+        foreach($r->alatukur_melayani as $k => $data){
 
-    $alat[$k] = collect(explode('#', $data));
+            $alat[$k] = collect(explode('#', $data));
 
-    $iku_id[$k] = $alat[$k][0];
-    $alat_id[$k] = $alat[$k][1];
-    $def_id[$k] = $alat[$k][2];
-    $nilai[$k] = $alat[$k][3];
+            $iku_id[$k] = $alat[$k][0];
+            $alat_id[$k] = $alat[$k][1];
+            $def_id[$k] = $alat[$k][2];
+            $nilai[$k] = $alat[$k][3];
 
-    // echo $alat[$k];
+            // echo $alat[$k];
 
-    $isialat[$k] = SelfAssesment::updateOrCreate([
-          'user_id'             => Auth::user()->id,
-          'tahun'               => date('Y'),
-          'triwulan'            => $triwulan['current']['triwulan'],
-          'alatukur_id'         => $alat_id[$k]
-      ],
-      [
-          'iku_id'              => $iku_id[$k],
-          'definisinilai_id'    => $def_id[$k],
-          'filelampiran'        => $r->file_melayani,
-          'reportassesment_id'  => $rid[0]
-      ]
-      );
-  }
-
-  
-}
+            $isialat[$k] = SelfAssesment::updateOrCreate(
+                [
+                    'user_id'             => Auth::user()->id,
+                    'tahun'               => date('Y'),
+                    'triwulan'            => $triwulan['current']['triwulan'],
+                    'alatukur_id'         => $alat_id[$k]
+                ],
+                [
+                    'iku_id'              => $iku_id[$k],
+                    'definisinilai_id'    => $def_id[$k],
+                    'filelampiran'        => $r->file_melayani,
+                    'reportassesment_id'  => $rid[0]
+                ]
+            );
+        }
+    }
 }
