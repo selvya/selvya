@@ -23,7 +23,7 @@
     </div>
     <ul class="breadcrumb breadcrumb-top">
         <li><a href="{{url('/')}}">Beranda</a></li>
-        <li><a href="{{url('inovatif')}}">Self Assessment</a></li>
+        <li><a href="{{url('lembar-self-assessment')}}">Self Assessment</a></li>
         <li>Edit Self Assessment</li>
     </ul>
     <!-- END Wizard Header -->
@@ -40,10 +40,9 @@
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
-                <?php 
+                <form id="clickable-wizard" action="" method="post" class="form-horizontal form-bordered">
 
-                 ?>
+                @include('include.alert')
                     <!-- Second Step -->
                     <div id="clickable-second" class="step" style="overflow: hidden;">
 
@@ -88,17 +87,28 @@
                                     <div class="col-lg-12">
                                         <div class="row">
                                             <div class="col-lg-12">
+                                                @if(Session::has('msg'))
+                                                    {!!Session('msg')!!}
+                                                @endif
                                                 <form method="post" class="form-horizontal" enctype="multipart/form-data" action="">
                                                     <div class="form-group">
                                                         <label for="disabledSelect" class="control-label col-md-2">Total Anggaran</label>
                                                         <div class="col-md-6">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Rp</span>
-                                                                <input class="form-control" type="text" name="total_anggaran" min="1" step="1" value="{{number_format($anggaranN->total_anggaran, 0, ',', '.')}}" @if($anggaran->status == 1) disabled @endif >
+                                                                <input
+                                                                    class="form-control readonly"
+                                                                    type="text"
+                                                                    name="total_anggaran"
+                                                                    min="1"
+                                                                    step="1"
+                                                                    value="{{number_format($anggaranN->total_anggaran, 0, ',', '.')}}"
+                                                                    @if($anggaranN->status == 1) disabled readonly @endif 
+                                                                >
                                                                 @if($anggaranN->status == 0)
-                                                                <span class="input-group-btn">
-                                                                    <button type="button" class="btn btn-success" id="finalisasi_total">Finalisasi</button>
-                                                                </span>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-success" id="finalisasi_total">Finalisasi</button>
+                                                                    </span>
                                                                 @endif
                                                             </div>  
                                                         </div>                              
@@ -190,10 +200,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="{{url('monitoring-anggaran')}}" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;Kembali</a>
+                                                {{-- <a href="{{url('monitoring-anggaran')}}" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;Kembali</a> --}}
                                                 {{csrf_field()}}
-                                                <button type="submit" id="done" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;Submit</button>
-                                            </form>
+                                                {{-- <button type="submit" id="done" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;Submit</button> --}}
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -206,10 +216,11 @@
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-6">
-                            <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
+                            {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
                             <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                         </div>
                     </div>
+                     </form>
                     <!-- END Form Buttons -->
                 </form>
                 <!-- END Wizard with Validation Content -->

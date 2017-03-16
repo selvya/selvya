@@ -85,8 +85,8 @@ return [
 
         'report' => [
             'salt' => 'jhashagsjhajhavdmnabsmanbs234/@%$56',
-            'length' => 25,
-            'alphabet' => 'REPOT1234567890MN'
+            'length' => 100,
+            'alphabet' => 'qwertyuiopasdfghjklmnbvcxz1234567890'
         ],
     ],
 

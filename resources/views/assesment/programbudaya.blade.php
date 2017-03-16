@@ -10,6 +10,10 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
+     .red{background: #e74c3c;}
+     .red > a:hover{background: #e74c3c;}
+     .hijau{background: #1abc9c!important;}
+     .hijau >a:hover{background: #1abc9c!important;}
 </style>
 <div id="page-content">
     <!-- Wizard Header -->
@@ -42,15 +46,20 @@
                 <!-- Wizard with Validation Content -->
                 <form action="{{url('proses/programbudaya')}}" method="POST" class="form-horizontal form-bordered">
                     <!-- First Step -->
+                    @include('include.alert')
                     <div id="clickable-first" class="step">
 
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li class="active">
-                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/programbudaya')}}" data-gotostep="clickable-first">
-                                            <strong>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
+                                    <li class="@if($reportall ==  null) red @else hijau @endif">
+                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/programbudaya')}}" data-gotostep="clickable-first" style="color: #fff;">
+                                            <strong>
+                                                Pelaksanaan Program Budaya <br> 
+                                                <big>{{$reportall->last()->hasil}}%</big> - <big>{{$persen->nilai}}%</big>
+                                                
+                                            </strong>
                                         </a>
                                     </li>
                                     @endif
@@ -86,6 +95,9 @@
                             <div class="block">
                                 <div class="block-title">
                                     <div class="block-options pull-right">
+                                        @if($reportall !=  null)
+                                        <label class="label label-success">{{$reportall->last()->hasil_melayani}} %</label>
+                                        @endif
                                         <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-primary" data-toggle="block-toggle-content">
                                             <i class="fa fa-arrows-v"></i>
                                         </a>
@@ -190,6 +202,9 @@
                             <div class="block">
                                 <div class="block-title">
                                     <div class="block-options pull-right">
+                                        @if($reportall !=  null)
+                                        <label class="label label-success">{{$reportall->last()->hasil_peduli}} %</label>
+                                        @endif
                                         <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-primary" data-toggle="block-toggle-content">
                                             <i class="fa fa-arrows-v"></i>
                                         </a>
@@ -296,6 +311,9 @@
                             <div class="block">
                                 <div class="block-title">
                                     <div class="block-options pull-right">
+                                        @if($reportall !=  null)
+                                        <label class="label label-success">{{$reportall->last()->hasil_inovatif}} %</label>
+                                        @endif
                                         <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-primary" data-toggle="block-toggle-content">
                                             <i class="fa fa-arrows-v"></i>
                                         </a>
@@ -409,8 +427,8 @@
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-6">
-                        {{csrf_field()}}
-                        <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
+                            {{csrf_field()}}
+                            <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
                             <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
                             <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                         </div>

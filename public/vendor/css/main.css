@@ -293,7 +293,7 @@ header.navbar-inverse.navbar-fixed-bottom {
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
     color: #ffffff;
-    background-color: #1bbae1;
+    background-color: #bbb;
 }
 
 .navbar-inverse .collapse.in .navbar-nav .open .dropdown-menu > li > a {
