@@ -62,7 +62,7 @@
 
 		<!-- Dashboard 2 Content -->
 		<div class="row">
-			<div class="col-md-6"><div class="row"><?php $ssks = \App\NilaiAkhir::where('user_id',Auth::user()->id)->where('tahun',date('Y'))->get(); ?>
+			<div class="col-md-6"><div class="row"><?php $ssks = \App\NilaiAkhir::where('user_id',Auth::user()->id)->where('tahun',date('Y'))->orderBy('triwulan')->get(); ?>
 		@foreach($ssks as $nilaiakhir)
 		<?php
 		if($nilaiakhir->nilai > 69)
@@ -165,7 +165,11 @@ switch ($nilaiakhir->triwulan) {
 				},
 				series: [{
 					name: 'Nilai Indikator',
-					data: [1, 2 , 3, 4,5,6,7]
+					data: [
+					<?php $ssks = \App\ReportAssessment::leftJoin('daftarindikator','report_assesment.daftarindikator_id','=','daftarindikator.id')->where('user_id',Auth::user()->id)->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->where('tahun',date('Y'))->get();
+			foreach($ssks as $nilainya){
+				echo $nilainya->nilai.",";
+			}?>]
 				}]
 			});$(".pie-chart").easyPieChart({barColor:$(this).data("bar-color")?$(this).data("bar-color"):"#777777",trackColor:$(this).data("track-color")?$(this).data("track-color"):"#eeeeee",lineWidth:$(this).data("line-width")?$(this).data("line-width"):3,size:$(this).data("size")?$(this).data("size"):"80",animate:800,scaleColor:!1});
 			Highcharts.chart('containernya', {
@@ -206,12 +210,18 @@ switch (cekCurrentTriwulan()['current']->triwulan) {
 						allowPointSelect: true,
 						cursor: 'pointer',
 						depth: 35,
-						dataLabels: {
-							enabled: true,
-							format: '{point.name}'
-						}
+						 dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
 					}
-				},
+				},legend: {
+    align: 'left',
+    layout: 'vertical',
+    verticalAlign: 'top',floating: true,
+    y: 20,
+    x: 0
+},
 				series: [{
 					type: 'pie',
 					name: 'Nilai',
