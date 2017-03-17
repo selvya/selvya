@@ -72,7 +72,7 @@
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/programbudaya')}}" data-gotostep="clickable-first" style="color: #fff;">
                                             <strong>
                                                 Pelaksanaan Program Budaya <br> 
-                                                <big>{{$reportall->last()->hasil}}%</big> - <big>[{{$persen->nilai}}%]</big>
+                                                <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
                                             </strong>
                                         </a>
                                     </li>
@@ -152,7 +152,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_melayani" min="0" max="6" class="form-control" required>
+                                                <input type="number" name="nilai_manual_melayani" min="0" max="6" step="0.01" class="form-control" required>
                                                 <input type="hidden" name="alatukur_id_melayani_manual" value="{{$v->id}}">
                                                 <input type="hidden" name="iku_id_melayani_manual" value="{{$v->iku_id}}"> 
                                             </div>
@@ -255,7 +255,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_peduli" min="0" max="6" class="form-control" required>
+                                                <input type="number" name="nilai_manual_peduli" min="0" max="6" step="0.01" class="form-control" required>
                                                 <input type="hidden" name="alatukur_id_peduli_manual" value="{{$v->id}}">
                                                 <input type="hidden" name="iku_id_peduli_manual" value="{{$v->iku_id}}"> 
                                             </div>
