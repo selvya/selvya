@@ -240,7 +240,6 @@ class SelfAssesmentController extends Controller {
 
         $reportall = ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
         ->where('tahun',date('Y'))
-        ->where('daftarindikator_id','3')
         ->where('user_id',Auth::user()->id)
         ->get();
 
@@ -797,9 +796,9 @@ if (count($reportassess) == 0) {
     $reportassess = new ReportAssessment;
 }
 
-$reportassess->nilai                    = round($hasilakhirnya);
+$reportassess->nilai                    = round($hasilakhirnya/3);
 $reportassess->persentase               = $persen->nilai;
-$reportassess->hasil                    = round($hasilakhirnya);
+$reportassess->hasil                    = round($hasilakhirnya/3);
 $reportassess->daftarindikator_id       = 3;
 $reportassess->triwulan                 = $triwulan['current']['triwulan'];
 $reportassess->tahun                    = date('Y');

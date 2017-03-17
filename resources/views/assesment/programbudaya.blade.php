@@ -72,7 +72,7 @@
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/programbudaya')}}" data-gotostep="clickable-first" style="color: #fff;">
                                             <strong>
                                                 Pelaksanaan Program Budaya <br> 
-                                                <big>{{$reportall->last()->hasil}}%</big> - <big>{{$persen->nilai}}%</big>
+                                                <big>{{$reportall->last()->hasil}}%</big> - <big>[{{$persen->nilai}}%]</big>
                                             </strong>
                                         </a>
                                     </li>
