@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-	if(Auth::user()->level == 'admin' || Auth::user()->level == 'reviewer' ){return view('home.home-reviewer');}
+	if(Auth::user()->level == 'admin' || Auth::user()->level == 'reviewer' ){
+		return view('home.home-reviewer');}
 	else{return view('home.home');}
     }
 }
