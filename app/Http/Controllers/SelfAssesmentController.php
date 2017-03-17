@@ -185,19 +185,34 @@ class SelfAssesmentController extends Controller {
             cekCurrentTriwulan()['current']->triwulan
             )->first();
 
-        $assesment = \App\SelfAssesment::updateOrCreate(
+        $rep = \App\ReportAssessment::where('tahun', date('Y'))
+                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                ->where('user_id', getSatker())
+                ->where('daftarindikator_id', 1)
+                ->first();
+
+        if (count($rep) > 0) {
+            $rep = \Carbon\Carbon::parse($rep->updated_at);
+        }else{
+            $rep = null;
+        }
+        
+        $nilai = (int) cekSimpanPelaporan($rep);
+
+        $newRep = \App\ReportAssessment::updateOrCreate(
             [
-            'tahun' => date('Y'),
-            'triwulan' => cekCurrentTriwulan()['current']->triwulan,
-            'user_id' => getSatker(),
-            'iku_id' => $iku->id,
-            'alatukur_id' => $alatUkur->id
+
+                'tahun' => date('Y'),
+                'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+                'user_id' => getSatker(),
+                'daftarindikator_id' => 1,
             ],
             [
-            'updated_at' => \Carbon\Carbon::now()
+                'nilai' => $nilai,
+                'updated_at' => \Carbon\Carbon::now(),
+                'final_status' => 1
             ]
-            );
-
+        );
         return redirect()->back();
     }
 
