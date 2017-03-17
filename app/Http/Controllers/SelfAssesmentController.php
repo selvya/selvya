@@ -102,6 +102,30 @@ class SelfAssesmentController extends Controller {
         // echo $tanggalKirim->diffInDays($batas->tanggal);
     }
 
+    public function pimpinanSimpan(Request $r)
+    {
+        $persen = \App\Persentase::where('tahun', date('Y'))
+                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                    ->where('daftarindikator_id', 4)
+                    ->first();
+
+        $report = \App\ReportAssessment::updateOrCreate(
+            [
+                'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
+                'tahun'              => date('Y'),
+                'daftarindikator_id' => '4',
+                'user_id'            => Auth::user()->id
+                
+            ],
+            [
+                'persentase' => $persen->nilai,
+                'nilai' => $r->nilai
+            ]
+        );
+
+        return redirect()->back();
+    }
+
 
     /**
      * Memeriksa nilai serapan anggaran.
@@ -426,6 +450,7 @@ class SelfAssesmentController extends Controller {
         ->where('anggaran_tahun_id', $anggaranN->id)
         ->get();
 
+        // $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
         $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
         
         for ($i=1; $i <= 4 ; $i++) { 

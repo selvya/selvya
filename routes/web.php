@@ -71,6 +71,7 @@ Route::group(['middleware' => ['satker']], function () {
     Route::post('proses/programbudaya', 'SelfAssesmentController@prosesprogrambudaya');
     Route::get('edit-self-assessment/{id}/serapan-anggaran', 'SelfAssesmentController@serapananggaran');
     Route::get('edit-self-assessment/{id}/partisipasi-pimpinan', 'SelfAssesmentController@pimpinan');
+    Route::post('edit-self-assessment/{id}/partisipasi-pimpinan', 'SelfAssesmentController@pimpinanSimpan');
     Route::get('edit-self-assessment/{id}/kecepatan-pelaporan', 'SelfAssesmentController@pelaporan');
     Route::post('edit-self-assessment/{id}/kecepatan-pelaporan', 'SelfAssesmentController@pelaporanSimpan');
 

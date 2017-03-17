@@ -40,7 +40,7 @@
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
+                {{-- <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered"> --}}
 
                     <!-- Third Step -->
                     <div id="clickable-third" class="step">
@@ -84,44 +84,67 @@
                         <br>
                         <div class="container" style="max-width: 1000px; overflow: hidden;">
                             <div class="block">
-                                <div class="block-content">
+                                @php
+                                    $persen = \App\Persentase::where('tahun', date('Y'))
+                                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                        ->where('daftarindikator_id', 4)
+                                        ->first();
+
+                                    $iku = \App\Iku::with('alat_ukur.definisi')
+                                    ->where(
+                                        'namaprogram',
+                                        'partisipasi_pimpinan#' .
+                                        date('Y') . '#' .
+                                        cekCurrentTriwulan()['current']->triwulan
+                                    )->first();
+                                    // dd($iku);
+                                @endphp
+                                
+
+                                <form class="form-horizontal" method="POST" action="">
+                                    
+                                    @if($iku->tipe == 'parameterized')
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3">Nilai</label>
+                                            <div class="col-md-6">
+                                                <select name="nilai" class="form-control" required> 
+                                                    @foreach($iku->alat_ukur->first()->definisi as $k => $v)
+                                                        <option value="{{$k+1}}">{{$k+1}} - {{$v->deskripsi}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3">Nilai</label>
+                                            <div class="col-md-6">
+                                                <input type="text" name="nilai" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Nama Program <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control">
+                                        <div class="col-md-3">
+                                            {{csrf_field()}}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary pull-right">Simpan <i class="fa fa-save"></i></button>
+                                            
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Peran Pimpinan <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Partisipasi Pimpinan <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control" min="0" max="10">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Lampiran Pendukung <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="file" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                     <!-- END Third Step -->
 
-                    <!-- Form Buttons -->
+                  {{--   <!-- Form Buttons -->
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-6">
                             <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
                             <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- END Form Buttons -->
                 </form>
                 <!-- END Wizard with Validation Content -->

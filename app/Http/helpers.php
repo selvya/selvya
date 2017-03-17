@@ -83,6 +83,7 @@ function cekIkuSerapan($tahun = null, $triwulan = null) {
     return $iku;
 }
 
+
 function getPercentOfNumber($number, $percent){
     return ($percent / 100) * $number;
 }

@@ -23,7 +23,7 @@
 			<a href="{{url('arsip/assessment')}}" class="btn btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment"><i class="fa fa-eye"></i></a>
 		</div>
 		<br>
-		<div class="panel panel-default">
+		
 <!-- 			<div class="panel-heading">
 				<form method="post" enctype="multipart/form-data" action="">
 					<select name="tipe">
@@ -63,42 +63,39 @@
 				</table>
 			</div>
 		</div> -->
-		<div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
-				<thead>
-					<tr>
-						<th>Deputi Komisioner</th>
-						<th>Departemen</th>
-						<th>KOJK</th>
-						<th>Progress</th>
-					</tr>
-				</thead>
-				<?php 
-				$triwulan = cekCurrentTriwulan();
-				$satker =  \App\ReportAssessment::select('*',DB::raw('user_id'))
-				->where('triwulan',$triwulan['current']['triwulan'])
-				->where('tahun',date('Y'))
-				->join('users','report_assesment.user_id','=','users.id')
-				->groupBy('report_assesment.user_id')
-				->get();
+		
+		<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<thead>
+				<tr>
+					<th>Deputi Komisioner</th>
+					<th>Departemen</th>
+					<th>KOJK</th>
+					<th>Progress</th>
+				</tr>
+			</thead>
+			<?php 
+			$triwulan = cekCurrentTriwulan();
+			$satker =  \App\ReportAssessment::select('*',DB::raw('user_id'))
+			->where('triwulan',$triwulan['current']['triwulan'])
+			->where('tahun',date('Y'))
+			->join('users','report_assesment.user_id','=','users.id')
+			->groupBy('report_assesment.user_id')
+			->get();
 				// dd($satker);
-				?>
-				<tbody>
-					@foreach($satker as $data)
-					<tr>
-						<td>{{$data->deputi}}</td>
-						<td>{{$data->departemen}}</td>
-						<td>{{$data->kojk}}</td>
-						<td><label class="btn btn-danger" id="bootBox0">Belum Submit</label></td>
-					</tr>
-					@endforeach
-				</tbody>
-			</table>
-		</div>
-		<!-- /.panel-body -->
+			?>
+			<tbody>
+				@foreach($satker as $data)
+				<tr>
+					<td>{{$data->deputi}}</td>
+					<td>{{$data->departemen}}</td>
+					<td>{{$data->kojk}}</td>
+					<td><label class="btn btn-danger" id="bootBox0">Belum Submit</label></td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
 	</div>
-</div>
-<!-- END Datatables Content -->
+	<!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <!-- END Page Content -->

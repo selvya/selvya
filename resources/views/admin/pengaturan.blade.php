@@ -497,7 +497,10 @@
                                 <div class="col-md-9" id="radioContainer">
                                     <div class="radio">
                                         <label for="input_tipe4">
-                                            <input type="radio" id="input_tipe4" name="input_tipe4" checked value="otomatis"> Parameterized
+                                            <input type="radio" id="input_tipe4_parameterized" name="input_tipe4" checked value="parameterized"> Parameterized
+                                        </label>
+                                        <label for="input_tipe4">
+                                            <input type="radio" id="input_tipe4_manual" name="input_tipe4" checked value="manual"> Manual
                                         </label>
                                     </div>
                                 </div>
@@ -1211,12 +1214,28 @@
                         $('#keterangan4').val(response.data.iku.keterangan);
                         
                         console.log(response);
-                        if ($.isArray(response.data.alat_ukur.definisi)) {
-                            $.each(response.data.alat_ukur.definisi, function(k, v) {
-                               $('#definisi4_' + (k+1)).val(v.deskripsi);
-                               console.log(k);
-                            });
+                        if (response.data.iku.tipe == 'parameterized') {
+                            $('#input_tipe4_parameterized').prop('checked', true);
+                            $('#input_tipe4_manual').prop('checked', false);
+
+                            if ($.isArray(response.data.alat_ukur.definisi)) {
+                                $.each(response.data.alat_ukur.definisi, function(k, v) {
+                                   $('#definisi4_' + (k+1)).val(v.deskripsi).prop('disabled', false);
+                                   console.log(k);
+                                });
+                            }
+                        }else{
+                            $('#input_tipe4_parameterized').prop('checked', false);
+                            $('#input_tipe4_manual').prop('checked', true);
+
+                            if ($.isArray(response.data.alat_ukur.definisi)) {
+                                $.each(response.data.alat_ukur.definisi, function(k, v) {
+                                   $('#definisi4_' + (k+1)).prop('disabled', true);
+                                   console.log(k);
+                                });
+                            }
                         }
+                        
 
                         $('#loading4').hide();
                         $('#modal-form4').show();
@@ -1502,46 +1521,48 @@
         var sender_id = $('#sender_id4').val();
         var sender = $('#' + sender_id);
 
-        if ($('#definisi4_6').val().length < 1) {
-            alert('Harap isi semua definisi');
-            $('#definisi4_6').focus();
+        if ($('#input_tipe4_parameterized').is(':checked')) {
+            if ($('#definisi4_6').val().length < 1) {
+                alert('Harap isi semua definisi');
+                $('#definisi4_6').focus();
 
-            return false;
-        }
+                return false;
+            }
 
-        if ($('#definisi4_5').val().length < 1) {
-            alert('Harap isi semua definisi');
-            $('#definisi4_5').focus();
-            
-            return false;
-        }
+            if ($('#definisi4_5').val().length < 1) {
+                alert('Harap isi semua definisi');
+                $('#definisi4_5').focus();
+                
+                return false;
+            }
 
-        if ($('#definisi4_4').val().length < 1) {
-            alert('Harap isi semua definisi');
-            $('#definisi4_4').focus();
-            
-            return false;
-        }
+            if ($('#definisi4_4').val().length < 1) {
+                alert('Harap isi semua definisi');
+                $('#definisi4_4').focus();
+                
+                return false;
+            }
 
-        if ($('#definisi4_3').val().length < 1) {
-            alert('Harap isi semua definisi');
-            $('#definisi4_3').focus();
+            if ($('#definisi4_3').val().length < 1) {
+                alert('Harap isi semua definisi');
+                $('#definisi4_3').focus();
+                
+                return false;
+            }
             
-            return false;
-        }
-        
-        if ($('#definisi4_2').val().length < 1) {
-            alert('Harap isi semua definisi');
-            $('#definisi4_2').focus();
-            
-            return false;
-        }
+            if ($('#definisi4_2').val().length < 1) {
+                alert('Harap isi semua definisi');
+                $('#definisi4_2').focus();
+                
+                return false;
+            }
 
-        if ($('#definisi4_1').val().length < 1) {
-            alert('Harap isi semua definisi');
-            $('#definisi4_1').focus();
-            
-            return false;
+            if ($('#definisi4_1').val().length < 1) {
+                alert('Harap isi semua definisi');
+                $('#definisi4_1').focus();
+                
+                return false;
+            }
         }
 
         $.ajax({
@@ -1989,6 +2010,20 @@ $('#input_tipe3_1_2_a').on('change', function() {
                 alert('error');
             }
         });
+    });
+
+
+    $(document).on('click', '#input_tipe4_manual', function(){
+        for (var i = 1; i <= 6; i++) {
+            $('#definisi4_' + i).prop('disabled', true);
+        }
+    });
+
+
+    $(document).on('click', '#input_tipe4_parameterized', function(){
+        for (var i = 1; i <= 6; i++) {
+            $('#definisi4_' + i).prop('disabled', false);
+        }
     });
 </script>
 @endsection
