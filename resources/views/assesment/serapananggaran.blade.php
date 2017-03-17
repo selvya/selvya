@@ -11,6 +11,20 @@
         padding: 10px 15px!important;
     }
 </style>
+
+@php
+    $rep = \App\ReportAssessment::where('tahun', date('Y'))
+            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+            ->where('daftarindikator_id', 1)
+            ->where('user_id', getSatker())
+            ->first();
+    if (count($rep) > 0) {
+        $rep = \Carbon\Carbon::parse($rep->updated_at);
+    }else{
+        $rep = null;
+    }
+@endphp
+
 <div id="page-content">
     <!-- Wizard Header -->
     <div class="content-header">
@@ -73,7 +87,7 @@
                                     @if($pelaporan != null)
                                     <li>
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
-                                            <strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
+                                            <strong>Kecepatan Pelaporan <br> <big>{{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}% [{{$pelaporan->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif

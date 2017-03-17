@@ -15,6 +15,21 @@
      .hijau{background: #1abc9c!important;}
      .hijau >a:hover{background: #1abc9c!important;}
 </style>
+
+@php
+    $rep = \App\ReportAssessment::where('tahun', date('Y'))
+            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+            ->where('daftarindikator_id', 1)
+            ->where('user_id', getSatker())
+            ->first();
+    if (count($rep) > 0) {
+        $rep = \Carbon\Carbon::parse($rep->updated_at);
+    }else{
+        $rep = null;
+    }
+@endphp
+
+
 <div id="page-content">
     <!-- Wizard Header -->
     <div class="content-header">
@@ -65,7 +80,11 @@
                                     @if($anggaran != null)
                                     <li>
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
+                                            
+                                            @php
+                                                $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+                                            @endphp
+                                            Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
@@ -79,7 +98,7 @@
                                     @if($pelaporan != null)
                                     <li>
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
-                                            <strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
+                                            <strong>Kecepatan Pelaporan <br> <big>{{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}% [{{$pelaporan->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
@@ -133,7 +152,9 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_melayani" min="0" max="6" class="form-control">
+                                                <input type="number" name="nilai_manual_melayani" min="0" max="6" class="form-control" required>
+                                                <input type="hidden" name="alatukur_id_melayani_manual" value="{{$v->id}}">
+                                                <input type="hidden" name="iku_id_melayani_manual" value="{{$v->iku_id}}"> 
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
@@ -176,9 +197,9 @@
                                                     <td>
                                                         <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Nama">
                                                     </td>
-                                                    <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email"></td>
-                                                    <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi"></td>
-                                                    <td><input type="text" name="telp_stake_melayani[]" class="form-control" placeholder="No Telp"></td>
+                                                    <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email" required></td>
+                                                    <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi" required></td>
+                                                    <td><input type="text" name="telp_stake_melayani[]" class="form-control" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -234,7 +255,9 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_peduli" min="0" max="6" class="form-control">
+                                                <input type="number" name="nilai_manual_peduli" min="0" max="6" class="form-control" required>
+                                                <input type="hidden" name="alatukur_id_peduli_manual" value="{{$v->id}}">
+                                                <input type="hidden" name="iku_id_peduli_manual" value="{{$v->iku_id}}"> 
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
@@ -270,11 +293,11 @@
                                             <table class="table">
                                                 <tr id="field3">
                                                     <td>
-                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama">
+                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama" required>
                                                     </td>
-                                                    <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email"></td>
-                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi"></td>
-                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" placeholder="No Telp"></td>
+                                                    <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email" required></td>
+                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
+                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -383,10 +406,10 @@
                                         <div class="col-md-9">
                                             <table class="table">
                                                 <tr id="field4">
-                                                    <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama"></td>
-                                                    <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email"></td>
-                                                    <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi"></td>
-                                                    <td><input type="text" name="telp_stake_inovatif[]" class="form-control" placeholder="No Telp"></td>
+                                                    <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" required></td>
+                                                    <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" required></td>
+                                                    <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" required></td>
+                                                    <td><input type="text" name="telp_stake_inovatif[]" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -434,15 +457,15 @@
     function tambah_MC(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_melayani[]" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_melayani[]" placeholder="Nama" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_melayani[]" placeholder="Email" class="form-control">'+
+            '<input type="email" name="email_stake_melayani[]" placeholder="Email" class="form-control" required>'+
             '<td>'+
-            '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control">'+
+            '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" class="form-control">'+
+            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -453,40 +476,18 @@
         });
     }
 
-    function tambah_SS(){
-        $('<tr id="baru">'+
-            '<td style="text-align:center;">'+
-            '<input type="text" placeholder="Nama" class="form-control">'+
-            '</td>'+
-            '<td>'+
-            '<input type="email" placeholder="Email" class="form-control">'+
-            '<td>'+
-            '<input type="text" placeholder="Instansi" class="form-control">'+
-            '</td>'+
-            '<td>'+
-            '<input type="text" placeholder="No Telp" class="form-control">'+
-            '</td>'+
-            '<td>'+
-            '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
-            '</td>'+
-            '</tr>').insertAfter('#field2');
-        $(".remove_field").click(function(){
-            $(this).closest("tr").remove();
-        });
-    }
-
     function tambah_OP(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_peduli[]" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_peduli[]" placeholder="Nama" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_peduli[]" placeholder="Email" class="form-control">'+
+            '<input type="email" name="email_stake_peduli[]" placeholder="Email" class="form-control" required>'+
             '<td>'+
-            '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control">'+
+            '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_peduli[]" placeholder="No Telp" class="form-control">'+
+            '<input type="text" name="telp_stake_peduli[]" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -500,15 +501,15 @@
     function tambah_INO(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control">'+
+            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control" required>'+
             '<td>'+
-            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control">'+
+            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" class="form-control">'+
+            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+

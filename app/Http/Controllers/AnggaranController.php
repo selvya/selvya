@@ -211,12 +211,16 @@ class AnggaranController extends Controller
                         [
                             'user_id' => getSatker(),
                             'tahun' => date('Y'),
-                            'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+                            'triwulan' => $i,
                             'iku_id' => $iku->id,
                             'alatukur_id' => $alatUkur->id,
-                            'definisi'
+                            'definisinilai_id' => 0,
+                            'filelampiran' => null,
+                            'reportassesment_id' => $reportAssesment[$i]->id
                         ]
                     );
+
+                    // dd($selfAssesment[$i]);
                 }
             }
         }
