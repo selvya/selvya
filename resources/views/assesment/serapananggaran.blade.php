@@ -40,7 +40,7 @@
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form id="clickable-wizard" action="" method="post" class="form-horizontal form-bordered">
+                <form id="clickable-wizard" action="" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
 
                 @include('include.alert')
                     <!-- Second Step -->
@@ -59,7 +59,7 @@
                                     @if($anggaran != null)
                                     <li class="active">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            Serapan Anggaran <br> <big>{{$atasWizard}}% / {{$anggaran->nilai}}%</big></strong>
+                                            Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
@@ -173,22 +173,36 @@
                                                                                 <label for="exampleInputFile">Lampiran<br>(Max. 20MB)<br>(.zip,.rar, .pdf, .jpg)</label>
                                                                             </td>
                                                                             @foreach($rencanaN as $k => $v)
-                                                                            @if($v->file == null)
-                                                                            <td>
-                                                                                <input 
-                                                                                class="form-control" 
-                                                                                type="file"
-                                                                                name="lampiran_{{$k+1}}"
-                                                                                @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
-                                                                                disabled 
+                                                                                @if($v->file == null)
+                                                                                    <td>
+                                                                                        <input 
+                                                                                            class="form-control" 
+                                                                                            type="file"
+                                                                                            name="lampiran_{{$k+1}}"
+                                                                                            @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
+                                                                                                disabled 
+                                                                                                readonly
+                                                                                            @endif
+                                                                                        >
+                                                                                    </td>
+                                                                                @else
+                                                                                     <td>
+                                                                                        <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}" class="btn btn-danger btn-block">
+                                                                                            {{str_limit($v->file, 12)}} <i class="fa fa-download"></i>
+                                                                                        </a>
+                                                                                        <input 
+                                                                                            class="form-control" 
+                                                                                            type="file"
+                                                                                            name="lampiran_{{$k+1}}"
+                                                                                            @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
+                                                                                                disabled
+                                                                                                readonly
+                                                                                            @else
+                                                                                                required
+                                                                                            @endif
+                                                                                        >
+                                                                                    </td>
                                                                                 @endif
-                                                                                >
-                                                                            </td>
-                                                                            @else
-                                                                            <td>
-                                                                                <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}">{{str_limit($v->file, 20)}}</a>
-                                                                            </td>
-                                                                            @endif
                                                                             @endforeach
                                                                             {{-- <td>
                                                                             <input class="form-control" type="file" id="exampleInputFile1" name="userfile1" onchange="AlertFilesize(document.getElementById('exampleInputFile1').getAttribute('id'),1)">
@@ -218,8 +232,9 @@
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-6">
+                            {{csrf_field()}}
                             {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
-                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
+                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Submit">
                         </div>
                     </div>
                      </form>
@@ -234,6 +249,6 @@
 </div>
 @endsection
 @section('js')
-<script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script>
-<script>$(function(){ FormsWizard.init(); });</script>
+{{-- <script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script> --}}
+{{-- <script>$(function(){ FormsWizard.init(); });</script> --}}
 @endsection

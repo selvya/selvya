@@ -152,7 +152,19 @@
                                                             </td>
                                                         @else
                                                             <td>
-                                                                <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}">{{str_limit($v->file, 20)}}</a>
+                                                                <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}" class="btn btn-danger btn-block">
+                                                                    {{str_limit($v->file, 12)}} <i class="fa fa-download"></i>
+                                                                </a>
+                                                                <input 
+                                                                    class="form-control" 
+                                                                    type="file"
+                                                                    name="lampiran_{{$k+1}}"
+                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
+                                                                        disabled 
+                                                                    @else
+                                                                        required
+                                                                    @endif
+                                                                >
                                                             </td>
                                                         @endif
                                                     @endforeach
