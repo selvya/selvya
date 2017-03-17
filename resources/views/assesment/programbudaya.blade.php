@@ -53,12 +53,11 @@
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li class="@if($reportall ==  null) red @else hijau @endif">
+                                    <li class="@if($reportall->last()->hasil ==  null) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/programbudaya')}}" data-gotostep="clickable-first" style="color: #fff;">
                                             <strong>
                                                 Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> - <big>{{$persen->nilai}}%</big>
-                                                
                                             </strong>
                                         </a>
                                     </li>
@@ -128,8 +127,7 @@
                                     <div class="">
                                         <h5><b>{{title_case(str_replace('_', ' ', $nama[$k]->last()))}}</b></h5>
 
-                                        @if($v->tipe == 'iku')
-                                        @if($melayani->tipe == 'manual')
+                                        @if($v->tipe == 'manual')
                                         <!-- MANUAL -->
 
                                         <div class="form-group">
@@ -139,13 +137,6 @@
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
-                                        @else
-                                        <div class="form-group">
-                                            <div class="col-md-12 text-center">
-                                                <h5>Menggunakan Data Secara Otomatis dari sistem</h5>
-                                            </div>
-                                        </div>
-                                        @endif
 
                                         @elseif($v->tipe == 'parameterized')
                                         <?php 
@@ -236,8 +227,8 @@
                                     <div class="">
                                         <h5><b>{{title_case(str_replace('_', ' ', $nama[$k]->last()))}}</b></h5>
 
-                                        @if($v->tipe == 'iku')
-                                        @if($peduli->tipe == 'manual')
+                                        
+                                        @if($v->tipe == 'manual')
                                         <!-- MANUAL -->
 
                                         <div class="form-group">
@@ -247,14 +238,6 @@
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
-                                        @else
-                                        <div class="form-group">
-                                            <div class="col-md-12 text-center">
-                                                <h5>Menggunakan Data Secara Otomatis dari sistem</h5>
-                                            </div>
-                                        </div>
-                                        @endif
-
                                         @else
                                         <?php 
 
