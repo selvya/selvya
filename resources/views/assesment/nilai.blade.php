@@ -67,7 +67,7 @@
 			
 		xAxis: {
 			categories: [
-			<?php $ssks = \App\NilaiAkhir::where('user_id',10)->get();$xxx ="";$yyy = "";
+			<?php $ssks = \App\NilaiAkhir::where('user_id',Auth::user()->id)->get();$xxx ="";$yyy = "";
 			foreach($ssks as $nilainya){
 				$xxx .= $nilainya->nilai.','; 
 				if($nilainya->triwulan == 1){

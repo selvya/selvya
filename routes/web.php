@@ -1,7 +1,8 @@
 <?php
 Route::get('test', function () {
-    return gen('kmp.kmp', 'admin');
-    return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
+    return hitungNilaiSerapan(2017, 3, Auth::user()->id);
+    // return gen('kmp.kmp', 'admin');
+    // return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
     // return str_slug('Here is where you can register web', '_');
     // return cekCurrentTriwulan();
 });
@@ -71,6 +72,7 @@ Route::group(['middleware' => ['satker']], function () {
     Route::get('edit-self-assessment/{id}/serapan-anggaran', 'SelfAssesmentController@serapananggaran');
     Route::get('edit-self-assessment/{id}/partisipasi-pimpinan', 'SelfAssesmentController@pimpinan');
     Route::get('edit-self-assessment/{id}/kecepatan-pelaporan', 'SelfAssesmentController@pelaporan');
+    Route::post('edit-self-assessment/{id}/kecepatan-pelaporan', 'SelfAssesmentController@pelaporanSimpan');
 
     Route::get('arsip/assessment', 'SelfAssesmentController@arsipassesment');
 

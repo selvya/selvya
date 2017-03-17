@@ -120,7 +120,8 @@ class SelfAssesmentController extends Controller {
         $nilai = 1;
 
         $tahun = date('Y');
-        $triwulan = 1;
+        $triwulan = cekCurrentTriwulan()['triwulan'];
+        dd($triwulan);
 
         $persen = cekPersenSerapan($tahun, 2, 1);
 
@@ -168,13 +169,45 @@ class SelfAssesmentController extends Controller {
         // return number_format($totalAnggaran);
     }
 
+    public function pelaporanSimpan(Request $r)
+    {
+        $iku = \App\Iku::where(
+            'namaprogram',
+            'kecepatan_pelaporan#' .
+            date('Y') . '#' .
+            cekCurrentTriwulan()['current']->triwulan
+        )->first();
+
+        $alatUkur = \App\AlatUkur::where(
+            'name',
+            'kecepatan_pelaporan#' .
+            date('Y') . '#' .
+            cekCurrentTriwulan()['current']->triwulan
+        )->first();
+
+        $assesment = \App\SelfAssesment::updateOrCreate(
+            [
+                'tahun' => date('Y'),
+                'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+                'user_id' => getSatker(),
+                'iku_id' => $iku->id,
+                'alatukur_id' => $alatUkur->id
+            ],
+            [
+                'updated_at' => \Carbon\Carbon::now()
+            ]
+        );
+
+        return redirect()->back();
+    }
+
 
     //DUMMY SETTtanggalKirimER
     public function setSatker($id = 1, $triwulan = 1, $tanggal = null) {
         $data = [
-        'satker' => $id,
-        'triwulan' => $triwulan,
-        'tanggal' => $tanggal
+            'satker' => $id,
+            'triwulan' => $triwulan,
+            'tanggal' => $tanggal
         ];
 
         return $data;
@@ -376,7 +409,57 @@ class SelfAssesmentController extends Controller {
         ->where('anggaran_tahun_id', $anggaranN->id)
         ->get();
 
-        return view('assesment.serapananggaran', compact('anggaranN','targetN','rencanaN','inovatif','peduli','melayani','persen','triwulan','anggaran','pimpinan','pelaporan'));
+        $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+        
+        for ($i=1; $i <= 4 ; $i++) { 
+            $reportAssesment = ReportAssessment::updateOrCreate(
+                [
+                    'daftarindikator_id' => 2,
+                    'triwulan' => $i,
+                    'tahun' => date('Y'),
+                    'user_id' => $satker
+                ],
+                [
+                    'hasil' => $atasWizard,
+                    'nilai' => hitungNilaiSerapan(date('Y'), $i, Auth::user()->id)
+                ]
+            );
+        }
+
+
+        // dd(hitungNilaiSerapan(date('Y'), $triwulan['current'], Auth::user()->id));
+        
+        // return $atasWizard;
+         $warna = ReportAssessment::where('daftarindikator_id', 2)
+                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                ->where('tahun', date('Y'))
+                ->where('user_id', $satker)
+                ->first()->hasil;
+        
+        if ($warna > 0) {
+            $warna = 'ijo';
+        }else{
+            $warna = 'biru';
+        }
+
+        return view(
+            'assesment.serapananggaran',
+            compact(
+                'anggaranN',
+                'targetN',
+                'rencanaN',
+                'inovatif',
+                'peduli',
+                'melayani',
+                'persen',
+                'triwulan',
+                'anggaran',
+                'pimpinan',
+                'pelaporan',
+                'atasWizard',
+                'warna'
+            )
+        );
     }
 
     public function pelaporan($id)
@@ -384,30 +467,46 @@ class SelfAssesmentController extends Controller {
         $triwulan = cekCurrentTriwulan();
 
         $inovatif = Iku::where('tahun',date('Y'))
-        ->where('satker', Auth::user()->id)
-        ->where('daftarindikator_id','3')
-        ->first();
+                ->where('satker', Auth::user()->id)
+                ->where('daftarindikator_id','3')
+                ->first();
 
         $persen = \App\Persentase::where('tahun',date('Y'))
-        ->where('triwulan',$triwulan['current']['triwulan'])
-        ->where('daftarindikator_id','3')->first();
+                ->where('triwulan',$triwulan['current']['triwulan'])
+                ->where('daftarindikator_id','3')->first();
 
-        $anggaran = \App\Iku::where('iku.namaprogram','serapan_anggaran'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-        ->where('iku.daftarindikator_id','2')
-        ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-        ->first();
+        $anggaran = \App\Iku::where(
+                'iku.namaprogram','serapan_anggaran' .
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan']
+            )
+            ->where('iku.daftarindikator_id','2')
+            ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+            ->first();
 
-        $pimpinan = \App\Iku::where('iku.namaprogram','partisipasi_pimpinan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-        ->where('iku.daftarindikator_id','4')
-        ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-        ->first();
+        $pimpinan = \App\Iku::where(
+                'iku.namaprogram',
+                'partisipasi_pimpinan' .
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan']
+            )
+            ->where('iku.daftarindikator_id','4')
+            ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+            ->first();
 
-        $pelaporan = \App\Iku::where('iku.namaprogram','kecepatan_pelaporan'.'#'.date('Y').'#'.$triwulan['current']['triwulan'])
-        ->where('iku.daftarindikator_id','1')
-        ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
-        ->first(); 
+        $pelaporan = \App\Iku::where(
+                'iku.namaprogram',
+                'kecepatan_pelaporan' .
+                '#' . date('Y') .
+                '#' . $triwulan['current']['triwulan']
+            )
+            ->where('iku.daftarindikator_id','1')
+            ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
+            ->first(); 
 
-        return view('assesment.pelaporan', compact('inovatif','anggaran','pimpinan','pelaporan','persen'));
+        $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+
+        return view('assesment.pelaporan', compact('inovatif','anggaran','pimpinan','pelaporan','persen', 'atasWizard'));
     }
 
 
