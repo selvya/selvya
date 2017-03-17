@@ -80,7 +80,7 @@
 
 								<span class="text-muted pull-right">@if($reportall->last()->nilai == 0) 0% @elseif(count($reportall) == 1) 25% @elseif(count($reportall) == 2) 50% @elseif(count($reportall) == 3) 75% @else 100% @endif Complete</span>
 								<div class="progress progress-striped">
-									<div class="progress-bar @if(count($reportall) <= 3) progress-bar-danger @else progress-bar-success  @endif" role="progressbar" aria-valuenow="@if(count($reportall) == 1) 25 @elseif(count($reportall) == 2) 50 @elseif(count($reportall) == 3) 75 @else 100 @endif" aria-valuemin="0" aria-valuemax="100" style="width:@if(count($reportall) == 0) 1% @elseif(count($reportall) == 1) 25% @elseif(count($reportall) == 2) 50% @elseif(count($reportall) == 3) 75% @else 100% @endif;">
+									<div class="progress-bar @if(count($reportall) <= 3) progress-bar-danger @else progress-bar-success  @endif" role="progressbar" aria-valuenow="@if(count($reportall) == 1) 25 @elseif(count($reportall) == 2) 50 @elseif(count($reportall) == 3) 75 @else 100 @endif" aria-valuemin="0" aria-valuemax="100" style="width:@if(count($reportall) == 1) 1% @elseif(count($reportall) == 1) 25% @elseif(count($reportall) == 2) 50% @elseif(count($reportall) == 3) 75% @else 100% @endif;">
 										<span class="sr-only">
 											@if($report->nilai == 0) 0%
 											@elseif(count($report) == 1) 25% 
