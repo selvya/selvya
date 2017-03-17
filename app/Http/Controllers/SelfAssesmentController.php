@@ -232,13 +232,15 @@ class SelfAssesmentController extends Controller {
     {   
         $triwulan = cekCurrentTriwulan();
         $report = ReportAssessment::updateOrCreate([
-            'triwulan'      => $triwulan['current']['triwulan'], 
-            'tahun'         => date('Y'),
-            'user_id'       => Auth::user()->id
+            'triwulan'           => $triwulan['current']['triwulan'], 
+            'tahun'              => date('Y'),
+            'daftarindikator_id' => '3',
+            'user_id'            => Auth::user()->id
             ]);
 
         $reportall = ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
         ->where('tahun',date('Y'))
+        ->where('daftarindikator_id','3')
         ->where('user_id',Auth::user()->id)
         ->get();
 
@@ -331,6 +333,7 @@ class SelfAssesmentController extends Controller {
 
         $reportall = ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
         ->where('tahun',date('Y'))
+        ->where('daftarindikator_id','3')
         ->where('user_id',Auth::user()->id)
         ->get();  
 
@@ -603,7 +606,7 @@ class SelfAssesmentController extends Controller {
         $nilaiino += $nilai[$b];
     }
 
-    if ($r->nilai_manual_peduli != null) {
+    if (null != $r->nilai_manual_peduli) {
         $alatnyapeduli = $r->nilai_manual_peduli;
         $definisi = DefinisiNilai::where('alatukur_id',$r->alatukur_id_peduli_manual)
         ->where('iku_id', $r->iku_id_peduli_manual)
@@ -634,7 +637,8 @@ class SelfAssesmentController extends Controller {
 
     }
     if(null != $r->alatukur_peduli){
-        $alatnyapeduli = $r->alatukur_peduli;
+        // $alatnyapeduli = $r->alatukur_peduli;
+        // dd($r->alatukur_peduli);
         foreach($r->alatukur_peduli as $a => $data){
             $alatpeduli[$a] = collect(explode('#', $data));
             $iku_idpeduli[$a] = $alat[$a][0];
@@ -781,7 +785,8 @@ $hasilmelayani = ($nilaimelayani/((6*count($alatnyamelayani))))*($persen->nilai/
 
 $hasilakhirnya = (((($hasilino*100)+($hasilmelayani*100)+($hasilpeduli*100)))*($persen->nilai/100));
 
-           // echo $hasilakhirnya;
+// dd($persen->nilai);
+
 
 $reportassess = ReportAssessment::where('tahun', date('Y'))
                 ->where('triwulan', $triwulan['current']['triwulan'])
@@ -792,16 +797,16 @@ if (count($reportassess) == 0) {
     $reportassess = new ReportAssessment;
 }
 
-$reportassess->nilai                    = $hasilakhirnya;
+$reportassess->nilai                    = round($hasilakhirnya);
 $reportassess->persentase               = $persen->nilai;
-$reportassess->hasil                    = $hasilakhirnya;
+$reportassess->hasil                    = round($hasilakhirnya);
 $reportassess->daftarindikator_id       = 3;
 $reportassess->triwulan                 = $triwulan['current']['triwulan'];
 $reportassess->tahun                    = date('Y');
 $reportassess->user_id                  = Auth::user()->id;
-$reportassess->hasil_inovatif           = $hasilino;
-$reportassess->hasil_peduli             = $hasilpeduli;
-$reportassess->hasil_melayani           = $hasilmelayani;
+$reportassess->hasil_inovatif           = $hasilino*100;
+$reportassess->hasil_peduli             = $hasilpeduli*100;
+$reportassess->hasil_melayani           = $hasilmelayani*100;
 $reportassess->final_status             = '0';
 $reportassess->save();
 
