@@ -13,6 +13,8 @@ use App\Iku;
 use App\AlatUkur;
 use App\DefinisiNilai;
 use App\ReportAssessment;
+use Storage;
+use Filesystem;
 
 class AnggaranController extends Controller
 {
@@ -136,6 +138,20 @@ class AnggaranController extends Controller
         $a = collect(request()->files);
         $satker = getSatker();
 
+        $iku = \App\Iku::where(
+            'namaprogram',
+            'serapan_anggaran#' .
+            date('Y') . '#' .
+            cekCurrentTriwulan()['current']->triwulan
+        )->first();
+
+        $alatUkur = \App\AlatUkur::where(
+            'name',
+            'serapan_anggaran#' .
+            date('Y') . '#' .
+            cekCurrentTriwulan()['current']->triwulan
+        )->first();
+
         $tahunAnggaran = AnggaranTahun::where('tahun', date('Y'))
                         ->where('user_id', $satker)
                         ->first();
@@ -178,7 +194,7 @@ class AnggaranController extends Controller
             if ($realisasi[$i] > 0) {
                 //REPORT
                 if (null != $r->final AND preg_replace("/[^0-9]/","", request('realisasi_' . $i)) > 0) {
-                    $reportAssesment = ReportAssessment::updateOrCreate(
+                    $reportAssesment[$i] = ReportAssessment::updateOrCreate(
                         [
                             'daftarindikator_id' => 2,
                             'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
@@ -190,11 +206,23 @@ class AnggaranController extends Controller
                             'final_status' => 1
                         ]
                     );
+
+                    $selfAssesment[$i] = \App\SelfAssesment::updateOrCreate(
+                        [
+                            'user_id' => getSatker(),
+                            'tahun' => date('Y'),
+                            'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+                            'iku_id' => $iku->id,
+                            'alatukur_id' => $alatUkur->id,
+                            'definisi'
+                        ]
+                    );
                 }
             }
         }
 
         $fileName = null;
+        // dd($a);
 
         foreach ($a as $i => $value) {
             // dd(explode('lampiran_', $i));
@@ -218,16 +246,27 @@ class AnggaranController extends Controller
                 return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload']);
             }
 
-            $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
-                [
-                    'user_id' => $satker,
-                    'anggaran_tahun_id' => $tahunAnggaran->id,
-                    'triwulan' => explode('lampiran_', $i)[1]
-                ],
-                [ 
-                    'file' => $fileName
-                ]
-            );
+            // $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
+            //     [
+            //         'user_id' => $satker,
+            //         'anggaran_tahun_id' => $tahunAnggaran->id,
+            //         'triwulan' => explode('lampiran_', $i)[1]
+            //     ],
+            //     [ 
+            //         'file' => $fileName
+            //     ]
+            // );
+            $anggaranTriwulan[$i] = AnggaranTriwulan::where('user_id', $satker)
+                    ->where('anggaran_tahun_id', $tahunAnggaran->id)
+                    ->where('triwulan', explode('lampiran_', $i)[1])
+                    ->first();
+
+            if (Storage::disk('lampiran_anggaran')->has($anggaranTriwulan[$i]->file)) {
+                Storage::disk('lampiran_anggaran')->delete($anggaranTriwulan[$i]->file);
+            }
+
+            $anggaranTriwulan[$i]->file = $fileName;
+            $anggaranTriwulan[$i]->save();
 
         }
 
@@ -243,7 +282,6 @@ class AnggaranController extends Controller
 
         $a = collect(request()->files);
         $satker = getSatker();
-
         $tahunAnggaran = AnggaranTahun::where('tahun', date('Y'))
                         ->where('user_id', $satker)
                         ->first();
@@ -326,17 +364,26 @@ class AnggaranController extends Controller
                 return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload']);
             }
 
-            $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
-                [
-                    'user_id' => $satker,
-                    'anggaran_tahun_id' => $tahunAnggaran->id,
-                    'triwulan' => explode('lampiran_', $i)[1]
-                ],
-                [ 
-                    'file' => $fileName
-                ]
-            );
-            // dd($fileName);
+            // $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
+            //     [
+            //         'user_id' => $satker,
+            //         'anggaran_tahun_id' => $tahunAnggaran->id,
+            //         'triwulan' => explode('lampiran_', $i)[1]
+            //     ],
+            //     [ 
+            //         'file' => $fileName
+            //     ]
+            // );
+            $anggaranTriwulan[$i] = AnggaranTriwulan::where('user_id', $satker)
+                    ->where('anggaran_tahun_id', $tahunAnggaran->id)
+                    ->where('triwulan', explode('lampiran_', $i)[1])
+                    ->first();
+            if (Storage::disk('lampiran_anggaran')->has($anggaranTriwulan[$i]->file)) {
+                Storage::disk('lampiran_anggaran')->delete($anggaranTriwulan[$i]->file);
+            }
+
+            $anggaranTriwulan[$i]->file = $fileName;
+            $anggaranTriwulan[$i]->save();
         }
 
         Session::flash('msg', '<div class="alert alert-success">Berhasil menyimpan</div>');

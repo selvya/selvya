@@ -40,7 +40,7 @@
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
+                <form id="clickable-wizard" action="" method="post" class="form-horizontal form-bordered">
 
                 @include('include.alert')
 
@@ -60,7 +60,7 @@
                                     @if($anggaran != null)
                                     <li>
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
+                                            <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}]%</big></strong>
                                         </a>
                                     </li>
                                     @endif
@@ -84,32 +84,20 @@
                         <br>
                         <div class="container" style="max-width: 1000px; overflow: hidden;">
                             <div class="block">
-                                <div class="block-content">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Nama Program <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Penjelasan Nilai <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="file" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
+                                @php
+                                    $rep = \App\SelfAssesment::where('tahun', date('Y'))
+                                            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                            ->where('user_id', getSatker())
+                                            ->first();
+                                    if (count($rep) > 0) {
+                                        $rep = \Carbon\Carbon::parse($rep->created_at);
+                                    }else{
+                                        $rep = null;
+                                    }
+                                @endphp
+                                Tanggal pelaporan: {{readify(cekCurrentTriwulan()['current']->tanggal)}}
+                                <br>
+                                Nilai Kecepatan Pelaoran: {{cekSimpanPelaporan($rep)}}
                             </div>
                         </div>
                     </div>
@@ -118,7 +106,8 @@
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-6">
-                            <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
+                            {{csrf_field()}}
+                            {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
                             <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                         </div>
                     </div>
