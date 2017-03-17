@@ -37,8 +37,10 @@
 		.content-header, .content-top{
 			background-color: transparent;
 			border:none;
-		}
-
+		}.pie-chart.easyPieChart{margin:0px!important;
+    float: left;
+    font-size: 16px;}
+.widget-content.text-right.animation-pullDown strong{margin-right:15px}
 	</style>
 
 	<div id="page-content">
@@ -47,86 +49,69 @@
 		<div class="content-header content-media">
 			<div class="header-section">
 				<div class="jumbotron" >
-					<div class="col-md-12"">
-						<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
+					<div class="col-md-12">
+						<h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
 
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Mini Top Stats Row -->
-		<div class="row">
-			<div class="col-sm-6 col-lg-3">
-				<!-- Widget -->
-				<a href="" class="widget widget-hover-effect1">
-					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-autumn animation-fadeIn">
-							<i class="fa fa-child"></i>
-						</div>
-						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan I</strong>
-						</h3>
-					</div>
-				</a>
-				<!-- END Widget -->
-			</div>
-			<div class="col-sm-6 col-lg-3">
-				<!-- Widget -->
-				<a href="" class="widget widget-hover-effect1">
-					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-spring animation-fadeIn">
-							<i class="fa fa-group"></i>
-						</div>
-						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan II</strong>
-						</h3>
-					</div>
-				</a>
-				<!-- END Widget -->
-			</div>
-			<div class="col-sm-6 col-lg-3">
-				<!-- Widget -->
-				<a href="" class="widget widget-hover-effect1">
-					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-fire animation-fadeIn">
-							<i class="fa fa-envelope"></i>
-						</div>
-						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan III</strong>
-						</h3>
-					</div>
-				</a>
-				<!-- END Widget -->
-			</div>
-			<div class="col-sm-6 col-lg-3">
-				<!-- Widget -->
-				<a href="" class="widget widget-hover-effect1">
-					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-fire animation-fadeIn">
-							<i class="fa fa-envelope"></i>
-						</div>
-						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Triwulan IV</strong>
-						</h3>
-					</div>
-				</a>
-				<!-- END Widget -->
-			</div>
-		</div>
+		
 		<!-- END Mini Top Stats Row -->
 		<!-- END Dashboard 2 Header -->
 
 		<!-- Dashboard 2 Content -->
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6"><div class="row"><?php $ssks = \App\NilaiAkhir::where('user_id',Auth::user()->id)->where('tahun',date('Y'))->get(); ?>
+		@foreach($ssks as $nilaiakhir)
+		<?php
+		if($nilaiakhir->nilai > 69)
+		{	$color = 'green';}
+		elseif($nilaiakhir->nilai > 49){	$color = 'orange';}
+		elseif($nilaiakhir->nilai > 0){
+			$color = 'red';}
+		else{
+			$color = '#eeeeee';
+		}
+		?>
+			
+			<div class="col-sm-12 col-lg-6">
+				<a href="" class="widget widget-hover-effect1">
+					<div class="widget-simple">
+						<div class="pie-chart block-section" data-bar-color="{{$color}}" data-percent="{{$nilaiakhir->nilai}}" data-size="50"><span><b>{{$nilaiakhir->nilai}}</b></span></div>
+						<h3 class="widget-content text-right animation-pullDown">
+							 <strong style="color:{{$color}}">Triwulan @php
+switch ($nilaiakhir->triwulan) {
+    case 4:
+        echo 'IV';
+        break; 
+	case 2:
+        echo 'II';
+        break; 
+	case 3:
+        echo 'III';
+        break; 
+    default:
+        echo 'I';
+        break; 
+}
+@endphp
+				</strong>
+						</h3>
+					</div>
+				</a>
+			</div>
+		@endforeach
+		</div>
 				<div class="block">
 					<p>
-						Selamat datang di dashboard monitoring program budaya OJKway. <br> <br>
+					<center>	Selamat datang di dashboard monitoring program budaya OJKway. </center><br> <br>
 
 						Dashboard monitoring adalah sebuah media pelaporan program dan anggaran budaya satuan kerja. Program dan anggaran budaya dilaporkan secara rutin per triwulan di 2016 dengan tenggat sebagai berikut: 15 Maret, 15 Juni, 15 September, dan 15 November. <br> <br>
-
+					<div style="text-align:right">
 						Selamat menggunakan,<br>
 						Direktorat Manajemen Perubahan
+						</div>
 					</p>
 				</div>
 			</div>
@@ -153,8 +138,8 @@
 					type: 'column',
 					options3d: {
 						enabled: true,
-						alpha: 10,
-						beta: 25,
+						alpha: 1,
+						beta: 1,
 						depth: 70
 					}
 				},
@@ -167,23 +152,22 @@
 					}
 				},
 				xAxis: {
-					categories: ['Indikator 1', 'Indikator 2' , 'Indikator 3' , 'Indikator 4' , 'Indikator 5', 'Indikator 6', 'Indikator 7']
+					categories: [
+					<?php $ssks = \App\Persentase::leftJoin('daftarindikator','persentase.daftarindikator_id','=','daftarindikator.id')->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->where('tahun',date('Y'))->where('nilai','>',0)->get();
+					foreach($ssks as $indi){
+						echo "'".$indi->name."',";
+					}?>]
 				},
 				yAxis: {
 					title: {
-						text: 'Nilai per Indikator'
+						text: 'Nilai yang di capai'
 					}
 				},
 				series: [{
 					name: 'Nilai Indikator',
 					data: [1, 2 , 3, 4,5,6,7]
 				}]
-			});
-		</script>
-		<!-- TUTUP CHART BAR -->
-
-		<!-- CHART PIE -->
-		<script type="text/javascript">
+			});$(".pie-chart").easyPieChart({barColor:$(this).data("bar-color")?$(this).data("bar-color"):"#777777",trackColor:$(this).data("track-color")?$(this).data("track-color"):"#eeeeee",lineWidth:$(this).data("line-width")?$(this).data("line-width"):3,size:$(this).data("size")?$(this).data("size"):"80",animate:800,scaleColor:!1});
 			Highcharts.chart('containernya', {
 				chart: {
 					type: 'pie',
@@ -194,7 +178,25 @@
 					}
 				},
 				title: {
-					text: 'Sekarang Periode TW II Januari - Maret'
+					<?php 
+switch (cekCurrentTriwulan()['current']->triwulan) {
+    case 4:
+        $tw = 'IV';
+        break; 
+	case 2:
+         $tw = 'II';
+        break; 
+	case 3:
+         $tw = 'III';
+        break; 
+    default:
+         $tw = 'I';
+        break; 
+}
+						$assa = 'Sekarang Periode TW '.$tw.' ['.date('F', strtotime(cekCurrentTriwulan()['current']->sejak)).'-'.date('F', strtotime(cekCurrentTriwulan()['current']->hingga)).']';
+					
+							 ?>
+					text: '{{$assa}}'
 				},
 				tooltip: {
 					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -214,10 +216,12 @@
 					type: 'pie',
 					name: 'Nilai',
 					data: [
-					['Indikator I', 40],
-					['Indikator II', 40],
-					['Indikator III', 10],
-					['Indikator IV', 10]
+					<?php $ssks = \App\ReportAssessment::leftJoin('daftarindikator','report_assesment.daftarindikator_id','=','daftarindikator.id')->where('user_id',Auth::user()->id)->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->where('tahun',date('Y'))->get();$xxx ="";$yyy = 100;
+			foreach($ssks as $nilainya){
+				$yyy -= $nilainya->hasil;
+				echo "['".$nilainya->name."', ".$nilainya->hasil."],";
+			}
+					echo "['Tidak Tercapai', ".$yyy."]";?>
 					]
 				}]
 			});
