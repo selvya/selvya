@@ -74,15 +74,6 @@ Route::group(['middleware' => ['satker']], function () {
 
     Route::get('arsip/assessment', 'SelfAssesmentController@arsipassesment');
 
-    Route::get('rekap-assessment', function () {
-        return view('assesment.rekap');
-    });
-    Route::get('hasil-assessment', function () {
-        return view('assesment.hasil');
-    });
-    Route::get('rekap-budaya', function () {
-        return view('assesment.rekap-budaya');
-    });
     Route::get('detail/assessment', function () {
         return view('assesment.detail-assessment');
     });
@@ -94,18 +85,18 @@ Route::group(['middleware' => ['satker']], function () {
     });
     Route::get('tambah/inovatif', function () {
         $triwulan = cekCurrentTriwulan();
-       $iku = \App\Iku::where('satker','=',Auth::user()->id)
-                ->where('tahun','=',date('Y'))
-                ->where('daftarindikator_id','=','3')
-                ->where('programbudaya_id','=','3')
-                ->where('inovatif_triwulan',$triwulan['current']['triwulan'])
-                ->first();
-       if (count($iku) > 0) {
-        return view('inovatif.ubah', compact('iku'));
-    }else{
-      return view('inovatif.tambah');
-    }
-    });
+        $iku = \App\Iku::where('satker','=',Auth::user()->id)
+        ->where('tahun','=',date('Y'))
+        ->where('daftarindikator_id','=','3')
+        ->where('programbudaya_id','=','3')
+        ->where('inovatif_triwulan',$triwulan['current']['triwulan'])
+        ->first();
+        if (count($iku) > 0) {
+            return view('inovatif.ubah', compact('iku'));
+        }else{
+          return view('inovatif.tambah');
+      }
+  });
     // Route::get('ubah/inovatif', function () {
         // return view('inovatif.ubah');
     // });
@@ -120,14 +111,6 @@ Route::group(['middleware' => ['satker']], function () {
 
     //MONITORING
     Route::get('monitoring-anggaran', ['as' => 'monitoring-anggaran.index', 'uses' => 'AnggaranController@index']);
-
-    Route::get('rekap-monitoring', function () {
-        return view('monitoring.rekap');
-    });
-    Route::get('hasil-monitoring', function () {
-        return view('monitoring.hasil');
-    });
-
 
     Route::get('ubah-anggaran', ['as' => 'monitoring-anggaran.ubah', 'uses' => 'AnggaranController@ubah']);
     Route::post('ubah-anggaran-total', ['as' => 'monitoring-anggaran.ubah.total', 'uses' => 'AnggaranController@ubahTotal']);
@@ -162,6 +145,24 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::post('proses-internal','InputTambahanController@prosesinternal');
     Route::post('proses-eksternal','InputTambahanController@proseseksternal');
     //TUTUP INPUT TAMBAHAN
+
+    Route::get('rekap-assessment', function () {
+        return view('assesment.rekap');
+    });
+    Route::get('hasil-assessment', function () {
+        return view('assesment.hasil');
+    });
+    Route::get('rekap-budaya', function () {
+        return view('assesment.rekap-budaya');
+    });
+
+    Route::get('rekap-monitoring', function () {
+        return view('monitoring.rekap');
+    });
+    Route::get('hasil-monitoring', function () {
+        return view('monitoring.hasil');
+    });
+
 
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
@@ -271,6 +272,6 @@ Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampira
 
 
 //TOKEN
-    Route::get('auth/verify', ['as' => 'auth/verify', 'uses' => 'TokenController@verify']);
-    Route::get('auth/gen', ['as' => 'auth/gen', 'uses' => 'TokenController@gen']);
+Route::get('auth/verify', ['as' => 'auth/verify', 'uses' => 'TokenController@verify']);
+Route::get('auth/gen', ['as' => 'auth/gen', 'uses' => 'TokenController@gen']);
 
