@@ -420,6 +420,7 @@ class PengaturanController extends Controller
                             '#' . $persentase->triwulan
                 )->first();
         $iku->keterangan = $r->keterangan4;
+        $iku->tipe = $r->input_tipe4;
         $iku->save();
 
         $persentase->nilai = $r->persen4;

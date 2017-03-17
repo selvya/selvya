@@ -423,6 +423,7 @@ class SelfAssesmentController extends Controller {
         ->where('anggaran_tahun_id', $anggaranN->id)
         ->get();
 
+        // $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
         $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
         
         for ($i=1; $i <= 4 ; $i++) { 
