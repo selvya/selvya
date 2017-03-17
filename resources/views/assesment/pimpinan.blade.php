@@ -40,7 +40,7 @@
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered">
+                {{-- <form id="clickable-wizard" action="page_forms_wizard.html" method="post" class="form-horizontal form-bordered"> --}}
 
                     <!-- Third Step -->
                     <div id="clickable-third" class="step">
@@ -101,7 +101,7 @@
                                 @endphp
                                 
 
-                                <form class="form-horizontal" method="" action="">
+                                <form class="form-horizontal" method="POST" action="">
                                     
                                     @if($iku->tipe == 'parameterized')
                                         <div class="form-group">
