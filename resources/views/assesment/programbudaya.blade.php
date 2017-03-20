@@ -228,13 +228,15 @@ $rep = null;
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Nama Program </label>
                                         <div class="col-md-9">
-                                            <h4>Ojk Peduli</h4>
+                                            <!-- <h4>Ojk Peduli</h4> -->
+                                            <input type="text" name="peduli_program" class="form-control" placeholder="Nama Program" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Deskripsi</label>
                                         <div class="col-md-9">
-                                            <h4>{{$peduli->keterangan}}</h4>
+                                            <!-- <h4>{{$peduli->keterangan}}</h4> -->
+                                            <input type="text" name="deskripsi_program" placeholder="Deskripsi Program" class="form-control">
                                         </div>
                                     </div>
 
@@ -266,7 +268,7 @@ $rep = null;
                                         @else
                                         <?php 
 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('id','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -408,10 +410,10 @@ $rep = null;
                                         <div class="col-md-9">
                                             <table class="table">
                                                 <tr id="field4">
-                                                    <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" required></td>
-                                                    <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" required></td>
-                                                    <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_inovatif[]" title="Masukan nomer handphone" class="form-control" placeholder="No Telp" required></td>
+                                                    <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" ></td>
+                                                    <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" ></td>
+                                                    <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" ></td>
+                                                    <td><input type="text" name="telp_stake_inovatif[]" title="Masukan nomer handphone" class="form-control" placeholder="No Telp"></td>
                                                     <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -428,7 +430,6 @@ $rep = null;
                             <!-- CLOSE OJK INOVATIF -->
                         </div>
                         <!-- CLOSE CONTAINER -->
-                        <!-- CLOSE ACCORDION -->
                     </div>
                     <!-- END First Step -->
 
@@ -503,15 +504,15 @@ $rep = null;
     function tambah_INO(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control" required>'+
+            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control" required>'+
+            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control">'+
             '<td>'+
-            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control" required>'+
+            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" title="Masukan nomer handphone" class="form-control" required>'+
+            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" title="Masukan nomer handphone" class="form-control">'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
