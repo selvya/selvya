@@ -776,7 +776,7 @@ class PengaturanController extends Controller
         if ($r->kuantitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#kuantitas'
+                'name' => $iku->namaprogram . '#kuantitas (Frekuensi & Partisipasi)'
             ],['tipe' => $tipe_1,
                 'active' => '1']);
 
@@ -792,7 +792,7 @@ class PengaturanController extends Controller
         }else{
 			$alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#kuantitas'
+                'name' => $iku->namaprogram . '#kuantitas (Frekuensi & Partisipasi)'
             ],['tipe' => $tipe_1,
                 'active' => '0']);
 		}
@@ -800,7 +800,7 @@ class PengaturanController extends Controller
         if ($r->kualitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#kualitas'
+                'name' => $iku->namaprogram . '#kualitas (Survei)'
             ],['tipe' => $tipe_2,
                 'active' => '1']);
 

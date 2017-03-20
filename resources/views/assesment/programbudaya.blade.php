@@ -381,7 +381,7 @@ $rep = null;
                                         @if($v->tipe == 'iku')
                                         @if($inovatif->tipe == 'parameterized')
                                         <?php 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -439,7 +439,7 @@ $rep = null;
                             {{csrf_field()}}
                             <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
                             <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
-                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
+                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Simpan" @if($reportall->last()->hasil >  0) onclick="return confirm('Apa anda yakin ingin menyimpan data ini ? data yang sebelumnya akan di update dengan data yg anda masukan saat ini');" @endif>
                         </div>
                     </div>
                     <!-- END Form Buttons -->
