@@ -183,7 +183,7 @@ function hitungNilaiSerapan($tahun, $triwulan, $satker_id)
     $anggaranTahun = \App\AnggaranTahun::where('user_id', $satker_id)
                     ->where('tahun', $tahun)
                     ->first();
-
+    
     $totalAnggaran = $anggaranTahun->total_anggaran;
 
     $realisasi = 0;

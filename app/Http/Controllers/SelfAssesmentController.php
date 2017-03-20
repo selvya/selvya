@@ -358,7 +358,29 @@ class SelfAssesmentController extends Controller {
         ->where('tahun',date('Y'))
         ->where('daftarindikator_id','3')
         ->where('user_id',Auth::user()->id)
-        ->get();  
+        ->get();
+
+        $satker = getSatker();
+        // dd($satker);
+        $anggaranN = AnggaranTahun::updateOrCreate([
+            'user_id' => $satker, 'tahun' => date('Y')
+        ]);
+
+        for ($i=1; $i <= 4 ; $i++) { 
+            $anggaranTriwulanN[$i] = AnggaranTriwulan::updateOrCreate([
+                'user_id' => $satker,
+                'anggaran_tahun_id' => $anggaranN->id,
+                'triwulan' => $i
+            ]);
+
+            $reportAssesmentN[$i] = ReportAssessment::updateOrCreate([
+                'daftarindikator_id' => 2,
+                'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
+                'triwulan' => $i,
+                'tahun' => date('Y'),
+                'user_id' => $satker
+            ]);
+        }
 
         return view('assesment.programbudaya', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan','anggaran','pimpinan','pelaporan','reportall'));
     }
