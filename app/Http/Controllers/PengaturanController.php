@@ -19,6 +19,7 @@ class PengaturanController extends Controller
     //
     public function index(Request $r) {
         
+$k = 0;
         $tahun = date('Y');
         if (null != $r->tahun AND $r->tahun != '') {
             $tahun = $r->tahun;
@@ -43,6 +44,8 @@ class PengaturanController extends Controller
     }
 
     public function getPersentaseAjax($hashid) {
+
+$k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -81,10 +84,10 @@ class PengaturanController extends Controller
 
             if (count($alatUkur->definisi) < 6)  {
 
-                for ($i=0; $i < 6; $i++) { 
+                for ($i=0; $i < 6; $i++) { $k = $i+1; 
                     $definisiNilai[$i] = DefinisiNilai::create([
                         'iku_id' => $iku->id,
-                        'alatukur_id' => $alatUkur->id,
+                        'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
                         'deskripsi' => ($persentase->daftarindikator_id == 2) ? 0 : null,
                         'triwulan' => $persentase->triwulan,
                         'tahun' => $persentase->tahun
@@ -103,6 +106,7 @@ class PengaturanController extends Controller
 
 
     public function getPersentaseAjax3($hashid) {
+$k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -180,11 +184,11 @@ class PengaturanController extends Controller
 
         $definisiNilai1_1 = $alatUkur1_1->definisi;
 //        if (count($definisiNilai1_1) == 0) {
-//            for ($i=0; $i < 6; $i++) {
+//            for ($i=0; $i < 6; $i++) { $k = $i+1;
 //                $definisiNilai1_1[$i] = DefinisiNilai::create([
 //                    'iku_id' => $iku1->id,
 //                    'alatukur_id' => $alatUkur1_1->id,
-//                    'deskripsi' => null,
+//                    'deskripsi' => null,'skala_nilai' => $k,
 //                    'triwulan' => $persentase->triwulan,
 //                    'tahun' => $persentase->tahun
 //                ]);
@@ -193,10 +197,10 @@ class PengaturanController extends Controller
         
         $definisiNilai1_2 = $alatUkur1_2->definisi;
 //        if (count($definisiNilai1_2) == 0) {
-//            for ($i=0; $i < 6; $i++) {
+//            for ($i=0; $i < 6; $i++) { $k = $i+1;
 //                $definisiNilai1_2[$i] = DefinisiNilai::create([
 //                    'iku_id' => $iku1->id,
-//                    'alatukur_id' => $alatUkur1_2->id,
+//                    'alatukur_id' => $alatUkur1_2->id,'skala_nilai' => $k,
 //                    'deskripsi' => null,
 //                    'triwulan' => $persentase->triwulan,
 //                    'tahun' => $persentase->tahun
@@ -211,7 +215,7 @@ class PengaturanController extends Controller
                 // $definisiNilai2[$i] = DefinisiNilai::create([
                     // 'iku_id' => $iku2->id,
                     // 'alatukur_id' => $alatUkur2->id,
-                    // 'deskripsi' => null,
+                    // 'deskripsi' => null,'skala_nilai' => $k,
                     // 'triwulan' => $persentase->triwulan,
                     // 'tahun' => $persentase->tahun
                 // ]);
@@ -222,7 +226,7 @@ class PengaturanController extends Controller
             // for ($i=0; $i < 6 ; $i++) { 
                 // $definisiNilai2[$i] = DefinisiNilai::create([
                     // 'iku_id' => $iku2->id,
-                    // 'alatukur_id' => $alatUkur2->id,
+                    // 'alatukur_id' => $alatUkur2->id,'skala_nilai' => $k,
                     // 'deskripsi' => null,
                     // 'triwulan' => $persentase->triwulan,
                     // 'tahun' => $persentase->tahun
@@ -235,7 +239,7 @@ class PengaturanController extends Controller
             for ($i=0; $i < 6 ; $i++) { 
                 $definisiNilai2[$i] = DefinisiNilai::create([
                     'iku_id' => $iku3->id,
-                    'alatukur_id' => $alatUkur3->id,
+                    'alatukur_id' => $alatUkur3->id,'skala_nilai' => $k,
                     'deskripsi' => null,
                     'triwulan' => $persentase->triwulan,
                     'tahun' => $persentase->tahun
@@ -603,6 +607,7 @@ class PengaturanController extends Controller
 
     public function persentaseEdit3_1(Request $r) {
 
+$k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -657,10 +662,10 @@ class PengaturanController extends Controller
             ],['tipe' => $tipe_1,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { 
+            for ($i=0; $i < 6; $i++) { $k = $i+1; 
                 $definisiNilai1[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
-                    'alatukur_id' => $alatUkur->id,
+                    'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
                     'deskripsi' => request('mindikator_' . ($i+1)),
                     'triwulan' => $persentase->triwulan,
                     'tahun' => $persentase->tahun
@@ -681,10 +686,10 @@ class PengaturanController extends Controller
             ],['tipe' => $tipe_2,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { 
+            for ($i=0; $i < 6; $i++) { $k = $i+1; 
                 $definisiNilai2[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
-                    'alatukur_id' => $alatUkur->id,
+                    'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
                     'deskripsi' => request('sindikator_' . ($i+1)),
                     'triwulan' => $persentase->triwulan,
                     'tahun' => $persentase->tahun
@@ -707,6 +712,7 @@ class PengaturanController extends Controller
 
     public function persentaseEdit3_2(Request $r) {
 
+$k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -759,10 +765,10 @@ class PengaturanController extends Controller
                 // 'name' => $iku->namaprogram
             // ]);
 
-            // for ($i=0; $i < 6; $i++) {
+            // for ($i=0; $i < 6; $i++) { $k = $i+1;
                 // $definisiNilai2[$i] = DefinisiNilai::create([
                     // 'iku_id' => $iku->id,
-                    // 'alatukur_id' => $alatUkur->id,
+                    // 'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
                     // 'deskripsi' => request('pindikator_' . ($i+1)),
                     // 'triwulan' => $persentase->triwulan,
                     // 'tahun' => $persentase->tahun
@@ -776,13 +782,13 @@ class PengaturanController extends Controller
         if ($r->kuantitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#kuantitas'
+                'name' => $iku->namaprogram . '#kuantitas (Frekuensi & Partisipasi)'
             ],['tipe' => $tipe_1,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { 
+            for ($i=0; $i < 6; $i++) { $k = $i+1; 
                 $definisiNilai1[$i] = DefinisiNilai::create([
-                    'iku_id' => $iku->id,
+                    'iku_id' => $iku->id,'skala_nilai' => $k,
                     'alatukur_id' => $alatUkur->id,
                     'deskripsi' => request('kuantitasindikator_' . ($i+1)),
                     'triwulan' => $persentase->triwulan,
@@ -792,7 +798,7 @@ class PengaturanController extends Controller
         }else{
 			$alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#kuantitas'
+                'name' => $iku->namaprogram . '#kuantitas (Frekuensi & Partisipasi)'
             ],['tipe' => $tipe_1,
                 'active' => '0']);
 		}
@@ -800,14 +806,14 @@ class PengaturanController extends Controller
         if ($r->kualitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#kualitas'
+                'name' => $iku->namaprogram . '#kualitas (Survei)'
             ],['tipe' => $tipe_2,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { 
+            for ($i=0; $i < 6; $i++) { $k = $i+1; 
                 $definisiNilai2[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
-                    'alatukur_id' => $alatUkur->id,
+                    'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
                     'deskripsi' => request('kualitasindikator_' . ($i+1)),
                     'triwulan' => $persentase->triwulan,
                     'tahun' => $persentase->tahun
@@ -816,7 +822,7 @@ class PengaturanController extends Controller
         }else{ 
 			$alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
-                'name' => $iku->namaprogram . '#kualitas'
+                'name' => $iku->namaprogram . '#kualitas (Survei)'
             ],['tipe' => $tipe_2,
                 'active' => '0']);
 		}
@@ -828,6 +834,7 @@ class PengaturanController extends Controller
 
     public function persentaseEdit3_3(Request $r) {
 
+$k = 0;
         $response = [
             'status' => false,
             'data' => [],
