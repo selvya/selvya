@@ -38,7 +38,10 @@
 			background-color: transparent;
 			border:none;
 		}
-
+.pie-chart.easyPieChart{margin:0px!important;
+    float: left;
+    font-size: 16px;}
+.widget-content.text-right.animation-pullDown strong{margin-right:15px}
 	</style>
 
 	<div id="page-content">
@@ -55,17 +58,36 @@
 			</div>
 		</div>
 		<!-- Mini Top Stats Row -->
+		<?php 
+		$nilainya = \App\NilaiAkhir::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
+		$inovatif = \App\Iku::where('tahun',date('Y'))->where('programbudaya_id',3)->where('satker','!=',0)->where('inovatif_triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('satker')->count();
+		$satkernya = \App\User::where('level','satker')->count();
+		$ygudah = count($nilainya);
+		$persenudah = $ygudah/$satkernya*100;
+		$ygudahinov = count($inovatif);
+		$persenudahinov = $ygudahinov/$satkernya*100;
+		$ygblm = $satkernya-$ygudah;
+		$persenblm = $ygblm/$satkernya*100;
+		$ygblminov = $satkernya-$ygudahinov;
+		$persenblminov = $ygblminov/$satkernya*100;
+		if($persenudah > 49){	$color = 'green';}
+		else{
+			$color = 'red';
+		}
+		if($persenudahinov > 49){	$colorinov = 'green';}
+		else{
+			$colorinov = 'red';
+		}
+		?>
 		<div class="row">
 			<div class="col-sm-6 col-lg-4">
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-autumn animation-fadeIn">
-							<i class="fa fa-child"></i>
-						</div>
+						<div class="pie-chart block-section" data-bar-color="{{$color}}" data-percent="{{$persenudah}}" data-size="63"><span><b>{{$ygudah}}</b></span></div>
 						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Satker</strong><br>
-							<small>Submit Assessment</small>
+						{{$ygudah}} <strong>Satker</strong><br>
+							<small>Sudah Submit Assessment</small>
 						</h3>
 					</div>
 				</a>
@@ -75,11 +97,9 @@
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-spring animation-fadeIn">
-							<i class="fa fa-group"></i>
-						</div>
+						<div class="pie-chart block-section" data-bar-color="{{$color}}" data-percent="{{$persenblm}}" data-size="63"><span><b>{{$ygblm}}</b></span></div>
 						<h3 class="widget-content text-right animation-pullDown">
-							50 <strong>Satker</strong><br>
+						{{$ygblm}} <strong>Satker</strong><br>
 							<small>Belum Submit Assessment</small>
 						</h3>
 					</div>
@@ -90,11 +110,9 @@
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-fire animation-fadeIn">
-							<i class="fa fa-envelope"></i>
-						</div>
+						<div class="pie-chart block-section" data-bar-color="{{$colorinov}}" data-percent="{{$persenudahinov}}" data-size="63"><span><b>{{$ygudahinov}}</b></span></div>
 						<h3 class="widget-content text-right animation-pullDown">
-							5 <strong>Satker</strong>
+							{{$ygudahinov}} <strong>Satker</strong>
 							<small>Sudah di Monitor</small>
 						</h3>
 					</div>
@@ -120,12 +138,10 @@
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-amethyst animation-fadeIn">
-							<i class="fa fa-tags"></i>
-						</div>
+						<div class="pie-chart block-section" data-bar-color="{{$colorinov}}" data-percent="{{$persenudahinov}}" data-size="63"><span><b>{{$ygudahinov}}</b></span></div>
 						<h3 class="widget-content text-right animation-pullDown">
-							30 <strong>OJK Inovatif Finalisasi</strong>
-							<!-- <small>Belum </small> -->
+							{{$ygudahinov}} <strong>Satker</strong>
+							<small>Sudah Finalisasi OJK Inovatif</small>
 						</h3>
 					</div>
 				</a>
@@ -135,12 +151,10 @@
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-amethyst animation-fadeIn">
-							<i class="fa fa-dollar"></i>
-						</div>
+						<div class="pie-chart block-section" data-bar-color="{{$colorinov}}" data-percent="{{$persenblminov}}" data-size="63"><span><b>{{$ygblminov}}</b></span></div>
 						<h3 class="widget-content text-right animation-pullDown">
-							30 <strong>Penetapan Anggaran Total</strong>
-							<!-- <small>Belum </small> -->
+							{{$ygblminov}} <strong>Satker</strong>
+							<small>Belum Finalisasi OJK Inovatif</small>
 						</h3>
 					</div>
 				</a>
@@ -240,7 +254,7 @@
 					['IE', 37.3]
 					]
 				}]
-			});
+			});$(".pie-chart").easyPieChart({barColor:$(this).data("bar-color")?$(this).data("bar-color"):"#777777",trackColor:$(this).data("track-color")?$(this).data("track-color"):"#eeeeee",lineWidth:$(this).data("line-width")?$(this).data("line-width"):3,size:$(this).data("size")?$(this).data("size"):"80",animate:800,scaleColor:!1});
 		</script>
 		<!-- TUTUP CHART PIE -->
 		@endsection
