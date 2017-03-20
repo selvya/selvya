@@ -17,6 +17,7 @@
 </style>
 
 @php
+$triwulan = cekCurrentTriwulan();
 $rep = \App\ReportAssessment::where('tahun', date('Y'))
 ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
 ->where('daftarindikator_id', 1)
@@ -148,7 +149,10 @@ $rep = null;
 
                                         @if($v->tipe == 'manual')
                                         <!-- MANUAL -->
-                                        <?php $definisi_manual_melayani = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->first();?>
+                                        <?php 
+                                        
+                                        $definisi_manual_melayani = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->first();
+                                        ?>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
@@ -268,7 +272,7 @@ $rep = null;
                                         @else
                                         <?php 
 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('id','DESC')->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan)->orderBy('id','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -380,8 +384,10 @@ $rep = null;
                                     <div class="">
                                         @if($v->tipe == 'iku')
                                         @if($inovatif->tipe == 'parameterized')
-                                        <?php 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+                                        <?php                                       
+
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan)->orderBy('skala_nilai','DESC')->get();
+
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">

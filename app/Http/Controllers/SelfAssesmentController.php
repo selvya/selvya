@@ -296,22 +296,10 @@ class SelfAssesmentController extends Controller {
 
 
         $peduli = Iku::where('tahun',date('Y'))
-        ->where(
-            'namaprogram',
-            'pelaksanaan_program_budaya' . 
-            '#' . date('Y') .
-            '#' . $triwulan['current']['triwulan'] .
-            '#ojk_peduli'
-            )->first();
+        ->where('namaprogram','pelaksanaan_program_budaya#' . date('Y') .'#' . $triwulan['current']['triwulan'] .'#ojk_peduli')->first();
 
         $melayani = Iku::where('tahun',date('Y'))
-        ->where(
-            'namaprogram',
-            'pelaksanaan_program_budaya' .
-            '#' . date('Y') .
-            '#' . $triwulan['current']['triwulan'] .
-            '#ojk_melayani'
-            )->first();
+        ->where('namaprogram','pelaksanaan_program_budaya#' . date('Y') .'#' . $triwulan['current']['triwulan'] .'#ojk_melayani')->first();
 
         if (($peduli == null) || ($inovatif == null) || ($melayani == null)) {
             return redirect()->back()->with('warning', 'Data masih belum di masukan oleh admin');
@@ -359,9 +347,31 @@ class SelfAssesmentController extends Controller {
         ->where('tahun',date('Y'))
         ->where('daftarindikator_id','3')
         ->where('user_id',Auth::user()->id)
-        ->get();  
+        ->get();
 
-        return view('assesment.programbudaya', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan','anggaran','pimpinan','pelaporan','reportall'));
+        $satker = getSatker();
+        // dd($satker);
+        $anggaranN = AnggaranTahun::updateOrCreate([
+            'user_id' => $satker, 'tahun' => date('Y')
+        ]);
+
+        for ($i=1; $i <= 4 ; $i++) { 
+            $anggaranTriwulanN[$i] = AnggaranTriwulan::updateOrCreate([
+                'user_id' => $satker,
+                'anggaran_tahun_id' => $anggaranN->id,
+                'triwulan' => $i
+            ]);
+
+            $reportAssesmentN[$i] = ReportAssessment::updateOrCreate([
+                'daftarindikator_id' => 2,
+                'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
+                'triwulan' => $i,
+                'tahun' => date('Y'),
+                'user_id' => $satker
+            ]);
+        }
+
+        return view('assesment.programbudaya', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','anggaran','pimpinan','pelaporan','reportall'));
     }
 
     public function serapananggaran($id)
