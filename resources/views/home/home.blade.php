@@ -56,13 +56,8 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- END Mini Top Stats Row -->
-		<!-- END Dashboard 2 Header -->
-
-		<!-- Dashboard 2 Content -->
 		<div class="row">
-			<div class="col-md-6"><div class="row"><?php $ssks = \App\NilaiAkhir::where('user_id',Auth::user()->id)->where('tahun',date('Y'))->orderBy('triwulan')->get(); ?>
+			<div class="col-md-6"><div class="row"><?php $ssks = \App\NilaiAkhir::where('user_id',Auth::user()->id)->where('tahun',date('Y'))->orderBy('triwulan')->get();$x = count($ssks); ?>
 		@foreach($ssks as $nilaiakhir)
 		<?php
 		if($nilaiakhir->nilai > 69)
@@ -102,6 +97,38 @@ switch ($nilaiakhir->triwulan) {
 				</a>
 			</div>
 		@endforeach
+		<?php $x++;
+		while($x < 5) {?>
+		
+			
+			<div class="col-sm-12 col-lg-6">
+				<a href="" class="widget widget-hover-effect1">
+					<div class="widget-simple">
+						<div class="pie-chart block-section" data-bar-color="blue" data-percent="0" data-size="50"><span><b>0</b></span></div>
+						<h3 class="widget-content text-right animation-pullDown">
+							 <strong style="color:blue">Triwulan @php
+switch ($x) {
+    case 4:
+        echo 'IV';
+        break; 
+	case 2:
+        echo 'II';
+        break; 
+	case 3:
+        echo 'III';
+        break; 
+    default:
+        echo 'I';
+        break; 
+}
+@endphp
+				</strong>
+						</h3>
+					</div>
+				</a>
+			</div><?php
+			$x++;
+		}?>
 		</div>
 				<div class="block">
 					<p>
