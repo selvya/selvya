@@ -296,22 +296,10 @@ class SelfAssesmentController extends Controller {
 
 
         $peduli = Iku::where('tahun',date('Y'))
-        ->where(
-            'namaprogram',
-            'pelaksanaan_program_budaya' . 
-            '#' . date('Y') .
-            '#' . $triwulan['current']['triwulan'] .
-            '#ojk_peduli'
-            )->first();
+        ->where('namaprogram','pelaksanaan_program_budaya#' . date('Y') .'#' . $triwulan['current']['triwulan'] .'#ojk_peduli')->first();
 
         $melayani = Iku::where('tahun',date('Y'))
-        ->where(
-            'namaprogram',
-            'pelaksanaan_program_budaya' .
-            '#' . date('Y') .
-            '#' . $triwulan['current']['triwulan'] .
-            '#ojk_melayani'
-            )->first();
+        ->where('namaprogram','pelaksanaan_program_budaya#' . date('Y') .'#' . $triwulan['current']['triwulan'] .'#ojk_melayani')->first();
 
         if (($peduli == null) || ($inovatif == null) || ($melayani == null)) {
             return redirect()->back()->with('warning', 'Data masih belum di masukan oleh admin');
@@ -383,7 +371,7 @@ class SelfAssesmentController extends Controller {
             ]);
         }
 
-        return view('assesment.programbudaya', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','triwulan','anggaran','pimpinan','pelaporan','reportall'));
+        return view('assesment.programbudaya', compact('peduli','melayani','inovatif','alatino','alatpeduli','alatmelayani','persen','anggaran','pimpinan','pelaporan','reportall'));
     }
 
     public function serapananggaran($id)

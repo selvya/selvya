@@ -21,7 +21,7 @@ function getBatasTanggalPelaporan($tahun = null, $triwulan = 1) {
 
 function cekCurrentTriwulan()
 {
-    $rv = [];
+$rv = [];
     $triwulan = \App\TanggalLaporan::where('tahun', date('Y'))
                 ->get();
     if ($triwulan) {
