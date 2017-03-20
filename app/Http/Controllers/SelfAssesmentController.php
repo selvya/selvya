@@ -639,7 +639,7 @@ class SelfAssesmentController extends Controller {
             $iku_id_peduli     = $r->iku_id_peduli_manual[$ped];
             $alat_id_peduli    = $r->alatukur_id_peduli_manual[$ped];
             $nilai_peduli      = $r->nilai_manual_peduli[$ped];
-            $def_id_peduli     = $r->def_manual_peduli[$ped];
+            $def_id_peduli     = $r->def_peduli_manual[$ped];
 
             $isialat[$ped] = SelfAssesment::updateOrCreate(
                 [

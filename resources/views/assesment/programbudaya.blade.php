@@ -200,7 +200,7 @@ $rep = null;
                                                     </td>
                                                     <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email" required></td>
                                                     <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_melayani[]" class="form-control" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" required></td>
+                                                    <td><input type="text" name="telp_stake_melayani[]" class="form-control" title="Masukan nomer handphone" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -299,7 +299,7 @@ $rep = null;
                                                     </td>
                                                     <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email" required></td>
                                                     <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" required></td>
+                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" title="Masukan nomer handphone" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -379,7 +379,7 @@ $rep = null;
                                         @if($v->tipe == 'iku')
                                         @if($inovatif->tipe == 'parameterized')
                                         <?php 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -411,7 +411,7 @@ $rep = null;
                                                     <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" required></td>
                                                     <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" required></td>
                                                     <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_inovatif[]" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" placeholder="No Telp" required></td>
+                                                    <td><input type="text" name="telp_stake_inovatif[]" title="Masukan nomer handphone" class="form-control" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -467,7 +467,7 @@ $rep = null;
             '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" required>'+
+            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" title="Masukan nomer handphone" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -489,7 +489,7 @@ $rep = null;
             '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_peduli[]" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" class="form-control" required>'+
+            '<input type="text" name="telp_stake_peduli[]" title="Masukan nomer handphone" placeholder="No Telp" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -511,7 +511,7 @@ $rep = null;
             '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" required>'+
+            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" title="Masukan nomer handphone" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -521,7 +521,8 @@ $rep = null;
             $(this).closest("tr").remove();
         });
     }
-
+</script>
+<script type="text/javascript">
     $('.numberbox').keyup(function(){
       if ($(this).val() > 6){
         alert("Maksimum nilai yang dimasukan adalah 6");
