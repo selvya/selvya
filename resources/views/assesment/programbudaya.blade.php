@@ -271,8 +271,7 @@ $rep = null;
                                         <!-- TUTUP MANUAL -->
                                         @else
                                         <?php 
-
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan)->orderBy('id','DESC')->get();
+                                        $definisi = \App\DefinisiNilai::where('iku_id', $v->iku_id)->where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('id','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -386,7 +385,7 @@ $rep = null;
                                         @if($inovatif->tipe == 'parameterized')
                                         <?php                                       
 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan)->orderBy('skala_nilai','DESC')->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
 
                                         ?>
                                         <!-- PARAMETERIZE -->
