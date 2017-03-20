@@ -10,23 +10,23 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
-     .red{background: #e74c3c;}
-     .red > a:hover{background: #e74c3c;}
-     .hijau{background: #1abc9c!important;}
-     .hijau >a:hover{background: #1abc9c!important;}
+    .red{background: #e74c3c;}
+    .red > a:hover{background: #e74c3c;}
+    .hijau{background: #1abc9c!important;}
+    .hijau >a:hover{background: #1abc9c!important;}
 </style>
 
 @php
-    $rep = \App\ReportAssessment::where('tahun', date('Y'))
-            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-            ->where('daftarindikator_id', 1)
-            ->where('user_id', getSatker())
-            ->first();
-    if (count($rep) > 0) {
-        $rep = \Carbon\Carbon::parse($rep->updated_at);
-    }else{
-        $rep = null;
-    }
+$rep = \App\ReportAssessment::where('tahun', date('Y'))
+->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+->where('daftarindikator_id', 1)
+->where('user_id', getSatker())
+->first();
+if (count($rep) > 0) {
+$rep = \Carbon\Carbon::parse($rep->updated_at);
+}else{
+$rep = null;
+}
 @endphp
 
 
@@ -80,9 +80,9 @@
                                     @if($anggaran != null)
                                     <li>
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            
+
                                             @php
-                                                $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+                                            $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
                                             @endphp
                                             Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                         </a>
@@ -148,20 +148,21 @@
 
                                         @if($v->tipe == 'manual')
                                         <!-- MANUAL -->
-
+                                        <?php $definisi_manual_melayani = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->first();?>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_melayani" min="0" max="6" step="0.01" class="form-control" required>
-                                                <input type="hidden" name="alatukur_id_melayani_manual" value="{{$v->id}}">
-                                                <input type="hidden" name="iku_id_melayani_manual" value="{{$v->iku_id}}"> 
+                                                <input type="number" name="nilai_manual_melayani[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
+                                                <input type="hidden" name="alatukur_id_melayani_manual[]" value="{{$v->id}}">
+                                                <input type="hidden" name="iku_id_melayani_manual[]" value="{{$v->iku_id}}">
+                                                <input type="hidden" name="def_id_melayani_manual[]" value="{{$definisi_manual_melayani->id}}">
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
 
                                         @elseif($v->tipe == 'parameterized')
                                         <?php 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -199,7 +200,7 @@
                                                     </td>
                                                     <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email" required></td>
                                                     <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_melayani[]" class="form-control" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" required></td>
+                                                    <td><input type="text" name="telp_stake_melayani[]" class="form-control" title="Masukan nomer handphone" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -227,13 +228,15 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Nama Program </label>
                                         <div class="col-md-9">
-                                            <h4>Ojk Peduli</h4>
+                                            <!-- <h4>Ojk Peduli</h4> -->
+                                            <input type="text" name="peduli_program" class="form-control" placeholder="Nama Program" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Deskripsi</label>
                                         <div class="col-md-9">
-                                            <h4>{{$peduli->keterangan}}</h4>
+                                            <!-- <h4>{{$peduli->keterangan}}</h4> -->
+                                            <input type="text" name="deskripsi_program" placeholder="Deskripsi Program" class="form-control">
                                         </div>
                                     </div>
 
@@ -251,20 +254,21 @@
                                         
                                         @if($v->tipe == 'manual')
                                         <!-- MANUAL -->
-
+                                        <?php $definisi_manual_peduli = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->first();?>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_peduli" min="0" max="6" step="0.01" class="form-control" required>
-                                                <input type="hidden" name="alatukur_id_peduli_manual" value="{{$v->id}}">
-                                                <input type="hidden" name="iku_id_peduli_manual" value="{{$v->iku_id}}"> 
+                                                <input type="number" name="nilai_manual_peduli[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
+                                                <input type="hidden" name="alatukur_id_peduli_manual[]" value="{{$v->id}}">
+                                                <input type="hidden" name="iku_id_peduli_manual[]" value="{{$v->iku_id}}"> 
+                                                <input type="hidden" name="def_peduli_manual[]" value="{{$definisi_manual_peduli->id}}"> 
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
                                         @else
                                         <?php 
 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('id','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -297,7 +301,7 @@
                                                     </td>
                                                     <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email" required></td>
                                                     <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" required></td>
+                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" title="Masukan nomer handphone" placeholder="No Telp" required></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -377,7 +381,7 @@
                                         @if($v->tipe == 'iku')
                                         @if($inovatif->tipe == 'parameterized')
                                         <?php 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -406,10 +410,10 @@
                                         <div class="col-md-9">
                                             <table class="table">
                                                 <tr id="field4">
-                                                    <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" required></td>
-                                                    <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" required></td>
-                                                    <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_inovatif[]" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" placeholder="No Telp" required></td>
+                                                    <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" ></td>
+                                                    <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" ></td>
+                                                    <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" ></td>
+                                                    <td><input type="text" name="telp_stake_inovatif[]" title="Masukan nomer handphone" class="form-control" placeholder="No Telp"></td>
                                                     <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
                                             </table>
@@ -426,7 +430,6 @@
                             <!-- CLOSE OJK INOVATIF -->
                         </div>
                         <!-- CLOSE CONTAINER -->
-                        <!-- CLOSE ACCORDION -->
                     </div>
                     <!-- END First Step -->
 
@@ -465,7 +468,7 @@
             '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" required>'+
+            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" title="Masukan nomer handphone" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -487,7 +490,7 @@
             '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control" required>'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_peduli[]" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" placeholder="No Telp" class="form-control" required>'+
+            '<input type="text" name="telp_stake_peduli[]" title="Masukan nomer handphone" placeholder="No Telp" class="form-control" required>'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -501,15 +504,15 @@
     function tambah_INO(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control" required>'+
+            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control" required>'+
+            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control">'+
             '<td>'+
-            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control" required>'+
+            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" pattern="[0-9]{12}" title="Masukan nomer handphone" maxlength="12" class="form-control" required>'+
+            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" title="Masukan nomer handphone" class="form-control">'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -519,5 +522,16 @@
             $(this).closest("tr").remove();
         });
     }
+</script>
+<script type="text/javascript">
+    $('.numberbox').keyup(function(){
+      if ($(this).val() > 6){
+        alert("Maksimum nilai yang dimasukan adalah 6");
+        $(this).val('6');
+    }else if ($(this).val() < 0){
+        alert("Minimum nilai yang dimasukan adalah 0");
+        $(this).val('0');
+    }
+});
 </script>
 @endsection

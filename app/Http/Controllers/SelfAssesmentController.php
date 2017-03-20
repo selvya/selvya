@@ -17,6 +17,7 @@ use \App\Persentase;
 use \App\DefinisiNilai;
 use \App\SelfAssesment;
 use \App\StakeHolder;
+use \App\ProgramBudaya;
 
 class SelfAssesmentController extends Controller {
     //
@@ -105,23 +106,23 @@ class SelfAssesmentController extends Controller {
     public function pimpinanSimpan(Request $r)
     {
         $persen = \App\Persentase::where('tahun', date('Y'))
-                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                    ->where('daftarindikator_id', 4)
-                    ->first();
+        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+        ->where('daftarindikator_id', 4)
+        ->first();
 
         $report = \App\ReportAssessment::updateOrCreate(
             [
-                'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
-                'tahun'              => date('Y'),
-                'daftarindikator_id' => '4',
-                'user_id'            => Auth::user()->id
-                
+            'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
+            'tahun'              => date('Y'),
+            'daftarindikator_id' => '4',
+            'user_id'            => Auth::user()->id
+
             ],
             [
-                'persentase' => $persen->nilai,
-                'nilai' => $r->nilai
+            'persentase' => $persen->nilai,
+            'nilai' => $r->nilai
             ]
-        );
+            );
 
         return redirect()->back();
     }
@@ -210,10 +211,10 @@ class SelfAssesmentController extends Controller {
             )->first();
 
         $rep = \App\ReportAssessment::where('tahun', date('Y'))
-                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                ->where('user_id', getSatker())
-                ->where('daftarindikator_id', 1)
-                ->first();
+        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+        ->where('user_id', getSatker())
+        ->where('daftarindikator_id', 1)
+        ->first();
 
         if (count($rep) > 0) {
             $rep = \Carbon\Carbon::parse($rep->updated_at);
@@ -226,17 +227,17 @@ class SelfAssesmentController extends Controller {
         $newRep = \App\ReportAssessment::updateOrCreate(
             [
 
-                'tahun' => date('Y'),
-                'triwulan' => cekCurrentTriwulan()['current']->triwulan,
-                'user_id' => getSatker(),
-                'daftarindikator_id' => 1,
+            'tahun' => date('Y'),
+            'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+            'user_id' => getSatker(),
+            'daftarindikator_id' => 1,
             ],
             [
-                'nilai' => $nilai,
-                'updated_at' => \Carbon\Carbon::now(),
-                'final_status' => 1
+            'nilai' => $nilai,
+            'updated_at' => \Carbon\Carbon::now(),
+            'final_status' => 1
             ]
-        );
+            );
         return redirect()->back();
     }
 
@@ -653,37 +654,34 @@ class SelfAssesmentController extends Controller {
     }
 
     if (null != $r->nilai_manual_peduli) {
-        $alatnyapeduli = $r->nilai_manual_peduli;
-        $definisi = DefinisiNilai::where('alatukur_id',$r->alatukur_id_peduli_manual)
-        ->where('iku_id', $r->iku_id_peduli_manual)
-        ->where('triwulan', $triwulan['current']['triwulan'])
-        ->where('tahun', date('Y'))
-        ->first();
+        $alatnyapeduli_man = count($r->nilai_manual_peduli);
 
-        $iku_id_peduli     = $r->iku_id_peduli_manual;
-        $alat_id_peduli    = $r->alatukur_id_peduli_manual;
-        $nilai_peduli      = $r->nilai_manual_peduli;
-        $def_id_peduli     = $definisi->id;
+        foreach ($r->nilai_manual_peduli as $ped => $op) {
 
-        $isialat = SelfAssesment::updateOrCreate(
-            [
-            'user_id'             => Auth::user()->id,
-            'tahun'               => date('Y'),
-            'triwulan'            => $triwulan['current']['triwulan'],
-            'alatukur_id'         => $alat_id_peduli
-            ],
-            [
-            'iku_id'              => $iku_id_peduli,
-            'definisinilai_id'    => $def_id_peduli,
-            'filelampiran'        => $r->file_melayani,
-            'reportassesment_id'  => $rid[0]
-            ]);
+            $iku_id_peduli     = $r->iku_id_peduli_manual[$ped];
+            $alat_id_peduli    = $r->alatukur_id_peduli_manual[$ped];
+            $nilai_peduli      = $r->nilai_manual_peduli[$ped];
+            $def_id_peduli     = $r->def_peduli_manual[$ped];
 
-        $nilaipeduli += $nilai_peduli;
+            $isialat[$ped] = SelfAssesment::updateOrCreate(
+                [
+                'user_id'             => Auth::user()->id,
+                'tahun'               => date('Y'),
+                'triwulan'            => $triwulan['current']['triwulan'],
+                'alatukur_id'         => $alat_id_peduli
+                ],
+                [
+                'iku_id'              => $iku_id_peduli,
+                'definisinilai_id'    => $def_id_peduli,
+                'filelampiran'        => $r->file_melayani,
+                'reportassesment_id'  => $rid[0]
+                ]);
 
+            $nilaipeduli += $nilai_peduli;
+        }
     }
     if(null != $r->alatukur_peduli){
-        // $alatnyapeduli = $r->alatukur_peduli;
+        $alatnyapeduli = $r->alatukur_peduli;
         // dd($r->alatukur_peduli);
         foreach($r->alatukur_peduli as $a => $data){
             $alatpeduli[$a] = collect(explode('#', $data));
@@ -709,47 +707,46 @@ class SelfAssesmentController extends Controller {
             $nilaipeduli += $nilaipedulinya[$a];
         }
     }
+    else{$alatnyapeduli = 0;}
 
+    // dd(request()->all());
 
     if ($r->nilai_manual_melayani != null) {
-        $alatnyamelayani = $r->nilai_manual_melayani;
+        $alatnyamelayani_man = count($r->nilai_manual_melayani);
 
-        $def = DefinisiNilai::where('alatukur_id',$r->alatukur_id_melayani_manual)
-        ->where('iku_id', $r->iku_id_melayani_manual)
-        ->where('triwulan', $triwulan['current']['triwulan'])
-        ->where('tahun', date('Y'))
-        ->first();
+        foreach($r->nilai_manual_melayani as $vnya => $datanya){
 
-        $iku_id_melayani             = $r->iku_id_melayani_manual;
-        $alat_id_melayani            = $r->alatukur_id_melayani_manual;
-        $nilai_melayani              = $r->nilai_manual_melayani;
-        $def_id_melayani             = $def->id;
+            $iku_id_melayani             = $r->iku_id_melayani_manual[$vnya];
+            $alat_id_melayani            = $r->alatukur_id_melayani_manual[$vnya];
+            $nilai_melayani              = $r->nilai_manual_melayani[$vnya];
+            $def_id_melayani             = $r->def_id_melayani_manual[$vnya];
 
-        $isialat = SelfAssesment::updateOrCreate(
-            [
-            'user_id'             => Auth::user()->id,
-            'tahun'               => date('Y'),
-            'triwulan'            => $triwulan['current']['triwulan'],
-            'alatukur_id'         => $alat_id_melayani
-            ],
-            [
-            'iku_id'              => $iku_id_melayani,
-            'definisinilai_id'    => $def_id_melayani,
-            'filelampiran'        => $r->file_melayani,
-            'reportassesment_id'  => $rid[0]
-            ]);
-
-        $nilaimelayani += $nilai_melayani;
+            $isialat[$vnya] = SelfAssesment::updateOrCreate(
+                [
+                'user_id'             => Auth::user()->id,
+                'tahun'               => date('Y'),
+                'triwulan'            => $triwulan['current']['triwulan'],
+                'alatukur_id'         => $alat_id_melayani
+                ],
+                [
+                'iku_id'              => $iku_id_melayani,
+                'definisinilai_id'    => $def_id_melayani,
+                'filelampiran'        => $r->file_melayani,
+                'reportassesment_id'  => $rid[0]
+                ]);
+            $nilaimelayani += $nilai_melayani;
+        }
     }
     if(null != $r->alatukur_melayani){
         $alatnyamelayani = $r->alatukur_melayani;
+
         foreach($r->alatukur_melayani as $k => $data){
-           $alatmelayani[$k] = explode('#', $data);
-           $iku_idmelayani[$k] = $alat[$k][0];
-           $alat_idmelayani[$k] = $alat[$k][1];
-           $defidmelayani[$k] = $alat[$k][2];
-           $nilaimelayaninya[$k] = $alat[$k][3];
-           $isialat[$k] = SelfAssesment::updateOrCreate(
+         $alatmelayani[$k] = explode('#', $data);
+         $iku_idmelayani[$k] = $alat[$k][0];
+         $alat_idmelayani[$k] = $alat[$k][1];
+         $defidmelayani[$k] = $alat[$k][2];
+         $nilaimelayaninya[$k] = $alat[$k][3];
+         $isialat[$k] = SelfAssesment::updateOrCreate(
             [
             'user_id'             => Auth::user()->id,
             'tahun'               => date('Y'),
@@ -762,90 +759,101 @@ class SelfAssesmentController extends Controller {
             'filelampiran'        => $r->file_melayani,
             'reportassesment_id'  => $rid[0]
             ]);
-           $nilaimelayani += $nilaimelayaninya[$k];
-       }
-   }
+         $nilaimelayani += $nilaimelayaninya[$k];
+     }
+ }
+ else{$alatnyamelayani = 0;}
 
 
-        // dd(request()->all());
+ $peduli = Iku::where('tahun',date('Y'))
+ ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
+ ->first();
 
-   $peduli = Iku::where('tahun',date('Y'))
-   ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_peduli')
-   ->first();
+ $melayani = Iku::where('tahun',date('Y'))
+ ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
+ ->first();
 
-   $melayani = Iku::where('tahun',date('Y'))
-   ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_melayani')
-   ->first();
-
-   $inovatif = Iku::where('tahun',date('Y'))
-   ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_inovatif')
-   ->first();
+ $inovatif = Iku::where('tahun',date('Y'))
+ ->where('namaprogram','pelaksanaan_program_budaya'.'#'.date('Y').'#'.$triwulan['current']['triwulan'].'#ojk_inovatif')
+ ->first();
 
 
         //STAKE HOLDER MELAYANI
-   foreach ($r->nama_stake_melayani as $q => $v) {
+ foreach ($r->nama_stake_melayani as $q => $v) {
     $isi_stake_melayani[$q] = StakeHolder::updateOrCreate([
                 // selfassesment_id di ambil dari data iku
-       'user_id'            => Auth::user()->id,
-       'nama'               => $v,
-       'selfassesment_id'   => $melayani->id,
-       'email'              => $r->email_stake_melayani[$q],
-       'instansi'           => $r->instansi_stake_melayani[$q],
-       'no_hp'              => $r->telp_stake_melayani[$q]
-       ]);
+     'user_id'            => Auth::user()->id,
+     'nama'               => $v,
+     'selfassesment_id'   => $melayani->id,
+     'email'              => $r->email_stake_melayani[$q],
+     'instansi'           => $r->instansi_stake_melayani[$q],
+     'no_hp'              => $r->telp_stake_melayani[$q]
+     ]);
 }
 
         //STAKE HOLDER PEDULI
 foreach ($r->nama_stake_peduli as $m => $l) {
     $isi_stake_peduli[$m] = StakeHolder::updateOrCreate([
                 // selfassesment_id di ambil dari data iku
-       'user_id'            => Auth::user()->id,
-       'nama'               => $l,
-       'selfassesment_id'   => $peduli->id,
-       'email'              => $r->email_stake_peduli[$m],
-       'instansi'           => $r->instansi_stake_peduli[$m],
-       'no_hp'              => $r->telp_stake_peduli[$m]
-       ]);
+     'user_id'            => Auth::user()->id,
+     'nama'               => $l,
+     'selfassesment_id'   => $peduli->id,
+     'email'              => $r->email_stake_peduli[$m],
+     'instansi'           => $r->instansi_stake_peduli[$m],
+     'no_hp'              => $r->telp_stake_peduli[$m]
+     ]);
 }
 
         //STAKE HOLDER PEDULI
 foreach ($r->nama_stake_inovatif as $u => $p) {
     $isi_stake_inovatif[$u] = StakeHolder::updateOrCreate([
                 // selfassesment_id di ambil dari data iku
-       'user_id'            => Auth::user()->id,
-       'nama'               => $p,
-       'selfassesment_id'   => $inovatif->id,
-       'email'              => $r->email_stake_inovatif[$u],
-       'instansi'           => $r->instansi_stake_inovatif[$u],
-       'no_hp'              => $r->telp_stake_inovatif[$u]
-       ]);
+     'user_id'            => Auth::user()->id,
+     'nama'               => $p,
+     'selfassesment_id'   => $inovatif->id,
+     'email'              => $r->email_stake_inovatif[$u],
+     'instansi'           => $r->instansi_stake_inovatif[$u],
+     'no_hp'              => $r->telp_stake_inovatif[$u]
+     ]);
 }
+
+$persenino = ProgramBudaya::where('id','3')->first();
+$persenmelayani = ProgramBudaya::where('id','1')->first();
+$persenpeduli = ProgramBudaya::where('id','2')->first();
 
 $persen = \App\Persentase::where('tahun',date('Y'))
 ->where('triwulan',$triwulan['current']['triwulan'])
 ->where('daftarindikator_id','3')->first();
 
-$hasilino = ($nilaiino/((6*count($r->alatukur_inovatif))))*($persen->nilai/100);
-$hasilpeduli = ($nilaipeduli/((6*count($alatnyapeduli))))*($persen->nilai/100);
-$hasilmelayani = ($nilaimelayani/((6*count($alatnyamelayani))))*($persen->nilai/100);
+if (null != $r->alatukur_peduli) {
+    $alatnyapeduli = count($r->alatukur_peduli);
+}
+if (null != $r->alatukur_melayani) {
+    $alatnyamelayani = count($r->alatukur_melayani);
+}
 
-$hasilakhirnya = (((($hasilino*100)+($hasilmelayani*100)+($hasilpeduli*100)))*($persen->nilai/100));
+$hasilino       = ($nilaiino/((6*count($r->alatukur_inovatif))))*($persenino->persentase_program/100);
+$hasilpeduli    = ($nilaipeduli/((6*($alatnyapeduli + $alatnyapeduli_man))))*($persenpeduli->persentase_program/100);
+$hasilmelayani  = ($nilaimelayani/((6*($alatnyamelayani + $alatnyamelayani_man))))*($persenmelayani->persentase_program/100);
 
-// dd($persen->nilai);
+$hasilakhirnya  = (((($hasilino*100)+($hasilmelayani*100)+($hasilpeduli*100)))*($persen->nilai/100));
+
+// dd($alatnyamelayani_man);
+
 
 
 $reportassess = ReportAssessment::where('tahun', date('Y'))
-                ->where('triwulan', $triwulan['current']['triwulan'])
-                ->where('daftarindikator_id', '3')
-                ->where('user_id', Auth::user()->id)
-                ->first();
+->where('triwulan', $triwulan['current']['triwulan'])
+->where('daftarindikator_id', '3')
+->where('user_id', Auth::user()->id)
+->first();
 if (count($reportassess) == 0) {
     $reportassess = new ReportAssessment;
 }
 
-$reportassess->nilai                    = round($hasilakhirnya/3);
+$reportassess->nilai                    = round($hasilakhirnya);
 $reportassess->persentase               = $persen->nilai;
-$reportassess->hasil                    = round($hasilakhirnya/3);
+$reportassess->hasil                    = round($hasilakhirnya);
 $reportassess->daftarindikator_id       = 3;
 $reportassess->triwulan                 = $triwulan['current']['triwulan'];
 $reportassess->tahun                    = date('Y');

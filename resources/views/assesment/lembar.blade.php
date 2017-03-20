@@ -65,10 +65,10 @@
 
 					// $triwulan = cekCurrentTriwulan();
 					// $report = \App\ReportAssessment::where('user_id','1')->where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->paginate(10);
-					
+					$months = array('January' => 'Januari', 'February'=>'Februari', 'March'=>'Maret', 'April'=>'April', 'May'=>'Mei', 'June'=>'Juni', 'July'=>'Juli', 'August'=>'Agustus', 'September'=>'September', 'October'=>'Oktober', 'November'=>'November', 'December'=>'Desember');
 					?>
 					<tr class="odd">
-						<td class="text-center">{{date('M', strtotime($triwulan['current']['sejak']))}} - {{date('M', strtotime($triwulan['current']['hingga']))}}</td>
+						<td class="text-center">{{str_replace(array_keys($months), array_values($months), date('F', strtotime($triwulan['current']['sejak'])))}} - {{str_replace(array_keys($months), array_values($months), date('F', strtotime($triwulan['current']['hingga'])))}}</td>
 						<td class="text-center">{{$report->tahun}}</td>
 						<td >
 							<div>

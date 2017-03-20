@@ -166,11 +166,11 @@ class PengaturanController extends Controller
 
         $alatUkur2_1 = AlatUkur::updateOrCreate([
             'iku_id' => $iku2->id,
-            'name' => $iku2->namaprogram. '#kuantitas'
+            'name' => $iku2->namaprogram. '#kuantitas (Frekuensi & Partisipasi)'
         ]);
         $alatUkur2_2 = AlatUkur::updateOrCreate([
             'iku_id' => $iku2->id,
-            'name' => $iku2->namaprogram. '#kualitas'
+            'name' => $iku2->namaprogram. '#kualitas (Survei)'
         ]);
 
         $alatUkur3 = AlatUkur::updateOrCreate([
