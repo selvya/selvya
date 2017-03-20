@@ -10,23 +10,23 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
-     .red{background: #e74c3c;}
-     .red > a:hover{background: #e74c3c;}
-     .hijau{background: #1abc9c!important;}
-     .hijau >a:hover{background: #1abc9c!important;}
+    .red{background: #e74c3c;}
+    .red > a:hover{background: #e74c3c;}
+    .hijau{background: #1abc9c!important;}
+    .hijau >a:hover{background: #1abc9c!important;}
 </style>
 
 @php
-    $rep = \App\ReportAssessment::where('tahun', date('Y'))
-            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-            ->where('daftarindikator_id', 1)
-            ->where('user_id', getSatker())
-            ->first();
-    if (count($rep) > 0) {
-        $rep = \Carbon\Carbon::parse($rep->updated_at);
-    }else{
-        $rep = null;
-    }
+$rep = \App\ReportAssessment::where('tahun', date('Y'))
+->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+->where('daftarindikator_id', 1)
+->where('user_id', getSatker())
+->first();
+if (count($rep) > 0) {
+$rep = \Carbon\Carbon::parse($rep->updated_at);
+}else{
+$rep = null;
+}
 @endphp
 
 
@@ -80,9 +80,9 @@
                                     @if($anggaran != null)
                                     <li>
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            
+
                                             @php
-                                                $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+                                            $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
                                             @endphp
                                             Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                         </a>
@@ -148,20 +148,21 @@
 
                                         @if($v->tipe == 'manual')
                                         <!-- MANUAL -->
-
+                                        <?php $definisi_manual_melayani = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->first();?>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_melayani" min="0" max="6" step="0.01" class="form-control" required>
-                                                <input type="hidden" name="alatukur_id_melayani_manual" value="{{$v->id}}">
-                                                <input type="hidden" name="iku_id_melayani_manual" value="{{$v->iku_id}}"> 
+                                                <input type="number" name="nilai_manual_melayani[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
+                                                <input type="hidden" name="alatukur_id_melayani_manual[]" value="{{$v->id}}">
+                                                <input type="hidden" name="iku_id_melayani_manual[]" value="{{$v->iku_id}}">
+                                                <input type="hidden" name="def_id_melayani_manual[]" value="{{$definisi_manual_melayani->id}}">
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
 
                                         @elseif($v->tipe == 'parameterized')
                                         <?php 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -251,20 +252,21 @@
                                         
                                         @if($v->tipe == 'manual')
                                         <!-- MANUAL -->
-
+                                        <?php $definisi_manual_peduli = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->first();?>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_peduli" min="0" max="6" step="0.01" class="form-control" required>
-                                                <input type="hidden" name="alatukur_id_peduli_manual" value="{{$v->id}}">
-                                                <input type="hidden" name="iku_id_peduli_manual" value="{{$v->iku_id}}"> 
+                                                <input type="number" name="nilai_manual_peduli[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
+                                                <input type="hidden" name="alatukur_id_peduli_manual[]" value="{{$v->id}}">
+                                                <input type="hidden" name="iku_id_peduli_manual[]" value="{{$v->iku_id}}"> 
+                                                <input type="hidden" name="def_peduli_manual[]" value="{{$definisi_manual_peduli->id}}"> 
                                             </div>
                                         </div>
                                         <!-- TUTUP MANUAL -->
                                         @else
                                         <?php 
 
-                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->get();
+                                        $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -519,5 +521,15 @@
             $(this).closest("tr").remove();
         });
     }
+
+    $('.numberbox').keyup(function(){
+      if ($(this).val() > 6){
+        alert("Maksimum nilai yang dimasukan adalah 6");
+        $(this).val('6');
+    }else if ($(this).val() < 0){
+        alert("Minimum nilai yang dimasukan adalah 0");
+        $(this).val('0');
+    }
+});
 </script>
 @endsection
