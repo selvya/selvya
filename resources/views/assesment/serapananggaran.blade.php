@@ -265,4 +265,96 @@
 @section('js')
 {{-- <script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script> --}}
 {{-- <script>$(function(){ FormsWizard.init(); });</script> --}}
+
+    <script>
+        $('#finalisasi_total').on('click', function() {
+            var data = $('input[name="total_anggaran"]').val(); 
+            if (!confirm('Apakah anda yakin akan memfinalisasi anggaran ini? Tindakan ini tidak dapat diurungkan!')) {
+                return false;
+            }
+            
+            var t = $(this);
+            $.ajax({
+                url: '{{url('ubah-anggaran-total')}}',
+                type: 'POST',
+                dataType: 'JSON',
+                data: 'anggaran=' + data + '&_token={{csrf_token()}}',
+                beforeSend: function() {
+                    t.html('<i class="fa fa-spinner fa-spin"></i> Memuat...');
+                    $('input[name="total_anggaran"]').prop('disabled', true);
+                },
+                success: function(resp) {
+                    window.location.reload();
+                },
+                error: function(resp) {
+                    window.location.reload();
+                }
+            });
+        });
+
+        $(document).on({
+            change: function() {
+                var p = $('#p1');
+                p.text(berapaPersen({{$anggaranN->total_anggaran}}, parseInt($(this).val())));
+            },
+            keyup: function() {
+                // console.log(100/10);
+                var p = $('#p1');
+                p.text(berapaPersen({{$anggaranN->total_anggaran}}, parseInt($(this).val())));
+            }
+        }, '#real1');
+
+
+        function berapaPersen(ref, jumlah){ 
+            var r = (Math.round(jumlah / ref * 100)).toFixed(0);
+            if (r == 'NaN') {
+                return 0;
+            }
+
+            return r;
+        }
+
+        $(document).on({
+            focus: function() {
+                var val = $(this).val();
+                if (val == 0) {
+                    $(this).val('0');
+                }else{
+                    $(this).val(val);
+                }
+                // $(this).val('');
+            },
+            blur: function() {
+                var val = $(this).val();
+                if (val.length == 0) {
+                    $(this).val('0');
+                }else{
+                    $(this).val(val);
+                }
+            },
+            keyup: function() {
+                var total = 0;
+                var max = parseInt({{$anggaranN->total_anggaran}});
+                $('.rencana').each(function (index, value) {
+                    total += parseInt($(value).val());
+                });
+
+                if (total > max) {
+                    notie.alert({type: 'error', text: 'Rencana tidak boleh lebih dari anggaran Rp. ' + max, time: 1});
+                    $(this).addClass('animated shake').val('0').focus();
+                }
+            }
+        }, '.rencana');
+
+        $(document).on({
+            blur: function() {
+                var val = $(this).val();
+                if (val.length == 0) {
+                    $(this).val('0');
+                }else{
+                    $(this).val(val);
+                }
+            }
+        }, '.realisasi');
+    </script>
 @endsection
