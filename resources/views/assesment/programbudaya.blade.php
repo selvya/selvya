@@ -174,7 +174,7 @@ $rep = null;
                                             <div class="col-md-9">
                                                 <select class="form-control" name="alatukur_melayani[]">
                                                     @foreach($definisi as $c => $data )
-                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$c+1}}">{{($c+1)}} - {{$data->deskripsi}}</option>
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$c+1}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -271,7 +271,7 @@ $rep = null;
                                         <!-- TUTUP MANUAL -->
                                         @else
                                         <?php 
-                                        $definisi = \App\DefinisiNilai::where('iku_id', $v->iku_id)->where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('id','DESC')->get();
+                                        $definisi = \App\DefinisiNilai::where('iku_id', $v->iku_id)->where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -279,7 +279,7 @@ $rep = null;
                                             <div class="col-md-9">
                                                 <select class="form-control" name="alatukur_peduli[]">
                                                     @foreach($definisi as $b => $data)
-                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$b+1}}">{{$b+1}} - {{$data->deskripsi}}</option>
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$b+1}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -527,8 +527,6 @@ $rep = null;
             $(this).closest("tr").remove();
         });
     }
-</script>
-<script type="text/javascript">
     $('.numberbox').keyup(function(){
       if ($(this).val() > 6){
         alert("Maksimum nilai yang dimasukan adalah 6");
@@ -536,7 +534,14 @@ $rep = null;
     }else if ($(this).val() < 0){
         alert("Minimum nilai yang dimasukan adalah 0");
         $(this).val('0');
-    }
-});
+    }  
+});$('input.numberbox').blur(function(){
+        var num = parseFloat($(this).val());
+        var cleanNum = num.toFixed(2);
+        $(this).val(cleanNum);
+        if(num/cleanNum < 1){
+            $('#error').text('Please enter only 2 decimal places, we have truncated extra points');
+            }
+        });
 </script>
 @endsection
