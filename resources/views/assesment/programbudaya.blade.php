@@ -185,7 +185,7 @@ $rep = null;
                                             <div class="col-md-9">
                                                 <select class="form-control" name="alatukur_melayani[]">
                                                     @foreach($definisi as $c => $data )
-                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$c+1}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{($data->skala_nilai)}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -290,7 +290,7 @@ $rep = null;
                                             <div class="col-md-9">
                                                 <select class="form-control" name="alatukur_peduli[]">
                                                     @foreach($definisi as $b => $data)
-                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$b+1}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{($data->skala_nilai)}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

@@ -843,10 +843,14 @@ if (null != $r->alatukur_melayani) {
 }
 
 $hasilino       = ($nilaiino/((6*count($r->alatukur_inovatif))))*($persenino->persentase_program/100);
+
 $hasilpeduli    = ($nilaipeduli/((6*($alatnyapeduli + $alatnyapeduli_man))))*($persenpeduli->persentase_program/100);
+
 $hasilmelayani  = ($nilaimelayani/((6*($alatnyamelayani + $alatnyamelayani_man))))*($persenmelayani->persentase_program/100);
 
 $hasilakhirnya  = (((($hasilino*100)+($hasilmelayani*100)+($hasilpeduli*100)))*($persen->nilai/100));
+
+// dd($nilaimelayani);
 
  $ikupduli = Iku::updateOrCreate([
                 'persen_id' => 0,
