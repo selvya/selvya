@@ -650,14 +650,14 @@ class SelfAssesmentController extends Controller {
           'user_id'             => Auth::user()->id,
           'tahun'               => date('Y'),
           'triwulan'            => $triwulan['current']['triwulan'],
-          'alatukur_id'         => $alat_id[$b]
+          'alatukur_id'         => $alat_id[$b],
+          'skala_nilai'         => $nilai[$b],
           ],
           [
           'iku_id'              => $iku_id[$b],
           'definisinilai_id'    => $def_id[$b],
           'filelampiran'        => $r->file_melayani,
           'reportassesment_id'  => $rid[0],
-          'skala_nilai'         => $nilai[$b],
           'filelampiran'        => $r->file_inovatif
           ]);
         $nilaiino += $nilai[$b];
@@ -678,7 +678,8 @@ class SelfAssesmentController extends Controller {
                 'user_id'             => Auth::user()->id,
                 'tahun'               => date('Y'),
                 'triwulan'            => $triwulan['current']['triwulan'],
-                'alatukur_id'         => $alat_id_peduli
+                'alatukur_id'         => $alat_id_peduli,
+                'skala_nilai'         => $nilai_peduli
                 ],
                 [
                 'iku_id'              => $iku_id_peduli,
@@ -703,14 +704,14 @@ class SelfAssesmentController extends Controller {
               'user_id'             => Auth::user()->id,
               'tahun'               => date('Y'),
               'triwulan'            => $triwulan['current']['triwulan'],
-              'alatukur_id'         => $alat_idpeduli[$a]
+              'alatukur_id'         => $alat_idpeduli[$a],
+              'skala_nilai'         => $nilaipedulinya[$a]
               ],
               [
               'iku_id'              => $iku_idpeduli[$a],
               'definisinilai_id'    => $def_idpeduli[$a],
               'filelampiran'        => $r->file_melayani,
               'reportassesment_id'  => $rid[0],
-              'skala_nilai'         => $nilaipedulinya[$a],
               'filelampiran'        => $r->file_peduli
               ]);
 
@@ -736,7 +737,8 @@ class SelfAssesmentController extends Controller {
                 'user_id'             => Auth::user()->id,
                 'tahun'               => date('Y'),
                 'triwulan'            => $triwulan['current']['triwulan'],
-                'alatukur_id'         => $alat_id_melayani
+                'alatukur_id'         => $alat_id_melayani,
+                'skala_nilai'         => $nilai_melayani
                 ],
                 [
                 'iku_id'              => $iku_id_melayani,
@@ -761,7 +763,8 @@ class SelfAssesmentController extends Controller {
             'user_id'             => Auth::user()->id,
             'tahun'               => date('Y'),
             'triwulan'            => $triwulan['current']['triwulan'],
-            'alatukur_id'         => $alat_idmelayani[$k]
+            'alatukur_id'         => $alat_idmelayani[$k],
+            'skala_nilai'         => $nilaimelayaninya[$k]
             ],
             [
             'iku_id'              => $iku_idmelayani[$k],
@@ -852,19 +855,18 @@ $hasilakhirnya  = (((($hasilino*100)+($hasilmelayani*100)+($hasilpeduli*100)))*(
 
 // dd($nilaimelayani);
 
- $ikupduli = Iku::updateOrCreate([
-                'persen_id' => 0,
-                'daftarindikator_id' => 3,
-                'tahun' => date('Y'),
-                'tipe' => 'null',
-                'programbudaya_id' => 2,
-                'satker' => Auth::user()->id,
-                'inovatif_triwulan' => $triwulan['current']['triwulan']
-            ],[ 
-                'namaprogram' => $r->peduli_program,
-                'keterangan' => $r->deskripsi_program,  
-                'inovatif_triwulan' => $triwulan['current']['triwulan']
-               ]);
+ $self = SelfAssesment::where('user_id', Auth::user()->id)
+         ->where('tahun', date('Y'))
+         ->where('iku_id', $iku_idpeduli[$a])
+         ->where('triwulan', $triwulan['current']['triwulan'])
+         ->where('reportaassesment_id', $rid[0])
+         ->first();
+if (count($self) == 0) {
+    $self = new SelfAssesment;
+}
+$self->namaprogram = $r->peduli_program;
+$self->deskripsi = $r->deskripsi_program;
+$self->save();
  
 
 $reportassess = ReportAssessment::where('tahun', date('Y'))
