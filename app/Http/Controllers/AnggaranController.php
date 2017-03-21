@@ -220,6 +220,13 @@ class AnggaranController extends Controller
                         ]
                     );
 
+                    $agt = \App\AnggaranTriwulan::where('user_id', getSatker())
+                            ->where('anggaran_tahun_id', $tahunAnggaran->id)
+                            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                            ->update(
+                                ['is_final' => 1]
+                            );
+
                     // dd($selfAssesment[$i]);
                 }
             }

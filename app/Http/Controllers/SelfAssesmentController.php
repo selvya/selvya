@@ -376,7 +376,7 @@ class SelfAssesmentController extends Controller {
 
     public function serapananggaran($id)
     { 
-
+        // dd(getSatker());
         $triwulan = cekCurrentTriwulan();
 
         $inovatif = Iku::where('tahun',date('Y'))
@@ -462,21 +462,31 @@ class SelfAssesmentController extends Controller {
         ->get();
 
         // $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
-        $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+        $agg = AnggaranTahun::where('tahun', date('Y'))
+                ->where('user_id', getSatker())
+                ->first()
+                ->anggaran_triwulan
+                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                ->first();
+        if ($agg->is_final != 0) {
+            $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+        }else{
+            $atasWizard = 0;
+        }
         
         for ($i=1; $i <= 4 ; $i++) { 
             $reportAssesment[$i] = ReportAssessment::updateOrCreate(
                 [
-                'daftarindikator_id' => 2,
-                'triwulan' => $i,
-                'tahun' => date('Y'),
-                'user_id' => $satker
+                    'daftarindikator_id' => 2,
+                    'triwulan' => $i,
+                    'tahun' => date('Y'),
+                    'user_id' => $satker
                 ],
                 [
-                'hasil' => $atasWizard,
-                'nilai' => hitungNilaiSerapan(date('Y'), $i, Auth::user()->id)
+                    'hasil' => $atasWizard,
+                    'nilai' => hitungNilaiSerapan(date('Y'), $i, Auth::user()->id)
                 ]
-                );
+            );
         }
 
 
@@ -557,8 +567,18 @@ class SelfAssesmentController extends Controller {
         ->join('persentase', 'iku.persen_id' ,'=','persentase.id')
         ->first(); 
 
-        $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
-
+        $agg = AnggaranTahun::where('tahun', date('Y'))
+                ->where('user_id', getSatker())
+                ->first()
+                ->anggaran_triwulan
+                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                ->first();
+        if ($agg->is_final != 0) {
+            $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+        }else{
+            $atasWizard = 0;
+        }
+        
         return view('assesment.pelaporan', compact('inovatif','anggaran','pimpinan','pelaporan','persen', 'atasWizard'));
     }
 

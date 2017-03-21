@@ -83,7 +83,18 @@ $rep = null;
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
 
                                             @php
-                                            $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+                                                $agg = \App\AnggaranTahun::where('tahun', date('Y'))
+                                                        ->where('user_id', getSatker())
+                                                        ->first()
+                                                        ->anggaran_triwulan
+                                                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                                        ->first();
+                                                if ($agg->is_final != 0) {
+                                                    $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+                                                }else{
+                                                    $atasWizard = 0;
+                                                }
+                                                                                   
                                             @endphp
                                             Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                         </a>
@@ -174,7 +185,7 @@ $rep = null;
                                             <div class="col-md-9">
                                                 <select class="form-control" name="alatukur_melayani[]">
                                                     @foreach($definisi as $c => $data )
-                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$c+1}}">{{($c+1)}} - {{$data->deskripsi}}</option>
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$c+1}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -271,7 +282,7 @@ $rep = null;
                                         <!-- TUTUP MANUAL -->
                                         @else
                                         <?php 
-                                        $definisi = \App\DefinisiNilai::where('iku_id', $v->iku_id)->where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('id','DESC')->get();
+                                        $definisi = \App\DefinisiNilai::where('iku_id', $v->iku_id)->where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
                                         ?>
                                         <!-- PARAMETERIZE -->
                                         <div class="form-group">
@@ -279,7 +290,7 @@ $rep = null;
                                             <div class="col-md-9">
                                                 <select class="form-control" name="alatukur_peduli[]">
                                                     @foreach($definisi as $b => $data)
-                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$b+1}}">{{$b+1}} - {{$data->deskripsi}}</option>
+                                                    <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$b+1}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -443,7 +454,7 @@ $rep = null;
                         <div class="col-md-8 col-md-offset-6">
                             {{csrf_field()}}
                             <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
-                            <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
+                         <!--   <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> -->
                             <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Simpan" @if($reportall->last()->hasil >  0) onclick="return confirm('Apa anda yakin ingin menyimpan data ini ? data yang sebelumnya akan di update dengan data yg anda masukan saat ini');" @endif>
                         </div>
                     </div>
@@ -527,8 +538,6 @@ $rep = null;
             $(this).closest("tr").remove();
         });
     }
-</script>
-<script type="text/javascript">
     $('.numberbox').keyup(function(){
       if ($(this).val() > 6){
         alert("Maksimum nilai yang dimasukan adalah 6");
@@ -536,7 +545,14 @@ $rep = null;
     }else if ($(this).val() < 0){
         alert("Minimum nilai yang dimasukan adalah 0");
         $(this).val('0');
-    }
-});
+    }  
+});$('input.numberbox').blur(function(){
+        var num = parseFloat($(this).val());
+        var cleanNum = num.toFixed(2);
+        $(this).val(cleanNum);
+        if(num/cleanNum < 1){
+            $('#error').text('Please enter only 2 decimal places, we have truncated extra points');
+            }
+        });
 </script>
 @endsection

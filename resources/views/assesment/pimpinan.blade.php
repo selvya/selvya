@@ -59,8 +59,22 @@
                                     @endif
                                     @if($anggaran != null)
                                     <li>
+                                        @php
+
+                                            $agg = \App\AnggaranTahun::where('tahun', date('Y'))
+                                                        ->where('user_id', getSatker())
+                                                        ->first()
+                                                        ->anggaran_triwulan
+                                                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                                        ->first();
+                                                if ($agg->is_final != 0) {
+                                                    $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+                                                }else{
+                                                    $atasWizard = 0;
+                                                }
+                                        @endphp
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$anggaran->nilai}}%</big></strong>
+                                            <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
