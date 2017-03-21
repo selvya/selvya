@@ -31,10 +31,10 @@ $rep = null;
 }
 
 $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
-        ->where('tahun',date('Y'))
-        ->where('user_id',Auth::user()->id)
-        ->where('daftarindikator_id','3')
-        ->get();
+->where('tahun',date('Y'))
+->where('user_id',Auth::user()->id)
+->where('daftarindikator_id','3')
+->get();
 @endphp
 
 <div id="page-content">
@@ -79,7 +79,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                     <li class="@if(!cekBudaya(date('Y'), $triwulan['current']['triwulan'], Auth::user()->id)) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
                                             <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
-                                            <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
+                                                <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
                                             </strong>
                                         </a>
                                     </li>
@@ -92,11 +92,11 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                     </li>
                                     @endif
                                     @if($pimpinan != null)
+                                    @php
+                                    $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                                    @endphp
                                     <li class="@if($nilaiPim == 0) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
-                                            @php
-                                            $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
-                                            @endphp
                                             <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                         </a>
                                     </li>

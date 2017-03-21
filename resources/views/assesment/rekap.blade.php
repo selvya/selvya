@@ -73,16 +73,14 @@
 					<th>Progress</th>
 				</tr>
 			</thead>
-			<?php 
+			<?php
 			$triwulan = cekCurrentTriwulan();
-			$satker =  \App\ReportAssessment::select('*',DB::raw('user_id'))
-			->where('triwulan',$triwulan['current']['triwulan'])
-			->where('tahun',date('Y'))
-			->join('users','report_assesment.user_id','=','users.id')
-			->whereNotIn('report_assesment.user_id', ['report_assesment.user_id','user.id'])
-			->groupBy('report_assesment.user_id')
+			$report = \App\ReportAssessment::all();
+			$satker =  \App\User::
+			join('report_assesment','users.id','=','report_assesment.user_id')
+			->whereNotIn('users.id',[$report])
 			->get();
-			dd($satker);
+			// dd($satker);
 
 			
 			?>

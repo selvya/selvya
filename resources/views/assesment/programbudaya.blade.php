@@ -93,8 +93,8 @@ $rep = null;
                                     $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
                                 }
                                 else{
-                                    $atasWizard = 0;
-                                }
+                                $atasWizard = 0;
+                            }
 
                             @endphp
                             <li class="@if($atasWizard == 0) red @else hijau @endif">
@@ -104,11 +104,11 @@ $rep = null;
                             </li>
                             @endif
                             @if($pimpinan != null)
+                            @php
+                            $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                            @endphp
                             <li class="@if($nilaiPim == 0) red @else hijau @endif">
-                                <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
-                                    @php
-                                    $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
-                                    @endphp
+                                <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">                                    
                                     <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                 </a>
                             </li>
@@ -460,12 +460,10 @@ $rep = null;
                 <div class="col-md-8 col-md-offset-6">
                     {{csrf_field()}}
                     <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
-                    @if($reportall->last()->final_status == 0)
+                    
                     <button name="simpan" class="btn btn-lg btn-primary" value="0" id="next2" @if($reportall->last()->hasil >  0) onclick="return confirm('Apa anda yakin ingin menyimpan data ini ? data yang sebelumnya akan di update dengan data yg anda masukan saat ini');" @endif>
                         Simpan    
                     </button>
-                    <button name="simpan" class="btn btn-lg btn-success" value="1" onclick="return confirm('Apa anda yakin ingin finalisasi program ini ?');">Final</button>
-                    @endif
 
                 </div>
             </div>
