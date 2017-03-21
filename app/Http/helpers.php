@@ -438,7 +438,6 @@ function cekBudaya($tahun, $triwulan, $user)
                   ->where('triwulan',$triwulan)
                   ->where('user_id', $user)
                   ->where('daftarindikator_id','3')
-                  ->where('final_status','1')
                   ->first();
 
         return (count($budaya) > 0) ? true : false;
