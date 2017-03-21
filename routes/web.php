@@ -1,12 +1,12 @@
 <?php
 Route::get('test.jsp', function () {
-    // return hitungNilaiSerapan(2017, 3, Auth::user()->id);
+    $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
     // return gen('kmp.kmp', 'admin');
     // return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
     // return str_slug('Here is where you can register web', '_');
     // $c = cekBudaya(date('Y'),cekCurrentTriwulan()['current']['triwulan'],getSatker());
     // dd($c);
-
+    return $nilaiPim;
 });
 
 

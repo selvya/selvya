@@ -80,7 +80,10 @@
                                     @if($pimpinan != null)
                                     <li>
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
-                                            <strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
+                                            @php
+                                                $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                                            @endphp
+                                            <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
@@ -248,7 +251,8 @@
                         <div class="col-md-8 col-md-offset-6">
                             {{csrf_field()}}
                             {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
-                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Submit">
+                            <input type="submit" class="btn btn-primary" id="next2" value="Submit">
+                            <button type="submit" id="final" name="final" value="1" class="btn btn-primary"><i class="fa fa-check-o"></i>&nbsp;Final</button>
                         </div>
                     </div>
                      </form>

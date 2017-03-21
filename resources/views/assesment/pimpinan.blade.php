@@ -72,6 +72,9 @@
                                                 }else{
                                                     $atasWizard = 0;
                                                 }
+
+                                            $pim = cekFinalPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+
                                         @endphp
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
                                             <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
@@ -81,7 +84,10 @@
                                     @if($pimpinan != null)
                                     <li class="active">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
-                                            <strong>Partisipan Pimpinan <br> <big>{{$pimpinan->nilai}}%</big></strong>
+                                            @php
+                                                $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                                            @endphp
+                                            <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
@@ -114,7 +120,7 @@
                                     // dd($iku);
                                 @endphp
                                 
-
+                                @if(!$pim)
                                 <form class="form-horizontal" method="POST" action="">
                                     
                                     @if($iku->tipe == 'parameterized')
@@ -135,6 +141,12 @@
                                                 <input type="text" name="nilai" class="form-control" required>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-3">Partisipasi Pimpinan</label>
+                                            <div class="col-md-6">
+                                                <textarea name="partisipasi" class="form-control"></textarea>
+                                            </div>
+                                        </div>
                                     @endif
 
                                     <div class="form-group">
@@ -142,23 +154,29 @@
                                             {{csrf_field()}}
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="submit" class="btn btn-primary pull-right">Simpan <i class="fa fa-save"></i></button>
-                                            
+                                                <button type="submit" class="btn btn-primary pull-right">Simpan <i class="fa fa-save"></i></button>
                                         </div>
                                     </div>
                                 </form>
+                                
+                                @else
+                                    <div class="jumbotron">
+                                        @php
+                                            $ppp = \App\ReportAssessment::where('tahun', date('Y'))
+                                                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                                ->where('daftarindikator_id', 4)
+                                                ->where('user_id', getSatker())
+                                                ->first();
+                                        @endphp
+
+                                        <h4>Nilai: {{$ppp->nilai}} ({{cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker())}}%)</h4>
+                                        <p>{{$ppp->keterangan}}</p>
+                                    </div>
+                                @endif            
                             </div>
                         </div>
                     </div>
                     <!-- END Third Step -->
-
-                  {{--   <!-- Form Buttons -->
-                    <div class="form-group form-actions">
-                        <div class="col-md-8 col-md-offset-6">
-                            <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
-                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
-                        </div>
-                    </div> --}}
                     <!-- END Form Buttons -->
                 </form>
                 <!-- END Wizard with Validation Content -->

@@ -433,16 +433,68 @@ function readify($date=NULL, $separator = null)
 }
 
 function cekBudaya($tahun, $triwulan, $user)
-    {
-        $budaya = \App\ReportAssessment::where('tahun', $tahun)
-                  ->where('triwulan',$triwulan)
-                  ->where('user_id', $user)
-                  ->where('daftarindikator_id','3')
-                  ->where('final_status','1')
-                  ->first();
+{
+    $budaya = \App\ReportAssessment::where('tahun', $tahun)
+              ->where('triwulan',$triwulan)
+              ->where('user_id', $user)
+              ->where('daftarindikator_id','3')
+              ->where('final_status','1')
+              ->first();
 
-        return (count($budaya) > 0) ? true : false;
+    return (count($budaya) > 0) ? true : false;
+}
+
+function cekFinalPimpinan($tahun, $triwulan, $user) {
+    $pimpinan = \App\ReportAssessment::where('tahun', $tahun)
+              ->where('triwulan',$triwulan)
+              ->where('user_id', $user)
+              ->where('daftarindikator_id','4')
+              ->where('final_status','1')
+              ->first();
+
+    return (count($pimpinan) > 0) ? true : false;
+}
+
+function cekFinalAnggaran($tahun, $triwulan, $user)
+{
+    $r = false;
+    $agg = \App\AnggaranTahun::where('tahun', $tahun)
+            ->where('user_id', $user)
+            ->first()
+            ->anggaran_triwulan
+            ->where('triwulan', $triwulan)
+            ->first();
+    
+    if (count($agg) > 0) {
+        if ($agg->is_final == 1) {
+            $r = true;
+        }
     }
 
+    return $r;
+}
 
+function cekNilaiPimpinan($tahun, $triwulan, $user) {
 
+    $nilai = 0;
+    $persen = \App\Persentase::where('tahun', $tahun)
+            ->where('triwulan', $triwulan)
+            ->where('daftarindikator_id', 4)
+            ->first();
+    if (!$persen) {
+        return 'persen belum ditentukan oleh admin';
+    }
+
+    $pimpinan = \App\ReportAssessment::where('tahun', $tahun)
+              ->where('triwulan',$triwulan)
+              ->where('user_id', $user)
+              ->where('daftarindikator_id','4')
+              ->where('final_status','1')
+              ->first();
+
+    if(count($pimpinan) > 0) {
+        $nilai = $pimpinan->nilai;
+    }
+
+    return ($nilai / 6) * ($persen->nilai);
+}

@@ -112,17 +112,19 @@ class SelfAssesmentController extends Controller {
 
         $report = \App\ReportAssessment::updateOrCreate(
             [
-            'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
-            'tahun'              => date('Y'),
-            'daftarindikator_id' => '4',
-            'user_id'            => Auth::user()->id
+                'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
+                'tahun'              => date('Y'),
+                'daftarindikator_id' => '4',
+                'user_id'            => Auth::user()->id
 
             ],
             [
-            'persentase' => $persen->nilai,
-            'nilai' => $r->nilai
+                'persentase' => $persen->nilai,
+                'nilai' => $r->nilai,
+                'final_status' => 1,
+                'partisipasi' => $r->partisipasi
             ]
-            );
+        );
 
         return redirect()->back();
     }
