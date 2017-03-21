@@ -432,5 +432,17 @@ function readify($date=NULL, $separator = null)
     }
 }
 
+function cekBudaya($tahun, $triwulan, $user)
+    {
+        $budaya = \App\ReportAssessment::where('tahun', $tahun)
+                  ->where('triwulan',$triwulan)
+                  ->where('user_id', $user)
+                  ->where('daftarindikator_id','3')
+                  ->where('final_status','1')
+                  ->first();
+
+        return (count($budaya) > 0) ? true : false;
+    }
+
 
 

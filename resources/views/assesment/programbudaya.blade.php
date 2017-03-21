@@ -454,8 +454,13 @@ $rep = null;
                         <div class="col-md-8 col-md-offset-6">
                             {{csrf_field()}}
                             <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
-                         <!--   <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> -->
-                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Simpan" @if($reportall->last()->hasil >  0) onclick="return confirm('Apa anda yakin ingin menyimpan data ini ? data yang sebelumnya akan di update dengan data yg anda masukan saat ini');" @endif>
+                            @if($reportall->last()->final_status == 0)
+                            <button name="simpan" class="btn btn-lg btn-primary" value="0" id="next2" @if($reportall->last()->hasil >  0) onclick="return confirm('Apa anda yakin ingin menyimpan data ini ? data yang sebelumnya akan di update dengan data yg anda masukan saat ini');" @endif>
+                                Simpan    
+                            </button>
+                            <button name="simpan" class="btn btn-lg btn-success" value="1" onclick="return confirm('Apa anda yakin ingin finalisasi program ini ?');">Final</button>
+                            @endif
+                            
                         </div>
                     </div>
                     <!-- END Form Buttons -->

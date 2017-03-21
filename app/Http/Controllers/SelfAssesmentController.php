@@ -848,18 +848,6 @@ $hasilmelayani  = ($nilaimelayani/((6*($alatnyamelayani + $alatnyamelayani_man))
 
 $hasilakhirnya  = (((($hasilino*100)+($hasilmelayani*100)+($hasilpeduli*100)))*($persen->nilai/100));
 
-
-// $ikupeduli = Iku::where('tahun', date('Y'))
-// ->where('triwulan', $triwulan['current']['triwulan'])
-// ->where('daftarindikator_id', '3')
-// ->where('pelaksanaan_program_budaya#'.date('Y').'#'.$triwulan['current']['triwulan'].'#'.'ojk_peduli')->first();
-// if ($ikupeduli) {
-//     $programpeduli = new AlatUkur;
-//     $programpeduli = 'iku_id'   => $ikupeduli->id;
-//     $programpeduli = 'name'     => $r->peduli_program;
-//     $programpeduli = 'name'     => $r->peduli_program;
-// }
-
  $ikupduli = Iku::updateOrCreate([
                 'persen_id' => 0,
                 'daftarindikator_id' => 3,
@@ -894,7 +882,13 @@ $reportassess->user_id                  = Auth::user()->id;
 $reportassess->hasil_inovatif           = number_format(($hasilino*100),2);
 $reportassess->hasil_peduli             = number_format(($hasilpeduli*100),2);
 $reportassess->hasil_melayani           = number_format(($hasilmelayani*100),2);
-$reportassess->final_status             = '0';
+
+if ($r->simpan == 0) {
+    $reportassess->final_status             = '0';
+}
+elseif($r->simpan == 1){
+    $reportassess->final_status             = '1';
+}
 $reportassess->save();
 
 return redirect('edit-self-assessment/'.$rid[0].'/serapan-anggaran')

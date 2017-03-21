@@ -2,9 +2,11 @@
 Route::get('test.jsp', function () {
     // return hitungNilaiSerapan(2017, 3, Auth::user()->id);
     // return gen('kmp.kmp', 'admin');
-    return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
+    // return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
     // return str_slug('Here is where you can register web', '_');
-    // return cekCurrentTriwulan();
+    // $c = cekBudaya(date('Y'),cekCurrentTriwulan()['current']['triwulan'],getSatker());
+    // dd($c);
+
 });
 
 
