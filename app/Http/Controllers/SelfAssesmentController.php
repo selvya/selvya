@@ -686,6 +686,7 @@ class SelfAssesmentController extends Controller {
                 'iku_id'              => $iku_id_peduli,
                 'definisinilai_id'    => $def_id_peduli,
                 'filelampiran'        => $r->file_melayani,
+                'skala_nilai'         => $nilai_peduli,
                 'reportassesment_id'  => $rid[0]
                 ]);
 
@@ -744,6 +745,7 @@ class SelfAssesmentController extends Controller {
                 'iku_id'              => $iku_id_melayani,
                 'definisinilai_id'    => $def_id_melayani,
                 'filelampiran'        => $r->file_melayani,
+                'skala_nilai'         => $nilai_melayani,
                 'reportassesment_id'  => $rid[0]
                 ]);
             $nilaimelayani += $nilai_melayani;
@@ -763,14 +765,16 @@ class SelfAssesmentController extends Controller {
             'user_id'             => Auth::user()->id,
             'tahun'               => date('Y'),
             'triwulan'            => $triwulan['current']['triwulan'],
-            'alatukur_id'         => $alat_idmelayani[$k]
+            'alatukur_id'         => $alat_idmelayani[$k],
             ],
             [
             'iku_id'              => $iku_idmelayani[$k],
             'definisinilai_id'    => $defidmelayani[$k],
             'filelampiran'        => $r->file_melayani,
+            'skala_nilai'         => $nilaimelayaninya[$k],
             'reportassesment_id'  => $rid[0]
             ]);
+         // dd($nilaimelayaninya[$k]);
          $nilaimelayani += $nilaimelayaninya[$k];
      }
  }
@@ -845,24 +849,27 @@ if (null != $r->alatukur_melayani) {
 }
 
 $hasilino       = ($nilaiino/((6*count($r->alatukur_inovatif))))*($persenino->persentase_program/100);
+
 $hasilpeduli    = ($nilaipeduli/((6*($alatnyapeduli + $alatnyapeduli_man))))*($persenpeduli->persentase_program/100);
+
 $hasilmelayani  = ($nilaimelayani/((6*($alatnyamelayani + $alatnyamelayani_man))))*($persenmelayani->persentase_program/100);
 
 $hasilakhirnya  = (((($hasilino*100)+($hasilmelayani*100)+($hasilpeduli*100)))*($persen->nilai/100));
 
- $ikupduli = Iku::updateOrCreate([
-                'persen_id' => 0,
-                'daftarindikator_id' => 3,
-                'tahun' => date('Y'),
-                'tipe' => 'null',
-                'programbudaya_id' => 2,
-                'satker' => Auth::user()->id,
-                'inovatif_triwulan' => $triwulan['current']['triwulan']
-            ],[ 
-                'namaprogram' => $r->peduli_program,
-                'keterangan' => $r->deskripsi_program,  
-                'inovatif_triwulan' => $triwulan['current']['triwulan']
-               ]);
+// dd($nilaimelayani);
+
+ $self = SelfAssesment::where('user_id', Auth::user()->id)
+         ->where('tahun', date('Y'))
+         ->where('iku_id', $iku_idpeduli[$a])
+         ->where('triwulan', $triwulan['current']['triwulan'])
+         ->where('reportassesment_id', $rid[0])
+         ->first();
+if (count($self) == 0) {
+    $self = new SelfAssesment;
+}
+$self->namaprogram = $r->peduli_program;
+$self->deskripsi = $r->deskripsi_program;
+$self->save();
  
 
 $reportassess = ReportAssessment::where('tahun', date('Y'))
@@ -893,8 +900,8 @@ elseif($r->simpan == 1){
 }
 $reportassess->save();
 
-return redirect('edit-self-assessment/'.$rid[0].'/serapan-anggaran')
-->with('success','Pelaksanaan Program BUdaya Berhasil Di Masukan Nilai');
+// return redirect('edit-self-assessment/'.$rid[0].'/serapan-anggaran')
+return redirect()->back()->with('success','Pelaksanaan Program BUdaya Berhasil Di Masukan Nilai');
 }
 
 }

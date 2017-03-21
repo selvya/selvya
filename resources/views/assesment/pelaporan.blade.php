@@ -116,7 +116,18 @@
                         <div class="col-md-8 col-md-offset-6">
                             {{csrf_field()}}
                             {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
-                            @if($rep == null)
+                            @php
+                                $thn = date('Y');
+                                $tw = cekCurrentTriwulan()['current']->triwulan;
+                                $usr = getSatker();
+                            @endphp
+                            
+                            @if(
+                                $rep == null OR
+                                !cekBudaya($thn, $tw, $usr) OR
+                                !cekFinalPimpinan($thn, $tw, $usr) OR
+                                !cekFinalAnggaran($thn, $tw, $usr)
+                            )
                                 <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                             @endif
                         </div>
