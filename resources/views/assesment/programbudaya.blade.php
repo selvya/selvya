@@ -205,7 +205,7 @@ $rep = null;
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="file" name="file_melayani" class="form-control" >
+                                            <input type="file" name="file_melayani" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -327,7 +327,7 @@ $rep = null;
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="file" name="file_peduli" class="form-control" >
+                                            <input type="file" name="file_peduli" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +441,7 @@ $rep = null;
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="file" name="file_inovatif" class="form-control" >
+                                            <input type="file" name="file_inovatif" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
