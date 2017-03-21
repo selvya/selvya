@@ -10,19 +10,32 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
+    .red{background: #e74c3c;}
+    .red > a{color: #fff;}
+    .red > a:hover{background: #e74c3c!important;}
+    .hijau{background: #1abc9c!important;}
+    .hijau >a{color: #fff;}
+    .hijau >a:hover{background: #1abc9c!important;}
 </style>
 
 @php
-    $rep = \App\ReportAssessment::where('tahun', date('Y'))
-            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-            ->where('daftarindikator_id', 1)
-            ->where('user_id', getSatker())
-            ->first();
-    if (count($rep) > 0) {
-        $rep = \Carbon\Carbon::parse($rep->updated_at);
-    }else{
-        $rep = null;
-    }
+$triwulan = cekCurrentTriwulan();
+$rep = \App\ReportAssessment::where('tahun', date('Y'))
+->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+->where('daftarindikator_id', 1)
+->where('user_id', getSatker())
+->first();
+if (count($rep) > 0) {
+$rep = \Carbon\Carbon::parse($rep->updated_at);
+}else{
+$rep = null;
+}
+
+$reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
+->where('tahun',date('Y'))
+->where('user_id',Auth::user()->id)
+->where('daftarindikator_id','3')
+->get();
 @endphp
 
 
@@ -57,7 +70,7 @@
                 <!-- Wizard with Validation Content -->
                 <form id="clickable-wizard" action="" method="post" class="form-horizontal form-bordered">
 
-                @include('include.alert')
+                    @include('include.alert')
 
                     <!-- Fourth Step -->
                     <div id="clickable-fourth" class="step">
@@ -66,31 +79,33 @@
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li>
-                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/programbudaya')}}" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> <big>{{$persen->nilai}}%</big></strong>
+                                    <li class="@if(!cekBudaya(date('Y'), $triwulan['current']['triwulan'], Auth::user()->id)) red @else hijau @endif">
+                                        <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
+                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
+                                            <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
+                                            </strong>
                                         </a>
                                     </li>
                                     @endif
                                     @if($anggaran != null)
-                                    <li>
+                                    <li class="@if($atasWizard == 0) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
                                             <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}]%</big></strong>
                                         </a>
                                     </li>
                                     @endif
                                     @if($pimpinan != null)
-                                    <li>
+                                    <li class="@if($nilaiPim == 0) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
                                             @php
-                                                $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                                            $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
                                             @endphp
                                             <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
                                     @if($pelaporan != null)
-                                    <li class="active">
+                                    <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
                                             <strong>Kecepatan Pelaporan <br> <big>{{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}% [{{$pelaporan->nilai}}%]</big></strong>
                                         </a>
@@ -102,7 +117,7 @@
                         <br>
                         <div class="container" style="max-width: 1000px; overflow: hidden;">
                             <div class="block">
-                                
+
                                 Tanggal pelaporan: {{readify(cekCurrentTriwulan()['current']->tanggal)}}
                                 <br>
                                 Nilai Kecepatan Pelaoran: {{cekSimpanPelaporan($rep)}} ({{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}%)
@@ -117,18 +132,18 @@
                             {{csrf_field()}}
                             {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
                             @php
-                                $thn = date('Y');
-                                $tw = cekCurrentTriwulan()['current']->triwulan;
-                                $usr = getSatker();
+                            $thn = date('Y');
+                            $tw = cekCurrentTriwulan()['current']->triwulan;
+                            $usr = getSatker();
                             @endphp
                             
                             @if(
-                                $rep == null OR
-                                !cekBudaya($thn, $tw, $usr) OR
-                                !cekFinalPimpinan($thn, $tw, $usr) OR
-                                !cekFinalAnggaran($thn, $tw, $usr)
+                            $rep == null OR
+                            !cekBudaya($thn, $tw, $usr) OR
+                            !cekFinalPimpinan($thn, $tw, $usr) OR
+                            !cekFinalAnggaran($thn, $tw, $usr)
                             )
-                                <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
+                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                             @endif
                         </div>
                     </div>

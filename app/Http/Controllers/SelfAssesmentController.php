@@ -268,6 +268,7 @@ class SelfAssesmentController extends Controller {
         $reportall = ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
         ->where('tahun',date('Y'))
         ->where('user_id',Auth::user()->id)
+        ->where('daftarindikator_id','3')
         ->get();
 
         // dd(count($reportall));

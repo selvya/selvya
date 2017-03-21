@@ -79,9 +79,12 @@
 			->where('triwulan',$triwulan['current']['triwulan'])
 			->where('tahun',date('Y'))
 			->join('users','report_assesment.user_id','=','users.id')
+			->whereNotIn('report_assesment.user_id', ['report_assesment.user_id','user.id'])
 			->groupBy('report_assesment.user_id')
 			->get();
-				// dd($satker);
+			dd($satker);
+
+			
 			?>
 			<tbody>
 				@foreach($satker as $data)
