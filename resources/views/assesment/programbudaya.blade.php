@@ -443,7 +443,7 @@ $rep = null;
                         <div class="col-md-8 col-md-offset-6">
                             {{csrf_field()}}
                             <input type="hidden" name="report_id" value="{{Request::segment(2)}}">
-                            <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back">
+                         <!--   <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> -->
                             <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Simpan" @if($reportall->last()->hasil >  0) onclick="return confirm('Apa anda yakin ingin menyimpan data ini ? data yang sebelumnya akan di update dengan data yg anda masukan saat ini');" @endif>
                         </div>
                     </div>
