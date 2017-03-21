@@ -124,7 +124,7 @@
                                                                         // $now[$k] = $no;
                                                                     @endphp
 
-                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
+                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k])  OR $v->is_final == 1)
                                                                         readonly 
                                                                     @endif
                                                                 >
@@ -143,7 +143,7 @@
                                                                     class="form-control" 
                                                                     type="file"
                                                                     name="lampiran_{{$k+1}}"
-                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
+                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
                                                                         disabled 
                                                                     @else
                                                                         required
@@ -159,7 +159,7 @@
                                                                     class="form-control" 
                                                                     type="file"
                                                                     name="lampiran_{{$k+1}}"
-                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]))
+                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
                                                                         disabled 
                                                                     @else
                                                                         required
