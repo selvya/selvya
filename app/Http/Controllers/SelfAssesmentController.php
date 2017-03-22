@@ -322,12 +322,12 @@ class SelfAssesmentController extends Controller {
         // dd(count($reportall));
 
         #Ambil Persen tahun ini
-        $persentase = \App\Persentase::where('tahun', date('Y'))
+        $jumlahPersen = \App\Persentase::where('tahun', date('Y'))
                     ->where('triwulan', $triwulan['current']->triwulan)
                     ->where('nilai', '!=', 0)
-                    ->count();
+                    ->get();
 
-        return view('assesment.lembar',compact('report','triwulan','reportall', 'persentase'));
+        return view('assesment.lembar',compact('report','triwulan','reportall', 'jumlahPersen'));
     }
 
     public function arsipassesment()

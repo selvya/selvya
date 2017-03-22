@@ -10,12 +10,18 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
-    .red{background: #e74c3c;}
+/*    .red{background: #e74c3c;}
     .red > a{color: #fff;}
     .red > a:hover{background: #e74c3c!important;}
     .hijau{background: #1abc9c!important;}
     .hijau >a{color: #fff;}
-    .hijau >a:hover{background: #1abc9c!important;}
+    .hijau >a:hover{background: #1abc9c!important;}*/
+        /*.red{background: #e74c3c;}*/
+    .red > a{color: #e74c3c;}
+    /*.red > a:hover{background: #e74c3c!important;}*/
+    .hijau{background: #ffffff!important;}
+    .hijau >a{color:  #1abc9c!important;}
+    /*.hijau >a:hover{background: #1abc9c!important;}*/
 </style>
 
 @php
