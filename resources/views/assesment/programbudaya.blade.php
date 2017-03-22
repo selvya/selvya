@@ -10,12 +10,19 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
-    /*.red{background: #e74c3c;}*/
-    .red > a{color: #e74c3c;}
-    /*.red > a:hover{background: #e74c3c!important;}*/
-    .hijau{background: #ffffff!important;}
-    .hijau >a{color:  #1abc9c!important;}
-    /*.hijau >a:hover{background: #1abc9c!important;}*/
+    .red{background: #e74c3c;}
+    .red > a{color: #fff;}
+    .red > a:hover{background: #e74c3c!important;}
+    .hijau{background: #1abc9c!important;}
+    .hijau >a{color: #fff;}
+    .hijau >a:hover{background: #1abc9c!important;}
+
+    /*.redd{background: #e74c3c;}*/
+    .redd > a{color: #e74c3c;}
+    /*.redd > a:hover{background: #e74c3c!important;}*/
+    /*.hijauu{background: #1abc9c!important;}*/
+    .hijauu >a{color: #1abc9c!important;}
+    /*.hijauu >a:hover{background: #1abc9c!important;}*/
 </style>
 
 @php
@@ -71,7 +78,7 @@
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                        <li class="@if($reportall->last()->hasil ==  null) red @else hijau @endif">
+                                        <li class="@if($reportall->last()->hasil ==  null OR $reportall->last()->final_status == 0) red @else hijau @endif">
                                             <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
                                                 <strong>
                                                     Pelaksanaan Program Budaya <br> 
@@ -100,7 +107,7 @@
 
                                         @endphp
 
-                                        <li class="@if($atasWizard == 0) red @else hijau @endif">
+                                        <li class="@if($atasWizard == 0) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second"><strong>
                                                 Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                             </a>
@@ -112,7 +119,7 @@
                                             $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
                                         @endphp
 
-                                        <li class="@if($nilaiPim == 0) red @else hijau @endif">
+                                        <li class="@if($nilaiPim == 0) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">                                    
                                                 <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                             </a>
@@ -120,7 +127,7 @@
                                     @endif
 
                                     @if($pelaporan != null)
-                                        <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) red @else hijau @endif">
+                                        <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
                                                 <strong>Kecepatan Pelaporan <br> <big>{{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}% [{{$pelaporan->nilai}}%]</big></strong>
                                             </a>

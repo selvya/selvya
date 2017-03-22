@@ -10,18 +10,19 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
-/*    .red{background: #e74c3c;}
+.red{background: #e74c3c;}
     .red > a{color: #fff;}
     .red > a:hover{background: #e74c3c!important;}
     .hijau{background: #1abc9c!important;}
     .hijau >a{color: #fff;}
-    .hijau >a:hover{background: #1abc9c!important;}*/
-        /*.red{background: #e74c3c;}*/
-    .red > a{color: #e74c3c;}
-    /*.red > a:hover{background: #e74c3c!important;}*/
-    .hijau{background: #ffffff!important;}
-    .hijau >a{color:  #1abc9c!important;}
-    /*.hijau >a:hover{background: #1abc9c!important;}*/
+    .hijau >a:hover{background: #1abc9c!important;}
+
+    /*.redd{background: #e74c3c;}*/
+    .redd > a{color: #e74c3c;}
+    /*.redd > a:hover{background: #e74c3c!important;}*/
+    /*.hijauu{background: #1abc9c!important;}*/
+    .hijauu >a{color: #1abc9c!important;}
+    /*.hijauu >a:hover{background: #1abc9c!important;}*/
 </style>
 
 @php
@@ -81,8 +82,21 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
+                                    @php
+                                        $belumFinal = false;
+                                        $bbbb = \App\ReportAssessment::where('tahun', date('Y'))
+                                                  ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
+                                                  ->where('user_id', getSatker())
+                                                  ->where('daftarindikator_id','3')
+                                                  ->where('final_status', 1)
+                                                  ->first();
+                                        if (count($bbbb) > 0) {
+                                            $belumFinal = true;
+                                        }
+                                    @endphp
+                                    
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li class="@if(!cekBudaya(date('Y'), $triwulan['current']['triwulan'], Auth::user()->id)) red @else hijau @endif">
+                                    <li class="@if(!cekBudaya(date('Y'), $triwulan['current']['triwulan'], Auth::user()->id) OR $belumFinal) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
                                             <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
@@ -101,14 +115,14 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                     @php
                                     $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
                                     @endphp
-                                    <li class="@if($nilaiPim == 0) red @else hijau @endif">
+                                    <li class="@if($nilaiPim == 0) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
                                             <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                         </a>
                                     </li>
                                     @endif
                                     @if($pelaporan != null)
-                                    <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) red @else hijau @endif">
+                                    <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
                                             <strong>Kecepatan Pelaporan <br> <big>{{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}% [{{$pelaporan->nilai}}%]</big></strong>
                                         </a>
