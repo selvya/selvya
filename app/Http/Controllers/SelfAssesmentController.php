@@ -122,6 +122,7 @@ class SelfAssesmentController extends Controller {
             [
                 'persentase' => $persen->nilai,
                 'nilai' => $r->nilai,
+                'hasil' => $r->nilai / 6 * $persen->nilai,
                 // 'final_status' => 1,
                 'partisipasi' => $r->partisipasi,
                 'deskripsi' => $r->deskripsi
@@ -217,15 +218,15 @@ class SelfAssesmentController extends Controller {
             )->first();
 
         $rep = \App\ReportAssessment::where('tahun', date('Y'))
-        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-        ->where('user_id', getSatker())
-        ->where('daftarindikator_id', 1)
-        ->first();
+            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+            ->where('user_id', getSatker())
+            ->where('daftarindikator_id', 1)
+            ->first();
 
         if (count($rep) > 0) {
             $rep = \Carbon\Carbon::parse($rep->updated_at);
         }else{
-            $rep = null;
+            $rep = \Carbon\Carbon::now();
         }
         
         $nilai = (int) cekSimpanPelaporan($rep);
@@ -243,11 +244,32 @@ class SelfAssesmentController extends Controller {
                         ['is_final' => 1]
                     );
 
+                $persenAnggaran = \App\Persentase::where('tahun', date('Y'))
+                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                    ->where('daftarindikator_id', 2)
+                    ->first();
+                $niAnggaran =  hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                $report = \App\ReportAssessment::updateOrCreate(
+                    [
+                        'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
+                        'tahun'              => date('Y'),
+                        'daftarindikator_id' => 2,
+                        'user_id'            => Auth::user()->id
+
+                    ],
+                    [
+                        'persentase' => $persenAnggaran->nilai,
+                        'nilai' => $niAnggaran,
+                        'hasil' => $niAnggaran / 6 * $persenAnggaran->nilai,
+                        'final_status' => 1
+                    ]
+                );
+
                 //Finish pimpinan
                 $persenPimpinan = \App\Persentase::where('tahun', date('Y'))
-                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                ->where('daftarindikator_id', 4)
-                ->first();
+                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                    ->where('daftarindikator_id', 4)
+                    ->first();
                 $report = \App\ReportAssessment::updateOrCreate(
                     [
                         'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
@@ -266,14 +288,27 @@ class SelfAssesmentController extends Controller {
                 );
 
                 //FINISH Program Budaya
+                $persenBud = \App\Persentase::where('tahun', date('Y'))
+                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                    ->where('daftarindikator_id', 3)
+                    ->first();
+
                   $budaya = \App\ReportAssessment::where('tahun', date('Y'))
                           ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                           ->where('user_id', getSatker())
                           ->where('daftarindikator_id','3')
                           ->update(
-                                ['final_status' => 1]
+                                [
+                                    'final_status' => 1,
+                                    'persentase' => $persenBud->nilai
+                                ]
                             );
 
+
+        $persenLap = \App\Persentase::where('tahun', date('Y'))
+                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                    ->where('daftarindikator_id', 1)
+                    ->first();
         $newRep = \App\ReportAssessment::updateOrCreate(
             [
                 'tahun' => date('Y'),
@@ -283,9 +318,28 @@ class SelfAssesmentController extends Controller {
             ],
             [
                 'nilai' => $nilai,
+                'hasil' => $nilai / 6 * $persenLap->nilai,
                 'updated_at' => \Carbon\Carbon::now(),
                 'final_status' => 1
             ]
+        );
+
+        // dd($newRep);
+
+
+        //
+        $getAll = \App\ReportAssessment::where('tahun', date('Y'))
+                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                ->where('user_id', getSatker())
+                ->sum('hasil');
+        // dd($getAll);
+        $hAAAA = \App\NilaiAkhir::updateOrCreate(
+            [
+                'user_id' => getSatker(),
+                'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+                'tahun' => date('Y'),
+            ],
+            ['nilai' => $getAll]
         );
 
         return redirect()->back();

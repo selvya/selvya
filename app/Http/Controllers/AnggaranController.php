@@ -227,6 +227,18 @@ class AnggaranController extends Controller
                             ['is_final' => 1]
                         );
 
+                    $reportAssesment = ReportAssessment::updateOrCreate(
+                        [
+                            'daftarindikator_id' => 2,
+                            'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
+                            'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+                            'tahun' => date('Y'),
+                            'user_id' => $satker
+                        ],
+                        [
+                            'final_status' => 1
+                        ]
+                    );
                     // dd($selfAssesment[$i]);
                 }
             }
