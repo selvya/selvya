@@ -63,7 +63,7 @@
             <!-- Wizard with Validation Block -->
             <div class="block">
 
-                @if (count($jumlahPersen) > 0)
+                
                     <!-- Wizard with Validation Title -->
                     <div class="block-title">
                         <h2><strong>Form</strong></h2>
@@ -491,15 +491,7 @@
                 </div>
                 <!-- END Form Buttons -->
             </form>
-        @else
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-warning">
-                        Maaf Admin belum selesai mengatur aplikasi.
-                    </div>
-                </div>
-            </div>
-        @endif
+
         <!-- END Wizard with Validation Content -->
     </div>
     <!-- END Wizard with Validation Block -->
