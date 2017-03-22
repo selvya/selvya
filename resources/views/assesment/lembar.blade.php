@@ -73,9 +73,7 @@
                         <td >
                             <div>
                                 @php
-                                    if (count($jumlahPersen) == 0) {
-                                        die('Maaf, Admin belum selesai mengatur aplikasi. <a href="' . url('/') . '">Kembali</a>');    
-                                    }
+                                    
 
                                     $peritem = 100 / count($jumlahPersen);
                                     $n = 0;
