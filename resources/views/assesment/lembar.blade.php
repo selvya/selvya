@@ -72,7 +72,12 @@
 						<td class="text-center">{{$report->tahun}}</td>
 						<td >
 							<div>
-								@if(count($reportall) == 4)
+								<div class="progress">
+								 	<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+								    	<span class="sr-only">45% Complete</span>
+								  	</div>
+								</div>
+								{{-- @if(count($reportall) == 4)
 								<strong>Final pada :</strong> {{date('d-M-Y', strtotime($reportall->last()->created_at))}}
 								@else
 								<strong>Terakhir diubah pada :</strong> {{date('d-M-Y', strtotime($reportall->last()->created_at))}}
@@ -94,7 +99,7 @@
 									</div>
 								</div>
 								
-
+ --}}
 							</div>
 						</td>
 						<td class="text-center">

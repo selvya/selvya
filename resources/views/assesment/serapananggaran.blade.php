@@ -266,7 +266,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                 {{csrf_field()}}
                                 {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
                                 <input type="submit" class="btn btn-primary" id="next2" value="Submit">
-                                <button type="submit" id="final" name="final" value="1" class="btn btn-primary"><i class="fa fa-check-o"></i>&nbsp;Final</button>
+                                {{-- <button type="submit" id="final" name="final" value="1" class="btn btn-primary"><i class="fa fa-check-o"></i>&nbsp;Final</button> --}}
                             </div>
                         </div>
                     </form>

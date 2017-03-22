@@ -118,9 +118,9 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                         <div class="container" style="max-width: 1000px; overflow: hidden;">
                             <div class="block">
 
-                                Tanggal pelaporan: {{readify(cekCurrentTriwulan()['current']->tanggal)}}
+                                <h4 class="text-center">Tanggal pelaporan: {{readify(cekCurrentTriwulan()['current']->tanggal)}}</h4>
                                 <br>
-                                Nilai Kecepatan Pelaoran: {{cekSimpanPelaporan($rep)}} ({{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}%)
+                                <h4 class="text-center">Nilai Kecepatan Pelaporan: {{cekSimpanPelaporan($rep)}} ({{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}%)</h4>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,8 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                             !cekFinalPimpinan($thn, $tw, $usr) OR
                             !cekFinalAnggaran($thn, $tw, $usr)
                             )
-                            <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
+                            {{-- @if($rep == null) --}}
+                                <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
                             @endif
                         </div>
                     </div>
@@ -160,4 +161,14 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
 @section('js')
 <script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script>
 <script>$(function(){ FormsWizard.init(); });</script>
+
+<script type="text/javascript">
+    $('#next2').on('click', function(e) {
+        e.preventDefault();
+        if (confirm('Apakah anda yakin? ini akan mengirimkan semua data triwulan ini dan tidak dapat diubah kembali')) {
+            // alert('asdas');
+            $('#clickable-wizard').submit();
+        }
+    });
+</script>
 @endsection

@@ -17,7 +17,9 @@ class ReportAssessment extends Model
         'triwulan',
         'tahun',
         'user_id',
-        'final_status'
+        'final_status',
+        'partisipasi',
+        'deskripsi'
     ];
 
     public function getHashidAttribute()
