@@ -327,10 +327,6 @@ class SelfAssesmentController extends Controller {
                     ->where('nilai', '!=', 0)
                     ->get();
 
-        if (count($jumlahPersen) == 0) {
-            die('Maaf, Admin belum selesai mengatur aplikasi. <a href="' . url('/') . '">Kembali</a>');    
-        }
-
         return view('assesment.lembar',compact('report','triwulan','reportall', 'jumlahPersen'));
     }
 
