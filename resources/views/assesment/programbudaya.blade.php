@@ -79,16 +79,30 @@
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <ul class="nav nav-pills nav-justified clickable-steps">
-                                        @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                            <li class="@if($reportall->last()->hasil ==  null OR $reportall->last()->final_status == 0) red @else hijau @endif">
-                                                <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
-                                                    <strong>
-                                                        Pelaksanaan Program Budaya <br> 
-                                                        <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
-                                                    </strong>
-                                                </a>
-                                            </li>
-                                        @endif
+                                        @php
+                                        $belumFinal = false;
+                                        $bbbb = \App\ReportAssessment::where('tahun', date('Y'))
+                                                  ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
+                                                  ->where('user_id', getSatker())
+                                                  ->where('daftarindikator_id','3')
+                                                  ->where('final_status', 1)
+                                                  ->first();
+
+
+                                        if (count($bbbb) > 0) {
+                                            $belumFinal = true;
+                                        }
+                                    @endphp
+                                    
+                                    @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
+                                    <li class="@if(!$belumFinal) red @else hijau @endif">
+                                        <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
+                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
+                                                <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
+                                            </strong>
+                                        </a>
+                                    </li>
+                                    @endif
 
                                         @if($anggaran != null)
 
@@ -119,9 +133,19 @@
                                         @if($pimpinan != null)
                                             @php
                                                 $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                                                $pimF = false;
+                                                $pimpinanFFF = \App\ReportAssessment::where('tahun', date('Y'))
+                                                      ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                                      ->where('user_id', getSatker())
+                                                      ->where('daftarindikator_id','4')
+                                                      ->where('final_status','1')
+                                                      ->first();
+                                                if (count($pimpinanFFF)) {
+                                                    $pimF = true;
+                                                }
                                             @endphp
 
-                                            <li class="@if($nilaiPim == 0) redd @else hijauu @endif">
+                                            <li class="@if(!$pimF) redd @else hijauu @endif">
                                                 <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">                                    
                                                     <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                                 </a>
