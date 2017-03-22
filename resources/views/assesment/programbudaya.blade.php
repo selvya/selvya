@@ -491,6 +491,14 @@
                 </div>
                 <!-- END Form Buttons -->
             </form>
+        @else
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning">
+                        Maaf Admin belum selesai mengatur aplikasi.
+                    </div>
+                </div>
+            </div>
         @endif
         <!-- END Wizard with Validation Content -->
     </div>
