@@ -23,6 +23,8 @@
 
     <!-- Datatables Content -->
     <div class="block full">
+        @if (count($jumlahPersen) > 0)
+
         <div class="table-responsive">
             <table>
                 @php
@@ -144,6 +146,15 @@
             <div class="col-md-12 text-center">
                 
             </div>
+                    @else
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning">
+                        Maaf Admin belum selesai mengatur aplikasi.
+                    </div>
+                </div>
+            </div>
+        @endif
         </div>
         <!-- END Datatables Content -->
     </div>
