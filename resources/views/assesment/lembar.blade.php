@@ -73,7 +73,7 @@
                         <td >
                             <div>
                                 @php
-                                    if (count($jumlahPersen)) {
+                                    if (count($jumlahPersen) == 0) {
                                         die('Maaf, Admin belum selesai mengatur aplikasi. <a href="' . url('/') . '">Kembali</a>');    
                                     }
 
