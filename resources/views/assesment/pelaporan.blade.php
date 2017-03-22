@@ -94,14 +94,14 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                   ->where('final_status', 1)
                                                   ->first();
 
-                                            
+
                                         if (count($bbbb) > 0) {
                                             $belumFinal = true;
                                         }
                                     @endphp
                                     
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li class="@if($belumFinal) redd @else hijauu @endif">
+                                    <li class="@if(!$belumFinal) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
                                             <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
