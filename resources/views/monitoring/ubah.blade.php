@@ -48,6 +48,13 @@
                                                 <button type="button" class="btn btn-success" id="finalisasi_total">Finalisasi</button>
                                             </span>
                                         @endif
+										@php
+										if($anggaran->total_anggaran !== null){
+											$totalnya = $anggaran->total_anggaran;
+										}else{
+											$totalnya = 1;
+										}
+										@endphp
                                     </div>  
                                 </div>                              
                             </div>
@@ -139,7 +146,10 @@
                                                                     type="text"
                                                                     name="persenrealisiasi_{{$k+1}}" style="text-align:Center"
                                                                     class="form-control realisasi"
-                                                                    value="{{number_format((float)$v->realisasi/$anggaran->total_anggaran*100,1, '.', '')}}%" readonly
+                                                                   @if($v->realisasi > 0)
+																	   value="{{number_format((float)$v->realisasi/$totalnya*100,1, '.', '')}}%"
+																	@else value="0%"
+																	@endif readonly
                                                                 ></center>
                                                         </td>
                                                     @endforeach
@@ -150,8 +160,9 @@
                                                          <input 
                                                                     type="text"
                                                                     name="persenakumulasi_{{$k+1}}" style="text-align:Center"
-                                                                    class="form-control realisasi"
-                                                                    value="{{number_format((float)$jumlahreal/$anggaran->total_anggaran*100,1, '.', '')}}%" readonly
+                                                                    class="form-control realisasi"@if($v->realisasi > 0)
+                                                                    value="{{number_format((float)$jumlahreal/$totalnya*100,1, '.', '')}}%"@else value="0%"
+																	@endif readonly
                                                                 ></center>
                                                         </td>
                                                     @endforeach
