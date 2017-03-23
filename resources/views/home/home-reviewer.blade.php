@@ -13,13 +13,12 @@
 	.jumbotron .col-md-12{
 		background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));
 		margin: -100px -100px;
-		width:1200px;
+		width:3000px;
 	}
 
 	.jumbotron .col-md-12 h1{
 		color:#fff;
-		padding:30px;
-		
+		padding:20px 20px 0px 20px;
 	}
 	.header-section{
 		padding:0px;
@@ -52,8 +51,7 @@
 				<div class="jumbotron" >
 					<div class="col-md-12"">
 						<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
-						<h1>Selamat Datang di Dashboard Monitoring Program Budaya OJK Way</h1>
-
+						<h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Dashboard Monitoring Program Budaya OJK Way</h4>
 					</div>
 				</div>
 			</div>
