@@ -88,9 +88,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                   ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
                                                   ->where('user_id', getSatker())
                                                   ->where('daftarindikator_id','3')
-                                                  ->where('final_status', 1)
                                                   ->first();
-
 
                                         if (count($bbbb) > 0) {
                                             $belumFinal = true;
@@ -100,7 +98,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
                                     <li class="@if(!$belumFinal) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
+                                            <strong>Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
                                             </strong>
                                         </a>
@@ -123,7 +121,6 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                                       ->where('user_id', getSatker())
                                                       ->where('daftarindikator_id','4')
-                                                      ->where('final_status','1')
                                                       ->first();
                                                 if (count($pimpinanFFF)) {
                                                     $pimF = true;
@@ -327,7 +324,16 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
 {{-- <script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script> --}}
 {{-- <script>$(function(){ FormsWizard.init(); });</script> --}}
 
-<script>
+<script> <?php 
+									   if (count($bbbb) > 0) {
+                                            if($bbbb->final_status){ ?>
+												$(".form-bordered :input").attr("disabled", true);
+												$('.form-bordered [type=submit],.form-bordered [type=file]').hide();
+												$('.table a').hide();
+												$('.table a.btn.btn-danger.btn-block').show();
+											<?php  }
+                                        }
+										?>
     $('#finalisasi_total').on('click', function() {
         var data = $('input[name="total_anggaran"]').val(); 
         if (!confirm('Apakah anda yakin akan memfinalisasi anggaran ini? Tindakan ini tidak dapat diurungkan!')) {

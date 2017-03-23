@@ -907,22 +907,26 @@ class SelfAssesmentController extends Controller {
  
  $peduli = SelfAssesment::where('tahun',date('Y'))
  ->where('triwulan',$triwulan['current']['triwulan'])
+ ->where('user_id',Auth::user()->id)
  ->where('iku_id',$peduli1)
 ->value('id');
 
  $melayani = SelfAssesment::where('tahun',date('Y'))
  ->where('triwulan',$triwulan['current']['triwulan'])
+ ->where('user_id',Auth::user()->id)
  ->where('iku_id',$melayani1)
 ->value('id');
 
  $inovatif = SelfAssesment::where('tahun',date('Y'))
  ->where('triwulan',$triwulan['current']['triwulan'])
+ ->where('user_id',Auth::user()->id)
  ->where('iku_id',$inovatif1)
 ->value('id');
 
         //STAKE HOLDER MELAYANI
  foreach ($r->nama_stake_melayani as $q => $v) {
-    $isi_stake_melayani[$q] = StakeHolder::updateOrCreate([
+	 if($v !== ''){
+    $isi_stake_melayani[$q] = StakeHolder::create([
                 // selfassesment_id di ambil dari data iku
      'user_id'            => Auth::user()->id,
      'nama'               => $v,
@@ -931,11 +935,13 @@ class SelfAssesmentController extends Controller {
      'instansi'           => $r->instansi_stake_melayani[$q],
      'no_hp'              => $r->telp_stake_melayani[$q]
      ]);
+	 }
 }
 
         //STAKE HOLDER PEDULI
 foreach ($r->nama_stake_peduli as $m => $l) {
-    $isi_stake_peduli[$m] = StakeHolder::updateOrCreate([
+		 if($l !== ''){
+    $isi_stake_peduli[$m] = StakeHolder::create([
                 // selfassesment_id di ambil dari data iku
      'user_id'            => Auth::user()->id,
      'nama'               => $l,
@@ -944,11 +950,13 @@ foreach ($r->nama_stake_peduli as $m => $l) {
      'instansi'           => $r->instansi_stake_peduli[$m],
      'no_hp'              => $r->telp_stake_peduli[$m]
      ]);
+	}
 }
 
-        //STAKE HOLDER PEDULI
+        //STAKE HOLDER INOVATIF
 foreach ($r->nama_stake_inovatif as $u => $p) {
-    $isi_stake_inovatif[$u] = StakeHolder::updateOrCreate([
+		 if($p !== ''){
+    $isi_stake_inovatif[$u] = StakeHolder::create([
                 // selfassesment_id di ambil dari data iku
      'user_id'            => Auth::user()->id,
      'nama'               => $p,
@@ -957,6 +965,7 @@ foreach ($r->nama_stake_inovatif as $u => $p) {
      'instansi'           => $r->instansi_stake_inovatif[$u],
      'no_hp'              => $r->telp_stake_inovatif[$u]
      ]);
+	}
 }
 
 $persenino = ProgramBudaya::where('id','3')->first();
