@@ -166,7 +166,7 @@
                             <br>
 
                             <!-- ACCORDION -->
-                            <div class="container" style="max-width: 1000px; overflow: hidden;">
+                            <div class="container" style="max-width: 1000px; overflow: hidden;"> <?php $reportidnya = DB::table('report_assesment')->where('daftarindikator_id','3')->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->value('id'); ?>
                             <!-- OJK MELAYANI -->
                             <div class="block">
                                 <div class="block-title">
@@ -218,7 +218,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                                 <div class="col-md-9">
-                                                    <input type="number" name="nilai_manual_melayani[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
+                                                    <input type="number" name="nilai_manual_melayani[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"  value="<?php echo DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('definisinilai_id',$definisi_manual_melayani->id)->where('tahun',date('Y'))->where('reportassesment_id',$reportidnya)->value('skala_nilai'); ?>"   title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
                                                     <input type="hidden" name="alatukur_id_melayani_manual[]" value="{{$v->id}}">
                                                     <input type="hidden" name="iku_id_melayani_manual[]" value="{{$v->iku_id}}">
                                                     <input type="hidden" name="def_id_melayani_manual[]" value="{{$definisi_manual_melayani->id}}">
@@ -230,15 +230,15 @@
 
                                             @php 
                                                 $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
+												$nilaiygdiinput = DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->value('skala_nilai');
                                             @endphp
-
                                             <!-- PARAMETERIZE -->
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"> Masukan Nilai <span class="text-danger">*</span></label>
                                                 <div class="col-md-9">
                                                     <select class="form-control" name="alatukur_melayani[]">
                                                         @foreach($definisi as $c => $data )
-                                                        <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{($data->skala_nilai)}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
+                                                        <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{($data->skala_nilai)}}" @if($nilaiygdiinput == $data->skala_nilai) selected @endif>{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -248,19 +248,38 @@
                                     </div><!-- CLOSE MYSTERY CALL -->
                                 @endforeach
                             @else
-                                KOSONG
+                                Tidak ada Alat Ukur
                             @endif
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-                                    <div class="col-md-9">
-                                        <input type="file" name="file_melayani" class="form-control" required>
+                                    <div class="col-md-9"><?php
+								$lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
+                                ?>
+                                        <input type="file" name="file_melayani" class="form-control" @if(count($lampiran) > 0)
+								@if($lampiran->filelampiran !== '') @else required @endif @endif>
+										@if(count($lampiran) > 0) <a href="" class="label label-info">{{$lampiran->filelampiran}} </a>@endif
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Kontak Stakeholde <span class="text-danger">*</span></label>
+                                    <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
                                     <div class="col-md-9">
-                                        <table class="table">
+                                        <table class="table">@if(count($lampiran) > 0)<?php 
+								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
+								
+                                ?>@foreach($stakeholder as $holder)
+								  <tr id="fieldz{{$holder->id}}">
+                                            <td>
+                                                <input type="text"readonly class="form-control" value="{{$holder->nama}}">
+                                            </td>
+                                            <td><input type="email" readonly class="form-control" value="{{$holder->email}}"></td>
+                                            <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}"></td>
+                                            <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}'></td>
+                                            <td><a onclick="kurang_OM($holder->id)" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a>
+											<!-- belum dibuat function --></td>
+                                        </tr>
+								
+								@endforeach @endif
                                             <tr id="field1">
                                                 <td>
                                                     <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Nama" required>
@@ -290,20 +309,21 @@
                                     </a>
                                 </div>
                                 <h2><strong>OJK PEDULI</strong></h2>
-                            </div>
+                            </div><?php // menampilkan program
+						$sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->where('namaprogram','!=','')->first();?>
                             <div class="block-content">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Nama Program </label>
                                     <div class="col-md-9">
                                         <!-- <h4>Ojk Peduli</h4> -->
-                                        <input type="text" name="peduli_program" class="form-control" placeholder="Nama Program" required>
+                                        <input type="text" name="peduli_program" class="form-control" @if(count($sasa) > 0) value="{{$sasa->namaprogram}}" @endif  placeholder="Nama Program" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Deskripsi</label>
                                     <div class="col-md-9">
                                         <!-- <h4>{{$peduli->keterangan}}</h4> -->
-                                        <input type="text" name="deskripsi_program" placeholder="Deskripsi Program" class="form-control">
+                                        <input type="text" name="deskripsi_program" placeholder="Deskripsi Program" @if(count($sasa) > 0)  value="{{$sasa->deskripsi}}" @endif class="form-control">
                                     </div>
                                 </div>
 
@@ -325,7 +345,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <input type="number" name="nilai_manual_peduli[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
+                                            <input type="number" name="nilai_manual_peduli[]" value="<?php echo DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('definisinilai_id',$definisi_manual_peduli->id)->where('reportassesment_id',$reportidnya)->where('tahun',date('Y'))->value('skala_nilai'); ?>" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
                                             <input type="hidden" name="alatukur_id_peduli_manual[]" value="{{$v->id}}">
                                             <input type="hidden" name="iku_id_peduli_manual[]" value="{{$v->iku_id}}"> 
                                             <input type="hidden" name="def_peduli_manual[]" value="{{$definisi_manual_peduli->id}}"> 
@@ -335,6 +355,7 @@
                                     @else
                                     <?php 
                                     $definisi = \App\DefinisiNilai::where('iku_id', $v->iku_id)->where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
+									$nilaiygdiinput = DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->value('skala_nilai');
                                     ?>
                                     <!-- PARAMETERIZE -->
                                     <div class="form-group">
@@ -342,7 +363,7 @@
                                         <div class="col-md-9">
                                             <select class="form-control" name="alatukur_peduli[]">
                                                 @foreach($definisi as $b => $data)
-                                                <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{($data->skala_nilai)}}">{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
+                                                <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{($data->skala_nilai)}}"@if($nilaiygdiinput == $data->skala_nilai) selected @endif>{{($data->skala_nilai)}} - {{$data->deskripsi}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -355,30 +376,50 @@
                                 KOSONG
                                 @endif
 
-
-
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
-                                    <div class="col-md-9">
-                                        <table class="table">
-                                            <tr id="field3">
-                                                <td>
-                                                    <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama" required>
-                                                </td>
-                                                <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email" required></td>
-                                                <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
-                                                <td><input type="text" name="telp_stake_peduli[]" class="form-control" title="Masukan nomer handphone" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp" required></td>
-                                                <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-                                            </tr>
-                                        </table>
-                                    </div>
+ <div class="form-group">
+                                <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+                                <div class="col-md-9">
+                                  <?php
+								$lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
+                                 ?>  <input type="file" name="file_peduli" class="form-control" 
+								@if(count($lampiran) > 0)
+									@if($lampiran->filelampiran !== '') @else required @endif
+								@endif> @if(count($lampiran) > 0)<a href="" class="label label-info">{{$lampiran->filelampiran}}</a>@endif
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-                                    <div class="col-md-9">
-                                        <input type="file" name="file_peduli" class="form-control" required>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
+                                <div class="col-md-9">
+                                    <table class="table">@if(count($lampiran) > 0)
+								<?php 
+								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
+								
+                                ?>@foreach($stakeholder as $holder)
+								  <tr id="fieldz{{$holder->id}}">
+                                            <td>
+                                                <input type="text"readonly class="form-control" value="{{$holder->nama}}">
+                                            </td>
+                                            <td><input type="email" readonly class="form-control" value="{{$holder->email}}"></td>
+                                            <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}"></td>
+                                            <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}'></td>
+                                            <td><a onclick="kurang_OP($holder->id)" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a>
+											<!-- belum dibuat function --></td>
+                                        </tr>
+								
+								@endforeach
+								@endif
+                                        <tr id="field3">
+                                            <td>
+                                                <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama" required>
+                                            </td>
+                                            <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email" required></td>
+                                            <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
+                                            <td><input type="text" name="telp_stake_peduli[]" class="form-control" title="Masukan nomer handphone" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp" required></td>
+                                            <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+                                        </tr>
+                                    </table>
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <!-- CLOSE OJK PEDULI -->
@@ -450,6 +491,8 @@
 
                                     $definisi = \App\DefinisiNilai::where('alatukur_id',$v->id)->where('triwulan', $triwulan['current']['triwulan'])->orderBy('skala_nilai','DESC')->get();
 
+								$nilaiygdiinput = DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->value('skala_nilai');
+                                
                                     ?>
                                     <!-- PARAMETERIZE -->
                                     <div class="form-group">
@@ -457,7 +500,7 @@
                                         <div class="col-md-9">
                                             <select class="form-control" name="alatukur_inovatif[]">
                                                 @foreach($definisi as $data)
-                                                <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$data->skala_nilai}}">{{$data->skala_nilai}} - {{$data->deskripsi}}</option>
+                                                <option value="{{$v->iku_id}}#{{$v->id}}#{{$data->id}}#{{$data->skala_nilai}}" @if($nilaiygdiinput == $data->skala_nilai) selected @endif>{{$data->skala_nilai}} - {{$data->deskripsi}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -468,31 +511,51 @@
                                 </div>
                                 @endforeach
                                 @else
-                                KOSONG
+                                Belum ada OJK Inovatif
                                 @endif
 
-
-
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Kontak Stakeholder</label>
-                                    <div class="col-md-9">
-                                        <table class="table">
-                                            <tr id="field4">
-                                                <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" ></td>
-                                                <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" ></td>
-                                                <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" ></td>
-                                                <td><input type="text" name="telp_stake_inovatif[]" title="Masukan nomer handphone" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp"></td>
-                                                <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-                                            </tr>
-                                        </table>
-                                    </div>
+ <div class="form-group">
+                                <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
+                                <div class="col-md-9">
+                                   <?php
+								$lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
+                                ?> <input type="file" name="file_inovatif" class="form-control"@if(count($lampiran) > 0) @if($lampiran->filelampiran !== '') @else required @endif
+								@endif>
+								@if(count($lampiran) > 0)<a href="" class="label label-info">{{$lampiran->filelampiran}}</a> @endif
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">Lampiran Berkas <span class="text-danger">*</span></label>
-                                    <div class="col-md-9">
-                                        <input type="file" name="file_inovatif" class="form-control" required>
-                                    </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Kontak Stakeholder</label>
+                                <div class="col-md-9">
+                                    <table class="table">@if(count($lampiran) > 0)
+								<?php 
+								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
+								
+                                ?>@foreach($stakeholder as $holder)
+								  <tr id="fieldz{{$holder->id}}">
+                                            <td>
+                                                <input type="text"readonly class="form-control" value="{{$holder->nama}}">
+                                            </td>
+                                            <td><input type="email" readonly class="form-control" value="{{$holder->email}}"></td>
+                                            <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}"></td>
+                                            <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}'></td>
+                                            <td><a onclick="kurang_OI($holder->id)" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a>
+											<!-- belum dibuat function --></td>
+                                        </tr>
+								
+								@endforeach
+								@endif
+                                        <tr id="field4">
+                                            <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" ></td>
+                                            <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" ></td>
+                                            <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" ></td>
+                                            <td><input type="text" name="telp_stake_inovatif[]" title="Masukan nomer handphone" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp"></td>
+                                            <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+                                        </tr>
+                                    </table>
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <!-- CLOSE OJK INOVATIF -->

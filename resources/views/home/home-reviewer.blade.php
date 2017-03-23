@@ -62,9 +62,9 @@
 		$nilainya = \App\NilaiAkhir::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
 		$inovatif = \App\Iku::where('tahun',date('Y'))->where('programbudaya_id',3)->where('satker','!=',0)->where('inovatif_triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('satker')->count();
 		$satkernya = \App\User::where('level','satker')->count();
-		$ygudah = count($nilainya);
+		$ygudah = $nilainya;
 		$persenudah = $ygudah/$satkernya*100;
-		$ygudahinov = count($inovatif);
+		$ygudahinov = $inovatif;
 		$persenudahinov = $ygudahinov/$satkernya*100;
 		$ygblm = $satkernya-$ygudah;
 		$persenblm = $ygblm/$satkernya*100;
