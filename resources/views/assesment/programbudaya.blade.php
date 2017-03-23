@@ -62,8 +62,6 @@ if (count($rep) > 0) {
         <div class="col-md-12">
             <!-- Wizard with Validation Block -->
             <div class="block">
-
-
                 <!-- Wizard with Validation Title -->
                 <div class="block-title">
                     <h2><strong>Form</strong></h2>
@@ -90,11 +88,10 @@ if (count($rep) > 0) {
 
                                     if (count($bbbb) > 0) {
                                         $belumFinal = true;
-                                    }
                                     @endphp
                                     
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li class="@if(!$belumFinal) red @else hijau @endif">
+                                    <li class="@if(($hasilinovatif == '') || ($hasilmelayani  == '') || ($hasilpeduli  == '')) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
                                             <strong>Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
@@ -163,7 +160,6 @@ if (count($rep) > 0) {
                         </div>
 
                         <br>
-
                         <!-- ACCORDION -->
                         <div class="container" style="max-width: 1000px; overflow: hidden;"> <?php $reportidnya = DB::table('report_assesment')->where('daftarindikator_id','3')->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->value('id'); ?>
                             <!-- OJK MELAYANI -->

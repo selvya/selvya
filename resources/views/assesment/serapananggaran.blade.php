@@ -92,11 +92,14 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
 
                                         if (count($bbbb) > 0) {
                                             $belumFinal = true;
+                                            $hasilinovatif = $bbbb->hasil_inovatif;
+                                            $hasilmelayani =  $bbbb->hasil_melayani;
+                                            $hasilpeduli =  $bbbb->hasil_peduli;
                                         }
                                     @endphp
                                     
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li class="@if(!$belumFinal) redd @else hijauu @endif">
+                                    <li class="@if(($hasilinovatif == '') || ($hasilmelayani  == '') || ($hasilpeduli  == '')) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
                                             <strong>Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
@@ -121,6 +124,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                                       ->where('user_id', getSatker())
                                                       ->where('daftarindikator_id','4')
+                                      ->where('nilai','>','0')
                                                       ->first();
                                                 if (count($pimpinanFFF)) {
                                                     $pimF = true;
@@ -145,7 +149,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                             </div>
                         </div>
                         <br>
-                        <div class="container" style="max-width: 1000px; overflow: hidden;">
+                        <div class="container" style="max-width:100%; overflow: hidden;">
                             <div class="block">
                                 <div class="row">
                                     <div class="col-lg-12">
