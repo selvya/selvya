@@ -131,6 +131,30 @@
                                                             </div>
                                                         </td>
                                                     @endforeach
+                                                </tr><tr>
+                                                    <td>Persentase Realisasi</td>
+                                                    @foreach($rencana as $k => $v)
+                                                        <td><center>
+                                                                <input 
+                                                                    type="text"
+                                                                    name="persenrealisiasi_{{$k+1}}" style="text-align:Center"
+                                                                    class="form-control realisasi"
+                                                                    value="{{number_format((float)$v->realisasi/$anggaran->total_anggaran*100,1, '.', '')}}%" readonly
+                                                                ></center>
+                                                        </td>
+                                                    @endforeach
+                                                </tr><tr>
+                                                    <td>Persentase Akumulasi</td> <?php $jumlahreal =0;?>
+                                                    @foreach($rencana as $k => $v)
+                                                        <td><center><?php $jumlahreal = $jumlahreal+$v->realisasi;?>
+                                                         <input 
+                                                                    type="text"
+                                                                    name="persenakumulasi_{{$k+1}}" style="text-align:Center"
+                                                                    class="form-control realisasi"
+                                                                    value="{{number_format((float)$jumlahreal/$anggaran->total_anggaran*100,1, '.', '')}}%" readonly
+                                                                ></center>
+                                                        </td>
+                                                    @endforeach
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -155,14 +179,14 @@
                                                                 <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}" class="btn btn-danger btn-block">
                                                                     {{str_limit($v->file, 12)}} <i class="fa fa-download"></i>
                                                                 </a>
-                                                                <input 
+                                                              <!--  <input 
                                                                     class="form-control" 
                                                                     type="file"
                                                                     name="lampiran_{{$k+1}}"
                                                                     @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
                                                                         disabled
                                                                     @endif
-                                                                >
+                                                                >-->
                                                             </td>
                                                         @endif
                                                     @endforeach

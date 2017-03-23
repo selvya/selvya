@@ -104,7 +104,7 @@
                                                   ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
                                                   ->where('user_id', getSatker())
                                                   ->where('daftarindikator_id','3')
-                                                  ->where('final_status', 1)
+                                                  ->where('nilai','>','0')
                                                   ->first();
 
 
@@ -116,7 +116,7 @@
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
                                     <li class="@if(!$belumFinal) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
+                                            <strong> Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
                                             </strong>
                                         </a>
@@ -125,7 +125,7 @@
                         @if($anggaran != null)
                         <li class="@if($atasWizard == 0) redd @else hijauu @endif">
                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
+                                Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                             </a>
                         </li>
                         @endif
@@ -139,7 +139,7 @@
                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                       ->where('user_id', getSatker())
                                       ->where('daftarindikator_id','4')
-                                      ->where('final_status','1')
+                                      ->where('nilai','>','0')
                                       ->first();
                                 if (count($pimpinanFFF)) {
                                     $pimF = true;
@@ -157,7 +157,7 @@
                         @if($pelaporan != null)
                             <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) redd @else hijauu @endif">
                                 <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
-                                    <strong>Kecepatan Pelaporan <br> <big>{{$pelaporan->nilai}}%</big></strong>
+                                    <strong>Kecepatan Pelaporan <br> <big>{{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}% [{{$pelaporan->nilai}}%]</big</strong>
                                 </a>
                             </li>
                         @endif
@@ -221,7 +221,7 @@
                         @endif
 
                         <div class="form-group">
-                            <label class="control-label col-lg-3">Partisipasi Pimpinan</label>
+                            <label class="control-label col-lg-3">Peran Pimpinan</label>
                             <div class="col-md-6">
                                 <textarea name="partisipasi" class="form-control" @if($pim AND $ppp->final_status == 1) disabled @endif > @if($pim) {{$ppp->partisipasi}} @endif</textarea>
                             </div>

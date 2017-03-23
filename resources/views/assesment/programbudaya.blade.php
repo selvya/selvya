@@ -85,7 +85,7 @@
                                                   ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
                                                   ->where('user_id', getSatker())
                                                   ->where('daftarindikator_id','3')
-                                                  ->where('final_status', 1)
+                                                  ->where('nilai','>','0')
                                                   ->first();
 
 
@@ -97,7 +97,7 @@
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
                                     <li class="@if(!$belumFinal) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
+                                            <strong>Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
                                             </strong>
                                         </a>
@@ -138,7 +138,7 @@
                                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                                       ->where('user_id', getSatker())
                                                       ->where('daftarindikator_id','4')
-                                                      ->where('final_status','1')
+                                      ->where('nilai','>','0')
                                                       ->first();
                                                 if (count($pimpinanFFF)) {
                                                     $pimF = true;
@@ -266,7 +266,7 @@
                                     <div class="col-md-9">
                                         <table class="table">@if(count($lampiran) > 0)<?php 
 								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
-								
+								$stakelayan = count($stakeholder);
                                 ?>@foreach($stakeholder as $holder)
 								  <tr id="fieldz{{$holder->id}}">
                                             <td>
@@ -280,15 +280,19 @@
                                         </tr>
 								
 								@endforeach @endif
-                                            <tr id="field1">
+								<?php 
+									while($stakelayan < 10){ $stakelayan++; ?>
+                                            <tr id="field<?php if($stakelayan == 10){?>1<?php }?>">
                                                 <td>
                                                     <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Nama" required>
                                                 </td>
                                                 <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email" required></td>
                                                 <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi" required></td>
                                                 <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" title="Masukan nomer handphone" placeholder="No Telp" required></td>
-                                                <td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+                                                <td><?php if($stakelayan == 10){?><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a>
+										<?php } ?></td>
                                             </tr>
+									<?php }?>
                                         </table>
                                     </div>
                                 </div>
@@ -393,7 +397,7 @@
                                     <table class="table">@if(count($lampiran) > 0)
 								<?php 
 								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
-								
+								$stakepedul = count($stakeholder);
                                 ?>@foreach($stakeholder as $holder)
 								  <tr id="fieldz{{$holder->id}}">
                                             <td>
@@ -408,15 +412,17 @@
 								
 								@endforeach
 								@endif
-                                        <tr id="field3">
+								<?php 
+									while($stakepedul < 10){ $stakepedul++; ?>
+                                            <tr id="field<?php if($stakepedul == 10){?>3<?php }?>">
                                             <td>
                                                 <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama" required>
                                             </td>
                                             <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email" required></td>
                                             <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
                                             <td><input type="text" name="telp_stake_peduli[]" class="form-control" title="Masukan nomer handphone" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp" required></td>
-                                            <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-                                        </tr>
+                                            <td><?php if($stakepedul == 10){?><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a><?php }?></td>
+                                        </tr><?php }?>
                                     </table>
                                 </div>
                             </div>
@@ -595,15 +601,15 @@
     function tambah_MC(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_melayani[]" placeholder="Nama" class="form-control" required>'+
+            '<input type="text" name="nama_stake_melayani[]" placeholder="Nama" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_melayani[]" placeholder="Email" class="form-control" required>'+
+            '<input type="email" name="email_stake_melayani[]" placeholder="Email" class="form-control" >'+
             '<td>'+
-            '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control" required>'+
+            '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control" >'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" title="Masukan nomer handphone"onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" required>'+
+            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" title="Masukan nomer handphone"onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" >'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -617,15 +623,15 @@
     function tambah_OP(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_peduli[]" placeholder="Nama" class="form-control" required>'+
+            '<input type="text" name="nama_stake_peduli[]" placeholder="Nama" class="form-control" >'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_peduli[]" placeholder="Email" class="form-control" required>'+
+            '<input type="email" name="email_stake_peduli[]" placeholder="Email" class="form-control" >'+
             '<td>'+
-            '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control" required>'+
+            '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control" >'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_peduli[]" title="Masukan nomer handphone" placeholder="No Telp" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" required>'+
+            '<input type="text" name="telp_stake_peduli[]" title="Masukan nomer handphone" placeholder="No Telp" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" >'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+

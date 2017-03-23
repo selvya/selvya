@@ -91,7 +91,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                   ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
                                                   ->where('user_id', getSatker())
                                                   ->where('daftarindikator_id','3')
-                                                  ->where('final_status', 1)
+                                                  ->where('nilai','>','0')
                                                   ->first();
 
 
@@ -103,7 +103,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                     @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
                                     <li class="@if(!$belumFinal) redd @else hijauu @endif">
                                         <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
-                                            <strong><i class="fa fa-check"></i>Pelaksanaan Program Budaya <br> 
+                                            <strong>Pelaksanaan Program Budaya <br> 
                                                 <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
                                             </strong>
                                         </a>
@@ -111,35 +111,31 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                     @endif
                                     @if($anggaran != null)
                                     <li class="@if($atasWizard == 0) redd @else hijauu @endif">
-                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong>
-                                            <i class="fa fa-check"></i>Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}]%</big></strong>
+                                        <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second" class="stepnya"><strong> Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}]%</big></strong>
                                         </a>
                                     </li>
                                     @endif
+                                    
                                     @if($pimpinan != null)
-                                        @php
-                                            $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
-
-                                            $pimFinal = false;
-                                            $pppp = \App\ReportAssessment::where('tahun', date('Y'))
-                                              ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                                              ->where('user_id', getSatker())
-                                              ->where('daftarindikator_id','4')
-                                              ->where('final_status','1')
-                                              ->first();
-                                            if (count($pppp) > 0) {
-                                                if ($pppp->final_status == 1) {
-                                                    $pimFinal = true;
+                                            @php
+                                                $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                                                $pimF = false;
+                                                $pimpinanFFF = \App\ReportAssessment::where('tahun', date('Y'))
+                                                      ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                                      ->where('user_id', getSatker())
+                                                      ->where('daftarindikator_id','4')
+                                                      ->first();
+                                                if (count($pimpinanFFF)) {
+                                                    $pimF = true;
                                                 }
-                                            }
-                                        @endphp
-                                        
-                                        <li class="@if(!$pimFinal) redd @else hijauu @endif">
-                                            <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">
-                                                <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
-                                            </a>
-                                        </li>
-                                    @endif
+                                            @endphp
+
+                                            <li class="@if(!$pimF) redd @else hijauu @endif">
+                                                <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">                                    
+                                                    <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
+                                                </a>
+                                            </li>
+                                        @endif
                                     @if($pelaporan != null)
                                     <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
@@ -154,7 +150,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                         <div class="container" style="max-width: 1000px; overflow: hidden;">
                             <div class="block">
 
-                                <h4 class="text-center">Tanggal pelaporan: {{readify(cekCurrentTriwulan()['current']->tanggal)}}</h4>
+                                <h4 class="text-center">Tanggal pelaporan Seharusnya: {{readify(cekCurrentTriwulan()['current']->tanggal)}}</h4>
                                 <br>
                                 <h4 class="text-center">Nilai Kecepatan Pelaporan: {{cekSimpanPelaporan($rep)}} ({{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}%)</h4>
                             </div>
@@ -180,7 +176,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                             !cekFinalAnggaran($thn, $tw, $usr)
                             )
                             {{-- @if($rep == null) --}}
-                                <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Next">
+                                <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Finalisasi Lembar Self Assessment">
                             @endif
                         </div>
                     </div>
