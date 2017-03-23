@@ -256,14 +256,15 @@
                                     <div class="col-md-9"><?php
 								$lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
                                 ?>
-                                        <input type="file" name="file_melayani" class="form-control" @if($lampiran->filelampiran !== '') @else required @endif>
-										<a href="" class="label label-info">{{$lampiran->filelampiran}}</a>
+                                        <input type="file" name="file_melayani" class="form-control" @if(count($lampiran) > 0)
+								@if($lampiran->filelampiran !== '') @else required @endif @endif>
+										@if(count($lampiran) > 0) <a href="" class="label label-info">{{$lampiran->filelampiran}} </a>@endif
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
                                     <div class="col-md-9">
-                                        <table class="table"><?php 
+                                        <table class="table">@if(count($lampiran) > 0)<?php 
 								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 								
                                 ?>@foreach($stakeholder as $holder)
@@ -278,7 +279,7 @@
 											<!-- belum dibuat function --></td>
                                         </tr>
 								
-								@endforeach
+								@endforeach @endif
                                             <tr id="field1">
                                                 <td>
                                                     <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Nama" required>
@@ -309,20 +310,20 @@
                                 </div>
                                 <h2><strong>OJK PEDULI</strong></h2>
                             </div><?php // menampilkan program
-						$sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->where('namaprogram','!=','')->get(); foreach($sasa as $program){}?>
+						$sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->where('namaprogram','!=','')->first();?>
                             <div class="block-content">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Nama Program </label>
                                     <div class="col-md-9">
                                         <!-- <h4>Ojk Peduli</h4> -->
-                                        <input type="text" name="peduli_program" class="form-control"value="{{$program->namaprogram}}"  placeholder="Nama Program" required>
+                                        <input type="text" name="peduli_program" class="form-control" @if(count($sasa) > 0) value="{{$sasa->namaprogram}}" @endif  placeholder="Nama Program" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Deskripsi</label>
                                     <div class="col-md-9">
                                         <!-- <h4>{{$peduli->keterangan}}</h4> -->
-                                        <input type="text" name="deskripsi_program" placeholder="Deskripsi Program" value="{{$program->deskripsi}}" class="form-control">
+                                        <input type="text" name="deskripsi_program" placeholder="Deskripsi Program" @if(count($sasa) > 0)  value="{{$sasa->deskripsi}}" @endif class="form-control">
                                     </div>
                                 </div>
 
@@ -380,13 +381,16 @@
                                 <div class="col-md-9">
                                   <?php
 								$lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
-                                ?>  <input type="file" name="file_peduli" class="form-control" @if($lampiran->filelampiran !== '') @else required @endif><a href="" class="label label-info">{{$lampiran->filelampiran}}</a>
+                                 ?>  <input type="file" name="file_peduli" class="form-control" 
+								@if(count($lampiran) > 0)
+									@if($lampiran->filelampiran !== '') @else required @endif
+								@endif> @if(count($lampiran) > 0)<a href="" class="label label-info">{{$lampiran->filelampiran}}</a>@endif
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
                                 <div class="col-md-9">
-                                    <table class="table">
+                                    <table class="table">@if(count($lampiran) > 0)
 								<?php 
 								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 								
@@ -403,6 +407,7 @@
                                         </tr>
 								
 								@endforeach
+								@endif
                                         <tr id="field3">
                                             <td>
                                                 <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama" required>
@@ -506,7 +511,7 @@
                                 </div>
                                 @endforeach
                                 @else
-                                KOSONG
+                                Belum ada OJK Inovatif
                                 @endif
 
  <div class="form-group">
@@ -514,14 +519,16 @@
                                 <div class="col-md-9">
                                    <?php
 								$lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
-                                ?> <input type="file" name="file_inovatif" class="form-control" @if($lampiran->filelampiran !== '') @else required @endif><a href="" class="label label-info">{{$lampiran->filelampiran}}</a>
+                                ?> <input type="file" name="file_inovatif" class="form-control"@if(count($lampiran) > 0) @if($lampiran->filelampiran !== '') @else required @endif
+								@endif>
+								@if(count($lampiran) > 0)<a href="" class="label label-info">{{$lampiran->filelampiran}}</a> @endif
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Kontak Stakeholder</label>
                                 <div class="col-md-9">
-                                    <table class="table">
+                                    <table class="table">@if(count($lampiran) > 0)
 								<?php 
 								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 								
@@ -538,6 +545,7 @@
                                         </tr>
 								
 								@endforeach
+								@endif
                                         <tr id="field4">
                                             <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" ></td>
                                             <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" ></td>
