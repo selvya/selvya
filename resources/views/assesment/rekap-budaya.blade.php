@@ -17,6 +17,15 @@
 	</ul>
 	<!-- END Datatables Header -->
 
+	<?php
+	$triwulan = cekCurrentTriwulan();
+	$iku = \App\Iku::where('inovatif_triwulan', $triwulan['current']['triwulan'])
+	->where('daftarindikator_id','3')
+	->where('isfinal', 'y')
+	->join('users','iku.satker','=','users.id')
+	->get();
+	?>
+
 	<!-- Datatables Content -->
 	<div class="block full">
 		<div class="text-right">
@@ -24,7 +33,7 @@
 		</div>
 		<br>
 		<div class="panel panel-default">
-			<div class="panel-heading">
+			{{-- <div class="panel-heading">
 				<form method="post" enctype="multipart/form-data" action="">
 					Tahun&nbsp;:&nbsp;&nbsp;
 					<select name="year">
@@ -35,65 +44,36 @@
 					<a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
 					<a href="#" class="btn btn-warning"><i class="fa fa-print"></i>&nbsp;Export ke Excel</a>
 				</form>
-			</div>
+			</div> --}}
 			<!-- /.panel-heading -->
-			<div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
-				<div class="container" style=" width:100%;margin-bottom: 5px;">
-					<b>Rekapitulasi:</b>
-					<table>
-						<tr>
-							<td style="background-color: #ececec;" align="center">
-								&nbsp;Sudah Final&nbsp;<br>
-								<a href="#" class="btn btn-success">3</a>
-							</td>
-							<td>&nbsp;</td>
-							<td style="background-color: #ececec;" align="center">
-								&nbsp;Belum Final&nbsp;<br>
-								<a href="#" class="btn btn-danger">0</a>
-							</td>
-						</tr>
-					</table>
+			<div class="panel-body">
+				<div class="container">
+					<b>Rekapitulasi:</b> <br>
+					<span class="btn btn-success"><b>Sudah Final</b><br><big>{{count($iku)}}</big></span>
+					<span class="btn btn-danger"><b>Belum Final</b><br><big>10</big></span>
 				</div>
 			</div>
 
-			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+			<table class="table table-striped table-bordered table-hover" id="myTable">
 				<thead>
 					<tr>
-						<th>Deputi Komisioner</th>
-						<th>Departemen</th>
-						<th style="width:13%;">KOJK</th>
-						<th style="width:13%;text-align:center">Nama Program</th>
-						<th style="width:13%;text-align:center">Status</th>
+						<th class="text-center">Deputi Komisioner</th>
+						<th class="text-center">Departemen</th>
+						<th class="text-center">KOJK</th>
+						<th class="text-center">Nama Program</th>
+						<th class="text-center">Status</th>
 					</tr>
 				</thead>
 				<tbody>
+					@foreach($iku as $data)
 					<tr>
-						<td>Manajemen Strategis IB</td>
-						<td>Perencanaan Strategis, Manajemen Perubahan dan Sekretariat Dewan Komisioner</td>
-						<td> N/A</td>
-						<td>DSMS Inovatif Oke!</td>
-						<td style="text-align:center">
-							<label class="btn btn-success modalBox" id="bootBox0" data-program-id="352" data-state-id="1" data-desc-id="DSMS Inovatif Oke!">Sudah Final</label>
-						</td>
+						<td class="text-center">{{$data->deputi_kom}}</td>
+						<td class="text-center">{{$data->departemen}}</td>
+						<td class="text-center">{{$data->kojk}}</td>
+						<td class="text-center">{{$data->namaprogram}}</td>
+						<td class="text-center"><span class="label label-success">Sudah Final</span></td>
 					</tr>
-					<tr>
-						<td>Manajemen Strategis IB</td>
-						<td>Komunikasi dan Internasional</td>
-						<td> N/A</td>
-						<td>OJK Peduli</td>
-						<td style="text-align:center">
-							<label class="btn btn-success modalBox" id="bootBox1" data-program-id="354" data-state-id="1" data-desc-id="OJK Peduli">Sudah Final</label>
-						</td>
-					</tr>
-					<tr>
-						<td>Manajemen Strategis IB</td>
-						<td>Komunikasi dan Internasional</td>
-						<td> N/A</td>
-						<td>OJK Melayani</td>
-						<td style="text-align:center">
-							<label class="btn btn-success modalBox" id="bootBox2" data-program-id="355" data-state-id="1" data-desc-id="OJK Melayani">Sudah Final</label>
-						</td>
-					</tr>
+					@endforeach
 				</tbody>
 			</table>
 
@@ -107,4 +87,9 @@
 @section('js')
 <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
 <script>$(function(){ TablesDatatables.init(); });</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#myTable').DataTable();
+	});
+</script>
 @endsection

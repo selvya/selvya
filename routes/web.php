@@ -125,9 +125,6 @@ Route::group(['middleware' => ['satker']], function () {
     Route::get('lihat-anggaran', function () {
         return view('monitoring.lihat');
     });
-    Route::get('anggaran-budaya', function () {
-        return view('monitoring.anggaran-budaya');
-    });
     //TUTUP MONITORING
 });
 
@@ -167,8 +164,9 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('hasil-monitoring', function () {
         return view('monitoring.hasil');
     });
-
-
+    Route::get('anggaran-budaya', function () {
+        return view('monitoring.anggaran-budaya');
+    });
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
 });
