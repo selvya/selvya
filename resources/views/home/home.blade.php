@@ -160,7 +160,8 @@
                     </div>
                     
                     @php
-                        $x++;
+                            $x++;
+                        }
                     @endphp
                 </div>
                 <div class="block">
@@ -338,7 +339,8 @@
                             echo "['".$nilainya->name."', ".$nilainya->hasil."],";
                         }
                         
-                        echo "['Tidak Tercapai', ".$yyy."]";?>
+                        echo "['Tidak Tercapai', ".$yyy."]";
+                    @endphp
                 ]
             }]
         });
