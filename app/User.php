@@ -18,7 +18,7 @@ class User extends Authenticatable
     protected $table = 'users';
     
     protected $fillable = [
-        'username', 'email', 'password', 'otoritas' , 'deputi_kom' , 'departemen' , 'kojk' ,'change_partner' , 'satker' ,'jabatan'
+    'username', 'email', 'password', 'otoritas' , 'deputi_kom' , 'departemen' , 'kojk' ,'change_partner' , 'satker' ,'jabatan'
     ];
 
     /**
@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+    'password', 'remember_token',
     ];
 
     public function getHashidAttribute()
@@ -43,5 +43,10 @@ class User extends Authenticatable
     public function direktorat()
     {
         return $this->belongsTo('\App\Direktorat', 'direktorat_id');
+    }
+
+    public function r_assesment()
+    {
+        return $this->hasMany('\App\ReportAssessment', 'user_id');
     }
 }

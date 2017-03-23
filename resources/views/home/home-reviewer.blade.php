@@ -52,6 +52,7 @@
 				<div class="jumbotron" >
 					<div class="col-md-12"">
 						<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
+						<h1>Selamat Datang di Dashboard Monitoring Program Budaya OJK Way</h1>
 
 					</div>
 				</div>
@@ -60,11 +61,16 @@
 		<!-- Mini Top Stats Row -->
 		<?php 
 		$nilainya = \App\NilaiAkhir::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
+		$monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
 		$inovatif = \App\Iku::where('tahun',date('Y'))->where('programbudaya_id',3)->where('satker','!=',0)->where('inovatif_triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('satker')->count();
 		$satkernya = \App\User::where('level','satker')->count();
-		$ygudah = count($nilainya);
+		$ygudah = $nilainya;
+		$ygudahmonitor = $monitornya;
 		$persenudah = $ygudah/$satkernya*100;
-		$ygudahinov = count($inovatif);
+		$persenudahmonitor = $ygudahmonitor/$satkernya*100;
+		$ygblmmonitor = $satkernya-$ygudahmonitor;
+		$persenblmmonitor = $ygblmmonitor/$satkernya*100;
+		$ygudahinov = $inovatif;
 		$persenudahinov = $ygudahinov/$satkernya*100;
 		$ygblm = $satkernya-$ygudah;
 		$persenblm = $ygblm/$satkernya*100;
@@ -77,6 +83,10 @@
 		if($persenudahinov > 49){	$colorinov = 'green';}
 		else{
 			$colorinov = 'red';
+		}
+		if($persenudahmonitor > 49){	$colormonitor = 'green';}
+		else{
+			$colormonitor = 'red';
 		}
 		?>
 		<div class="row">
@@ -110,25 +120,10 @@
 				<!-- Widget -->
 				<a href="" class="widget widget-hover-effect1">
 					<div class="widget-simple">
-						<div class="pie-chart block-section" data-bar-color="{{$colorinov}}" data-percent="{{$persenudahinov}}" data-size="63"><span><b>{{$ygudahinov}}</b></span></div>
+						<div class="pie-chart block-section" data-bar-color="{{$colormonitor}}" data-percent="{{$persenudahmonitor}}" data-size="63"><span><b>{{$ygudahmonitor}}</b></span></div>
 						<h3 class="widget-content text-right animation-pullDown">
-							{{$ygudahinov}} <strong>Satker</strong>
+							{{$ygudahmonitor}} <strong>Satker</strong>
 							<small>Sudah di Monitor</small>
-						</h3>
-					</div>
-				</a>
-				<!-- END Widget -->
-			</div>
-			<div class="col-sm-6 col-lg-4">
-				<!-- Widget -->
-				<a href="" class="widget widget-hover-effect1">
-					<div class="widget-simple">
-						<div class="widget-icon pull-left themed-background-amethyst animation-fadeIn">
-							<i class="fa fa-envelope"></i>
-						</div>
-						<h3 class="widget-content text-right animation-pullDown">
-							+30 <strong>Satker</strong>
-							<small>Belum di Monitor</small>
 						</h3>
 					</div>
 				</a>
@@ -160,6 +155,19 @@
 				</a>
 				<!-- END Widget -->
 			</div>
+			<div class="col-sm-6 col-lg-4">
+				<!-- Widget -->
+				<a href="" class="widget widget-hover-effect1">
+					<div class="widget-simple">
+						<div class="pie-chart block-section" data-bar-color="{{$colormonitor}}" data-percent="{{$persenblmmonitor}}" data-size="63"><span><b>{{$ygblmmonitor}}</b></span></div>
+						<h3 class="widget-content text-right animation-pullDown">
+							{{$ygblmmonitor}} <strong>Satker</strong>
+							<small>Belum di Monitor</small>
+						</h3>
+					</div>
+				</a>
+				<!-- END Widget -->
+			</div>
 		</div>
 		<!-- END Mini Top Stats Row -->
 		<!-- END Dashboard 2 Header -->
@@ -184,42 +192,6 @@
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<!--CHART BAR-->
 		<script type="text/javascript">
-			Highcharts.chart('container', {
-				chart: {
-					type: 'column',
-					options3d: {
-						enabled: true,
-						alpha: 10,
-						beta: 25,
-						depth: 70
-					}
-				},
-				title: {
-					text: 'Monitoring'
-				},
-				plotOptions: {
-					column: {
-						depth: 25
-					}
-				},
-				xAxis: {
-					categories: ['TW 1', 'TW 2' , 'TW 3' , 'TW 4']
-				},
-				yAxis: {
-					title: {
-						text: 'Nilai'
-					}
-				},
-				series: [{
-					name: 'Triwulan',
-					data: [1, 2 , 3, 4]
-				}]
-			});
-		</script>
-		<!-- TUTUP CHART BAR -->
-
-		<!-- CHART PIE -->
-		<script type="text/javascript">
 			Highcharts.chart('containernya', {
 				chart: {
 					type: 'pie',
@@ -230,7 +202,25 @@
 					}
 				},
 				title: {
-					text: 'Browser market shares at a specific website, 2014'
+					<?php 
+switch (cekCurrentTriwulan()['current']->triwulan) {
+    case 4:
+        $tw = 'IV';
+        break; 
+	case 2:
+         $tw = 'II';
+        break; 
+	case 3:
+         $tw = 'III';
+        break; 
+    default:
+         $tw = 'I';
+        break; 
+}
+						$assa = 'Sekarang Periode TW '.$tw.' ['.date('F', strtotime(cekCurrentTriwulan()['current']->sejak)).'-'.date('F', strtotime(cekCurrentTriwulan()['current']->hingga)).']';
+					
+							 ?>
+					text: '{{$assa}}'
 				},
 				tooltip: {
 					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -240,21 +230,73 @@
 						allowPointSelect: true,
 						cursor: 'pointer',
 						depth: 35,
-						dataLabels: {
-							enabled: true,
-							format: '{point.name}'
-						}
+						 dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
 					}
-				},
+				},legend: {
+    align: 'left',
+    layout: 'vertical',
+    verticalAlign: 'top',floating: true,
+    y: 20,
+    x: 0
+},
 				series: [{
 					type: 'pie',
 					name: 'Nilai',
 					data: [
-					['Firefox', 62.7],
-					['IE', 37.3]
+					<?php $ssks = \App\ReportAssessment::leftJoin('daftarindikator','report_assesment.daftarindikator_id','=','daftarindikator.id')->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->where('final_status','1')->where('tahun',date('Y'))->groupBy('name')->select('name', DB::raw( 'AVG( hasil ) as hasil1' ) )->get();$xxx ="";$yyy = 100;
+			foreach($ssks as $nilainya){
+				$yyy -= $nilainya->hasil1;
+				echo "['".$nilainya->name."', ".$nilainya->hasil1."],";
+			}
+					echo "['Tidak Tercapai', ".$yyy."]";?>
 					]
 				}]
-			});$(".pie-chart").easyPieChart({barColor:$(this).data("bar-color")?$(this).data("bar-color"):"#777777",trackColor:$(this).data("track-color")?$(this).data("track-color"):"#eeeeee",lineWidth:$(this).data("line-width")?$(this).data("line-width"):3,size:$(this).data("size")?$(this).data("size"):"80",animate:800,scaleColor:!1});
+			});
+			$(".pie-chart").easyPieChart({barColor:$(this).data("bar-color")?$(this).data("bar-color"):"#777777",trackColor:$(this).data("track-color")?$(this).data("track-color"):"#eeeeee",lineWidth:$(this).data("line-width")?$(this).data("line-width"):3,size:$(this).data("size")?$(this).data("size"):"80",animate:800,scaleColor:!1});Highcharts.chart('container', {
+				chart: {
+					type: 'column',
+					options3d: {
+						enabled: true,
+						alpha: 1,
+						beta: 1,
+						depth: 70
+					}
+				},
+				title: {
+					text: 'Nilai Indikator IKU'
+				},
+				plotOptions: {
+					column: {
+						depth: 25
+					}
+				},
+				xAxis: {
+					categories: [
+					<?php $ssks = \App\Persentase::leftJoin('daftarindikator','persentase.daftarindikator_id','=','daftarindikator.id')->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->where('tahun',date('Y'))->where('nilai','>',0)->get();
+					foreach($ssks as $indi){
+						echo "'".$indi->name."',";
+					}?>]
+				},
+				yAxis: {
+					title: {
+						text: 'Nilai yang di capai'
+					}
+				},
+				series: [{
+					name: 'Nilai Indikator',
+					data: [
+					<?php 
+					foreach($ssks as $indi){
+						$nilainya = \App\ReportAssessment::where('daftarindikator_id',$indi->daftarindikator_id)->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->where('tahun',date('Y'))->where('final_status','1')->groupBy('daftarindikator_id')->select(DB::raw( 'AVG( nilai ) as nilai1' ) )->value('nilai1');
+						if(count($nilainya)<1){$nilainya = 0;}
+						if($indi->daftarindikator_id == 3){$nilainya = $nilainya * 6/40;}
+						echo number_format((float)$nilainya, 2, '.', '').",";
+					}?>]
+				}]
+			});
 		</script>
 		<!-- TUTUP CHART PIE -->
 		@endsection

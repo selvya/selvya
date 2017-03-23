@@ -160,9 +160,7 @@
                                                                     type="file"
                                                                     name="lampiran_{{$k+1}}"
                                                                     @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
-                                                                        disabled 
-                                                                    @else
-                                                                        required
+                                                                        disabled
                                                                     @endif
                                                                 >
                                                             </td>

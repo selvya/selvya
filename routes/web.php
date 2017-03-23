@@ -143,7 +143,7 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('tambah/lomba/{id}','InputTambahanController@tambahlomba');
     Route::get('tambah/budaya-eksternal/{id}','InputTambahanController@tambahbudayaeksternal');
     Route::get('tambah/budaya-internal/{id}','InputTambahanController@tambahbudayainternal');
-    Route::post('proses-lomba','InputTambahanController@proseslomba');
+    Route::post('proses-lomba/{id}','InputTambahanController@proseslomba');
     Route::post('proses-internal','InputTambahanController@prosesinternal');
     Route::post('proses-eksternal','InputTambahanController@proseseksternal');
     //TUTUP INPUT TAMBAHAN

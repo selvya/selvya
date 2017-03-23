@@ -1,4 +1,11 @@
 @extends('layout.master')
+@section('css')
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"> --}}
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"> --}}
+<style>
+	table.dataTable thead th, table.dataTable thead td{border-bottom: none;}
+</style>
+@endsection
 @section('content')
 <!-- Page content -->
 <div id="page-content">
@@ -71,7 +78,7 @@
 						<td class="text-center">{{$data->departemen}}</td>
 						<td class="text-center">{{$data->kojk}}</td>
 						<td class="text-center">{{$data->namaprogram}}</td>
-						<td class="text-center"><span class="label label-success">Sudah Final</span></td>
+						<td class="text-center"><h4><span class="label label-success">Sudah Final</span></h4></td>
 					</tr>
 					@endforeach
 				</tbody>
@@ -89,7 +96,12 @@
 <script>$(function(){ TablesDatatables.init(); });</script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#myTable').DataTable();
+		$('#myTable').DataTable({
+			
+			buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+			]
+		});
 	});
 </script>
 @endsection

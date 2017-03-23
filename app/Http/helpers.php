@@ -448,7 +448,7 @@ function cekFinalPimpinan($tahun, $triwulan, $user) {
               ->where('triwulan',$triwulan)
               ->where('user_id', $user)
               ->where('daftarindikator_id','4')
-              ->where('final_status','1')
+              // ->where('final_status','1')
               ->first();
 
     return (count($pimpinan) > 0) ? true : false;
@@ -488,7 +488,7 @@ function cekNilaiPimpinan($tahun, $triwulan, $user) {
               ->where('triwulan',$triwulan)
               ->where('user_id', $user)
               ->where('daftarindikator_id','4')
-              ->where('final_status','1')
+              // ->where('final_status','1')
               ->first();
 
     if(count($pimpinan) > 0) {

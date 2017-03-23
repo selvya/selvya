@@ -80,7 +80,7 @@
 						<div class="form-group row">
 							<label class="col-md-2 col-form-label">Nilai <span class="text-danger">*</span></label>
 							<div class="col-md-10">
-								<input type="number" name="" min="0" max="6" class="form-control">
+								<input type="number" name="nilai" min="0" max="6" class="form-control">
 							</div>
 						</div>
 						

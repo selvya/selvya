@@ -4,14 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NilaiAkhir extends Model
+class NilaiAkhirMonitor extends Model
 {
-    protected $table = 'nilaiakhir_assesment';
+    protected $table = 'nilaiakhir_monitoring';
 
     protected $fillable = [
         'user_id',
         'tahun',
         'triwulan',
-        'nilai'
+        'penilai',
+        'penandatangan',
+        'nilaiakhir'
     ];
 }

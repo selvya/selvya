@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\User;
 use \App\Persentase;
+use Hashids;
 
 class InputTambahanController extends Controller
 {
@@ -41,7 +42,11 @@ class InputTambahanController extends Controller
     }
     public function tambahlomba($id)
     {
-        $satker = User::findOrFail($id);
+        $hid = Hashids::connection('user')->decode($id);
+        if (count($hid) == 0) {
+            abort(404);
+        }
+        $satker = User::findOrFail($hid[0]);
         $triwulan       = cekCurrentTriwulan();
         $iku = \App\Iku::where('tahun',date('Y'))
         ->where('daftarindikator_id','5')
@@ -69,5 +74,9 @@ class InputTambahanController extends Controller
         ->first();
 
         return view('tambahan.tambah-budaya-internal',compact('iku','triwulan','satker'));
+    }
+    public function proseslomba(Request $r, $id)
+    {
+        return redirect()->back();
     }
 }

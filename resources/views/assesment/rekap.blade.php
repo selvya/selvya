@@ -24,7 +24,7 @@
         </div> -->
         <br>
         
-        <div class="panel-heading">
+        {{-- <div class="panel-heading">
             <form method="post" enctype="multipart/form-data" action="">
                 <select name="tipe">
                     <option value="2" selected="selected">Kantor Pusat</option>
@@ -44,8 +44,8 @@
             </select>&nbsp;         
             <a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
         </form>
-    </div>
-    <div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
+    </div> --}}
+    {{--< div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
         <div class="container" style=" width:100%;margin-bottom: 5px;">
             <b>Detail Rekapitulasi:</b>
             <table>
@@ -62,9 +62,9 @@
                 </tr>
             </table>
         </div>
-    </div>
+    </div> --}}
     
-    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+    <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead>
             <tr>
                 <th class="text-center">Username</th>
@@ -83,7 +83,7 @@
            $rp[] = $value->user_id;
        }
        $satker =  \App\User::whereNotIn('id',$rp)
-       ->paginate(15);
+       ->get();
 
        ?>
        <tbody>
@@ -100,7 +100,6 @@
         @endforeach
     </tbody>
 </table>
-{{$satker->render()}}
 </div>
 <!-- END Datatables Content -->
 </div>
