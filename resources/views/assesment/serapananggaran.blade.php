@@ -164,18 +164,22 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Rp</span>
                                                                 <input
-                                                                class="form-control readonly"
-                                                                type="text"
-                                                                name="total_anggaran"
-                                                                min="1"
-                                                                step="1"
-                                                                value="{{number_format($anggaranN->total_anggaran, 0, ',', '.')}}"
-                                                                @if($anggaranN->status == 1) disabled readonly @endif 
+                                                                    class="form-control readonly"
+                                                                    type="text"
+                                                                    name="total_anggaran"
+                                                                    min="1"
+                                                                    step="1"
+                                                                    value="{{number_format($anggaranN->total_anggaran, 0, ',', '.')}}"
+                                                                    @if($anggaranN->status == 1) 
+                                                                        disabled
+                                                                        readonly
+                                                                    @endif 
                                                                 >
+
                                                                 @if($anggaranN->status == 0)
-                                                                <span class="input-group-btn">
-                                                                    <button type="button" class="btn btn-success" id="finalisasi_total">Finalisasi</button>
-                                                                </span>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-success" id="finalisasi_total">Finalisasi</button>
+                                                                    </span>
                                                                 @endif
                                                             </div>  
                                                         </div>                              
@@ -211,65 +215,68 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon">Rp.</span>
                                                                                     <input 
-                                                                                    type="text"
-                                                                                    name="realisasi_{{$k+1}}"
-                                                                                    class="form-control realisasi"
-                                                                                    value="{{number_format($v->realisasi, 0, ',', '.')}}"
-                                                                                    @php
+                                                                                        type="text"
+                                                                                        name="realisasi_{{$k+1}}"
+                                                                                        class="form-control realisasi"
+                                                                                        value="{{number_format($v->realisasi, 0, ',', '.')}}"
+                                                                                        @php
 
-                                                                                    // $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
-                                                                                    $twww[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
-                                                                                    ->where('triwulan', ($k+1))
-                                                                                    ->first();
-                                                                                    $awal[$k] = \Carbon\Carbon::parse($twww[$k]->sejak);
-                                                                                    $akhir[$k] = \Carbon\Carbon::parse($twww[$k]->hingga);
-                                                                                    $now[$k] = \Carbon\Carbon::now();
-                                                                                    // $now[$k] = $no;
-                                                                                    @endphp
+                                                                                            // $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
+                                                                                            $twww[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
+                                                                                            ->where('triwulan', ($k+1))
+                                                                                            ->first();
+                                                                                            $awal[$k] = \Carbon\Carbon::parse($twww[$k]->sejak);
+                                                                                            $akhir[$k] = \Carbon\Carbon::parse($twww[$k]->hingga);
+                                                                                            $now[$k] = \Carbon\Carbon::now();
+                                                                                            // $now[$k] = $no;
+                                                                                        @endphp
 
-                                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
-                                                                                    readonly 
-                                                                                    @endif
+                                                                                        @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
+                                                                                            readonly 
+                                                                                        @endif
                                                                                     >
                                                                                 </div>
                                                                             </td>
+
                                                                             @endforeach
                                                                         </tr>
                                                                         <tr>
                                                                             <td>
                                                                                 <label for="exampleInputFile">Lampiran<br>(Max. 20MB)<br>(.zip,.rar, .pdf, .jpg)</label>
                                                                             </td>
+
                                                                             @foreach($rencanaN as $k => $v)
-                                                                            @if($v->file == null)
-                                                                            <td>
-                                                                                <input 
-                                                                                class="form-control" 
-                                                                                type="file"
-                                                                                name="lampiran_{{$k+1}}"
-                                                                                @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
-                                                                                disabled 
-                                                                                readonly
-                                                                                @endif
-                                                                                >
-                                                                            </td>
-                                                                            @else
-                                                                            <td>
-                                                                                <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}" class="btn btn-danger btn-block">
-                                                                                    {{str_limit($v->file, 12)}} <i class="fa fa-download"></i>
-                                                                                </a>
-                                                                                <input 
-                                                                                class="form-control" 
-                                                                                type="file"
-                                                                                name="lampiran_{{$k+1}}"
-                                                                                @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
-                                                                                disabled
-                                                                                readonly
+                                                                                
+                                                                                @if($v->file == null)
+                                                                                
+                                                                                    <td>
+                                                                                        <input 
+                                                                                            class="form-control" 
+                                                                                            type="file"
+                                                                                            name="lampiran_{{$k+1}}"
+                                                                                            @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
+                                                                                                disabled
+                                                                                                readonly
+                                                                                            @endif
+                                                                                            required
+                                                                                        >
+                                                                                    </td>
                                                                                 @else
-                                                                                required
+                                                                                    <td>
+                                                                                        <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}" class="btn btn-danger btn-block">
+                                                                                            {{str_limit($v->file, 12)}} <i class="fa fa-download"></i>
+                                                                                        </a>
+                                                                                        <input 
+                                                                                            class="form-control" 
+                                                                                            type="file"
+                                                                                            name="lampiran_{{$k+1}}"
+                                                                                            @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
+                                                                                                disabled
+                                                                                                readonly
+                                                                                            @endif
+                                                                                        >
+                                                                                    </td>
                                                                                 @endif
-                                                                                >
-                                                                            </td>
-                                                                            @endif
                                                                             @endforeach
                                                                             {{-- <td>
                                                                             <input class="form-control" type="file" id="exampleInputFile1" name="userfile1" onchange="AlertFilesize(document.getElementById('exampleInputFile1').getAttribute('id'),1)">

@@ -62,38 +62,39 @@
                     @include('include.alert')
                     @php
 
-                    $rep = \App\ReportAssessment::where('tahun', date('Y'))
-                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                    ->where('daftarindikator_id', 1)
-                    ->where('user_id', getSatker())
-                    ->first();
+                        $rep = \App\ReportAssessment::where('tahun', date('Y'))
+                            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                            ->where('daftarindikator_id', 1)
+                            ->where('user_id', getSatker())
+                            ->first();
 
-                    $triwulan = cekCurrentTriwulan();
-                    $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
-                    ->where('tahun',date('Y'))
-                    ->where('user_id',Auth::user()->id)
-                    ->where('daftarindikator_id','3')
-                    ->get();
+                        $triwulan = cekCurrentTriwulan();
+                            $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwulan'])
+                            ->where('tahun',date('Y'))
+                            ->where('user_id',Auth::user()->id)
+                            ->where('daftarindikator_id','3')
+                            ->get();
 
 
-                    $agg = \App\AnggaranTahun::where('tahun', date('Y'))
-                    ->where('user_id', getSatker())
-                    ->first()
-                    ->anggaran_triwulan
-                    ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                    ->first();
-                    if ($agg->is_final != 0) {
-                    $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
-                }
-                else{
-                $atasWizard = 0;
-            }
+                        $agg = \App\AnggaranTahun::where('tahun', date('Y'))
+                        ->where('user_id', getSatker())
+                        ->first()
+                        ->anggaran_triwulan
+                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                        ->first();
+                    
+                        if ($agg->file != null) {
+                            $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
+                        
+                        }else{
+                            $atasWizard = 0;
+                        }
 
-            $pim = cekFinalPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
-            $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
-            // dd($nilaiPim);
+                        $pim = cekFinalPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                        $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                        // dd($nilaiPim);
 
-            @endphp
+                    @endphp
             <div class="form-group">
                 <div class="col-xs-12">
                     <ul class="nav nav-pills nav-justified clickable-steps">

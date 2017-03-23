@@ -579,7 +579,7 @@ class SelfAssesmentController extends Controller {
                 ->anggaran_triwulan
                 ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                 ->first();
-        if ($agg->is_final != 0) {
+        if ($agg->file != null) {
             $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
         }else{
             $atasWizard = 0;
@@ -684,7 +684,7 @@ class SelfAssesmentController extends Controller {
                 ->anggaran_triwulan
                 ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                 ->first();
-        if ($agg->is_final != 0) {
+        if ($agg->file != null) {
             $atasWizard = (hitungNilaiSerapan(date('Y'), cekCurrentTriwulan()['current']->triwulan, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, cekCurrentTriwulan()['current']->triwulan)->nilai;
         }else{
             $atasWizard = 0;
