@@ -264,7 +264,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
                                     <div class="col-md-9">
-                                        <table class="table">@if(count($lampiran) > 0)<?php 
+                                        <table class="table"><?php $stakelayan = 0;?>@if(count($lampiran) > 0)<?php 
 								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 								$stakelayan = count($stakeholder);
                                 ?>@foreach($stakeholder as $holder)
@@ -394,7 +394,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
                                 <div class="col-md-9">
-                                    <table class="table">@if(count($lampiran) > 0)
+                                    <table class="table"><?php $stakepedul = 0;?>@if(count($lampiran) > 0)
 								<?php 
 								$stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 								$stakepedul = count($stakeholder);
