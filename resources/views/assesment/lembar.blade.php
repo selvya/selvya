@@ -101,10 +101,24 @@
                                 @endphp
                                 {{-- <kbd class="pull-left">{{$n}}%</kbd>---------------<kbd class="pull-right">100%</kbd> --}}
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="{{$n}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$n}}%;min-width: 2em;">
+                                    <div class="progress-bar @if($n < 100) progress-bar-danger @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$n}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$n}}%;min-width: 2em;">
                                         {{$n}}%
                                     </div>
                                 </div>
+                                <span>
+                                    @php
+                                        $t = \App\ReportAssessment::where('user_id', getSatker())
+                                            ->where('tahun', date('Y'))
+                                            ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                            ->orderBy('updated_at', 'DESC')
+                                            ->first();
+                                        // dd($t);
+                                        setlocale(LC_TIME, 'id');
+                                        $lu = \Carbon\Carbon::parse($t->updated_at);
+                                    @endphp
+                                    Permbaruan terakhir: <br>
+                                        <code>{{$lu->formatLocalized('%A %d %B %Y')}}  {{$lu->hour . ':' . $lu->minute}}</code>
+                                </span>
                                 {{-- @if(count($reportall) == 4)
                                 <strong>Final pada :</strong> {{date('d-M-Y', strtotime($reportall->last()->created_at))}}
                                 @else

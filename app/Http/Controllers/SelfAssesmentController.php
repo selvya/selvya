@@ -319,6 +319,7 @@ class SelfAssesmentController extends Controller {
             [
                 'nilai' => $nilai,
                 'hasil' => $nilai / 6 * $persenLap->nilai,
+                'persentase' => $persenLap->nilai,        
                 'updated_at' => \Carbon\Carbon::now(),
                 'final_status' => 1
             ]
