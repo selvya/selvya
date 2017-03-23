@@ -324,7 +324,16 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
 {{-- <script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script> --}}
 {{-- <script>$(function(){ FormsWizard.init(); });</script> --}}
 
-<script>
+<script> <?php 
+									   if (count($bbbb) > 0) {
+                                            if($bbbb->final_status){ ?>
+												$(".form-bordered :input").attr("disabled", true);
+												$('.form-bordered [type=submit],.form-bordered [type=file]').hide();
+												$('.table a').hide();
+												$('.table a.btn.btn-danger.btn-block').show();
+											<?php  }
+                                        }
+										?>
     $('#finalisasi_total').on('click', function() {
         var data = $('input[name="total_anggaran"]').val(); 
         if (!confirm('Apakah anda yakin akan memfinalisasi anggaran ini? Tindakan ini tidak dapat diurungkan!')) {

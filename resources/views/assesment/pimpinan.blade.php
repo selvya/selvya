@@ -273,5 +273,14 @@
 @endsection
 @section('js')
 <script src="{{asset('vendor/js/pages/formsWizard.js')}}"></script>
-<script>$(function(){ FormsWizard.init(); });</script>
+<script>$(function(){ FormsWizard.init(); });  <?php 
+									   if (count($bbbb) > 0) {
+                                            if($bbbb->final_status){ ?>
+												$(".form-horizontal :input").attr("disabled", true);
+												$('.form-horizontal [type=submit],.form-horizontal button,.form-horizontal [type=file]').hide();
+												$('.table a').hide();
+												$('.table a.btn.btn-danger.btn-block').show();
+											<?php  }
+                                        }
+										?></script>
 @endsection

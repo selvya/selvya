@@ -926,7 +926,7 @@ class SelfAssesmentController extends Controller {
         //STAKE HOLDER MELAYANI
  foreach ($r->nama_stake_melayani as $q => $v) {
 	 if($v !== ''){
-    $isi_stake_melayani[$q] = StakeHolder::updateOrCreate([
+    $isi_stake_melayani[$q] = StakeHolder::create([
                 // selfassesment_id di ambil dari data iku
      'user_id'            => Auth::user()->id,
      'nama'               => $v,
@@ -941,7 +941,7 @@ class SelfAssesmentController extends Controller {
         //STAKE HOLDER PEDULI
 foreach ($r->nama_stake_peduli as $m => $l) {
 		 if($l !== ''){
-    $isi_stake_peduli[$m] = StakeHolder::updateOrCreate([
+    $isi_stake_peduli[$m] = StakeHolder::create([
                 // selfassesment_id di ambil dari data iku
      'user_id'            => Auth::user()->id,
      'nama'               => $l,
@@ -953,10 +953,10 @@ foreach ($r->nama_stake_peduli as $m => $l) {
 	}
 }
 
-        //STAKE HOLDER PEDULI
+        //STAKE HOLDER INOVATIF
 foreach ($r->nama_stake_inovatif as $u => $p) {
 		 if($p !== ''){
-    $isi_stake_inovatif[$u] = StakeHolder::updateOrCreate([
+    $isi_stake_inovatif[$u] = StakeHolder::create([
                 // selfassesment_id di ambil dari data iku
      'user_id'            => Auth::user()->id,
      'nama'               => $p,

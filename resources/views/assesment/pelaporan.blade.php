@@ -201,6 +201,15 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
             // alert('asdas');
             $('#clickable-wizard').submit();
         }
-    });
+    });  <?php 
+									   if (count($bbbb) > 0) {
+                                            if($bbbb->final_status){ ?>
+												$(".form-bordered :input").attr("disabled", true);
+												$('.form-bordered [type=submit],.form-bordered [type=file]').hide();
+												$('.table a').hide();
+												$('.table a.btn.btn-danger.btn-block').show();
+											<?php  }
+                                        }
+										?>
 </script>
 @endsection

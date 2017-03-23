@@ -85,9 +85,8 @@
                                                   ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
                                                   ->where('user_id', getSatker())
                                                   ->where('daftarindikator_id','3')
-                                                  ->where('nilai','>','0')
+                                                 
                                                   ->first();
-
 
                                         if (count($bbbb) > 0) {
                                             $belumFinal = true;
@@ -280,16 +279,16 @@
                                         </tr>
 								
 								@endforeach @endif
-								<?php 
-									while($stakelayan < 10){ $stakelayan++; ?>
-                                            <tr id="field<?php if($stakelayan == 10){?>1<?php }?>">
+								<?php if(cekCurrentTriwulan()['current']->triwulan == 1){$faktorlayan = 2;}else{$faktorpeduli = 10;}
+									while($stakelayan < $faktorlayan){ $stakelayan++; ?>
+                                            <tr id="field<?php if($stakelayan == $faktorlayan){?>1<?php }?>">
                                                 <td>
                                                     <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Nama" required>
                                                 </td>
-                                                <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email" required></td>
+                                                <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email"></td>
                                                 <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi" required></td>
                                                 <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" title="Masukan nomer handphone" placeholder="No Telp" required></td>
-                                                <td><?php if($stakelayan == 10){?><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                                                <td><?php if($stakelayan == $faktorlayan){?><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a>
 										<?php } ?></td>
                                             </tr>
 									<?php }?>
@@ -412,16 +411,16 @@
 								
 								@endforeach
 								@endif
-								<?php 
-									while($stakepedul < 10){ $stakepedul++; ?>
-                                            <tr id="field<?php if($stakepedul == 10){?>3<?php }?>">
+								<?php  if(cekCurrentTriwulan()['current']->triwulan == 1){$faktorpeduli = 2;}else{$faktorpeduli = 3;}
+									while($stakepedul < $faktorpeduli){ $stakepedul++; ?>
+                                            <tr id="field<?php if($stakepedul == $faktorpeduli){?>3<?php }?>">
                                             <td>
                                                 <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama" required>
                                             </td>
-                                            <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email" required></td>
+                                            <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email"></td>
                                             <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
                                             <td><input type="text" name="telp_stake_peduli[]" class="form-control" title="Masukan nomer handphone" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp" required></td>
-                                            <td><?php if($stakepedul == 10){?><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a><?php }?></td>
+                                            <td><?php if($stakepedul == $faktorpeduli){?><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a><?php }?></td>
                                         </tr><?php }?>
                                     </table>
                                 </div>
@@ -678,6 +677,15 @@
     if(num/cleanNum < 1){
         $('#error').text('Please enter only 2 decimal places, we have truncated extra points');
     }
-});
+});									 <?php 
+									   if (count($bbbb) > 0) {
+                                            if($bbbb->final_status){ ?>
+												$(".form-bordered :input").attr("disabled", true);
+												$('.form-bordered [type=submit],button#next2,.form-bordered [type=file]').hide();
+												$('.table a').hide();
+												$('.table a.btn.btn-danger.btn-block').show();
+											<?php  }
+                                        }
+										?>
 </script>
 @endsection
