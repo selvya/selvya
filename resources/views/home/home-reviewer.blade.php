@@ -52,6 +52,7 @@
 				<div class="jumbotron" >
 					<div class="col-md-12"">
 						<h1 style="text-transform: uppercase;">Salam <b>Perubahan</b></h1>
+						<h1>Selamat Datang di Dashboard Monitoring Program Budaya OJK Way</h1>
 
 					</div>
 				</div>

@@ -65,7 +65,7 @@
 							<td>{{$data->departemen}}</td>
 							<td>{{$data->kojk}}</td>
 							<td>
-								<a href="{{url('tambah/lomba/'.$data->id)}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Lomba Kreasi Kreatif">Tambah</a>
+								<a href="{{url('tambah/lomba/'.$data->hashid)}}" class="btn btn-success" data-toggle="tooltip" title="Tambah Lomba Kreasi Kreatif">Tambah</a>
 							</td>
 						</tr>
 						@endforeach
@@ -84,7 +84,6 @@
 	@endsection
 	@section('js')
 	<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
-	<script>$(function(){ TablesDatatables.init(); });</script>
 	<script>$(function(){ TablesDatatables.init(); });</script>
 	<script type="text/javascript">
 		$(document).ready(function(){

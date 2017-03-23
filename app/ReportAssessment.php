@@ -26,4 +26,9 @@ class ReportAssessment extends Model
     {
         return Hashids::connection('report')->encode($this->attributes['id']);
     }
+
+     public function r_usr()
+    {
+        return $this->belongsTo('\App\User', 'user_id');
+    }
 }

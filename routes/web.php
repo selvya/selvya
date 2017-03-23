@@ -125,9 +125,6 @@ Route::group(['middleware' => ['satker']], function () {
     Route::get('lihat-anggaran', function () {
         return view('monitoring.lihat');
     });
-    Route::get('anggaran-budaya', function () {
-        return view('monitoring.anggaran-budaya');
-    });
     //TUTUP MONITORING
 });
 
@@ -146,7 +143,7 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('tambah/lomba/{id}','InputTambahanController@tambahlomba');
     Route::get('tambah/budaya-eksternal/{id}','InputTambahanController@tambahbudayaeksternal');
     Route::get('tambah/budaya-internal/{id}','InputTambahanController@tambahbudayainternal');
-    Route::post('proses-lomba','InputTambahanController@proseslomba');
+    Route::post('proses-lomba/{id}','InputTambahanController@proseslomba');
     Route::post('proses-internal','InputTambahanController@prosesinternal');
     Route::post('proses-eksternal','InputTambahanController@proseseksternal');
     //TUTUP INPUT TAMBAHAN
@@ -167,8 +164,9 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('hasil-monitoring', function () {
         return view('monitoring.hasil');
     });
-
-
+    Route::get('anggaran-budaya', function () {
+        return view('monitoring.anggaran-budaya');
+    });
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
 });
