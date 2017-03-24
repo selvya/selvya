@@ -126,8 +126,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                                       ->where('user_id', getSatker())
                                                       ->where('daftarindikator_id','4')
-                                                      // ->where('nilai','>','0')
-                                                        ->where('final_status', 1)
+                                                       ->where('nilai','>','0')
                                                       ->first();
                                                 if (count($pimpinanFFF)) {
                                                     $pimF = true;

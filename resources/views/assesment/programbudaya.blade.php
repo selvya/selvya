@@ -91,7 +91,10 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                     ->first();
 
                                     if (count($bbbb) > 0) {
+										if($bbbb->hasil_inovatif > 0 || $bbbb->hasil_melayani > 0 || $bbbb->hasil_peduli > 0){
                                         $belumFinal = true;
+                                        }else{$belumFinal = false;
+										}
                                         @endphp
 
                                         @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
@@ -140,9 +143,8 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                                       ->where('user_id', getSatker())
                                                       ->where('daftarindikator_id','4')
-                                                        // ->where('nilai','>','0')
-                                                        ->where('final_status', 1)
-                                                      ->first();
+                                                         ->where('nilai','>','0')
+                                                         ->first();
                                                 if (count($pimpinanFFF)) {
                                                     $pimF = true;
                                                 }
