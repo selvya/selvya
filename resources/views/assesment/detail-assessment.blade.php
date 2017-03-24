@@ -45,14 +45,16 @@ table>tbody>tr>td{padding: 0px;}
 <!-- Page content -->
 <div id="page-content">
 	<!-- Datatables Header -->
-	<div class="content-header">
-		<div class="header-section">
-			<h1>
-				<i class="gi gi-sort"></i>
-				<b>Detail Assessment</b>
-			</h1>
-		</div>
-	</div>
+	<div class="content-header content-media">
+        <div class="header-section">
+            <div class="jumbotron" >
+                <div class="col-md-12">
+                    <h1>Salam <b>Perubahan</b></h1>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Detail Assesment</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
 		<li><a href="{{url('arsip-assesment')}}">Arsip Assessment</a></li>

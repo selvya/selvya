@@ -780,7 +780,7 @@
         <div class="header-section">
             <div class="jumbotron" >
                 <div class="col-md-12">
-                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h1>Salam <b>Perubahan</b></h1>
                     <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Parameter Program</h4>
                 </div>
             </div>

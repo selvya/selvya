@@ -49,7 +49,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
         <div class="header-section">
             <div class="jumbotron" >
                 <div class="col-md-12">
-                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h1>Salam <b>Perubahan</b></h1>
                     <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Edit Self Assessment</h4>
                 </div>
             </div>
@@ -168,7 +168,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
 
                             <br>
                             <!-- ACCORDION -->
-                            <div class="container" style="max-width: 1000px; overflow: hidden;"> 
+                            <div class="container" style="width:auto; overflow: hidden;"> 
                                 <!-- OJK MELAYANI -->
                                 <div class="block">
                                     <div class="block-title">
@@ -190,7 +190,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         <label class="col-md-3 control-label">Penjelasan Program</label>
                                         <div class="col-md-9">
                                             <!-- <h4>{{$melayani->keterangan}}</h4> -->
-                                            <textarea name="deskripsi_program" placeholder="Deskripsi Program" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea>
+                                            <textarea name="deskripsi_program" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan,monitoring yang dilakukan, dan lainnya" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea>
                                             
                                         </div>
                                     </div>
@@ -216,8 +216,8 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="number" name="nilai_manual_melayani[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"  value="<?php echo DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('definisinilai_id',$definisi_manual_melayani->id)->where('tahun',date('Y'))->where('reportassesment_id',$reportidnya)->value('skala_nilai'); ?>"   title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
-                                                <small>Isi dengan index 0-6 (Cth: 4,50)</small>
+                                                <input type="number" name="nilai_manual_melayani[]" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"  value="<?php echo DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('definisinilai_id',$definisi_manual_melayani->id)->where('tahun',date('Y'))->where('reportassesment_id',$reportidnya)->value('skala_nilai'); ?>"   title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." placeholder="0.00" required>
+                                                <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                                                 <input type="hidden" name="alatukur_id_melayani_manual[]" value="{{$v->id}}">
                                                 <input type="hidden" name="iku_id_melayani_manual[]" value="{{$v->iku_id}}">
                                                 <input type="hidden" name="def_id_melayani_manual[]" value="{{$definisi_manual_melayani->id}}">
@@ -265,7 +265,10 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <table class="table"><?php $stakelayan = 0;?>@if(count($lampiran) > 0)<?php 
+                                            <table class="table" style="margin-bottom: 0px;">
+                                            <?php $stakelayan = 0; ?>
+                                            @if(count($lampiran) > 0)
+                                            <?php 
                                                 $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
                                                 $stakelayan = count($stakeholder);
                                                 ?>@foreach($stakeholder as $holder)
@@ -280,7 +283,8 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                                      <!-- belum dibuat function --></td>
                                                  </tr>
 
-                                                 @endforeach @endif
+                                                 @endforeach 
+                                                 @endif
                                                  <?php 
                                                  if(cekCurrentTriwulan()['current']->triwulan == 1){
                                                     $faktorlayan = 2;
@@ -292,16 +296,17 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                                     ?>
                                                     <tr id="field @if($stakelayan == $faktorlayan) 1 @endif">
                                                         <td>
-                                                            <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Nama" required>
+                                                            <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Masukan nama PIC" required>
                                                         </td>
-                                                        <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Email"></td>
-                                                        <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Instansi" required></td>
-                                                        <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" title="Masukan nomer handphone" placeholder="No Telp" required></td>
+                                                        <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Masukan email PIC"></td>
+                                                        <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Masukan nama instansi" required></td>
+                                                        <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
                                                         <td><?php if($stakelayan == $faktorlayan){?><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a>
                                                           <?php } ?></td>
                                                       </tr>
                                                       <?php }?>
                                                   </table>
+                                                  <small>Cantumkan minimal 2 Stakeholder</small>
                                               </div>
                                           </div>
                                       </div>
@@ -324,17 +329,10 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                     </div>
                                     <div class="block-content">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Nama Program </label>
-                                            <div class="col-md-9">
-                                                <!-- <h4>Ojk Peduli</h4> -->
-                                                <input type="text" name="peduli_program" class="form-control" @if(count($sasa) > 0) value="{{$sasa->namaprogram}}" @endif  placeholder="Nama Program" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
                                             <label class="col-md-3 control-label">Penjelasan Program</label>
                                             <div class="col-md-9">
                                                 <!-- <h4>{{$peduli->keterangan}}</h4> -->
-                                                <textarea name="deskripsi_program" placeholder="Deskripsi Program" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea>
+                                                <textarea name="deskripsi_program" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan,monitoring yang dilakukan, dan lainnya" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea>
                                             </div>
                                         </div>
 
@@ -356,8 +354,8 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Nilai <span class="text-danger">*</span></label>
                                                 <div class="col-md-9">
-                                                    <input type="number" name="nilai_manual_peduli[]" value="<?php echo DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('definisinilai_id',$definisi_manual_peduli->id)->where('reportassesment_id',$reportidnya)->where('tahun',date('Y'))->value('skala_nilai'); ?>" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." required>
-                                                    <small>Isi dengan index 0-6 (Cth: 4,50)</small>
+                                                    <input type="number" name="nilai_manual_peduli[]" value="<?php echo DB::table('selfassesment')->where('alatukur_id',$v->id)->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('definisinilai_id',$definisi_manual_peduli->id)->where('reportassesment_id',$reportidnya)->where('tahun',date('Y'))->value('skala_nilai'); ?>" min="0" max="6" step="0.01" class="numberbox form-control" pattern="[0-9]+([\.,][0-9]+)?"    title="Nilai yang dimasukan antara 0-6 dengan 2 angka di belakang desimal." placeholder="0.00" required>
+                                                    <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                                                     <input type="hidden" name="alatukur_id_peduli_manual[]" value="{{$v->id}}">
                                                     <input type="hidden" name="iku_id_peduli_manual[]" value="{{$v->iku_id}}"> 
                                                     <input type="hidden" name="def_peduli_manual[]" value="{{$definisi_manual_peduli->id}}"> 
@@ -404,7 +402,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                       <div class="form-group">
                                         <label class="col-md-3 control-label">Kontak Stakeholder <span class="text-danger">*</span></label>
                                         <div class="col-md-9">
-                                            <table class="table"><?php $stakepedul = 0;?>@if(count($lampiran) > 0)
+                                            <table class="table" style="margin-bottom: 0px;"><?php $stakepedul = 0;?>@if(count($lampiran) > 0)
                                                 <?php 
                                                 $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
                                                 $stakepedul = count($stakeholder);
@@ -426,14 +424,15 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                                  while($stakepedul < $faktorpeduli){ $stakepedul++; ?>
                                                  <tr id="field<?php if($stakepedul == $faktorpeduli){?>3<?php }?>">
                                                     <td>
-                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Nama" required>
+                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Masukan nama PIC" required>
                                                     </td>
-                                                    <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Email"></td>
-                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" title="Masukan nomer handphone" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp" required></td>
+                                                    <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Masukan email PIC"></td>
+                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Masukan nama instansi" required></td>
+                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
                                                     <td><?php if($stakepedul == $faktorpeduli){?><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a><?php }?></td>
                                                 </tr><?php }?>
                                             </table>
+                                            <small>Cantumkan minimal 2 Stakeholder</small>
                                         </div>
                                     </div>
                                 </div>
@@ -564,10 +563,10 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                              @endforeach
                                              @endif
                                              <tr id="field4">
-                                                <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Nama" ></td>
-                                                <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Email" ></td>
-                                                <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Instansi" ></td>
-                                                <td><input type="text" name="telp_stake_inovatif[]" title="Masukan nomer handphone" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="No Telp"></td>
+                                                <td><input type="text" name="nama_stake_inovatif[]" class="form-control" placeholder="Masukan nama PIC" ></td>
+                                                <td><input type="email" name="email_stake_inovatif[]" class="form-control" placeholder="Masukan email PIC" ></td>
+                                                <td><input type="text" name="instansi_stake_inovatif[]" class="form-control" placeholder="Masukan nama instansi" ></td>
+                                                <td><input type="text" name="telp_stake_inovatif[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC"></td>
                                                 <td><a onclick="tambah_INO()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                             </tr>
                                         </table>
@@ -612,15 +611,15 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
     function tambah_MC(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_melayani[]" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_melayani[]" placeholder="Masukan nama PIC" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_melayani[]" placeholder="Email" class="form-control" >'+
+            '<input type="email" name="email_stake_melayani[]" placeholder="Masukan email PIC" class="form-control" >'+
             '<td>'+
-            '<input type="text" name="instansi_stake_melayani[]" placeholder="Instansi" class="form-control" >'+
+            '<input type="text" name="instansi_stake_melayani[]" placeholder="Masukan nama instansi" class="form-control" >'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_melayani[]" placeholder="No Telp" title="Masukan nomer handphone"onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" >'+
+            '<input type="text" name="telp_stake_melayani[]" placeholder="Masukan nomer kontak PIC" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" >'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -634,15 +633,15 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
     function tambah_OP(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_peduli[]" placeholder="Nama" class="form-control" >'+
+            '<input type="text" name="nama_stake_peduli[]" placeholder="Masukan nama PIC" class="form-control" >'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_peduli[]" placeholder="Email" class="form-control" >'+
+            '<input type="email" name="email_stake_peduli[]" placeholder="Masukan email PIC" class="form-control" >'+
             '<td>'+
-            '<input type="text" name="instansi_stake_peduli[]" placeholder="Instansi" class="form-control" >'+
+            '<input type="text" name="instansi_stake_peduli[]" placeholder="Masukan nama instansi" class="form-control" >'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_peduli[]" title="Masukan nomer handphone" placeholder="No Telp" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" >'+
+            '<input type="text" name="telp_stake_peduli[]" placeholder="Masukan nomer kontak PIC" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" >'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+
@@ -656,15 +655,15 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
     function tambah_INO(){
         $('<tr id="baru">'+
             '<td style="text-align:center;">'+
-            '<input type="text" name="nama_stake_inovatif[]" placeholder="Nama" class="form-control">'+
+            '<input type="text" name="nama_stake_inovatif[]" placeholder="Masukan nama PIC" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="email" name="email_stake_inovatif[]" placeholder="Email" class="form-control">'+
+            '<input type="email" name="email_stake_inovatif[]" placeholder="Masukan email PIC" class="form-control">'+
             '<td>'+
-            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Instansi" class="form-control">'+
+            '<input type="text" name="instansi_stake_inovatif[]" placeholder="Masukan nama instansi" class="form-control">'+
             '</td>'+
             '<td>'+
-            '<input type="text" name="telp_stake_inovatif[]" placeholder="No Telp" title="Masukan nomer handphone" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control">'+
+            '<input type="text" name="telp_stake_inovatif[]" placeholder="Masukan nomer kontak PIC" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control">'+
             '</td>'+
             '<td>'+
             '<a data-toggle="tooltip" title="Hapus Field" class="remove_field btn btn-danger"><i class="fa fa-trash-o"></i></a>'+

@@ -1,3 +1,41 @@
+<style>
+    a:hover{
+        text-decoration: none;
+    }
+
+    .social [class*="fa fa-twitter"] {
+        background-color: #46c0fb; 
+        color:#fff;
+        border-radius: 100px;    
+        display: inline-block;
+        width:90px;
+        height:90px;
+    }
+    .social [class*="fa fa-facebook"] {
+        background-color: #21618c; 
+        color:#fff;
+        border-radius: 100%;    
+        display: inline-block;
+        width:90px;
+        height:90px;    
+    }
+    .social [class*="fa fa-youtube"] {
+        background-color: #e74c3c; 
+        color:#fff;
+        border-radius: 100px;    
+        display: inline-block;
+        width:90px;
+        height:90px;
+    }
+    .social [class*="fa fa-instagram"] {
+        background-color:  #895a4d ; 
+        color:#fff;
+        border-radius: 100px;    
+        display: inline-block;
+        width:90px;
+        height:90px;
+    }
+</style>
  <!-- Main Sidebar -->
  <div id="sidebar">
     <!-- Wrapper for scrolling functionality -->
@@ -249,6 +287,67 @@
                             @endif
                         </ul>
                         <!-- END Sidebar Navigation -->
+
+                        <div style="padding:20px 10px 30px 10px;">
+                      <b>SOCIAL MEDIA</b>
+                  </div>
+                  <div align="middle">                  
+                      <div class="sidebar-section">
+                          <a target="_blank" href="https://www.instagram.com/OJKWAY/">
+                            <div class="alert alert-alt" style="border-color:#895a4d;">
+                                <div class="social">
+                                   <small>Follow our Instagram</small><br><br>
+                                   <i class="fa fa-instagram fa-5x" style="padding-top:17px;"></i><br>
+                                   <small>@OJKWay</small>
+                               </div>
+                           </div>
+                       </a>
+                       <br>
+                       <a target="_blank" href="https://www.facebook.com/ojkway">
+                        <div class="alert alert-alt" style="border-color:#21618c;">
+                            <div class="social">
+                             <small>Like our Facebook</small><br><br>
+                             <i class="fa fa-facebook fa-5x" style="padding-top:17px;"></i><br>
+                             <small>@OJKWay</small>
+                         </div>
+                     </div>
+                 </a>
+                 <br>
+                 <a target="_blank" href="https://www.twitter.com/ojkway">                    
+                     <div class="alert alert-alt" style="border-color:#46c0fb;">
+                      <div class="social">
+                        <small>Follow our Twitter</small><br><br>
+                        <i class="fa fa-twitter fa-5x" style="padding-top:17px;"></i><br>
+                        <small>@OJKWay</small>
+                    </div>
+                </div>
+            </a>
+            <br>
+            <a target="_blank" href="https://www.youtube.com/channel/UCSHDzYCmge5nijj3bs55SAg">
+                <div class="alert alert-alt" style="border-color:#e74c3c;">
+                  <div class="social">
+                    <small>Subscribe our Channel</small><br><br>
+                    <i class="fa fa-youtube fa-5x" style="padding-top:17px;"></i><br><br>
+                    <small>@OJKWay</small>
+                </div>
+            </div>
+        </a>
+        <br>
+        <a href="http://ojkway.ojk.go.id">
+            <img src="http://ojkway.ojk.go.id/images/ojkwayapp.png" width="100%">
+        </a>
+        <br>
+        <br>
+        <a href="https://play.google.com/store/apps/details?id=id.ojkway">
+           <img src="http://ojkway.ojk.go.id/images/google_play.png" width="100%" height="auto" style="border-radius: 15px;">
+       </a>
+       <br><br>
+       <a href="http://ojkway.appstor.io/">
+          <img src="http://ojkway.ojk.go.id/images/app_store.png" width="100%" height="auto" style="border-radius: 15px;">
+      </a>
+  </div>
+</div>
+
                     </div>
                     <!-- END Sidebar Content -->
                 </div>
