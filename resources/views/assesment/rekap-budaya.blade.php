@@ -28,9 +28,20 @@
 
 	<?php
 	$triwulan = cekCurrentTriwulan();
-	$iku = \App\Iku::where('inovatif_triwulan', $triwulan['current']['triwulan'])
+	$all= \App\Iku::where('inovatif_triwulan', $triwulan['current']['triwulan'])
+	->where('daftarindikator_id','3')
+	->join('users','iku.satker','=','users.id')
+	->get();
+
+	$final = \App\Iku::where('inovatif_triwulan', $triwulan['current']['triwulan'])
 	->where('daftarindikator_id','3')
 	->where('isfinal', 'y')
+	->join('users','iku.satker','=','users.id')
+	->get();
+
+	$belumfinal = \App\Iku::where('inovatif_triwulan', $triwulan['current']['triwulan'])
+	->where('daftarindikator_id','3')
+	->where('isfinal', 't')
 	->join('users','iku.satker','=','users.id')
 	->get();
 	?>
@@ -58,8 +69,8 @@
 			<div class="panel-body">
 				<div class="container">
 					<b>Rekapitulasi:</b> <br>
-					<span class="btn btn-success"><b>Sudah Final</b><br><big>{{count($iku)}}</big></span>
-					<span class="btn btn-danger"><b>Belum Final</b><br><big>10</big></span>
+					<span class="btn btn-success"><b>Sudah Final</b><br><big>{{count($final)}}</big></span>
+					<span class="btn btn-danger"><b>Belum Final</b><br><big>{{count($belumfinal)}}</big></span>
 				</div>
 			</div>
 
@@ -74,7 +85,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($iku as $data)
+					@foreach($all as $data)
 					<tr>
 						<td class="text-center">{{$data->deputi_kom}}</td>
 						<td class="text-center">{{$data->departemen}}</td>
