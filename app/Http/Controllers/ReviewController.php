@@ -16,6 +16,7 @@ class ReviewController extends Controller
     {
         $hashid = Hashids::connection('user')->decode($hashid);
         if (count($hashid) == 0) {
+            Session::flash('alert-class', 'alert-danger');
             Session::flash('message', 'Invalid');
             return redirect()->back();
         }
@@ -26,11 +27,12 @@ class ReviewController extends Controller
         //Set All ReportAssesment to 0
         $ra = ReportAssessment::where('tahun', date('Y'))
                 ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                ->where('user_id', getSatker())
+                ->where('user_id', $usr->id)
                 ->update([
                     'final_status' => 0
                 ]);
 
+        Session::flash('alert-class', 'alert-success');
         Session::flash('message', 'Berhasil');
         return redirect()->back();
     }

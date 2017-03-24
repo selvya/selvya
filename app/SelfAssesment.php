@@ -31,4 +31,5 @@ class SelfAssesment extends Model
     {
       return $this->belongsTo('\App\Iku', 'iku_id');
     }
+
 }

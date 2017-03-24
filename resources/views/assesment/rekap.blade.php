@@ -58,6 +58,11 @@
 
     <!-- Datatables Content -->
     <div class="block full">
+        @if(Session::has('message'))
+            <div class="alert {{Session::get('alert-class')}}">
+                {{Session::get('message')}}
+            </div>
+        @endif
         <!-- <div class="text-right">
             <a href="{{url('arsip/assessment')}}" class="btn btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment"><i class="fa fa-eye"></i> Arsip</a>
         </div> -->
@@ -153,10 +158,18 @@
                 <td class="text-center">{{$data->kojk}}</td>
                 <td class="text-center">
                     {{-- {{count($persentase)}} --}}
-                    @if($data->s_assesment->count() !== $persentase)
-                        <label class="btn btn-danger disabled"">Belum Submit</label>
-                    @else
+                    @if(
+                        $data->r_assesment
+                                ->where('tahun', date('Y'))
+                                ->where('triwulan', $triwulan['current']->triwulan)
+                                ->where('final_status', 1)
+                                ->count() 
+                        == $persentase
+                    )
+                        
                         <button type="button" class="btn btn-success ck" data-satker="{{$data->hashid}}">Sudah Submit</label>
+                    @else
+                        <label class="btn btn-danger disabled"">Belum Submit</label>
                     @endif
                 </td>
             </tr>
