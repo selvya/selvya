@@ -13,26 +13,8 @@
                         </ul>
                         <!-- END Left Header Navigation -->
 
-                        <!-- Search Form -->
-                        <form action="page_ready_search_results.html" method="post" class="navbar-form-custom">
-                            <div class="form-group">
-                                <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
-                            </div>
-                        </form>
-                        <!-- END Search Form -->
-
                         <!-- Right Header Navigation -->
                         <ul class="nav navbar-nav-custom pull-right">
-                            <!-- Alternative Sidebar Toggle Button -->
-                            <li>
-                                <!-- If you do not want the main sidebar to open when the alternative sidebar is closed, just remove the second parameter: App.sidebar('toggle-sidebar-alt'); -->
-                                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt', 'toggle-other');this.blur();">
-                                    <i class="gi gi-share_alt"></i>
-                                    <span class="label label-primary label-indicator animation-floating">4</span>
-                                </a>
-                            </li>
-                            <!-- END Alternative Sidebar Toggle Button -->
-
                             <!-- User Dropdown -->
                             <li class="dropdown">
                                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">

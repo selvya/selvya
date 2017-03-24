@@ -2,14 +2,16 @@
 @section('content')
 <div id="page-content">
 	<!-- FAQ Header -->
-	<div class="content-header">
-		<div class="header-section">
-			<h1>
-				<i class="fa fa-info"></i>
-				<b>Kontak Kami</b>
-			</h1>
-		</div>
-	</div>
+	<div class="content-header content-media">
+        <div class="header-section">
+            <div class="jumbotron" >
+                <div class="col-md-12">
+                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Kontak Kami</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
 		<li>Kontak</li>

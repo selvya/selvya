@@ -3,12 +3,14 @@
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
-    <div class="content-header">
+    <div class="content-header content-media">
         <div class="header-section">
-            <h1>
-                <i class="gi gi-sort"></i>
-                <b>Hasil Assessment</b>
-            </h1>
+            <div class="jumbotron" >
+                <div class="col-md-12">
+                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Hasil Assessment</h4>
+                </div>
+            </div>
         </div>
     </div>
     <ul class="breadcrumb breadcrumb-top">
@@ -20,17 +22,17 @@
     $triwulan = cekCurrentTriwulan();
 
     $user = \App\User::with(['r_assesment' => function($q) use ($triwulan){
-            $q->where('tahun',date('Y'))
-            ->where('triwulan',$triwulan['current']['triwulan'])
-            ->where('final_status','1');
-        }])
-        ->where('username','LIKE','kmp%')
-        ->get();
+        $q->where('tahun',date('Y'))
+        ->where('triwulan',$triwulan['current']['triwulan'])
+        ->where('final_status','1');
+    }])
+    ->where('username','LIKE','kmp%')
+    ->get();
 
     $persentase = \App\Persentase::with('daftar_indikator')
-                    ->where('tahun',date('Y'))
-                    ->where('triwulan',$triwulan['current']['triwulan'])
-                    ->get();
+    ->where('tahun',date('Y'))
+    ->where('triwulan',$triwulan['current']['triwulan'])
+    ->get();
 
     $periode = \App\TanggalLaporan::where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->first();
     ?>
@@ -52,87 +54,87 @@
                     {{-- <td>Direktorat</td> --}}
                     <td rowspan="2"><b>Nilai</b></td>
                     @foreach($persentase as $v)
-                        <td class="text-center" @if($v->daftar_indikator->id == 3) colspan="3" @else rowspan="2" @endif>
-                            <h5>
-                                <b>
-                                    {{$v->daftar_indikator->name}}
-                                    <br><br>
-                                    {{$v->nilai}}
-                                </b>
-                            </h5>
-                        </td>
+                    <td class="text-center" @if($v->daftar_indikator->id == 3) colspan="3" @else rowspan="2" @endif>
+                        <h5>
+                            <b>
+                                {{$v->daftar_indikator->name}}
+                                <br><br>
+                                {{$v->nilai}}
+                            </b>
+                        </h5>
+                    </td>
                     @endforeach
                 </tr>
                 <tr>
-                @foreach($persentase as $v)                
-                        @if($v->daftar_indikator->id == 3)
-                            <td><b>OJK Inovatif</b></td>
-                            <td><b>OJK Melayani</b></td>
-                            <td><b>OJK Peduli</b></td>
-                        @endif
-                @endforeach
+                    @foreach($persentase as $v)                
+                    @if($v->daftar_indikator->id == 3)
+                    <td><b>OJK Inovatif</b></td>
+                    <td><b>OJK Melayani</b></td>
+                    <td><b>OJK Peduli</b></td>
+                    @endif
+                    @endforeach
                 </tr>
             </thead>
             <tbody>
                 @foreach($user as $k => $data)
-                    <tr>
-                        <td>{{$data->username}}</td>
-                        {{-- <td class="text-center">{{$data->deputi_kom}}</td> --}}
-                        {{-- <td class="text-center">{{$data->satker}}</td> --}}
-                        {{-- <td class="text-center">{{$data->direktorat_id}}</td> --}}
-                        @php
-                            $n[$k]              = 0;
-                            $n_melayani[$k]     = 0;
-                            $n_peduli[$k]       = 0;
-                            $n_inovatif[$k]     = 0;
-                            $n_pimpinan[$k]     = 0;
-                            $n_lomba[$k]        = 0;
-                            $n_pelaporan[$k]    = 0;
-                            $n_serapan[$k]      = 0;
-                            $n_internal[$k]     = 0;
-                            $n_eksternal[$k]    = 0;
+                <tr>
+                    <td>{{$data->username}}</td>
+                    {{-- <td class="text-center">{{$data->deputi_kom}}</td> --}}
+                    {{-- <td class="text-center">{{$data->satker}}</td> --}}
+                    {{-- <td class="text-center">{{$data->direktorat_id}}</td> --}}
+                    @php
+                    $n[$k]              = 0;
+                    $n_melayani[$k]     = 0;
+                    $n_peduli[$k]       = 0;
+                    $n_inovatif[$k]     = 0;
+                    $n_pimpinan[$k]     = 0;
+                    $n_lomba[$k]        = 0;
+                    $n_pelaporan[$k]    = 0;
+                    $n_serapan[$k]      = 0;
+                    $n_internal[$k]     = 0;
+                    $n_eksternal[$k]    = 0;
 
-                            foreach ($data->r_assesment as $key => $value) {
-                                $n[$k] += $value->nilai;
+                    foreach ($data->r_assesment as $key => $value) {
+                        $n[$k] += $value->nilai;
 
-                                if ($value->daftarindikator_id == 1) {
-                                    $n_pelaporan[$k] += $value->nilai;
-                                }
-                                if ($value->daftarindikator_id == 2) {
-                                    $n_serapan[$k] += $value->nilai;
-                                }
+                        if ($value->daftarindikator_id == 1) {
+                            $n_pelaporan[$k] += $value->nilai;
+                        }
+                        if ($value->daftarindikator_id == 2) {
+                            $n_serapan[$k] += $value->nilai;
+                        }
 
-                                if ($value->daftarindikator_id == 3) {
-                                    $n_melayani[$k] += $value->hasil_melayani;
-                                    $n_peduli[$k]   += $value->hasil_peduli;
-                                    $n_inovatif[$k] += $value->hasil_inovatif;
-                                }
+                        if ($value->daftarindikator_id == 3) {
+                            $n_melayani[$k] += $value->hasil_melayani;
+                            $n_peduli[$k]   += $value->hasil_peduli;
+                            $n_inovatif[$k] += $value->hasil_inovatif;
+                        }
 
-                                if ($value->daftarindikator_id == 4) {
-                                    $n_pimpinan[$k] += $value->nilai;
-                                }
-                                if ($value->daftarindikator_id == 5) {
-                                    $n_lomba[$k] += $value->nilai;   
-                                }
-                                if ($value->daftarindikator_id == 6) {
-                                    $n_internal[$k] += $value->nilai;   
-                                }
-                                if ($value->daftarindikator_id == 7) {
-                                    $n_eksternal[$k] += $value->nilai;   
-                                }
-                            }
-                        @endphp
-                        <td class="text-center">{{$n[$k]}}</td>
-                        <td class="text-center">{{$n_pelaporan[$k]}}</td>
-                        <td class="text-center">{{$n_serapan[$k]}}</td>
-                        <td class="text-center">{{$n_melayani[$k]}}</td>
-                        <td class="text-center">{{$n_peduli[$k]}}</td>
-                        <td class="text-center">{{$n_inovatif[$k]}}</td>
-                        <td class="text-center">{{$n_pimpinan[$k]}}</td>
-                        <td class="text-center">{{$n_lomba[$k]}}</td>
-                        <td class="text-center">{{$n_internal[$k]}}</td>
-                        <td class="text-center">{{$n_eksternal[$k]}}</td>
-                    </tr>
+                        if ($value->daftarindikator_id == 4) {
+                            $n_pimpinan[$k] += $value->nilai;
+                        }
+                        if ($value->daftarindikator_id == 5) {
+                            $n_lomba[$k] += $value->nilai;   
+                        }
+                        if ($value->daftarindikator_id == 6) {
+                            $n_internal[$k] += $value->nilai;   
+                        }
+                        if ($value->daftarindikator_id == 7) {
+                            $n_eksternal[$k] += $value->nilai;   
+                        }
+                    }
+                    @endphp
+                    <td class="text-center">{{$n[$k]}}</td>
+                    <td class="text-center">{{$n_pelaporan[$k]}}</td>
+                    <td class="text-center">{{$n_serapan[$k]}}</td>
+                    <td class="text-center">{{$n_melayani[$k]}}</td>
+                    <td class="text-center">{{$n_peduli[$k]}}</td>
+                    <td class="text-center">{{$n_inovatif[$k]}}</td>
+                    <td class="text-center">{{$n_pimpinan[$k]}}</td>
+                    <td class="text-center">{{$n_lomba[$k]}}</td>
+                    <td class="text-center">{{$n_internal[$k]}}</td>
+                    <td class="text-center">{{$n_eksternal[$k]}}</td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

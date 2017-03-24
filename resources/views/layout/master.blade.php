@@ -21,9 +21,11 @@
     <link rel="stylesheet" href="{{asset('vendor/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/notie.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/plugins.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/themes.css')}}">
+    <link rel="stylesheet" id="szx" href="{{asset('vendor/css/themes/spring.css')}}">
     @yield('css')
 </head>
 <body>
