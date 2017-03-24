@@ -240,9 +240,9 @@ class SelfAssesmentController extends Controller {
                 $agt = \App\AnggaranTriwulan::where('user_id', getSatker())
                     ->where('anggaran_tahun_id', $tahunAnggaran->id)
                     ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                    ->update(
-                        ['is_final' => 1]
-                    );
+                    ->first();
+                $agt->is_final = 1;
+                $agt->save();
 
                 $persenAnggaran = \App\Persentase::where('tahun', date('Y'))
                     ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
@@ -264,13 +264,43 @@ class SelfAssesmentController extends Controller {
                         'final_status' => 1
                     ]
                 );
+                //IkuAnggaran
+                $ikuAngg = \App\Iku::where(
+                    'namaprogram',
+                    'serapan_anggaran#' .
+                    date('Y') . '#' .
+                    cekCurrentTriwulan()['current']->triwulan
+                )->first();
+
+                $alatUkurAngg = \App\AlatUkur::where(
+                    'name',
+                    'serapan_anggaran#' .
+                    date('Y') . '#' .
+                    cekCurrentTriwulan()['current']->triwulan
+                )->first();
+                //SelfAssesmentAnggaran
+                $anggSeldAssesment = \App\SelfAssesment::create(
+                    [
+                        'user_id'             => Auth::user()->id,
+                        'tahun'               => date('Y'),
+                        'triwulan'            => cekCurrentTriwulan()['current']->triwulan,
+                        'alatukur_id'         => $alatUkurAngg->id,
+                        'iku_id'              => $ikuAngg->id
+                    ],
+                    [
+                        // 'definisinilai_id'    => $def_id_peduli,
+                        'filelampiran'        => $agt->file,
+                        'skala_nilai'         => $report->nilai,
+                        'reportassesment_id'  => $report->id
+                    ]
+                );
 
                 //Finish pimpinan
                 $persenPimpinan = \App\Persentase::where('tahun', date('Y'))
                     ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                     ->where('daftarindikator_id', 4)
                     ->first();
-                $report = \App\ReportAssessment::updateOrCreate(
+                $reportPimpinan = \App\ReportAssessment::updateOrCreate(
                     [
                         'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
                         'tahun'              => date('Y'),
@@ -284,6 +314,36 @@ class SelfAssesmentController extends Controller {
                         'final_status' => 1,
                         'partisipasi' => $r->partisipasi,
                         'deskripsi' => $r->deskripsi
+                    ]
+                );
+                //IkuPim
+                $ikuPim = \App\Iku::where(
+                    'namaprogram',
+                    'partisipasi_pimpinan#' .
+                    date('Y') . '#' .
+                    cekCurrentTriwulan()['current']->triwulan
+                )->first();
+
+                $alatUkurPim = \App\AlatUkur::where(
+                    'name',
+                    'partisipasi_pimpinan#' .
+                    date('Y') . '#' .
+                    cekCurrentTriwulan()['current']->triwulan
+                )->first();
+
+                $pipmSeldAssesment = \App\SelfAssesment::create(
+                    [
+                        'user_id'             => Auth::user()->id,
+                        'tahun'               => date('Y'),
+                        'triwulan'            => cekCurrentTriwulan()['current']->triwulan,
+                        'alatukur_id'         => $alatUkurPim->id,
+                        'iku_id'              => $ikuPim->id
+                    ],
+                    [
+                        // 'definisinilai_id'    => $def_id_peduli,
+                        // 'filelampiran'        => $agt->file,
+                        'skala_nilai'         => $reportPimpinan->nilai,
+                        'reportassesment_id'  => $reportPimpinan->id
                     ]
                 );
 
@@ -537,14 +597,14 @@ class SelfAssesmentController extends Controller {
                 'daftarindikator_id' => 2,
                 'tahun' => date('Y'),
                 'triwulan' => $tw
-                ]);
+            ]);
 
             $iku[$tw] = Iku::updateOrCreate([
                 'daftarindikator_id' => $persen[$tw]->daftar_indikator->id,
                 'tahun' => $persen[$tw]->tahun,
                 'namaprogram' => str_slug($persen[$tw]->daftar_indikator->name, '_') . '#' . $persen[$tw]->tahun . '#' . $persen[$tw]->triwulan,
                 'persen_id' => $persen[$tw]->id
-                ]);
+            ]);
 
             $alatUkur[$tw] = AlatUkur::updateOrCreate([
                 'iku_id' => $iku[$tw]->id,
@@ -593,11 +653,12 @@ class SelfAssesmentController extends Controller {
                     'triwulan' => $i,
                     'tahun' => date('Y'),
                     'user_id' => $satker
-                ],
-                [
-                    'hasil' => $atasWizard,
-                    'nilai' => hitungNilaiSerapan(date('Y'), $i, Auth::user()->id)
                 ]
+                // ,
+                // [
+                //     'hasil' => $atasWizard,
+                //     'nilai' => hitungNilaiSerapan(date('Y'), $i, Auth::user()->id)
+                // ]
             );
         }
 

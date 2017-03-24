@@ -133,19 +133,20 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         @endif
 
                                         @if($pimpinan != null)
-                                        @php
-                                        $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
-                                        $pimF = false;
-                                        $pimpinanFFF = \App\ReportAssessment::where('tahun', date('Y'))
-                                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                                        ->where('user_id', getSatker())
-                                        ->where('daftarindikator_id','4')
-                                        ->where('nilai','>','0')
-                                        ->first();
-                                        if (count($pimpinanFFF)) {
-                                            $pimF = true;
-                                        }
-                                        @endphp
+                                            @php
+                                                $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
+                                                $pimF = false;
+                                                $pimpinanFFF = \App\ReportAssessment::where('tahun', date('Y'))
+                                                      ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                                      ->where('user_id', getSatker())
+                                                      ->where('daftarindikator_id','4')
+                                                        // ->where('nilai','>','0')
+                                                        ->where('final_status', 1)
+                                                      ->first();
+                                                if (count($pimpinanFFF)) {
+                                                    $pimF = true;
+                                                }
+                                            @endphp
 
                                         <li class="@if(!$pimF) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">                                    
