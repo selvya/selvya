@@ -20,9 +20,12 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
-                <a href="" id="revisicp" class="btn btn-sm shtct btn-warning">
+                <form method="post" action="" id="revisicp">
+                <button type="submit" class="btn btn-sm shtct btn-warning">
                     <i class="fa fa-pencil fa-2x"></i><br>Revisi Oleh CP
-                </a>
+                </button>
+                    {{csrf_field()}}
+                </form>
             </div>
             <div class="col-md-6">
                 <a href="" id="lihat" class="btn btn-sm shtct btn-success">
@@ -180,7 +183,7 @@
         var c = $(this).attr('data-satker');
         var lr = '{{url('revisicp')}}/' + c;
         var ll = '{{url('lihathasilassesment')}}/' + c;
-        $('#revisicp').prop('href', '').prop('href', lr);
+        $('#revisicp').prop('action', '').prop('action', lr);
         $('#lihat').prop('href', '').prop('href', ll);
         $('#menuModal').modal('show');
     });

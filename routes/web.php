@@ -167,6 +167,11 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('anggaran-budaya', function () {
         return view('monitoring.anggaran-budaya');
     });
+
+
+    //Revisi
+    Route::post('revisicp/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@reviewPost']);
+
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
 });
