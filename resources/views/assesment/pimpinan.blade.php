@@ -140,7 +140,8 @@
                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                       ->where('user_id', getSatker())
                                       ->where('daftarindikator_id','4')
-                                      ->where('nilai','>','0')
+                                      // ->where('nilai','>','0')
+                                      ->where('final_status', 1)
                                       ->first();
                                 if (count($pimpinanFFF)) {
                                     $pimF = true;
