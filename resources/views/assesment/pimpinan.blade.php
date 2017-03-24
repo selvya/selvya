@@ -169,6 +169,7 @@
                 </div>
             </div>
             <br>
+            <br><br><br>
             <div class="container" style="max-width:100%; overflow: hidden;">
                 <div class="block">
                     @php
@@ -188,7 +189,7 @@
                     @endphp
 
                     @if($pim)
-                         <div class="jumbotron text-center">
+                         <div class="text-center">
                         @php
                         $ppp = \App\ReportAssessment::where('tahun', date('Y'))
                             ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
