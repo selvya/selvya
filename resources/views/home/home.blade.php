@@ -54,6 +54,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row">
 				<div class="col-md-6"><div class="row"><?php $ssks = \App\NilaiAkhir::where('user_id',Auth::user()->id)->where('tahun',date('Y'))->orderBy('triwulan')->get();$x = count($ssks); ?>
 					@foreach($ssks as $nilaiakhir)

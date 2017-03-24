@@ -2,14 +2,16 @@
 @section('content')
 <div id="page-content">
 	<!-- Wizard Header -->
-	<div class="content-header">
-		<div class="header-section">
-			<h1>
-				<i class="fa fa-magic"></i>
-				Tambah OJK Inovatif
-			</h1>
-		</div>
-	</div>
+	<div class="content-header content-media">
+        <div class="header-section">
+            <div class="jumbotron" >
+                <div class="col-md-12">
+                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Edit OJK Inovatif</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
 		<li><a href="{{url('inovatif')}}">OJK Inovatif</a></li>

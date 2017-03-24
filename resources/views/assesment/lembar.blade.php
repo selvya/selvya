@@ -7,12 +7,14 @@
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
-    <div class="content-header">
+    <div class="content-header content-media">
         <div class="header-section">
-            <h1>
-                <i class="gi gi-sort"></i>
-                <b>Lembar Assessment</b>
-            </h1>
+            <div class="jumbotron" >
+                <div class="col-md-12">
+                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Lembar Assessment</h4>
+                </div>
+            </div>
         </div>
     </div>
     <ul class="breadcrumb breadcrumb-top">

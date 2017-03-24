@@ -1,0 +1,21 @@
+.jumbotron{
+        background: url('../img/banner.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 100px 100px 150px;
+        margin-bottom: 0px;
+    }
+
+    .jumbotron .col-md-12{
+        background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));
+        margin: -100px -100px;
+        width:3000px;
+    }
+
+    .jumbotron .col-md-12 h1{
+        color:#fff;
+        padding:20px 20px 0px 20px;
+    }
+    .header-section{
+        padding:0px!important;
+    }

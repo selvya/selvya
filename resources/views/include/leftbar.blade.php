@@ -18,13 +18,6 @@
                 </a>
             </div>
             <div class="sidebar-user-name">{{Auth::user()->username}}</div>
-            <div class="sidebar-user-links">
-                <a href="page_ready_user_profile.html" data-toggle="tooltip" data-placement="bottom" title="Profile"><i class="gi gi-user"></i></a>
-                <a href="page_ready_inbox.html" data-toggle="tooltip" data-placement="bottom" title="Messages"><i class="gi gi-envelope"></i></a>
-                <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
-                <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a>
-                <a href="login.html" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
-            </div>
         </div>
         <!-- END User Info -->
 
@@ -38,8 +31,8 @@
                     <i class="gi gi-user"></i></span>
                     <span class="sidebar-header-title"><b>Satker</b></span>
                 </li>
-                <li class="@if(Request::is('/')) active @endif">
-                    <a href="{{url('/')}}"><i class="gi gi-home sidebar-nav-icon"></i> Beranda</a>
+                <li class="@if(Request::is('home')) active @endif">
+                    <a href="{{url('home')}}"><i class="gi gi-home sidebar-nav-icon"></i> Beranda</a>
                 </li>
                 <li class="@if(Request::is('nilai-self-assessment')) active @endif">
                     <a href="{{url('nilai-self-assessment')}}"><i class="gi gi-notes sidebar-nav-icon"></i> Nilai Assessment</a>
@@ -68,6 +61,9 @@
                         <span class="sidebar-header-options clearfix">
                             <i class="gi gi-user"></i></span>
                             <span class="sidebar-header-title"><b>Admin</b></span>
+                        </li>
+                        <li class="@if(Request::is('home')) active @endif">
+                            <a href="{{url('home')}}"><i class="gi gi-home sidebar-nav-icon"></i> Beranda</a>
                         </li>
                         <li class="@if(Request::is('user')) active @endif">
                             <a href="{{url('user')}}">
@@ -137,7 +133,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="@if(Request::is('program')) active @endif">
+                        <li class="@if(Request::is('admin/pengaturan')) active @endif">
                             <a href="{{url('admin/pengaturan')}}">
                                 <i class="gi gi-tags sidebar-nav-icon"></i> Parameter Program
                             </a>
@@ -151,7 +147,7 @@
                                 <i class="gi gi-user"></i></span>
                                 <span class="sidebar-header-title"><b>Reviewer</b></span>
                             </li>
-                            <li>
+                            <li class="@if(Request::is('home-reviewer')) active @endif">
                                 <a href="{{url('home-reviewer')}}">
                                     <i class="gi gi-home sidebar-nav-icon"></i> Beranda
                                 </a>
@@ -199,13 +195,13 @@
                                     <li>
                                         <a href="{{url('budaya-internal')}}">
                                             <i class="gi gi-notes sidebar-nav-icon"></i> 
-                                            Survey Budaya Internal
+                                            Survei Budaya Internal
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{url('budaya-eksternal')}}">
                                             <i class="gi gi-notes sidebar-nav-icon"></i> 
-                                            Survey Budaya Eksternal
+                                            Survei  Budaya Eksternal
                                         </a>
                                     </li>
                                 </ul>

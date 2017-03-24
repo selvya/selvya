@@ -2,12 +2,14 @@
 @section('content')
 <div id="page-content">
 	<!-- Wizard Header -->
-	<div class="content-header">
+	<div class="content-header content-media">
 		<div class="header-section">
-			<h1>
-				<i class="fa fa-user-plus"></i>
-				<b>Edit Departemen</b>
-			</h1>
+			<div class="jumbotron" >
+				<div class="col-md-12">
+					<h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+					<h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Edit Departemen</h4>
+				</div>
+			</div>
 		</div>
 	</div>
 	<ul class="breadcrumb breadcrumb-top">
