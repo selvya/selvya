@@ -49,7 +49,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
         <div class="header-section">
             <div class="jumbotron" >
                 <div class="col-md-12">
-                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h1>Salam <b>Perubahan</b></h1>
                     <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Edit Self Assessment</h4>
                 </div>
             </div>
@@ -328,13 +328,6 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         <h2><strong>OJK PEDULI</strong></h2>
                                     </div>
                                     <div class="block-content">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Nama Program </label>
-                                            <div class="col-md-9">
-                                                <!-- <h4>Ojk Peduli</h4> -->
-                                                <input type="text" name="peduli_program" class="form-control" @if(count($sasa) > 0) value="{{$sasa->namaprogram}}" @endif  placeholder="Nama Program" required>
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Penjelasan Program</label>
                                             <div class="col-md-9">

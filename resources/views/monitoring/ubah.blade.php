@@ -3,12 +3,14 @@
 
 <div id="page-content">
     <!-- Datatables Header -->
-    <div class="content-header">
+    <div class="content-header content-media">
         <div class="header-section">
-            <h1>
-                <i class="gi gi-imac"></i>
-                <b>Ubah Anggaran Program Budaya</b>
-            </h1>
+            <div class="jumbotron" >
+                <div class="col-md-12">
+                    <h1>Salam <b>Perubahan</b></h1>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Ubah Anggaran Program Budaya</h4>
+                </div>
+            </div>
         </div>
     </div>
     <ul class="breadcrumb breadcrumb-top">
