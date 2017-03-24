@@ -186,7 +186,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         <label class="col-md-3 control-label">Penjelasan Program</label>
                                         <div class="col-md-9">
                                             <!-- <h4>{{$melayani->keterangan}}</h4> -->
-                                            <textarea name="deskripsi_program" placeholder="Deskripsi Program" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  value="{{$sasa->deskripsi}}" @endif</textarea>
+                                            <textarea name="deskripsi_program" placeholder="Deskripsi Program" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea>
                                             
                                         </div>
                                     </div>
