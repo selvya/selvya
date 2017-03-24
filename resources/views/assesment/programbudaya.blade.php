@@ -10,18 +10,19 @@
     .form-bordered .form-group{
         padding: 10px 15px!important;
     }
-    .red{background: #e74c3c;}
+.red{background: #e74c3c;}
     .red > a{color: #fff;}
     .red > a:hover{background: #e74c3c!important;}
     .hijau{background: #1abc9c!important;}
     .hijau >a{color: #fff;}
     .hijau >a:hover{background: #1abc9c!important;}
 
-    /*.red{background: #e74c3c;}*/
-    .red > a{color: #fff;}
-    /*.red > a:hover{background: #e74c3c!important;}*/
-    /*.hijau{background: #1abc9c!important;}*/
-    .hijau >a{color: #fff!important;}
+    /*.redd{background: #e74c3c;}*/
+    .redd > a{color: #e74c3c;}
+    /*.redd > a:hover{background: #e74c3c!important;}*/
+    /*.hijauu{background: #1abc9c!important;}*/
+    .hijauu >a{color: #1abc9c!important;}
+    /*.hijauu >a:hover{background: #1abc9c!important;}*/
     /*.hijau >a:hover{background: #1abc9c!important;}*/
 </style>
 
@@ -44,12 +45,14 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
 
 <div id="page-content">
     <!-- Wizard Header -->
-    <div class="content-header">
+     <div class="content-header content-media">
         <div class="header-section">
-            <h1>
-                <i class="fa fa-magic"></i>
-                Edit Self Assessment
-            </h1>
+            <div class="jumbotron" >
+                <div class="col-md-12">
+                    <h1 style="text-transform: uppercase">Salam <b>Perubahan</b></h1>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Edit Self Assessment</h4>
+                </div>
+            </div>
         </div>
     </div>
     <ul class="breadcrumb breadcrumb-top">
@@ -122,7 +125,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
 
                                         @endphp
 
-                                        <li class="@if($atasWizard == 0) red @else hijau @endif">
+                                        <li class="@if($atasWizard == 0) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second"><strong>
                                                 Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
                                             </a>
@@ -144,7 +147,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         }
                                         @endphp
 
-                                        <li class="@if(!$pimF) red @else hijau @endif">
+                                        <li class="@if(!$pimF) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">                                    
                                                 <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
                                             </a>
@@ -152,7 +155,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         @endif
 
                                         @if($pelaporan != null)
-                                        <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) red @else hijau @endif">
+                                        <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
                                                 <strong>Kecepatan Pelaporan <br> <big>{{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}% [{{$pelaporan->nilai}}%]</big></strong>
                                             </a>
