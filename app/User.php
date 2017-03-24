@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-    'password', 'remember_token',
+        'password', 'remember_token',
     ];
 
     public function getHashidAttribute()
@@ -48,5 +48,10 @@ class User extends Authenticatable
     public function r_assesment()
     {
         return $this->hasMany('\App\ReportAssessment', 'user_id');
+    }
+
+    public function s_assesment()
+    {
+        return $this->hasMany('\App\SelfAssesment', 'user_id');
     }
 }

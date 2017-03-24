@@ -1,5 +1,39 @@
 @extends('layout.master')
+
+@section('css')
+    <style type="text/css">
+        .shtct {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+@endsection
+
 @section('content')
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{-- <h4 class="modal-title" id="menuModal">Pilih Jenis Perjalanan Dinas</h4> --}}
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="" id="revisicp" class="btn btn-sm shtct btn-warning">
+                    <i class="fa fa-pencil fa-2x"></i><br>Revisi Oleh CP
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="" id="lihat" class="btn btn-sm shtct btn-success">
+                    <i class="fa fa-eye fa-2x"></i><br>Lihat Hasil Self Assesment
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
@@ -65,7 +99,7 @@
             </table>
         </div>
     </div> --}}
-    
+
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead>
             <tr>
@@ -76,29 +110,53 @@
                 <th class="text-center">Progress</th>
             </tr>
         </thead>
-        <?php
-        $triwulan = cekCurrentTriwulan();
-        $report = \App\ReportAssessment::where('tahun',date('Y'))
-        ->where('triwulan',$triwulan['current']['triwulan'])->get();
-        $rp = [];
-        foreach ($report as $key => $value) {
-           $rp[] = $value->user_id;
-       }
-       $satker =  \App\User::whereNotIn('id',$rp)
-       ->get();
 
-       ?>
+        @php
+            $triwulan = cekCurrentTriwulan();
+            
+            // $report = \App\ReportAssessment::where('tahun',date('Y')) 
+            //     ->where('triwulan',$triwulan['current']['triwulan'])
+            //     ->get();
+        
+            // $rp = [];
+            
+            // foreach ($report as $key => $value) {
+            //    $rp[] = $value->user_id;
+            // }
+            
+            // $satker =  \App\User::whereNotIn('id',$rp)
+            //             ->get();
+
+            //Ambil persentase
+            $persentase = \App\Persentase::where('tahun', date('Y'))
+                            ->where('triwulan', $triwulan['current']->triwulan)
+                            ->where('nilai', '>', 0)
+                            ->count();
+
+            if ($persentase == 0) {
+                die('Admin belum menginput persntase');
+            }
+
+
+            $usr = \App\User::all();
+
+        @endphp
        <tbody>
-        @foreach($satker as $data)
-        <tr>
-            <td class="text-center">{{$data->username}}</td>
-            <td class="text-center">{{$data->deputi}}</td>
-            <td class="text-center">{{$data->departemen}}</td>
-            <td class="text-center">{{$data->kojk}}</td>
-            <td class="text-center">
-                <label class="btn btn-danger" id="bootBox0">Belum Submit</label>
-            </td>
-        </tr>
+        @foreach($usr as $data)
+            <tr>
+                <td class="text-center">{{$data->username}}</td>
+                <td class="text-center">{{$data->deputi}}</td>
+                <td class="text-center">{{$data->departemen}}</td>
+                <td class="text-center">{{$data->kojk}}</td>
+                <td class="text-center">
+                    {{-- {{count($persentase)}} --}}
+                    @if($data->s_assesment->count() !== $persentase)
+                        <label class="btn btn-danger disabled"">Belum Submit</label>
+                    @else
+                        <button type="button" class="btn btn-success ck" data-satker="{{$data->hashid}}">Sudah Submit</label>
+                    @endif
+                </td>
+            </tr>
         @endforeach
     </tbody>
 </table>
@@ -114,6 +172,17 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#myTable').DataTable();
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('click', '.ck', function() {
+        var c = $(this).attr('data-satker');
+        var lr = '{{url('revisicp')}}/' + c;
+        var ll = '{{url('lihathasilassesment')}}/' + c;
+        $('#revisicp').prop('href', '').prop('href', lr);
+        $('#lihat').prop('href', '').prop('href', ll);
+        $('#menuModal').modal('show');
     });
 </script>
 @endsection
