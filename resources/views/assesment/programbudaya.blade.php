@@ -83,30 +83,30 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     @php
-                                        $belumFinal = false;
-                                        $bbbb = \App\ReportAssessment::where('tahun', date('Y'))
-                                                  ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
-                                                  ->where('user_id', getSatker())
-                                                  ->where('daftarindikator_id','3')
-                                                  ->first();
+                                    $belumFinal = false;
+                                    $bbbb = \App\ReportAssessment::where('tahun', date('Y'))
+                                    ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
+                                    ->where('user_id', getSatker())
+                                    ->where('daftarindikator_id','3')
+                                    ->first();
 
-                                        if (count($bbbb) > 0) {
-                                            $belumFinal = true;
-                                            $hasilinovatif = $bbbb->hasil_inovatif;
-                                            $hasilmelayani =  $bbbb->hasil_melayani;
-                                            $hasilpeduli =  $bbbb->hasil_peduli;
-                                        }
-                                    @endphp
-                                    
-                                    @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                    <li class="@if(($hasilinovatif == '') || ($hasilmelayani  == '') || ($hasilpeduli  == '')) redd @else hijauu @endif">
-                                        <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
-                                            <strong>Pelaksanaan Program Budaya <br> 
-                                                <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
-                                            </strong>
-                                        </a>
-                                    </li>
-                                    @endif
+                                    if (count($bbbb) > 0) {
+										if($bbbb->hasil_inovatif > 0 || $bbbb->hasil_melayani > 0 || $bbbb->hasil_peduli > 0){
+                                        $belumFinal = true;
+                                        }else{$belumFinal = false;
+										}
+                                        @endphp
+
+                                        @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
+                                        <li class="@if(!$belumFinal) red @else hijau @endif">
+                                            <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
+                                                <strong>Pelaksanaan Program Budaya <br> 
+                                                    <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
+                                                </strong>
+                                            </a>
+                                        </li>
+                                        @endif
+                                        <?php } ?>
 
                                         @if($anggaran != null)
 
@@ -143,9 +143,8 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                                       ->where('user_id', getSatker())
                                                       ->where('daftarindikator_id','4')
-                                                        // ->where('nilai','>','0')
-                                                        ->where('final_status', 1)
-                                                      ->first();
+                                                         ->where('nilai','>','0')
+                                                         ->first();
                                                 if (count($pimpinanFFF)) {
                                                     $pimF = true;
                                                 }

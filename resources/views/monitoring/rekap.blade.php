@@ -4,15 +4,15 @@
 <div id="page-content">
 	<!-- Datatables Header -->
 	<div class="content-header content-media">
-        <div class="header-section">
-            <div class="jumbotron" >
-                <div class="col-md-12">
-                    <h1>Salam <b>Perubahan</b></h1>
-                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Rekap Monitoring</h4>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="header-section">
+			<div class="jumbotron" >
+				<div class="col-md-12">
+					<h1>Salam <b>Perubahan</b></h1>
+					<h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Rekap Monitoring</h4>
+				</div>
+			</div>
+		</div>
+	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
 		<li>Rekap Monitoring</li>
@@ -81,9 +81,35 @@
 				</table>
 			</div>
 		</div> -->
+		<?php
+		$triwulan = cekCurrentTriwulan();
+		$all= DB::table('monitoring')->where('monitoring.tahun',date('Y'))
+		->where('monitoring.triwulan',$triwulan['current']['triwulan'])
+		->join('users','monitoring.user_id','=','users.id')
+		->join('selfassesment','monitoring.selfassesment_id','=','selfassesment.id')
+		->get();
+
+			// dd($all);
+
+		// $final = \App\ReportAssessment::where('daftarindikator_id','2')
+		// ->where('tahun',date('Y'))
+		// ->where('triwulan',$triwulan['current']['triwulan'])
+		// ->where('final_status','1')
+		// ->join('users','report_assesment.user_id','=','users.id')
+		// ->get();
+
+		// $belumfinal = \App\ReportAssessment::where('daftarindikator_id','2')
+		// ->where('tahun',date('Y'))
+		// ->where('triwulan',$triwulan['current']['triwulan'])
+		// ->where('final_status','0')
+		// ->join('users','report_assesment.user_id','=','users.id')
+		// ->get();
+		?>
+
 		<table class="table table-striped table-bordebtn-danger table-hover" id="myTable">
 			<thead>
 				<tr>
+					<th class="text-center">Username</th>
 					<th class="text-center">Deputi Komisioner</th>
 					<th class="text-center">Departemen</th>
 					<th class="text-center">KOJK</th>
@@ -91,14 +117,19 @@
 				</tr>
 			</thead>
 			<tbody>
+				@foreach($all as $data)
 				<tr>
-					<td class="text-center">Manajemen Strategis IA</td>
-					<td class="text-center">Pengembangan Kebijakan Strategis</td>
-					<td class="text-center"> N/A</td>
+					<td class="text-center">{{$data->username}}</td>
+					<td class="text-center">{{$data->deputi_kom}}</td>
+					<td class="text-center">{{$data->departemen}}</td>
+					<td class="text-center">{{$data->kojk}}</td>
+
 					<td class="text-center">
 						<label class="btn btn-danger">Belum Dilakukan Monitoring</label>
 					</td>
+
 				</tr>
+				@endforeach
 			</tbody>
 		</table>
 	</div>

@@ -31,6 +31,9 @@ class ReportAssessment extends Model
     {
         return $this->belongsTo('\App\User', 'user_id');
     }
-
     
+    public function daftar_indikator()
+    {
+        return $this->belongsTo('\App\DaftarIndikator', 'daftarindikator_id');
+    }
 }
