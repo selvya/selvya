@@ -127,8 +127,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                       ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                                                       ->where('user_id', getSatker())
                                                       ->where('daftarindikator_id','4')
-                                                  // ->where('nilai','>','0')
-                                                      ->where('final_status', 1)
+                                                  ->where('nilai','>','0')
                                                       ->first();
                                                 if (count($pimpinanFFF)) {
                                                     $pimF = true;
@@ -141,6 +140,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                 </a>
                                             </li>
                                         @endif
+
                                     @if($pelaporan != null)
                                     <li class="@if(( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai == 0) red @else hijau @endif">
                                         <a href="{{url('edit-self-assessment/'.Request::segment(2).'/kecepatan-pelaporan')}}" data-gotostep="clickable-fourth">
@@ -169,16 +169,16 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                             {{csrf_field()}}
                             {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
                             @php
-                            $thn = date('Y');
-                            $tw = cekCurrentTriwulan()['current']->triwulan;
-                            $usr = getSatker();
+                                $thn = date('Y');
+                                $tw = cekCurrentTriwulan()['current']->triwulan;
+                                $usr = getSatker();
                             @endphp
                             
                             @if(
-                            $rep == null OR
-                            !cekBudaya($thn, $tw, $usr) OR
-                            !cekFinalPimpinan($thn, $tw, $usr) OR
-                            !cekFinalAnggaran($thn, $tw, $usr)
+                                $rep == null OR
+                                !cekBudaya($thn, $tw, $usr) OR
+                                !cekFinalPimpinan($thn, $tw, $usr) OR
+                                !cekFinalAnggaran($thn, $tw, $usr)
                             )
                             {{-- @if($rep == null) --}}
                                 <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Finalisasi Lembar Self Assessment">

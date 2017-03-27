@@ -28,7 +28,7 @@
                 </form>
             </div>
             <div class="col-md-6">
-                <a href="" id="lihat" class="btn btn-sm shtct btn-success">
+                <a href="" target="_blank" id="lihat" class="btn btn-sm shtct btn-success">
                     <i class="fa fa-eye fa-2x"></i><br>Lihat Hasil Self Assesment
                 </a>
             </div>
