@@ -83,27 +83,30 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     @php
-                                    $belumFinal = false;
-                                    $bbbb = \App\ReportAssessment::where('tahun', date('Y'))
-                                    ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
-                                    ->where('user_id', getSatker())
-                                    ->where('daftarindikator_id','3')
-                                    ->first();
+                                        $belumFinal = false;
+                                        $bbbb = \App\ReportAssessment::where('tahun', date('Y'))
+                                                  ->where('triwulan',cekCurrentTriwulan()['current']->triwulan)
+                                                  ->where('user_id', getSatker())
+                                                  ->where('daftarindikator_id','3')
+                                                  ->first();
 
-                                    if (count($bbbb) > 0) {
-                                        $belumFinal = true;
-                                        @endphp
-
-                                        @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
-                                        <li class="@if(!$belumFinal) red @else hijau @endif">
-                                            <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
-                                                <strong>Pelaksanaan Program Budaya <br> 
-                                                    <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
-                                                </strong>
-                                            </a>
-                                        </li>
-                                        @endif
-                                        <?php } ?>
+                                        if (count($bbbb) > 0) {
+                                            $belumFinal = true;
+                                            $hasilinovatif = $bbbb->hasil_inovatif;
+                                            $hasilmelayani =  $bbbb->hasil_melayani;
+                                            $hasilpeduli =  $bbbb->hasil_peduli;
+                                        }
+                                    @endphp
+                                    
+                                    @if(($inovatif != null ) || ($melayani != null) || ($peduli != null))
+                                    <li class="@if(($hasilinovatif == '') || ($hasilmelayani  == '') || ($hasilpeduli  == '')) redd @else hijauu @endif">
+                                        <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
+                                            <strong>Pelaksanaan Program Budaya <br> 
+                                                <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
+                                            </strong>
+                                        </a>
+                                    </li>
+                                    @endif
 
                                         @if($anggaran != null)
 
