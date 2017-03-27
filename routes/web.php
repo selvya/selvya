@@ -173,7 +173,8 @@ Route::group(['middleware' => ['reviewer']], function () {
 
     //Revisi
     Route::post('revisicp/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@reviewPost']);
-
+    //Lihat Hasil Laporan
+    Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
 });

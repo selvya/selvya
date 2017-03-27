@@ -17,4 +17,9 @@ class DaftarIndikator extends Model
     public function persentase() {
         return $this->hasMany('\App\Persentase', 'daftarindikator_id');
     }
+
+    public function r_assesment()
+    {
+        $this->hasMany('\App\ReportAssessment', 'daftarindikator_id');
+    }
 }

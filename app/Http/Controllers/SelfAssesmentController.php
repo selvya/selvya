@@ -300,22 +300,48 @@ class SelfAssesmentController extends Controller {
                     ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
                     ->where('daftarindikator_id', 4)
                     ->first();
-                $reportPimpinan = \App\ReportAssessment::updateOrCreate(
-                    [
-                        'triwulan'           => cekCurrentTriwulan()['current']->triwulan, 
-                        'tahun'              => date('Y'),
-                        'daftarindikator_id' => '4',
-                        'user_id'            => Auth::user()->id
+                
+                // $valPim = [
+                //     'persentase' => $persenPimpinan->nilai,
+                //     // 'nilai' => $r->nilai,
+                //     'final_status' => 1,
+                //     'partisipasi' => $r->partisipasi,
+                //     'deskripsi' => $r->deskripsi
+                // ];
 
-                    ],
-                    [
-                        'persentase' => $persenPimpinan->nilai,
-                        // 'nilai' => $r->nilai,
-                        'final_status' => 1,
-                        'partisipasi' => $r->partisipasi,
-                        'deskripsi' => $r->deskripsi
-                    ]
-                );
+                $nPim = 1;
+
+                $reportPimpinan = \App\ReportAssessment::where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                        ->where('tahun', date('Y'))
+                        ->where('daftarindikator_id', '4')
+                        ->where('user_id', Auth::user()->id)
+                        ->first();
+                if (count($reportPimpinan) > 0) {
+                    $reportPimpinan->nilai = $reportPimpinan->nilai;
+                    $reportPimpinan->persentase = $persenPimpinan->nilai;
+                    $reportPimpinan->final_status = 1;
+                    $reportPimpinan->partisipasi = $r->partisipasi;
+                    $reportPimpinan->deskripsi = $r->deskrips;
+                    $reportPimpinan->hasil = $reportPimpinan->nilai / 6 * $persenPimpinan->nilai;
+
+                }else{
+                    $reportPimpinan = new \App\ReportAssessment();
+
+                    $reportPimpinan->nilai = $nPim;
+                    $reportPimpinan->triwulan = cekCurrentTriwulan()['current']->triwulan;
+                    $reportPimpinan->tahun = date('Y');
+                    $reportPimpinan->daftarindikator_id = 4;
+                    $reportPimpinan->user_id = Auth::user()->id;
+                    $reportPimpinan->persentase = $persenPimpinan->nilai;
+                    $reportPimpinan->final_status = 1;
+                    $reportPimpinan->partisipasi = $r->partisipasi;
+                    $reportPimpinan->deskripsi = $r->deskrips;
+                    $reportPimpinan->hasil = $nPim / 6 * $persenPimpinan->nilai;
+                }
+
+                $reportPimpinan->save();
+
+
                 //IkuPim
                 $ikuPim = \App\Iku::where(
                     'namaprogram',
