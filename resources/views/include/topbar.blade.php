@@ -24,7 +24,7 @@
                                   <li>
                                             <a href="{{url('setting')}}"><i class="fa fa-cog fa-fw pull-right"></i> Pengaturan</a>
                                     </li>  <li>
-                                            <a href="{{url('logout')}}" id="logout"><i class="fa fa-sign-out fa-fw pull-right"></i> Logout</a>
+                                            <a href="javascript:void(0)" id="logout"><i class="fa fa-sign-out fa-fw pull-right"></i> Logout</a>
                                             {{-- <button type="submit"><i class="fa fa-ban fa-fw pull-right"></i> Logout</button> --}}
                                     </li>
                                 </ul>
