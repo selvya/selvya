@@ -156,218 +156,7 @@
                         </div>
                     </td>
                 </tr>
-                {{-- <tr>
-                    <td><div class="label"><p>Nama Pimpinan:</p></div></td>
-                    <td colspan=4><div class="content"><p>Hidayat Prabowo</p></div></td>
-                </tr>
-                <tr>
-                    <td><div class="label"><p>Jabatan:</p></div></td>
-                    <td colspan=4><div class="content"><p>Kepala Departemen</p></div></td>
-                </tr> --}}
-                {{-- <tr>
-                    <td colspan=5>
-                        <div class="title">
-                            <p>
-                                Program Budaya 1:<b><u>SHARING INFORMASI</u></b>
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="bottom">
-                        <div class="label">
-                            <p>
-                                Nama Program:
-                            </p>
-                        </div>
-                    </td>
-                    <td colspan=4>
-                        <div class="content">
-                            <p>
-                                Sharing Knowledge DRPK
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="bottom">
-                        <div class="label">
-                            <p>
-                                Nilai <i>Self Assessment</i>:
-                            </p>
-                        </div>
-                    </td>
-                    <td colspan=4>
-                        <div class="content">
-                            <p>
-                                5 - Sudah dilakukan, dihadiri sebagian besar pegawai, dilakukan dgn kreatif, konsisten
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="bottom">
-                        <div class="label">
-                            <p>
-                                Attachment:
-                            </p>
-                        </div>
-                    </td>
-                    <td colspan=4>
-                        <a href="http://localhost:8888/ojkway-assesment/admin/form/download_file/1/E9pqzOavQoIhJl3" target="_blank" class="btn yellow">
-                            Download Lampiran
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan=5>
-                        <div class="subtitle">
-                            <p>
-                                <b>Keterangan:</b>
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p style="margin:2px;">
-                            <div class="label">
-                                <p>
-                                    Konsistensi:
-                                </p>
-                            </div>
-                        </p>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Sudah dilakukan secara konsisten
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Penjelasan:
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Sharing knowledge dilakukan setiap hari Jumat pukul 07.45- 09.00 dengan peserta seluruh Insan DRPK, Sharing Knowledge juga dilakukan melalui online.
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p style="margin:2px;">
-                            <div class="label">
-                                <p>
-                                    Kreativitas:
-                                </p>
-                            </div>
-                        </p>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Kreativitas digunakan untuk sosialisasi dan monitoring
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Penjelasan:
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Sudah dilakukan persiapan dengan membuat slide, skill presentasi, penilaian atas isi materi dan presnter.
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p style="margin:2px;">
-                            <div class="label">
-                                <p>
-                                    Dokumentasi:
-                                </p>
-                            </div>
-                        </p>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Sudah terdokumentasi
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Penjelasan:
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Tersedia materi yang didistribusikan kepada setiap peserta, absensi dan photo kegiatan, hasil monitoring
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p style="margin:2px;">
-                            <div class="label">
-                                <p>
-                                    Dampak Pada Perilaku:
-                                </p>
-                            </div>
-                        </p>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Sudah terlihat perbaikan perilaku
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Penjelasan:
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                Presenter menyiapkan materi presentasi, mengirimkan materi, peserta membaca materi sebelum pelaksanaan, knowledge digunakan mendukung pekerjaan.
-                            </p>
-                        </div>
-                    </td>
-                </tr> --}}
+
 
                 @forelse($reportAssesment as $k => $v)
 
@@ -434,7 +223,39 @@
                             <td valign="bottom">
                                 <div class="label">
                                     <p>
-                                        Attachment:
+                                        Total Anggaran :
+                                    </p>
+                                </div>
+                            </td>
+                            <td colspan=4>
+                                <div class="content">
+                                    <p>
+                                        Rp. {{number_format($angg->total_anggaran, 0, ',', '.')}},-
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="bottom">
+                                <div class="label">
+                                    <p>
+                                        Realisasi :
+                                    </p>
+                                </div>
+                            </td>
+                            <td colspan=4>
+                                <div class="content">
+                                    <p>
+                                        Rp. {{number_format($angg->anggaran_triwulan->where('triwulan', $v->triwulan)->first()->realisasi, 0, ',', '.')}},-
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="bottom">
+                                <div class="label">
+                                    <p>
+                                        Lampiran :
                                     </p>
                                 </div>
                             </td>
@@ -589,6 +410,8 @@
                                                     $v->tahun . '#' .
                                                     $v->triwulan
                                             )->first();
+
+                                            $batas = getBatasTanggalPelaporan($v->tahun, $v->triwulan);
                                         @endphp
 
                                         {{$v->nilai . ' (' . ($v->hasil) . '% dari ' . $v->persentase . '%)'}}
@@ -597,8 +420,56 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <td valign="bottom">
+                                <div class="label">
+                                    <p>
+                                        Tgl. Batas Melapor :
+                                    </p>
+                                </div>
+                            </td>
+                            <td colspan=4>
+                                <div class="content">
+                                    <p>
+                                        <code>{{$batas->tanggal->format('d F Y h:i:s')}}</code>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="bottom">
+                                <div class="label">
+                                    <p>
+                                        Tgl. Melapor :
+                                    </p>
+                                </div>
+                            </td>
+                            <td colspan=4>
+                                <div class="content">
+                                    <p>
+                                        <code>{{\Carbon\Carbon::parse($v->updated_at)->format('d F Y h:i:s')}}</code>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="bottom">
+                                <div class="label">
+                                    <p>
+                                        Selisih :
+                                    </p>
+                                </div>
+                            </td>
+                            <td colspan=4>
+                                <div class="content">
+                                    <p>
+                                        <code>{{\Carbon\Carbon::parse($v->updated_at)->diffInDays($batas->tanggal, true)}} hari</code>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
                     @endif
-                    
+
 
                     @empty
                         --
