@@ -187,17 +187,17 @@
                     {{-- {{count($persentase)}} --}}
                     @if(
                         $data->r_assesment
-                        ->where('tahun', date('Y'))
-                        ->where('triwulan', $triwulan['current']->triwulan)
-                        ->where('final_status', 1)
+                            ->where('tahun', date('Y'))
+                            ->where('triwulan', $triwulan['current']->triwulan)
+                            ->where('final_status', 1)
                         ->count() 
-                        == $persentase
+                            == $persentase
                         )
                         
-                        <button type="button" class="btn btn-success ck" data-satker="{{$data->hashid}}">Sudah Submit</label>
-                            @else
+                            <button type="button" class="btn btn-success ck" data-satker="{{$data->hashid}}">Sudah Submit</label>
+                        @else
                             <label class="btn btn-danger disabled"">Belum Submit</label>
-                            @endif
+                        @endif
                         </td>
                     </tr>
                     @endforeach
