@@ -21,8 +21,10 @@
                                     <img src="{{asset('vendor/img/placeholders/avatars/avatar2.jpg')}}" alt="avatar"> <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                                    <li>
-                                            <a href="#" id="logout"><i class="fa fa-sign-out fa-fw pull-right"></i> Logout</a>
+                                  <li>
+                                            <a href="{{url('setting')}}"><i class="fa fa-cog fa-fw pull-right"></i> Pengaturan</a>
+                                    </li>  <li>
+                                            <a href="{{url('logout')}}" id="logout"><i class="fa fa-sign-out fa-fw pull-right"></i> Logout</a>
                                             {{-- <button type="submit"><i class="fa fa-ban fa-fw pull-right"></i> Logout</button> --}}
                                     </li>
                                 </ul>
