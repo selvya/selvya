@@ -59,6 +59,7 @@ Route::group(['middleware' => ['satker']], function () {
 
     //MANUAL BOOK
     Route::get('manual-pengguna-satker', 'PanduanController@satker');
+    Route::get('setting', 'UserController@setting');
 
     //ASSESSMENT
     Route::get('nilai-self-assessment', function () {
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['satker']], function () {
     Route::get('edit-self-assessment/{id}/kecepatan-pelaporan', 'SelfAssesmentController@pelaporan');
     Route::post('edit-self-assessment/{id}/kecepatan-pelaporan', 'SelfAssesmentController@pelaporanSimpan');
 
+    Route::post('user/edit/proses/{id}', 'UserController@edit');
     Route::get('arsip/assessment', 'SelfAssesmentController@arsipassesment');
 
     Route::get('detail/assessment', function () {
@@ -225,7 +227,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('user/hapus/{id}', 'UserController@hapususer');
     Route::get('user/edit/{id}', 'UserController@editview');
     Route::post('user/tambah/proses', 'UserController@tambahuser');
-    Route::post('user/edit/proses/{id}', 'UserController@edit');
 
     //DEPARTEMEN
     Route::get('departemen','DepartemenController@index');

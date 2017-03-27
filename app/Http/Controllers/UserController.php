@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DataTables\UserDataTable;
+use Auth;
 use App\User;
 use Hash;
 use App\Departemen;
@@ -17,7 +18,17 @@ class UserController extends Controller
     {
         return $dataTable->render('user.user');
     }
-    public function usertambahview()
+    public function setting()
+    {
+        $departemen = Departemen::all();
+        $kojk = Direktorat::all();
+        $satker = Satker::all();
+        $komisioner = Komisioner::all();
+        $user = User::findOrFail(Auth::user()->id);
+
+        return view('user.pengaturan', compact('departemen', 'kojk', 'user','satker','komisioner'));
+    }
+	public function usertambahview()
     {
         $departemen = Departemen::all();
         $kojk = Direktorat::all();
@@ -65,21 +76,24 @@ class UserController extends Controller
     }
     public function edit(Request $r, $id)
     {
-
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(Auth::user()->id);
         $user->username = $r->username;
         $user->email = 'kosong';
-        if (!empty($r->password)) {
+        if (!empty($r->password) && $r->password == $r->password2) {
             $user->password = Hash::make($r->password);
         }
-        $user->otoritas = $r->otoritas;
+       // $user->level = $r->level;
         $user->deputi_kom = $r->deputi;
         $user->departemen = $r->departemen;
         $user->direktorat_id = $r->kojk;
         $user->kojk = $r->kojk;
-        $user->change_partner = $r->change;
-        $user->satker = $r->satker;
-        $user->jabatan = $r->jabatan;
+        $user->change_partner = $r->change_partner;
+      //  $user->satker = $r->satker;
+        $user->namapengisi = $r->namapengisi;
+        $user->namapimpinan = $r->namapimpinan;
+        $user->jabatanpimpinan = $r->jabatanpimpinan;
+        $user->jumlahinsan = $r->jumlahinsan;
+        $user->jenis_kantor = $r->jenis_kantor;
         $user->save();
         // dd($user);
 
