@@ -1,12 +1,12 @@
 @extends('layout.master')
 
 @section('css')
-    <style type="text/css">
-        .shtct {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-    </style>
+<style type="text/css">
+    .shtct {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -16,14 +16,14 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{-- <h4 class="modal-title" id="menuModal">Pilih Jenis Perjalanan Dinas</h4> --}}
-      </div>
-      <div class="modal-body">
+    </div>
+    <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
                 <form method="post" action="" id="revisicp">
-                <button type="submit" class="btn btn-sm shtct btn-warning">
-                    <i class="fa fa-pencil fa-2x"></i><br>Revisi Oleh CP
-                </button>
+                    <button type="submit" class="btn btn-sm shtct btn-warning">
+                        <i class="fa fa-pencil fa-2x"></i><br>Revisi Oleh CP
+                    </button>
                     {{csrf_field()}}
                 </form>
             </div>
@@ -33,9 +33,9 @@
                 </a>
             </div>
         </div>
-        </div>
     </div>
-  </div>
+</div>
+</div>
 </div>
 <!-- Page content -->
 <div id="page-content">
@@ -59,36 +59,62 @@
     <!-- Datatables Content -->
     <div class="block full">
         @if(Session::has('message'))
-            <div class="alert {{Session::get('alert-class')}}">
-                {{Session::get('message')}}
-            </div>
+        <div class="alert {{Session::get('alert-class')}}">
+            {{Session::get('message')}}
+        </div>
         @endif
         <!-- <div class="text-right">
             <a href="{{url('arsip/assessment')}}" class="btn btn-default" data-toggle="tooltip" title="Lihat Arsip Assessment"><i class="fa fa-eye"></i> Arsip</a>
         </div> -->
         <br>
         
-        {{-- <div class="panel-heading">
+        <div class="panel-heading" style="overflow: hidden;">
             <form method="post" enctype="multipart/form-data" action="">
-                <select name="tipe">
-                    <option value="2" selected="selected">Kantor Pusat</option>
-                    <option value="3">Kantor Regional</option>
-                    <option value="4">Kantor KOJK</option>
-                    <option value="5">OJK-wide</option>
-                </select>&nbsp;                         Periode&nbsp;:&nbsp;&nbsp;
-                <select name="month">
-                    <option value="13" selected="selected">Januari - Maret</option>
-                    <option value="14">April - Juni</option>
-                    <option value="15">Juli - September</option>
-                    <option value="16">Oktober-Desember</option>
-                </select>&nbsp;<select name="year">
-                <option value="2017" selected="selected">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-            </select>&nbsp;         
-            <a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
-        </form>
-    </div> --}}
+                <div class="col-md-2" style="padding: 0px;">
+                    <select name="tipe" class="form-control">
+                        <option value="2" selected="selected">Kantor Pusat</option>
+                        <option value="3">Kantor Regional</option>
+                        <option value="4">Kantor KOJK</option>
+                        <option value="5">OJK-wide</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="month" class="form-control">
+                        <option selected="selected">-- Periode --</option>
+                        <option value="13">Januari - Maret</option>
+                        <option value="14">April - Juni</option>
+                        <option value="15">Juli - September</option>
+                        <option value="16">Oktober-Desember</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="year" class="form-control">
+                        <option value="2017" selected="selected">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                    </select>
+                </div>
+                <br><br><br>
+                <div class="pull-left">
+                    <a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+                </div>
+            </form>
+            <br><br><br>
+            <div class="col-md-12" style="padding: 0px;">
+                <div class="btn btn-success">
+                    <?php 
+                    $nilainya = \App\NilaiAkhir::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
+                    $satkernya = \App\User::where('level','satker')->count();
+                    ?>
+                    {{$nilainya}} <br>
+                    Sudah Submit Assessment
+                </div>
+                <div class="btn btn-warning">
+                    {{$satkernya-$nilainya}} <br>
+                    Belum Submit Assessment
+                </div>
+            </div>
+        </div>
     {{--< div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
         <div class="container" style=" width:100%;margin-bottom: 5px;">
             <b>Detail Rekapitulasi:</b>
@@ -120,37 +146,38 @@
         </thead>
 
         @php
-            $triwulan = cekCurrentTriwulan();
-            
+        $triwulan = cekCurrentTriwulan();
+
             // $report = \App\ReportAssessment::where('tahun',date('Y')) 
             //     ->where('triwulan',$triwulan['current']['triwulan'])
             //     ->get();
         
             // $rp = [];
-            
+
             // foreach ($report as $key => $value) {
             //    $rp[] = $value->user_id;
             // }
-            
+
             // $satker =  \App\User::whereNotIn('id',$rp)
             //             ->get();
 
             //Ambil persentase
-            $persentase = \App\Persentase::where('tahun', date('Y'))
-                            ->where('triwulan', $triwulan['current']->triwulan)
-                            ->where('nilai', '>', 0)
-                            ->count();
+        $persentase = \App\Persentase::where('tahun', date('Y'))
+        ->where('triwulan', $triwulan['current']->triwulan)
+        ->where('nilai', '>', 0)
+        ->count();
 
-            if ($persentase == 0) {
-                die('Admin belum menginput persntase');
-            }
+        if ($persentase == 0) {
+            die('Admin belum menginput persntase');
+        }
 
 
-            $usr = \App\User::all();
+        $usr = \App\User::where('level','satker')->get();
+        
 
         @endphp
-       <tbody>
-        @foreach($usr as $data)
+        <tbody>
+            @foreach($usr as $data)
             <tr>
                 <td class="text-center">{{$data->username}}</td>
                 <td class="text-center">{{$data->deputi}}</td>
@@ -160,45 +187,45 @@
                     {{-- {{count($persentase)}} --}}
                     @if(
                         $data->r_assesment
-                                ->where('tahun', date('Y'))
-                                ->where('triwulan', $triwulan['current']->triwulan)
-                                ->where('final_status', 1)
-                                ->count() 
+                        ->where('tahun', date('Y'))
+                        ->where('triwulan', $triwulan['current']->triwulan)
+                        ->where('final_status', 1)
+                        ->count() 
                         == $persentase
-                    )
+                        )
                         
                         <button type="button" class="btn btn-success ck" data-satker="{{$data->hashid}}">Sudah Submit</label>
-                    @else
-                        <label class="btn btn-danger disabled"">Belum Submit</label>
-                    @endif
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-</div>
-<!-- END Datatables Content -->
-</div>
-<!-- END Page Content -->
-<!-- END Page Content -->
-@endsection
-@section('js')
-<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
-<script>$(function(){ TablesDatatables.init(); });</script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#myTable').DataTable();
-    });
-</script>
+                            @else
+                            <label class="btn btn-danger disabled"">Belum Submit</label>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <!-- END Datatables Content -->
+    </div>
+    <!-- END Page Content -->
+    <!-- END Page Content -->
+    @endsection
+    @section('js')
+    <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
+    <script>$(function(){ TablesDatatables.init(); });</script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
+    </script>
 
-<script type="text/javascript">
-    $(document).on('click', '.ck', function() {
-        var c = $(this).attr('data-satker');
-        var lr = '{{url('revisicp')}}/' + c;
-        var ll = '{{url('lihathasilassesment')}}/' + c;
-        $('#revisicp').prop('action', '').prop('action', lr);
-        $('#lihat').prop('href', '').prop('href', ll);
-        $('#menuModal').modal('show');
-    });
-</script>
-@endsection
+    <script type="text/javascript">
+        $(document).on('click', '.ck', function() {
+            var c = $(this).attr('data-satker');
+            var lr = '{{url('revisicp')}}/' + c;
+            var ll = '{{url('lihathasilassesment')}}/' + c;
+            $('#revisicp').prop('action', '').prop('action', lr);
+            $('#lihat').prop('href', '').prop('href', ll);
+            $('#menuModal').modal('show');
+        });
+    </script>
+    @endsection

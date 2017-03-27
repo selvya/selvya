@@ -21,75 +21,22 @@
 
 	<!-- Datatables Content -->
 	<div class="block full">
-		<div class="table-responsive">
-			<table>
-				<tr>
-					<td>Deputi Komisioner</td>
-					<td>:</td>
-					<td>Manajemen Strategis IB</td>
-				</tr>
-				<tr>
-					<td>Satuan Kerja</td>
-					<td>:</td>
-					<td>Perencanaan Strategis, Manajemen Perubahan dan Sekretariat Dewan Komisioner</td>
-				</tr>
-				<tr>
-					<td>Direktorat/KOJK</td>
-					<td>:</td>
-					<td>N/A</td>
-				</tr>
-			</table>
-		</div>
-		<br>
 		<div class="panel panel-default">
-<!-- 			<div class="panel-heading">
-				<form method="post" enctype="multipart/form-data" action="">
-					<select name="tipe">
-						<option value="2" selected="selected">Kantor Pusat</option>
-						<option value="3">Kantor Regional</option>
-						<option value="4">Kantor KOJK</option>
-						<option value="5">OJK-wide</option>
-					</select>&nbsp;						&nbsp;Periode&nbsp;:
-					<select name="month">
-						<option value="13" selected="selected">Januari - Maret</option>
-						<option value="14">April - Juni</option>
-						<option value="15">Juli - September</option>
-						<option value="16">Oktober-Desember</option>
-					</select>&nbsp;<select name="year">
-					<option value="2017" selected="selected">2017</option>
-					<option value="2016">2016</option>
-					<option value="2015">2015</option>
-				</select>&nbsp;						
-				<a class="btn btn-primary">Lihat <i class="fa fa-arrow-circle-o-right"></i></a>
-			</form>
-		</div>
-		<div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
-			<div class="container" style=" width:100%;margin-bottom: 5px;">
-				<b>Detail Rekapitulasi:</b>
-				<table>
-					<tr>
-						<td style="background-color: #ececec;" align="center">
-							&nbsp;Sudah Dilakukan&nbsp;<br>
-							<a href="#" class="btn btn-success">0</a>
-						</td>
-						<td>&nbsp;</td>
-						<td style="background-color: #ececec;" align="center">
-							&nbsp;Belum Dilakukan&nbsp;<br>
-							<a href="#" class="btn btn-danger">66</a>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div> -->
-		<?php
-		$triwulan = cekCurrentTriwulan();
-		$all= DB::table('monitoring')->where('monitoring.tahun',date('Y'))
-		->where('monitoring.triwulan',$triwulan['current']['triwulan'])
-		->join('users','monitoring.user_id','=','users.id')
-		->join('selfassesment','monitoring.selfassesment_id','=','selfassesment.id')
-		->get();
+			<?php
+			$triwulan = cekCurrentTriwulan();
+			$all = \App\User::where('level','satker')->get();
+
+			$semua = DB::table('monitoring')->where('monitoring.tahun',date('Y'))
+			 ->where('monitoring.triwulan',$triwulan['current']['triwulan'])
+			 ->join('users','monitoring.user_id','=','users.id')
+			 ->join('selfassesment','monitoring.selfassesment_id','=','selfassesment.id')
+			->get();
 
 			// dd($all);
+
+			// dd($all);
+			$monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
+			$satkernya = \App\User::where('level','satker')->count();
 
 		// $final = \App\ReportAssessment::where('daftarindikator_id','2')
 		// ->where('tahun',date('Y'))
@@ -104,37 +51,76 @@
 		// ->where('final_status','0')
 		// ->join('users','report_assesment.user_id','=','users.id')
 		// ->get();
-		?>
+			?>
+			<div class="panel-heading">
+				<form method="post" enctype="multipart/form-data" action="">
+					<div class="col-md-2" style="padding: 0px;">
+						<select name="tipe" class="form-control">
+							<option value="2" selected="selected">Kantor Pusat</option>
+							<option value="3">Kantor Regional</option>
+							<option value="4">Kantor KOJK</option>
+							<option value="5">OJK-wide</option>
+						</select>
+					</div>
+					<div class="col-md-2" style="padding-right: 0px;">
+						<select name="month" class="form-control">
+							<option selected="selected">-- Periode --</option>
+							<option value="13">Januari - Maret</option>
+							<option value="14">April - Juni</option>
+							<option value="15">Juli - September</option>
+							<option value="16">Oktober-Desember</option>
+						</select>
+					</div>
+					<div class="col-md-2" style="padding-right: 0px;">
+						<select name="year" class="form-control">
+							<option value="2017" selected="selected">2017</option>
+							<option value="2016">2016</option>
+							<option value="2015">2015</option>
+						</select>
+					</div>
+					<br><br><br>
+					<div class="pull-left">
+						<a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+					</div>
+				</form>
+				<br><br><br>
+				<div class="">
+					<b>Rekapitulasi:</b> <br>
+					<span class="btn btn-success"><big>{{count($monitornya)}}</big><br><b>Sudah di Monitor</b></span>
+					<span class="btn btn-danger"><big>{{$satkernya - count($monitornya)}}</big><br><b>Belum di Monitor</b></span>
+				</div>
+			</div>
+			<table class="table table-striped table-bordebtn-danger table-hover" id="myTable">
+				<thead>
+					<tr>
+						<th class="text-center">Username</th>
+						<th class="text-center">Deputi Komisioner</th>
+						<th class="text-center">Departemen</th>
+						<th class="text-center">KOJK</th>
+						<th class="text-center">Status Monitoring</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($all as $data)
+					<tr>
+						<td class="text-center">{{$data->username}}</td>
+						<td class="text-center">{{$data->deputi_kom}}</td>
+						<td class="text-center">{{$data->departemen}}</td>
+						<td class="text-center">{{$data->kojk}}</td>
+						
+							<td class="text-center">
+								<label class="btn btn-danger">Belum Dilakukan Monitoring</label>
+							</td>
+						
+						
 
-		<table class="table table-striped table-bordebtn-danger table-hover" id="myTable">
-			<thead>
-				<tr>
-					<th class="text-center">Username</th>
-					<th class="text-center">Deputi Komisioner</th>
-					<th class="text-center">Departemen</th>
-					<th class="text-center">KOJK</th>
-					<th class="text-center">Status Monitoring</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach($all as $data)
-				<tr>
-					<td class="text-center">{{$data->username}}</td>
-					<td class="text-center">{{$data->deputi_kom}}</td>
-					<td class="text-center">{{$data->departemen}}</td>
-					<td class="text-center">{{$data->kojk}}</td>
-
-					<td class="text-center">
-						<label class="btn btn-danger">Belum Dilakukan Monitoring</label>
-					</td>
-
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
-<!-- END Datatables Content -->
+	<!-- END Datatables Content -->
 </div>
 <!-- END Page Content -->
 <!-- END Page Content -->
