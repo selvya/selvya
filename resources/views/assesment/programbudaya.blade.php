@@ -39,7 +39,8 @@ if (count($rep) > 0) {
     $rep = null;
 }
 $reportidnya = DB::table('report_assesment')->where('daftarindikator_id','3')->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->value('id');
-$sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->where('namaprogram','!=','')->first();
+$sasa_mel =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->where('iku_id', $melayani->id)->orderBy('id','DESC')->first();
+$sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->where('user_id',Auth::user()->id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->where('iku_id', $peduli->id)->orderBy('id','DESC')->first();
 @endphp
 
 
@@ -192,8 +193,7 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                         <label class="col-md-3 control-label">Penjelasan Program</label>
                                         <div class="col-md-9">
                                             <!-- <h4>{{$melayani->keterangan}}</h4> -->
-                                            <!-- <textarea name="deskripsi_program" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan,monitoring yang dilakukan, dan lainnya" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea> -->
-                                            <textarea name="deskripsi_program" placeholder="{{$melayani->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea>
+                                            <textarea name="deskripsi_program_melayani" placeholder="{{$melayani->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa_mel) > 0)  {{$sasa_mel->deskripsi}} @endif</textarea>
                                             
                                         </div>
                                     </div>
@@ -336,8 +336,8 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                             <label class="col-md-3 control-label">Penjelasan Program</label>
                                             <div class="col-md-9">
                                                 <!-- <h4>{{$peduli->keterangan}}</h4> -->
-                                               <!-- <textarea name="deskripsi_program" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan,monitoring yang dilakukan, dan lainnya" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea> -->
-                                                <textarea name="deskripsi_program" placeholder="{{$peduli->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa) > 0)  {{$sasa->deskripsi}} @endif</textarea>
+                                               
+                                                <textarea name="deskripsi_program_peduli" placeholder="{{$peduli->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa_ped) > 0)  {{$sasa_ped->deskripsi}} @endif</textarea>
                                             </div>
                                         </div>
 
@@ -554,7 +554,8 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                             <?php 
                                             $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 
-                                            ?>@foreach($stakeholder as $holder)
+                                            ?>
+                                            @foreach($stakeholder as $holder)
                                             <tr id="fieldz{{$holder->id}}">
                                                 <td>
                                                     <input type="text"readonly class="form-control" value="{{$holder->nama}}">
@@ -565,7 +566,6 @@ $sasa =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya)->w
                                                 <td><a onclick="kurang_OI($holder->id)" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a>
                                                  <!-- belum dibuat function --></td>
                                              </tr>
-
                                              @endforeach
                                              @endif
                                              <tr id="field4">
