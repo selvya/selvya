@@ -227,7 +227,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-3">Peran Pimpinan</label>
                             <div class="col-md-6">
-                                <textarea name="partisipasi" class="form-control" @if($pim AND $ppp->final_status == 1) disabled @endif > @if($pim) {{$ppp->partisipasi}} @endif</textarea>
+                                <textarea name="partisipasi" class="form-control" placeholder="{{$iku->keterangan}}" @if($pim AND $ppp->final_status == 1) disabled @endif > @if($pim) {{$ppp->partisipasi}} @endif</textarea>
                             </div>
                         </div>
                          <div class="form-group">
