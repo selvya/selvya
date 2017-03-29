@@ -32,7 +32,7 @@ class ReportAssessment extends Model
         return $this->belongsTo('\App\User', 'user_id');
     }
 
-    public function r_assesment()
+    public function s_assesment()
     {
         return $this->hasMany('\App\SelfAssesment', 'reportassesment_id');
     }

@@ -498,7 +498,9 @@
                             </td>
                         </tr>
                         @foreach($v->r_assesment as $kuy => $vals)
-                        @php $nama       = collect(explode('#', $vals->iku->namaprogram)); @endphp
+                            @php 
+                                $nama  = collect(explode('#', $vals->iku->namaprogram));
+                            @endphp
 
                         <tr>
                             <td colspan="2">Nama Program : &nbsp;&nbsp; <b>{{title_case(str_replace('_', ' ', $nama->last()))}}</b></td>

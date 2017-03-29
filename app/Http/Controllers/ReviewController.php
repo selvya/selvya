@@ -8,6 +8,8 @@ use Hashids;
 use Session;
 use App\User;
 use App\ReportAssessment;
+use App\Persentase;
+use App\NilaiAkhir;
 
 class ReviewController extends Controller
 {
@@ -37,13 +39,13 @@ class ReviewController extends Controller
                 ]);
 
         //Hapus Nilai Akhir
-        $nilaiAkhir = \App\NilaiAkhir::where('tahun', $t)
+        $nilaiAkhir = NilaiAkhir::where('tahun', $t)
                 ->where('triwulan', $tw)
                 ->where('user_id', $usr->id)
                 ->delete();
 
         //Hapus Kecepatan Pelaporan
-        $kp = \App\ReportAssessment::where('user_id', $usr->id)
+        $kp = ReportAssessment::where('user_id', $usr->id)
                 ->where('tahun', $t)
                 ->where('triwulan', $tw)
                 ->where('daftarindikator_id', 1)
@@ -78,5 +80,22 @@ class ReviewController extends Controller
                         ->get();
 
         return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment'));
+    }
+
+    public function hasilAssesment(Request $r)
+    {
+        $triwulan = cekCurrentTriwulan();
+        $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
+        $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
+        
+        $persentase = Persentase::where('tahun', $t)
+                                ->where('triwulan', $tw)
+                                ->where('nilai', '>', 0)
+                                ->orderBy('daftarindikator_id', 'ASC')
+                                ->get();
+
+        $user = User::where('level', 'satker')->get();
+        // dd($persentase);
+        return view('assesment.hasil', compact('persentase', 'user', 't', 'tw'));
     }
 }

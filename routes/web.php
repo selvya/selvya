@@ -154,9 +154,7 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('rekap-assessment', function () {
         return view('assesment.rekap');
     });
-    Route::get('hasil-assessment', function () {
-        return view('assesment.hasil');
-    });
+    Route::get('hasil-assessment', ['as' => 'hasil-assessment', 'uses' => 'ReviewController@hasilAssesment']);
     Route::get('rekap-budaya', function () {
         return view('assesment.rekap-budaya');
     });

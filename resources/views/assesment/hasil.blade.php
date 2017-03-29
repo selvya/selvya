@@ -1,5 +1,43 @@
 @extends('layout.master')
+
+@section('css')
+    <style type="text/css">
+        .shtct {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+@endsection
+
+
 @section('content')
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form method="post" action="" id="revisicp">
+                            <button type="submit" class="btn btn-sm shtct btn-warning">
+                                <i class="fa fa-pencil fa-2x"></i><br>Revisi Oleh CP
+                            </button>
+                            {{csrf_field()}}
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="" target="_blank" id="lihat" class="btn btn-sm shtct btn-success">
+                            <i class="fa fa-eye fa-2x"></i><br>Lihat Hasil Self Assesment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Page content -->
 <div id="page-content">
     <!-- Datatables Header -->
@@ -18,137 +56,252 @@
         <li>Hasil Assessment</li>
     </ul>
     <!-- END Datatables Header -->
-    <?php 
-    $triwulan = cekCurrentTriwulan();
 
-    $user = \App\User::with(['r_assesment' => function($q) use ($triwulan){
-        $q->where('tahun',date('Y'))
-        ->where('triwulan',$triwulan['current']['triwulan'])
-        ->where('final_status','1');
-    }])
-    ->where('username','LIKE','kmp%')
-    ->get();
-
-    $persentase = \App\Persentase::with('daftar_indikator')
-    ->where('tahun',date('Y'))
-    ->where('triwulan',$triwulan['current']['triwulan'])
-    ->get();
-
-    $periode = \App\TanggalLaporan::where('tahun',date('Y'))->where('triwulan',$triwulan['current']['triwulan'])->first();
-    ?>
     <!-- Datatables Content -->
     <div class="block full">
+
+        <form method="get" enctype="multipart/form-data" action="">
+            <div class="col-md-2" style="padding: 0px;">
+                <select name="map" class="form-control input-sm">
+                    <option value="2" selected="selected">Kantor Pusat</option>
+                    <option value="3">Kantor Regional</option>
+                    <option value="4">Kantor KOJK</option>
+                    <option value="5">OJK-wide</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="triwulan" class="form-control input-sm">
+                    <option value="1">I. Januari - Maret</option>
+                    <option value="2">II. April - Juni</option>
+                    <option value="3">III. Juli - September</option>
+                    <option value="4">IV. Oktober-Desember</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="tahun" class="form-control input-sm">
+                    @for($i = date('Y'); $i >= date('Y') - 2; $i--)
+                        <option value="{{$i}}">{{$i}}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-block btn-sm">Lihat <i class="fa fa-eye"></i></button>
+            </div>
+        </form>
+        <br>
+        <br>
+        <br>
+
         <h6><b>Nilai Rata-Rata per Program:</b></h6>
-        <a href="" class="btn btn-warning"><b>OJK Melayani</b><br><big>10</big></a>
-        <a href="" class="btn btn-warning"><b>OJK Peduli</b><br><big>10</big></a>
-        <a href="" class="btn btn-warning"><b>Program Budaya Spesifik</b><br><big>10</big></a>
-        <a href="" class="btn btn-warning"><b>Peran Pimpinan</b><br><big>10</big></a>
-        <a href="" class="btn btn-primary"><b>Total</b><br><big>10</big></a>
+
+        <a href="javascript:void(0)" class="btn btn-warning">
+            <b>OJK Melayani</b>
+            <br>
+            <big>10</big>
+        </a>
+        <a href="javascript:void(0)" class="btn btn-warning">
+            <b>OJK Peduli</b>
+            <br>
+            <big>10</big>
+        </a>
+        <a href="javascript:void(0)" class="btn btn-warning">
+            <b>Program Budaya Spesifik</b>
+            <br>
+            <big>10</big>
+        </a>
+        <a href="javascript:void(0)" class="btn btn-warning">
+            <b>Peran Pimpinan</b>
+            <br>
+            <big>10</big>
+        </a>
+        <a href="javascript:void(0)" class="btn btn-primary">
+            <b>Total</b><br>
+            <big>10</big>
+        </a>
         <br><br>
+
+
         <table class="table table-striped table-bordered table-hover" id="myTable">
             <thead>
                 <tr>
-                    <td rowspan="2"><b>Username</b></td>
-                    {{-- <td>Dep-Kom</td> --}}
-                    {{-- <td>Satker</td> --}}
-                    {{-- <td>Direktorat</td> --}}
-                    <td rowspan="2"><b>Nilai</b></td>
-                    @foreach($persentase as $v)
-                    <td class="text-center" @if($v->daftar_indikator->id == 3) colspan="3" @else rowspan="2" @endif>
-                        <h5>
-                            <b>
-                                {{$v->daftar_indikator->name}}
-                                <br><br>
-                                {{$v->nilai}}
-                            </b>
-                        </h5>
+                    <td rowspan="2" style="vertical-align: middle; background: #3498db;color: #fff;padding:2px">
+                        <b>No.</b>
                     </td>
+                    <td rowspan="2" style="vertical-align: middle; background: #3498db;color: #fff;padding:2px">
+                        <b>Username</b>
+                    </td>
+                    <td rowspan="2" style="vertical-align: middle; background: #3498db;color: #fff;padding:2px">
+                        <b>Nilai</b>
+                    </td>
+
+                    @foreach($persentase as $v)
+                        <td class="text-center" style="vertical-align: middle;background: #3498db;color: #fff;padding:2px;" @if($v->daftar_indikator->id == 3) colspan="3" @else rowspan="2" @endif>
+                            <h5>
+                                <b>
+                                    {{$v->daftar_indikator->name}}
+                                    <br>
+                                    {{$v->nilai}}
+                                </b>
+                            </h5>
+                        </td>
                     @endforeach
                 </tr>
                 <tr>
                     @foreach($persentase as $v)                
-                    @if($v->daftar_indikator->id == 3)
-                    <td><b>OJK Inovatif</b></td>
-                    <td><b>OJK Melayani</b></td>
-                    <td><b>OJK Peduli</b></td>
-                    @endif
+                        @if($v->daftar_indikator->id == 3)
+                            <td style="vertical-align: middle;background: #3498db;color: #fff;padding:2px"><b>OJK Inovatif</b></td>
+                            <td style="vertical-align: middle;background: #3498db;color: #fff;padding:2px"><b>OJK Melayani</b></td>
+                            <td style="vertical-align: middle;background: #3498db;color: #fff;padding:2px"><b>OJK Peduli</b></td>
+                        @endif
                     @endforeach
                 </tr>
             </thead>
             <tbody>
                 @foreach($user as $k => $data)
-                <tr>
-                    <td>{{$data->username}}</td>
-                    {{-- <td class="text-center">{{$data->deputi_kom}}</td> --}}
-                    {{-- <td class="text-center">{{$data->satker}}</td> --}}
-                    {{-- <td class="text-center">{{$data->direktorat_id}}</td> --}}
-                    @php
-                    $n[$k]              = 0;
-                    $n_melayani[$k]     = 0;
-                    $n_peduli[$k]       = 0;
-                    $n_inovatif[$k]     = 0;
-                    $n_pimpinan[$k]     = 0;
-                    $n_lomba[$k]        = 0;
-                    $n_pelaporan[$k]    = 0;
-                    $n_serapan[$k]      = 0;
-                    $n_internal[$k]     = 0;
-                    $n_eksternal[$k]    = 0;
+                    <tr>
+                        <td>{{$k+1}}</td>
+                        <td>{{$data->username}}</td>
 
-                    foreach ($data->r_assesment as $key => $value) {
-                        $n[$k] += $value->nilai;
+                        <td class="text-center">
+                            @php
+                                $n[$k] = $data->nilai_akhir->where('tahun', $t)->where('triwulan', $tw)->first();
+                                $nn[$k] = $n[$k] == null ? 0 : $n[$k]->nilai / 100 * 6;
+                            @endphp
+                            <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nn[$k])}}">{{$nn[$k]}}</button>
+                        </td>
 
-                        if ($value->daftarindikator_id == 1) {
-                            $n_pelaporan[$k] += $value->nilai;
-                        }
-                        if ($value->daftarindikator_id == 2) {
-                            $n_serapan[$k] += $value->nilai;
-                        }
+                        @foreach($persentase as $key => $persen)
 
-                        if ($value->daftarindikator_id == 3) {
-                            $n_melayani[$k] += $value->hasil_melayani;
-                            $n_peduli[$k]   += $value->hasil_peduli;
-                            $n_inovatif[$k] += $value->hasil_inovatif;
-                        }
+                                {{-- Program Budaya --}}
+                                @if($persen->daftar_indikator->id == 3)
 
-                        if ($value->daftarindikator_id == 4) {
-                            $n_pimpinan[$k] += $value->nilai;
-                        }
-                        if ($value->daftarindikator_id == 5) {
-                            $n_lomba[$k] += $value->nilai;   
-                        }
-                        if ($value->daftarindikator_id == 6) {
-                            $n_internal[$k] += $value->nilai;   
-                        }
-                        if ($value->daftarindikator_id == 7) {
-                            $n_eksternal[$k] += $value->nilai;   
-                        }
-                    }
-                    @endphp
-                    <td class="text-center">{{$n[$k]}}</td>
-                    <td class="text-center">{{$n_pelaporan[$k]}}</td>
-                    <td class="text-center">{{$n_serapan[$k]}}</td>
-                    <td class="text-center">{{$n_melayani[$k]}}</td>
-                    <td class="text-center">{{$n_peduli[$k]}}</td>
-                    <td class="text-center">{{$n_inovatif[$k]}}</td>
-                    <td class="text-center">{{$n_pimpinan[$k]}}</td>
-                    <td class="text-center">{{$n_lomba[$k]}}</td>
-                    <td class="text-center">{{$n_internal[$k]}}</td>
-                    <td class="text-center">{{$n_eksternal[$k]}}</td>
-                </tr>
+                                    {{-- Inovatif --}}
+                                    <td class="text-center">
+                                        @php
+                                            $nilai[$k][$key] = 0;
+
+                                            $r[$k][$key] = $data->r_assesment
+                                                                ->where('tahun', $t)
+                                                                ->where('triwulan', $tw)
+                                                                ->where('daftarindikator_id', 3)
+                                                                ->first();
+                                            
+                                            if (count($r[$k][$key]) > 0) {
+                                            
+                                                $rs[$k][$key] = $r[$k][$key]->s_assesment
+                                                                ->where('iku', function($q)
+                                                                {
+                                                                    $q->where('namaprogram', 'pelaksanaan_program_budaya#' . $t. '#' . $tw . '#ojk_inovatif');
+                                                                })
+                                                                ->first();
+                                                
+                                                if (count($rs[$k][$key]) > 0) {
+                                                    $nilai[$k][$key] = $rs[$k][$key]->skala_nilai;
+                                                }
+                                            }
+                                        @endphp
+                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                    </td>
+
+                                    {{-- Melayani --}}
+                                    <td class="text-center">
+                                        @php
+                                            $nilai[$k][$key] = 0;
+
+                                            $r[$k][$key] = $data->r_assesment
+                                                                ->where('tahun', $t)
+                                                                ->where('triwulan', $tw)
+                                                                ->where('daftarindikator_id', 3)
+                                                                ->first();
+                                            
+                                            if (count($r[$k][$key]) > 0) {
+                                            
+                                                $rs[$k][$key] = $r[$k][$key]->s_assesment
+                                                                ->where('iku', function($q)
+                                                                {
+                                                                    $q->where('namaprogram', 'pelaksanaan_program_budaya#' . $t. '#' . $tw . '#ojk_melayani');
+                                                                })
+                                                                ->first();
+                                                
+                                                if (count($rs[$k][$key]) > 0) {
+                                                    $nilai[$k][$key] = $rs[$k][$key]->skala_nilai;
+                                                }
+                                            }
+                                        @endphp
+                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                    </td>
+
+                                    {{-- Peduli --}}
+                                    <td class="text-center">
+                                        @php
+                                            $nilai[$k][$key] = 0;
+
+                                            $r[$k][$key] = $data->r_assesment
+                                                                ->where('tahun', $t)
+                                                                ->where('triwulan', $tw)
+                                                                ->where('daftarindikator_id', 3)
+                                                                ->first();
+                                            
+                                            if (count($r[$k][$key]) > 0) {
+                                            
+                                                $rs[$k][$key] = $r[$k][$key]->s_assesment
+                                                                ->where('iku', function($q)
+                                                                {
+                                                                    $q->where('namaprogram', 'pelaksanaan_program_budaya#' . $t. '#' . $tw . '#ojk_peduli');
+                                                                })
+                                                                ->first();
+                                                
+                                                if (count($rs[$k][$key]) > 0) {
+                                                    $nilai[$k][$key] = $rs[$k][$key]->skala_nilai;
+                                                }
+                                            }
+                                        @endphp
+                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                    </td>
+                                @else
+                                    <td class="text-center">
+                                        @php
+                                            $nilai[$k][$key] = $data->r_assesment
+                                                                ->where('tahun', $t)
+                                                                ->where('triwulan', $tw)
+                                                                ->where('daftarindikator_id', $persen->daftar_indikator->id)
+                                                                ->first();
+                                            $nilai[$k][$key] = count($nilai[$k][$key]) == 0 ? 0 : $nilai[$k][$key]->nilai;
+                                        @endphp
+                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                    </td>
+                                @endif
+                        @endforeach
+                    </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 </div>
-<!-- END Datatables Content -->
-<!-- END Page Content -->
+
 @endsection
+
+
 @section('js')
 <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
 <script>$(function(){ TablesDatatables.init(); });</script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+            sort:false
+        });
     });
 </script>
+
+<script type="text/javascript">
+        $(document).on('click', '.n', function() {
+            var c = $(this).attr('data-id');
+            var lr = '{{url('revisicp')}}/' + c + '?t={{Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}';
+            var ll = '{{url('lihathasilassesment')}}/' + c + '?t={{Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}';
+
+            $('#revisicp').prop('action', '').prop('action', lr);
+            $('#lihat').prop('href', '').prop('href', ll);
+            $('#menuModal').modal('show');
+        });
+    </script>
 @endsection

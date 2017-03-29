@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\SelfAssesment', 'user_id');
     }
+
+    public function nilai_akhir()
+    {
+        return $this->hasMany('\App\NilaiAkhir', 'user_id');
+    }
 }

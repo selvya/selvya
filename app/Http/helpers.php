@@ -498,3 +498,25 @@ function cekNilaiPimpinan($tahun, $triwulan, $user) {
 
     return ($nilai / 6) * ($persen->nilai);
 }
+
+function warnai($nilai)
+{
+    $r = 'green';
+
+    switch ($nilai) {
+        case $nilai < 2:
+            $r = 'red';
+            break;
+        case $nilai >= 2 AND $nilai < 4:
+            $r = 'orange';
+            break;
+        case $nilai >= 4:
+            $r = 'green';
+            break;
+        default:
+            $r = 'green';
+            break;
+    }
+
+    return $r;
+}
