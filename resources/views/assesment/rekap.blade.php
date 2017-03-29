@@ -69,9 +69,9 @@
         <br>
         
         <div class="panel-heading" style="overflow: hidden;">
-            <form method="post" enctype="multipart/form-data" action="">
+            <form method="get" enctype="multipart/form-data" action="">
                 <div class="col-md-2" style="padding: 0px;">
-                    <select name="tipe" class="form-control">
+                    <select name="map" class="form-control">
                         <option value="2" selected="selected">Kantor Pusat</option>
                         <option value="3">Kantor Regional</option>
                         <option value="4">Kantor KOJK</option>
@@ -79,24 +79,22 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <select name="month" class="form-control">
-                        <option selected="selected">-- Periode --</option>
-                        <option value="13">Januari - Maret</option>
-                        <option value="14">April - Juni</option>
-                        <option value="15">Juli - September</option>
-                        <option value="16">Oktober-Desember</option>
+                    <select name="triwulan" class="form-control">
+                        <option value="1">I. Januari - Maret</option>
+                        <option value="2">II. April - Juni</option>
+                        <option value="3">III. Juli - September</option>
+                        <option value="4">IV. Oktober-Desember</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <select name="year" class="form-control">
-                        <option value="2017" selected="selected">2017</option>
-                        <option value="2016">2016</option>
-                        <option value="2015">2015</option>
+                    <select name="tahun" class="form-control">
+                        @for($i = date('Y'); $i >= date('Y') - 2; $i--)
+                            <option value="{{$i}}">{{$i}}</option>
+                        @endfor
                     </select>
                 </div>
-                <br><br><br>
-                <div class="pull-left">
-                    <a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary btn-block">Lihat <i class="fa fa-eye"></i></button>
                 </div>
             </form>
             <br><br><br>
@@ -162,7 +160,9 @@
             //             ->get();
 
             //Ambil persentase
-        $persentase = \App\Persentase::where('tahun', date('Y'))
+        $t = (null != request('tahun')) ? request('tahun') : date('Y');
+        $tw = (null != request('triwulan')) ? request('triwulan') : $triwulan['current']->triwulan;
+        $persentase = \App\Persentase::where('tahun', $t)
         ->where('triwulan', $triwulan['current']->triwulan)
         ->where('nilai', '>', 0)
         ->count();
@@ -187,8 +187,8 @@
                     {{-- {{count($persentase)}} --}}
                     @if(
                         $data->r_assesment
-                            ->where('tahun', date('Y'))
-                            ->where('triwulan', $triwulan['current']->triwulan)
+                            ->where('tahun', $t)
+                            ->where('triwulan', $tw)
                             ->where('final_status', 1)
                         ->count() 
                             == $persentase
@@ -221,8 +221,9 @@
     <script type="text/javascript">
         $(document).on('click', '.ck', function() {
             var c = $(this).attr('data-satker');
-            var lr = '{{url('revisicp')}}/' + c;
-            var ll = '{{url('lihathasilassesment')}}/' + c;
+            var lr = '{{url('revisicp')}}/' + c + '?t={{Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}';
+            var ll = '{{url('lihathasilassesment')}}/' + c + '?t={{Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}';
+
             $('#revisicp').prop('action', '').prop('action', lr);
             $('#lihat').prop('href', '').prop('href', ll);
             $('#menuModal').modal('show');

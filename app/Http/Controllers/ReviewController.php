@@ -24,9 +24,13 @@ class ReviewController extends Controller
         $usr = User::findOrFail($hashid[0]);
         // dd($usr);
 
+        $triwulan = cekCurrentTriwulan();
+        $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
+        $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
+
         //Set All ReportAssesment to 0
-        $ra = ReportAssessment::where('tahun', date('Y'))
-                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+        $ra = ReportAssessment::where('tahun', $t)
+                ->where('triwulan', $tw)
                 ->where('user_id', $usr->id)
                 ->update([
                     'final_status' => 0
@@ -50,8 +54,11 @@ class ReviewController extends Controller
 
         $triwulan = cekCurrentTriwulan();
 
-        $reportAssesment = ReportAssessment::where('tahun', date('Y'))
-                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+        $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
+        $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
+
+        $reportAssesment = ReportAssessment::where('tahun', $t)
+                        ->where('triwulan', $tw)
                         ->where('user_id', $usr->id)
                         ->where('final_status', 1)
                         ->orderBy('daftarindikator_id', 'ASC')

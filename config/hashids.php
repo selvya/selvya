@@ -88,6 +88,18 @@ return [
             'length' => 100,
             'alphabet' => 'ZXCVBNMLKJHGFDSAQWERTYUIOPqwertyuiopasdfghjklmnbvcxz1234567890'
         ],
+
+        'tahun' => [
+            'salt' => '@.,zTpMqBeAuZgUiSaO8Ittyfgqtd6',
+            'length' => 20,
+            'alphabet' => 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890'
+        ],
+
+        'triwulan' => [
+            'salt' => 'UYKvxquHGyehgxZ6ryfmhqwgetuyghnvasJJH',
+            'length' => 20,
+            'alphabet' => 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890'
+        ],
     ],
 
 ];

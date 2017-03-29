@@ -1,4 +1,5 @@
 <?php
+
 Route::get('test.jsp', function () {
     $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
     // return gen('kmp.kmp', 'admin');
