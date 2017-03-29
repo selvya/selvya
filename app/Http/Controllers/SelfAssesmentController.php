@@ -882,7 +882,8 @@ class SelfAssesmentController extends Controller {
                 [
                 'iku_id'              => $iku_id_peduli,
                 'definisinilai_id'    => $def_id_peduli,
-                'filelampiran'        => $r->file_melayani,
+                'deskripsi'           => $r->deskripsi_program_peduli,
+                'filelampiran'        => $r->file_peduli,
                 'skala_nilai'         => $nilai_peduli,
                 'reportassesment_id'  => $rid[0]
                 ]);
@@ -908,7 +909,7 @@ class SelfAssesmentController extends Controller {
               [
               'iku_id'              => $iku_idpeduli[$a],
               'definisinilai_id'    => $def_idpeduli[$a],
-              'filelampiran'        => $r->file_melayani,
+              'deskripsi'           => $r->deskripsi_program_peduli,
               'reportassesment_id'  => $rid[0],
               'skala_nilai'         => $nilaipedulinya[$a],
               'filelampiran'        => $r->file_peduli
@@ -942,6 +943,7 @@ class SelfAssesmentController extends Controller {
                 'iku_id'              => $iku_id_melayani,
                 'definisinilai_id'    => $def_id_melayani,
                 'filelampiran'        => $r->file_melayani,
+                'deskripsi'           => $r->deskripsi_program_melayani,
                 'skala_nilai'         => $nilai_melayani,
                 'reportassesment_id'  => $rid[0]
                 ]);
@@ -969,6 +971,7 @@ class SelfAssesmentController extends Controller {
             'definisinilai_id'    => $defidmelayani[$k],
             'filelampiran'        => $r->file_melayani,
             'skala_nilai'         => $nilaimelayaninya[$k],
+            'deskripsi'           => $r->deskripsi_program_melayani,
             'reportassesment_id'  => $rid[0]
             ]);
          // dd($nilaimelayaninya[$k]);
