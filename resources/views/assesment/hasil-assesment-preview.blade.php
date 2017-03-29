@@ -497,7 +497,7 @@
                                 </div>
                             </td>
                         </tr>
-                        @foreach($v->r_assesment as $kuy => $vals)
+                        @foreach($v->s_assesment as $kuy => $vals)
                             @php 
                                 $nama  = collect(explode('#', $vals->iku->namaprogram));
                             @endphp

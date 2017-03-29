@@ -27,9 +27,9 @@
 			$all = \App\User::where('level','satker')->get();
 
 			$semua = DB::table('monitoring')->where('monitoring.tahun',date('Y'))
-			 ->where('monitoring.triwulan',$triwulan['current']['triwulan'])
-			 ->join('users','monitoring.user_id','=','users.id')
-			 ->join('selfassesment','monitoring.selfassesment_id','=','selfassesment.id')
+			->where('monitoring.triwulan',$triwulan['current']['triwulan'])
+			->join('users','monitoring.user_id','=','users.id')
+			->join('selfassesment','monitoring.selfassesment_id','=','selfassesment.id')
 			->get();
 
 			// dd($all);
@@ -37,6 +37,9 @@
 			// dd($all);
 			$monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
 			$satkernya = \App\User::where('level','satker')->count();
+
+			$t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
+			$tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
 
 		// $final = \App\ReportAssessment::where('daftarindikator_id','2')
 		// ->where('tahun',date('Y'))
@@ -102,20 +105,46 @@
 				</thead>
 				<tbody>
 					@foreach($all as $data)
+					<?php
+					$monitoring = \App\Monitoring::where('tahun',date('Y'))->where('triwulan', $triwulan['current']['triwulan'])->where('user_id',$data->id)->first();
+					?>
 					<tr>
 						<td class="text-center">{{$data->username}}</td>
 						<td class="text-center">{{$data->deputi_kom}}</td>
 						<td class="text-center">{{$data->departemen}}</td>
 						<td class="text-center">{{$data->kojk}}</td>
 						
-							<td class="text-center">
-								<label class="btn btn-danger">Belum Dilakukan Monitoring</label>
-							</td>
+						<td class="text-center">
+							@if($monitoring)
+							<button type="button" class="btn btn-success sudah" data-id="{{$data->hashid}}">Sudah Dilakukan monitoring</button>
+							@else
+							<button type="button" class="btn btn-danger belum" data-id="{{$data->hashid}}">Belum Dilakukan monitoring</button>
+							@endif
+						</td>
 						
 						
 
 					</tr>
 					@endforeach
+
+					<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="Modal">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Notifikasi</h4>
+								</div>
+								<div class="modal-body">
+									<div class="text-center">
+										<a href="" class="btn btn-success" id="hasil">Lihat Hasil Assessment</a>
+										<a href="" class="btn btn-info" id="lakukan">Lakukan Monitoring</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					
 				</tbody>
 			</table>
 		</div>
@@ -131,6 +160,27 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#myTable').DataTable();
+	});
+</script>
+<script type="text/javascript">
+	$(document).on('click', '.sudah', function() {
+		var id = $(this).attr('data-id');
+		var lakukan = '{{url('detail-monitoring')}}/' + id;
+		var hasil = '{{url('lihathasil-monitoring')}}/' + id;
+
+		$('#lakukan').prop('action', '').prop('action', lakukan);
+		$('#hasil').prop('href', '').prop('href', hasil);
+		$('#Modal').modal('show');
+	});
+
+	$(document).on('click', '.belum', function() {
+		var id = $(this).attr('data-id');
+		var lakukan = '{{url('detail-monitoring')}}/' + id + '?t={{Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}';;
+		var hasil = '{{url('lihathasil-monitoring')}}/' + id + '?t={{Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}';;
+
+		$('#lakukan').prop('action', '').prop('action', lakukan);
+		$('#hasil').prop('href', '').prop('href', hasil);
+		$('#Modal').modal('show');
 	});
 </script>
 @endsection
