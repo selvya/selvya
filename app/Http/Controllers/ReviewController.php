@@ -36,6 +36,19 @@ class ReviewController extends Controller
                     'final_status' => 0
                 ]);
 
+        //Hapus Nilai Akhir
+        $nilaiAkhir = \App\NilaiAkhir::where('tahun', $t)
+                ->where('triwulan', $tw)
+                ->where('user_id', $usr->id)
+                ->delete();
+
+        //Hapus Kecepatan Pelaporan
+        $kp = \App\ReportAssessment::where('user_id', $usr->id)
+                ->where('tahun', $t)
+                ->where('triwulan', $tw)
+                ->where('daftarindikator_id', 1)
+                ->delete();
+
         Session::flash('alert-class', 'alert-success');
         Session::flash('message', 'Berhasil');
         return redirect()->back();

@@ -100,10 +100,30 @@
             <br><br><br>
             <div class="col-md-12" style="padding: 0px;">
                 <div class="btn btn-success">
-                    <?php 
-                    $nilainya = \App\NilaiAkhir::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
-                    $satkernya = \App\User::where('level','satker')->count();
-                    ?>
+                    @php
+                        $triwulan = cekCurrentTriwulan();
+
+                        //Ambil persentase
+                        $t = (null != request('tahun')) ? request('tahun') : date('Y');
+                        $tw = (null != request('triwulan')) ? request('triwulan') : $triwulan['current']->triwulan;
+                        $persentase = \App\Persentase::where('tahun', $t)
+                                ->where('triwulan', $tw)
+                                ->where('nilai', '>', 0)
+                                ->count();
+
+                        // if ($persentase == 0) {
+                        //     die('Admin belum menginput persntase');
+                        // }
+
+
+                        $usr = \App\User::where('level','satker')->get();
+                    
+                        $nilainya = \App\NilaiAkhir::where('tahun', $t)
+                                    ->where('triwulan', $tw)
+                                    ->groupBy('user_id')
+                                    ->count();
+                        $satkernya = \App\User::where('level','satker')->count();
+                    @endphp
                     {{$nilainya}} <br>
                     Sudah Submit Assessment
                 </div>
@@ -113,24 +133,6 @@
                 </div>
             </div>
         </div>
-    {{--< div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
-        <div class="container" style=" width:100%;margin-bottom: 5px;">
-            <b>Detail Rekapitulasi:</b>
-            <table>
-                <tr>
-                    <td style="background-color: #ececec;" align="center">
-                        &nbsp;Sudah Submit&nbsp;<br>
-                        <a href="#" class="btn btn-success">0</a>
-                    </td>
-                    <td>&nbsp;</td>
-                    <td style="background-color: #ececec;" align="center">
-                        &nbsp;Belum Submit&nbsp;<br>
-                        <a href="#" class="btn btn-danger">66</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div> --}}
 
     <table class="table table-striped table-bordered table-hover" id="myTable">
         <thead>
@@ -143,39 +145,7 @@
             </tr>
         </thead>
 
-        @php
-        $triwulan = cekCurrentTriwulan();
-
-            // $report = \App\ReportAssessment::where('tahun',date('Y')) 
-            //     ->where('triwulan',$triwulan['current']['triwulan'])
-            //     ->get();
         
-            // $rp = [];
-
-            // foreach ($report as $key => $value) {
-            //    $rp[] = $value->user_id;
-            // }
-
-            // $satker =  \App\User::whereNotIn('id',$rp)
-            //             ->get();
-
-            //Ambil persentase
-        $t = (null != request('tahun')) ? request('tahun') : date('Y');
-        $tw = (null != request('triwulan')) ? request('triwulan') : $triwulan['current']->triwulan;
-        $persentase = \App\Persentase::where('tahun', $t)
-        ->where('triwulan', $triwulan['current']->triwulan)
-        ->where('nilai', '>', 0)
-        ->count();
-
-        if ($persentase == 0) {
-            die('Admin belum menginput persntase');
-        }
-
-
-        $usr = \App\User::where('level','satker')->get();
-        
-
-        @endphp
         <tbody>
             @foreach($usr as $data)
             <tr>
@@ -186,6 +156,8 @@
                 <td class="text-center">
                     {{-- {{count($persentase)}} --}}
                     @if(
+                        $persentase > 0
+                        AND
                         $data->r_assesment
                             ->where('tahun', $t)
                             ->where('triwulan', $tw)
