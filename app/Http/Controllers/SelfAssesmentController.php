@@ -1014,7 +1014,7 @@ class SelfAssesmentController extends Controller {
 ->value('id');
 
         //STAKE HOLDER MELAYANI
- foreach ($r->nama_stake_melayani as $q => $v) {
+if(!empty($r->name_stake_melayani)){ foreach ($r->nama_stake_melayani as $q => $v) {
 	 if($v !== ''){
     $isi_stake_melayani[$q] = StakeHolder::create([
                 // selfassesment_id di ambil dari data iku
@@ -1027,8 +1027,10 @@ class SelfAssesmentController extends Controller {
      ]);
 	 }
 }
+}
 
         //STAKE HOLDER PEDULI
+if(!empty($r->nama_stake_peduli)){ 
 foreach ($r->nama_stake_peduli as $m => $l) {
 		 if($l !== ''){
     $isi_stake_peduli[$m] = StakeHolder::create([
@@ -1042,8 +1044,10 @@ foreach ($r->nama_stake_peduli as $m => $l) {
      ]);
 	}
 }
+}
 
         //STAKE HOLDER INOVATIF
+if(!empty($r->nama_stake_inovatif)){ 
 foreach ($r->nama_stake_inovatif as $u => $p) {
 		 if($p !== ''){
     $isi_stake_inovatif[$u] = StakeHolder::create([
@@ -1056,6 +1060,7 @@ foreach ($r->nama_stake_inovatif as $u => $p) {
      'no_hp'              => $r->telp_stake_inovatif[$u]
      ]);
 	}
+}
 }
 
 $persenino = ProgramBudaya::where('id','3')->first();

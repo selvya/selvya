@@ -193,7 +193,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                         <label class="col-md-3 control-label">Penjelasan Program</label>
                                         <div class="col-md-9">
                                             <!-- <h4>{{$melayani->keterangan}}</h4> -->
-                                            <textarea name="deskripsi_program_melayani" placeholder="{{$melayani->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa_mel) > 0)  {{$sasa_mel->deskripsi}} @endif</textarea>
+                                            <textarea name="deskripsi_program_melayani" placeholder="{{$melayani->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa_mel) > 0){{$sasa_mel->deskripsi}} @endif</textarea>
                                             
                                         </div>
                                     </div>
@@ -297,17 +297,25 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                 while($stakelayan < $faktorlayan){ 
                                                     $stakelayan++; 
                                                     ?>
-                                                    <tr id="field @if($stakelayan == $faktorlayan) 1 @endif">
+												<tr id="fieldx{{$stakelayan}}">
                                                         <td>
                                                             <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Masukan nama PIC" required>
                                                         </td>
                                                         <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Masukan email PIC"></td>
                                                         <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Masukan nama instansi" required></td>
                                                         <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
-                                                        <td><?php if($stakelayan == $faktorlayan){?><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a>
-                                                          <?php } ?></td>
+                                                        <td></td>
                                                       </tr>
-                                                      <?php }?>
+                                                      <?php }?><?php if($stakelayan !== 10){?>
+													   <tr id="field1">
+                                                        <td>
+                                                            <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Masukan nama PIC">
+                                                        </td>
+                                                        <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Masukan email PIC"></td>
+                                                        <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Masukan nama instansi" ></td>
+                                                        <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" ></td>
+                                                        <td><a onclick="tambah_MC()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+                                                      </tr><?php } ?>
                                                   </table>@if($faktorlayan > 0)
                                                   <small>Cantumkan minimal {{$faktorlayan}} Stakeholder</small>
 											  @endif
@@ -337,7 +345,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             <div class="col-md-9">
                                                 <!-- <h4>{{$peduli->keterangan}}</h4> -->
                                                
-                                                <textarea name="deskripsi_program_peduli" placeholder="{{$peduli->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa_ped) > 0)  {{$sasa_ped->deskripsi}} @endif</textarea>
+                                                <textarea name="deskripsi_program_peduli" placeholder="{{$peduli->keterangan}}" id="" cols="30" rows="10" class="form-control">@if(count($sasa_ped) > 0){{$sasa_ped->deskripsi}}@endif</textarea>
                                             </div>
                                         </div>
 
@@ -427,15 +435,24 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                  @endif
                                                  <?php $faktorpeduli =0; if(cekCurrentTriwulan()['current']->triwulan == 1){$faktorpeduli = 2;}else{$faktorpeduli = 3;}
                                                  while($stakepedul < $faktorpeduli){ $stakepedul++; ?>
-                                                 <tr id="field<?php if($stakepedul == $faktorpeduli){?>3<?php }?>">
+                                                 <tr id="fieldv{{$stakepedul}}">
+                                                    <td>
+                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Masukan nama PIC">
+                                                    </td>
+                                                    <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Masukan email PIC"></td>
+                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Masukan nama instansi"></td>
+                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC"></td>
+                                                    <td></td>
+                                                </tr><?php }if($stakepedul !== 10){?> 
+												<tr id="field3">
                                                     <td>
                                                         <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Masukan nama PIC" required>
                                                     </td>
                                                     <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Masukan email PIC"></td>
                                                     <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Masukan nama instansi" required></td>
                                                     <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
-                                                    <td><?php if($stakepedul == $faktorpeduli){?><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a><?php }?></td>
-                                                </tr><?php }?>
+                                                    <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
+                                                </tr><?php }?> 
                                             </table>@if($faktorpeduli > 0)
                                                   <small>Cantumkan minimal {{$faktorpeduli}} Pihak</small>
 											  @endif
