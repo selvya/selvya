@@ -182,8 +182,9 @@ class AnggaranController extends Controller
             $existingRealisasi = AnggaranTriwulan::where('user_id', $satker)
                 ->where('anggaran_tahun_id',  $tahunAnggaran->id)
                 ->sum('realisasi');
-            if($existingRealisasi + $realisasi[$i] > $tahunAnggaran->total_anggaran) {
-                Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+
+            if($existingRealisasi + $realisasi[$i] != $tahunAnggaran->total_anggaran) {
+                Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
                 return redirect()->back();
             }
 

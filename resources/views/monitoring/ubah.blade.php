@@ -299,6 +299,7 @@
             },
             keyup: function() {
                 var total = 0;
+                var mtot = 0;
                 var max = parseInt({{$anggaran->total_anggaran}});
                 $('.rencana').each(function (index, value) {
                     total += parseInt($(value).val());

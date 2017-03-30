@@ -272,7 +272,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             <?php $stakelayan = 0; ?>
                                             @if(count($lampiran) > 0)
                                             <?php 
-                                                $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
+                                                $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->take(2)->get();
                                                 $stakelayan = count($stakeholder);
                                                 ?>@foreach($stakeholder as $holder)
                                                 <tr id="fieldz{{$holder->id}}">
@@ -419,6 +419,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                 <?php 
                                                     $stakeholder = \App\StakeHolder::where('user_id',Auth::user()->id)
                                                                     ->where('selfassesment_id',$lampiran->id)
+                                                                    ->take(2)
                                                                     ->get();
                                                     $stakepedul = count($stakeholder);
                                                 ?>
@@ -456,7 +457,8 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                     <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr><?php }?> 
-                                            </table>@if($faktorpeduli > 0)
+                                            </table>
+                                            @if($faktorpeduli > 0)
                                                   <small>Cantumkan minimal {{$faktorpeduli}} Pihak</small>
 											  @endif
                                         </div>
@@ -572,13 +574,13 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                     <div class="col-md-9">
                                         <table class="table">@if(count($lampiran) > 0)
                                             <?php 
-                                            $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
+                                            $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->take(2)->get();
 
                                             ?>
                                             @foreach($stakeholder as $holder)
                                             <tr id="fieldz{{$holder->id}}">
                                                 <td>
-                                                    <input type="text"readonly class="form-control" value="{{$holder->nama}}">
+                                                    <input type="text" readonly class="form-control" value="{{$holder->nama}}">
                                                 </td>
                                                 <td><input type="email" readonly class="form-control" value="{{$holder->email}}"></td>
                                                 <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}"></td>
