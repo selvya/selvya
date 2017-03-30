@@ -176,6 +176,11 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
+
+    Route::get('lihathasil-monitoring', 'MonitoringController@hasilmonitoring');
+    Route::get('detail-monitoring/{hashid}','MonitoringController@detailmonitoring');
+    Route::get('tambah-monitoring/{hashid}', 'MonitoringController@tambahmonitoring');
+    Route::post('proses-tambah-monitoring/{hashid}', 'MonitoringController@prosestambahmonitoring');
 });
 /*
 |--------------------------------------------------------------------------
