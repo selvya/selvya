@@ -498,9 +498,13 @@
                             </td>
                         </tr>
                         @foreach($v->s_assesment as $kuy => $vals)
+<<<<<<< HEAD
                             @php 
                                 $nama  = collect(explode('#', $vals->iku->namaprogram));
                             @endphp
+=======
+                        @php $nama       = collect(explode('#', $vals->iku->namaprogram)); @endphp
+>>>>>>> 6e2021bc2d5a64e26aeefa4c51f376cac5f6bf40
 
                         <tr>
                             <td colspan="2">Nama Program : &nbsp;&nbsp; <b>{{title_case(str_replace('_', ' ', $nama->last()))}}</b></td>
@@ -516,14 +520,14 @@
                         </tr>
                             @foreach($vals->iku->alat_ukur as $alatnya => $data_alat )
                             @php $nama_alat  = collect(explode('#', $data_alat->name)); @endphp
-                                <tr>
-                                    <td>Alat Ukur :</td>
-                                    <td colspan="4"  class="content"><b>{{title_case(str_replace('_', ' ', $nama_alat->last()))}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Skala Nilai :</td>
-                                    <td colspan="4" class="content">{{$vals->skala_nilai}}</td>
-                                </tr>
+                        <tr>
+                            <td>Alat Ukur :</td>
+                            <td colspan="4"  class="content"><b>{{title_case(str_replace('_', ' ', $nama_alat->last()))}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Skala Nilai :</td>
+                            <td colspan="4" class="content">{{$vals->skala_nilai}}</td>
+                        </tr>
                             @endforeach
                         @endforeach
                         {{--   @foreach($data_alat->definisi as $def => $defnilai)

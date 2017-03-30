@@ -85,8 +85,8 @@ class ReviewController extends Controller
     public function hasilAssesment(Request $r)
     {
         $triwulan = cekCurrentTriwulan();
-        $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
-        $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
+        $t = (null != request('tahun')) ? request('tahun') : date('Y');
+        $tw = (null != request('triwulan')) ? request('triwulan') : $triwulan['current']->triwulan;
         
         $persentase = Persentase::where('tahun', $t)
                                 ->where('triwulan', $tw)

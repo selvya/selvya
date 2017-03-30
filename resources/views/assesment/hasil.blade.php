@@ -166,8 +166,15 @@
                             @php
                                 $n[$k] = $data->nilai_akhir->where('tahun', $t)->where('triwulan', $tw)->first();
                                 $nn[$k] = $n[$k] == null ? 0 : $n[$k]->nilai / 100 * 6;
+                                $active = ($data->r_assesment
+                                    ->where('tahun', $t)
+                                    ->where('triwulan', $tw)
+                                    ->where('final_status', 1)
+                                    ->count() 
+                                    == count($persentase)) ? '' : 'disabled';
                             @endphp
-                            <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nn[$k])}}">{{$nn[$k]}}</button>
+
+                            <button class="btn btn-block n" {{$active}}  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nn[$k])}}">{{$nn[$k]}}</button>
                         </td>
 
                         @foreach($persentase as $key => $persen)
@@ -200,7 +207,7 @@
                                                 }
                                             }
                                         @endphp
-                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                        <button class="btn btn-block n" {{$active}}  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
                                     </td>
 
                                     {{-- Melayani --}}
@@ -228,7 +235,7 @@
                                                 }
                                             }
                                         @endphp
-                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                        <button class="btn btn-block n" {{$active}}  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
                                     </td>
 
                                     {{-- Peduli --}}
@@ -256,7 +263,7 @@
                                                 }
                                             }
                                         @endphp
-                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                        <button class="btn btn-block n" {{$active}}  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
                                     </td>
                                 @else
                                     <td class="text-center">
@@ -268,7 +275,7 @@
                                                                 ->first();
                                             $nilai[$k][$key] = count($nilai[$k][$key]) == 0 ? 0 : $nilai[$k][$key]->nilai;
                                         @endphp
-                                        <button class="btn btn-block n"  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
+                                        <button class="btn btn-block n" {{$active}}  data-id="{{$data->hashid}}" style="color:#fff;background: {{warnai($nilai[$k][$key])}}">{{$nilai[$k][$key]}}</button>
                                     </td>
                                 @endif
                         @endforeach
