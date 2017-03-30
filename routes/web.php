@@ -278,6 +278,7 @@ Route::group(['middleware' => ['admin']], function () {
 
 //Download
 Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
+Route::get('attachment/lampiran_program_budaya/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranProgramBudaya']);
 
 
 //TOKEN

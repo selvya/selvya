@@ -75,7 +75,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form action="{{url('proses/programbudaya')}}" method="POST" class="form-horizontal form-bordered">
+                <form action="{{url('proses/programbudaya')}}" method="POST" class="form-horizontal form-bordered" enctype="multipart/form-data">
                     <!-- First Step -->
                     @include('include.alert')
                     <div id="clickable-first" class="step">
@@ -262,7 +262,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             <input type="file" name="file_melayani" class="form-control" @if(count($lampiran) > 0)
                                             @if($lampiran->filelampiran !== '') @else required @endif @endif>
                                             <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
-                                            @if(count($lampiran) > 0) <a href="" class="label label-info">{{$lampiran->filelampiran}} </a>@endif
+                                            @if(count($lampiran) > 0) <br><a href="{{url('attachment/lampiran_program_budaya/' . $lampiran->filelampiran)}}" class="btn btn-sm btn-block btn-danger" target="_blank">{{$lampiran->filelampiran}} <i class="fa fa-download"></i></a>@endif
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -409,7 +409,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                               @if($lampiran->filelampiran !== '') @else required @endif
                                               @endif> 
                                               <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
-                                              @if(count($lampiran) > 0)<a href="" class="label label-info">{{$lampiran->filelampiran}}</a>@endif
+                                              @if(count($lampiran) > 0)<br><a href="{{url('attachment/lampiran_program_budaya/' . $lampiran->filelampiran)}}" class="btn btn-sm btn-block btn-danger" target="_blank">{{$lampiran->filelampiran}} <i class="fa fa-download"></i></a>@endif
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -560,7 +560,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                          ?> <input type="file" name="file_inovatif" class="form-control"@if(count($lampiran) > 0) @if($lampiran->filelampiran !== '') @else required @endif
                                          @endif>
                                          <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
-                                         @if(count($lampiran) > 0)<a href="" class="label label-info">{{$lampiran->filelampiran}}</a> @endif
+                                         @if(count($lampiran) > 0) <br><a href="{{url('attachment/lampiran_program_budaya/' . $lampiran->filelampiran)}}" class="btn btn-sm btn-block btn-danger" target="_blank">{{$lampiran->filelampiran}} <i class="fa fa-download"></i></a> @endif
                                      </div>
                                  </div>
 

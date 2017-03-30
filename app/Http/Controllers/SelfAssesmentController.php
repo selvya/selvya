@@ -18,6 +18,7 @@ use \App\DefinisiNilai;
 use \App\SelfAssesment;
 use \App\StakeHolder;
 use \App\ProgramBudaya;
+use Storage;
 
 class SelfAssesmentController extends Controller
 {
@@ -841,6 +842,7 @@ class SelfAssesmentController extends Controller
         $nilaipeduli = 0;
         $nilaimelayani = 0;
 
+
         foreach ($r->alatukur_inovatif as $b => $data) {
 
             $alat[$b] = collect(explode('#', $data));
@@ -849,6 +851,7 @@ class SelfAssesmentController extends Controller
             $alat_id[$b] = $alat[$b][1];
             $def_id[$b] = $alat[$b][2];
             $nilai[$b] = $alat[$b][3];
+
             $isialat[$b] = SelfAssesment::updateOrCreate([
                 'user_id' => Auth::user()->id,
                 'tahun' => date('Y'),
@@ -861,39 +864,42 @@ class SelfAssesmentController extends Controller
                     'reportassesment_id' => $rid[0],
                     'skala_nilai' => $nilai[$b]
                 ]);
+
+                // dd($isialat[$b]);
+            if (Storage::disk('lampiran_program_budaya')->has($isialat[$b]->filelampiran)) {
+                // dd($isialat[$b]);
+                Storage::disk('lampiran_program_budaya')->delete($isialat[$b]->filelampiran);
+            }
+
+            if ($r->hasFile('file_inovatif')) {
+                $allowedTipe = [
+                    'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+                ];
+
+                $validFile = in_array(pathinfo($r->file_inovatif->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+                if (!$validFile) {
+                    Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                    return redirect()->back();
+                }
+
+                $fileName = 'Lampiran_Inovatif' . date('Y') . '_' . $triwulan['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
+                $fileName .= str_random(4) . '.';
+                $fileName .= pathinfo($r->file_inovatif->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                // dd($fileName);
+
+                if (!$r->file_inovatif->move(storage_path() . '/uploads/lampiran_program_budaya/', $fileName)) {
+                    return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload Inovatif']);
+                }
+                
+                $isialat[$b]->filelampiran = $fileName;
+                $isialat[$b]->save();
+            }
+
             $nilaiino += $nilai[$b];
         }
 
-        //Upload File melayani
-        if ($r->hasFile('file_melayani')) {
-            $allowedTipe = [
-                'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
-            ];
-
-            $validFile = in_array(pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
-
-            if (!$validFile) {
-                Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
-                return redirect()->back();
-            }
-
-            $fileName = 'Lampiran_Inovatif_' . date('Y') . '_' . $i . '_' . Auth::user()->hashid . '_';
-            $fileName .= str_random(4) . '.';
-            $fileName .= pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION);
-
-            if (!$r->file_melayani->move(storage_path() . '/uploads/lampiran_program_budaya/', $fileName)) {
-                return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload Inovatif']);
-            }
-
-            foreach ($isialat as $k => $v) {
-                if (Storage::disk('lampiran_program_budaya')->has($v->filelampiran)) {
-                    Storage::disk('lampiran_anggaran')->delete($v->filelampiran);
-                }
-
-                $v->filelampiran = $fileName;
-                $v->save();
-            }
-        }
 
         if (null != $r->nilai_manual_peduli) {
             $alatnyapeduli_man = count($r->nilai_manual_peduli);
@@ -916,10 +922,38 @@ class SelfAssesmentController extends Controller
                         'iku_id' => $iku_id_peduli,
                         'definisinilai_id' => $def_id_peduli,
                         'deskripsi' => $r->deskripsi_program_peduli,
-                        'filelampiran' => $r->file_peduli,
                         'skala_nilai' => $nilai_peduli,
                         'reportassesment_id' => $rid[0]
                     ]);
+
+                if (Storage::disk('lampiran_program_budaya')->has($isialat[$ped]->filelampiran)) {
+                    // dd($isialat[$b]);
+                    Storage::disk('lampiran_program_budaya')->delete($isialat[$ped]->filelampiran);
+                }
+
+                if ($r->hasFile('file_peduli')) {
+                    $allowedTipe = [
+                        'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+                    ];
+
+                    $validFile = in_array(pathinfo($r->file_peduli->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+                    if (!$validFile) {
+                        Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                        return redirect()->back();
+                    }
+
+                    $fileName = 'Lampiran_Peduli' . date('Y') . '_' . $triwulan['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
+                    $fileName .= str_random(4) . '.';
+                    $fileName .= pathinfo($r->file_peduli->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                    if (!$r->file_peduli->move(storage_path() . '/uploads/lampiran_program_budaya/', $fileName)) {
+                        return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload Peduli']);
+                    }
+                    
+                    $isialat[$ped]->filelampiran = $fileName;
+                    $isialat[$ped]->save();
+                }
 
                 $nilaipeduli += $nilai_peduli;
             }
@@ -944,9 +978,37 @@ class SelfAssesmentController extends Controller
                         'definisinilai_id' => $def_idpeduli[$a],
                         'deskripsi' => $r->deskripsi_program_peduli,
                         'reportassesment_id' => $rid[0],
-                        'skala_nilai' => $nilaipedulinya[$a],
-                        'filelampiran' => $r->file_peduli
+                        'skala_nilai' => $nilaipedulinya[$a]
                     ]);
+
+                // if (Storage::disk('lampiran_program_budaya')->has($isialat[$a]->filelampiran)) {
+                //     // dd($isialat[$b]);
+                //     Storage::disk('lampiran_program_budaya')->delete($isialat[$a]->filelampiran);
+                // }
+
+                // if ($r->hasFile('file_peduli')) {
+                //     $allowedTipe = [
+                //         'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+                //     ];
+
+                //     $validFile = in_array(pathinfo($r->file_peduli->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+                //     if (!$validFile) {
+                //         Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                //         return redirect()->back();
+                //     }
+
+                //     $fileName = 'Lampiran_Peduli' . date('Y') . '_' . $triwulan['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
+                //     $fileName .= str_random(4) . '.';
+                //     $fileName .= pathinfo($r->file_peduli->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                //     if (!$r->file_peduli->move(storage_path() . '/uploads/lampiran_program_budaya/', $fileName)) {
+                //         return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload Inovatif']);
+                //     }
+                    
+                //     $isialat[$a]->filelampiran = $fileName;
+                //     $isialat[$a]->save();
+                // }
 
                 $nilaipeduli += $nilaipedulinya[$a];
             }
@@ -976,11 +1038,40 @@ class SelfAssesmentController extends Controller
                     [
                         'iku_id' => $iku_id_melayani,
                         'definisinilai_id' => $def_id_melayani,
-                        'filelampiran' => $r->file_melayani,
                         'deskripsi' => $r->deskripsi_program_melayani,
                         'skala_nilai' => $nilai_melayani,
                         'reportassesment_id' => $rid[0]
                     ]);
+
+                if (Storage::disk('lampiran_program_budaya')->has($isialat[$vnya]->filelampiran)) {
+                    // dd($isialat[$b]);
+                    Storage::disk('lampiran_program_budaya')->delete($isialat[$vnya]->filelampiran);
+                }
+
+                if ($r->hasFile('file_melayani')) {
+                    $allowedTipe = [
+                        'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+                    ];
+
+                    $validFile = in_array(pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+                    if (!$validFile) {
+                        Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                        return redirect()->back();
+                    }
+
+                    $fileName = 'Lampiran_Melayani' . date('Y') . '_' . $triwulan['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
+                    $fileName .= str_random(4) . '.';
+                    $fileName .= pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                    if (!$r->file_melayani->move(storage_path() . '/uploads/lampiran_program_budaya/', $fileName)) {
+                        return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload Melayani']);
+                    }
+                    
+                    $isialat[$vnya]->filelampiran = $fileName;
+                    $isialat[$vnya]->save();
+                }
+
                 $nilaimelayani += $nilai_melayani;
             }
         }
@@ -1003,18 +1094,45 @@ class SelfAssesmentController extends Controller
                     [
                         'iku_id' => $iku_idmelayani[$k],
                         'definisinilai_id' => $defidmelayani[$k],
-                        'filelampiran' => $r->file_melayani,
                         'skala_nilai' => $nilaimelayaninya[$k],
                         'deskripsi' => $r->deskripsi_program_melayani,
                         'reportassesment_id' => $rid[0]
                     ]);
-                // dd($nilaimelayaninya[$k]);
+                
+                // if (Storage::disk('lampiran_program_budaya')->has($isialat[$k]->filelampiran)) {
+                //     // dd($isialat[$b]);
+                //     Storage::disk('lampiran_program_budaya')->delete($isialat[$k]->filelampiran);
+                // }
+
+                // if ($r->hasFile('file_melayani')) {
+                //     $allowedTipe = [
+                //         'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+                //     ];
+
+                //     $validFile = in_array(pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+                //     if (!$validFile) {
+                //         Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                //         return redirect()->back();
+                //     }
+
+                //     $fileName = 'Lampiran_Melayani' . date('Y') . '_' . $triwulan['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
+                //     $fileName .= str_random(4) . '.';
+                //     $fileName .= pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                //     if (!$r->file_melayani->move(storage_path() . '/uploads/lampiran_program_budaya/', $fileName)) {
+                //         return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload Melayani']);
+                //     }
+                    
+                //     $isialat[$k]->filelampiran = $fileName;
+                //     $isialat[$k]->save();
+                // }
+
                 $nilaimelayani += $nilaimelayaninya[$k];
             }
         } else {
             $alatnyamelayani = 0;
-        }
-
+        }     
 
         $peduli1 = Iku::where('tahun', date('Y'))
             ->where('namaprogram', 'pelaksanaan_program_budaya' . '#' . date('Y') . '#' . $triwulan['current']['triwulan'] . '#ojk_peduli')
