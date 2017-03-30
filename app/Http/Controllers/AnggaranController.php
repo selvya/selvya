@@ -183,7 +183,8 @@ class AnggaranController extends Controller
                 ->where('anggaran_tahun_id',  $tahunAnggaran->id)
                 ->sum('realisasi');
 
-            if($existingRealisasi + $realisasi[$i] != $tahunAnggaran->total_anggaran) {
+            // dd($existingRealisasi);
+            if($existingRealisasi + $realisasi[$i] > $tahunAnggaran->total_anggaran) {
                 Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
                 return redirect()->back();
             }
@@ -199,6 +200,20 @@ class AnggaranController extends Controller
                     'realisasi' => $realisasi[$i]
                 ]
             );
+
+            if (AnggaranTriwulan::where('user_id', $satker)
+                ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+                ->sum('realisasi') != $tahunAnggaran->total_anggaran) {
+
+                $ex = AnggaranTriwulan::where('user_id', $satker)
+                ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+                ->update([
+                    'rencana' => 0
+                ]);
+
+                Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+                return redirect()->back();
+            }
 
             if ($realisasi[$i] > 0) {
                 //REPORT
@@ -251,6 +266,20 @@ class AnggaranController extends Controller
                     // dd($selfAssesment[$i]);
                 }
             }
+        }
+
+        if (AnggaranTriwulan::where('user_id', $satker)
+            ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+            ->sum('rencana') != $tahunAnggaran->total_anggaran) {
+
+            $ex = AnggaranTriwulan::where('user_id', $satker)
+            ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+            ->update([
+                'rencana' => 0
+            ]);
+
+            Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+            return redirect()->back();
         }
 
         $fileName = null;
@@ -338,6 +367,9 @@ class AnggaranController extends Controller
             $tmpNilai += (int) preg_replace("/[^0-9]/","", request('rencana_' . $i));
         }
 
+            
+
+
         if ($tmpNilai > $tahunAnggaran->total_anggaran) {
             Session::flash('msg', '<div class="alert alert-danger">Rencana Angaran Tidak boleh melebihi Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
             return redirect()->back();
@@ -359,7 +391,8 @@ class AnggaranController extends Controller
                 ->where('anggaran_tahun_id',  $tahunAnggaran->id)
                 ->sum('realisasi');
 
-            if($existingRealisasi + $realisasi[$i] != $tahunAnggaran->total_anggaran) {
+            if($existingRealisasi + $realisasi[$i] > $tahunAnggaran->total_anggaran) {
+
                 Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
                 return redirect()->back();
             }
@@ -432,6 +465,20 @@ class AnggaranController extends Controller
                     // dd($selfAssesment[$i]);
                 }
             }
+        }
+
+        if (AnggaranTriwulan::where('user_id', $satker)
+            ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+            ->sum('rencana') != $tahunAnggaran->total_anggaran) {
+
+            $ex = AnggaranTriwulan::where('user_id', $satker)
+            ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+            ->update([
+                'rencana' => 0
+            ]);
+
+            Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+            return redirect()->back();
         }
 
         $fileName = null;
