@@ -67,6 +67,11 @@ return [
             'root' => storage_path('uploads/lampiran_anggaran'),
         ],
 
+        'lampiran_program_budaya' => [
+            'driver' => 'local',
+            'root' => storage_path('uploads/lampiran_program_budaya'),
+        ],
+
     ],
 
 ];

@@ -18,8 +18,8 @@ class PengaturanController extends Controller
 {
     //
     public function index(Request $r) {
-        
-$k = 0;
+
+        $k = 0;
         $tahun = date('Y');
         if (null != $r->tahun AND $r->tahun != '') {
             $tahun = $r->tahun;
@@ -33,7 +33,7 @@ $k = 0;
             $field['daftarindikator_id'] = $value->id;
             $field['tahun'] = $tahun;
 
-            for ($i=1; $i <= 4; $i++) { 
+            for ($i=1; $i <= 4; $i++) {
                 $field['triwulan'] = $i;
                 $persen = Persentase::updateOrCreate($field);
             }
@@ -45,7 +45,7 @@ $k = 0;
 
     public function getPersentaseAjax($hashid) {
 
-$k = 0;
+        $k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -57,7 +57,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -84,7 +84,7 @@ $k = 0;
 
             if (count($alatUkur->definisi) < 6)  {
 
-                for ($i=0; $i < 6; $i++) { $k = $i+1; 
+                for ($i=0; $i < 6; $i++) { $k = $i+1;
                     $definisiNilai[$i] = DefinisiNilai::create([
                         'iku_id' => $iku->id,
                         'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
@@ -94,7 +94,7 @@ $k = 0;
                     ]);
                 }
             }
-        }        
+        }
 
         $response['data']['persentase'] = $persentase;
         $response['data']['iku'] = $iku;
@@ -106,7 +106,7 @@ $k = 0;
 
 
     public function getPersentaseAjax3($hashid) {
-$k = 0;
+        $k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -194,7 +194,7 @@ $k = 0;
 //                ]);
 //            }
 //        }
-        
+
         $definisiNilai1_2 = $alatUkur1_2->definisi;
 //        if (count($definisiNilai1_2) == 0) {
 //            for ($i=0; $i < 6; $i++) { $k = $i+1;
@@ -211,32 +211,32 @@ $k = 0;
 
         $definisiNilai2_1 = $alatUkur2_1->definisi;
         // if (count($definisiNilai2) == 0) {
-            // for ($i=0; $i < 6 ; $i++) { 
-                // $definisiNilai2[$i] = DefinisiNilai::create([
-                    // 'iku_id' => $iku2->id,
-                    // 'alatukur_id' => $alatUkur2->id,
-                    // 'deskripsi' => null,'skala_nilai' => $k,
-                    // 'triwulan' => $persentase->triwulan,
-                    // 'tahun' => $persentase->tahun
-                // ]);
-            // }
+        // for ($i=0; $i < 6 ; $i++) {
+        // $definisiNilai2[$i] = DefinisiNilai::create([
+        // 'iku_id' => $iku2->id,
+        // 'alatukur_id' => $alatUkur2->id,
+        // 'deskripsi' => null,'skala_nilai' => $k,
+        // 'triwulan' => $persentase->triwulan,
+        // 'tahun' => $persentase->tahun
+        // ]);
+        // }
         //}
-		$definisiNilai2_2 = $alatUkur2_2->definisi;
+        $definisiNilai2_2 = $alatUkur2_2->definisi;
         // if (count($definisiNilai2) == 0) {
-            // for ($i=0; $i < 6 ; $i++) { 
-                // $definisiNilai2[$i] = DefinisiNilai::create([
-                    // 'iku_id' => $iku2->id,
-                    // 'alatukur_id' => $alatUkur2->id,'skala_nilai' => $k,
-                    // 'deskripsi' => null,
-                    // 'triwulan' => $persentase->triwulan,
-                    // 'tahun' => $persentase->tahun
-                // ]);
-            // }
-    //    }
+        // for ($i=0; $i < 6 ; $i++) {
+        // $definisiNilai2[$i] = DefinisiNilai::create([
+        // 'iku_id' => $iku2->id,
+        // 'alatukur_id' => $alatUkur2->id,'skala_nilai' => $k,
+        // 'deskripsi' => null,
+        // 'triwulan' => $persentase->triwulan,
+        // 'tahun' => $persentase->tahun
+        // ]);
+        // }
+        //    }
 
         $definisiNilai3 = $alatUkur3->definisi;
         if (count($definisiNilai3) == 0) {
-            for ($i=0; $i < 6 ; $i++) { 
+            for ($i=0; $i < 6 ; $i++) {
                 $definisiNilai2[$i] = DefinisiNilai::create([
                     'iku_id' => $iku3->id,
                     'alatukur_id' => $alatUkur3->id,'skala_nilai' => $k,
@@ -246,7 +246,7 @@ $k = 0;
                 ]);
             }
         }
-        
+
 
         $response['data']['persentase'] = $persentase;
         $response['data']['iku1'] = $iku1;
@@ -262,10 +262,10 @@ $k = 0;
         $response['data']['definisi1_2'] = $definisiNilai1_2;
         $response['data']['definisi2_1'] = $definisiNilai2_1;
         $response['data']['definisi2_2'] = $definisiNilai2_2;
-       // $response['data']['definisi2'] = $definisiNilai2;
+        // $response['data']['definisi2'] = $definisiNilai2;
         $response['data']['definisi3'] = $definisiNilai3;
         $response['status'] = true;
-        
+
         return response()->json($response, 200);
     }
 
@@ -286,7 +286,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -294,31 +294,31 @@ $k = 0;
         }
 
         $existingPersen = Persentase::where('tahun', $persentase->tahun)
-                            ->where('triwulan', $persentase->triwulan)
-                            ->whereNotIn('id', [$persentase->id])
-                            ->sum('nilai');
-        
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
         if (($existingPersen + $r->persen1) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
 
-        $iku = Iku::where('namaprogram', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                )->first();
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
         $iku->keterangan = $r->keterangan1;
         $iku->save();
 
         $persentase->nilai = $r->persen1;
         $persentase->save();
 
-        $alatUkur = AlatUkur::where('name', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                )->first();
+        $alatUkur = AlatUkur::where('name',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
 
         // return request('definisi1_1');
         foreach ($alatUkur->definisi as $key => $value) {
@@ -344,7 +344,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -352,31 +352,31 @@ $k = 0;
         }
 
         $existingPersen = Persentase::where('tahun', $persentase->tahun)
-                            ->where('triwulan', $persentase->triwulan)
-                            ->whereNotIn('id', [$persentase->id])
-                            ->sum('nilai');
-        
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
         if (($existingPersen + $r->persen2) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
 
-        $iku = Iku::where('namaprogram', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                )->first();
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
         $iku->keterangan = $r->keterangan2;
         $iku->save();
 
         $persentase->nilai = $r->persen2;
         $persentase->save();
 
-        $alatUkur = AlatUkur::where('name', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                    )->first();
+        $alatUkur = AlatUkur::where('name',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
 
         foreach ($alatUkur->definisi as $key => $value) {
             $value->deskripsi = request('definisi2_' . ($key+1));
@@ -401,7 +401,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -409,20 +409,20 @@ $k = 0;
         }
 
         $existingPersen = Persentase::where('tahun', $persentase->tahun)
-                            ->where('triwulan', $persentase->triwulan)
-                            ->whereNotIn('id', [$persentase->id])
-                            ->sum('nilai');
-        
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
         if (($existingPersen + $r->persen4) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
 
-        $iku = Iku::where('namaprogram', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                )->first();
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
         $iku->keterangan = $r->keterangan4;
         $iku->tipe = $r->input_tipe4;
         $iku->save();
@@ -430,11 +430,11 @@ $k = 0;
         $persentase->nilai = $r->persen4;
         $persentase->save();
 
-        $alatUkur = AlatUkur::where('name', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                    )->first();
+        $alatUkur = AlatUkur::where('name',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
 
         foreach ($alatUkur->definisi as $key => $value) {
             $value->deskripsi = request('definisi4_' . ($key+1));
@@ -459,7 +459,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -467,20 +467,20 @@ $k = 0;
         }
 
         $existingPersen = Persentase::where('tahun', $persentase->tahun)
-                            ->where('triwulan', $persentase->triwulan)
-                            ->whereNotIn('id', [$persentase->id])
-                            ->sum('nilai');
-        
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
         if (($existingPersen + $r->persen5) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
 
-        $iku = Iku::where('namaprogram', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                )->first();
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
         $iku->keterangan = $r->keterangan5;
         $iku->tipe = 'manual';
         $iku->save();
@@ -488,11 +488,11 @@ $k = 0;
         $persentase->nilai = $r->persen5;
         $persentase->save();
 
-        $alatUkur = AlatUkur::where('name', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                    )->first();
+        $alatUkur = AlatUkur::where('name',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
 
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
@@ -512,7 +512,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -520,20 +520,20 @@ $k = 0;
         }
 
         $existingPersen = Persentase::where('tahun', $persentase->tahun)
-                            ->where('triwulan', $persentase->triwulan)
-                            ->whereNotIn('id', [$persentase->id])
-                            ->sum('nilai');
-        
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
         if (($existingPersen + $r->persen6) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
 
-        $iku = Iku::where('namaprogram', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                )->first();
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
         $iku->keterangan = $r->keterangan6;
         $iku->tipe = 'manual';
         $iku->save();
@@ -541,11 +541,11 @@ $k = 0;
         $persentase->nilai = $r->persen6;
         $persentase->save();
 
-        $alatUkur = AlatUkur::where('name', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                    )->first();
+        $alatUkur = AlatUkur::where('name',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
 
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
@@ -565,7 +565,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -573,20 +573,20 @@ $k = 0;
         }
 
         $existingPersen = Persentase::where('tahun', $persentase->tahun)
-                            ->where('triwulan', $persentase->triwulan)
-                            ->whereNotIn('id', [$persentase->id])
-                            ->sum('nilai');
-        
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
         if (($existingPersen + $r->persen7) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
         }
 
-        $iku = Iku::where('namaprogram', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                )->first();
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
         $iku->keterangan = $r->keterangan7;
         $iku->tipe = 'manual';
         $iku->save();
@@ -594,11 +594,11 @@ $k = 0;
         $persentase->nilai = $r->persen7;
         $persentase->save();
 
-        $alatUkur = AlatUkur::where('name', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan
-                    )->first();
+        $alatUkur = AlatUkur::where('name',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan
+        )->first();
 
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
@@ -607,7 +607,7 @@ $k = 0;
 
     public function persentaseEdit3_1(Request $r) {
 
-$k = 0;
+        $k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -619,7 +619,7 @@ $k = 0;
             $response['message'] = 'Persentase tidak ditemukan';
             return response()->json($response, 404);
         }
-        
+
         $persentase = Persentase::find($id[0]);
         if (count($persentase) == 0) {
             $response['message'] = 'Iku tidak ditemukan';
@@ -627,10 +627,10 @@ $k = 0;
         }
 
         $existingPersen = Persentase::where('tahun', $persentase->tahun)
-                            ->where('triwulan', $persentase->triwulan)
-                            ->whereNotIn('id', [$persentase->id])
-                            ->sum('nilai');
-        
+            ->where('triwulan', $persentase->triwulan)
+            ->whereNotIn('id', [$persentase->id])
+            ->sum('nilai');
+
         if (($existingPersen + $r->persen3) > 100) {
             $response['message'] = 'Total persen untuk satu triwulan maksimum 100%.';
             return response()->json($response, 200);
@@ -639,12 +639,12 @@ $k = 0;
         $persentase->nilai = $r->persen3;
         $persentase->save();
 
-        $iku = Iku::where('namaprogram', 
-                            str_slug($persentase->daftar_indikator->name, '_') . 
-                            '#' . $persentase->tahun . 
-                            '#' . $persentase->triwulan . 
-                            '#ojk_melayani'
-                )->first();
+        $iku = Iku::where('namaprogram',
+            str_slug($persentase->daftar_indikator->name, '_') .
+            '#' . $persentase->tahun .
+            '#' . $persentase->triwulan .
+            '#ojk_melayani'
+        )->first();
 
         $iku->keterangan = $r->keterangan3_1;
         $iku->tipe = $r->input_tipe3;
@@ -653,8 +653,8 @@ $k = 0;
         //Hapus Definisi dan Alat Ukur
         DefinisiNilai::where('iku_id', $iku->id)->delete();
         AlatUkur::where('iku_id', $iku->id)->delete();
-		
-		if($r->input_tipe3_2_1 == null){$tipe_1 = 'iku';}else{$tipe_1 = $r->input_tipe3_2_1;}
+
+        if($r->input_tipe3_2_1 == null){$tipe_1 = 'iku';}else{$tipe_1 = $r->input_tipe3_2_1;}
         if ($r->mc == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
@@ -662,7 +662,8 @@ $k = 0;
             ],['tipe' => $tipe_1,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { $k = $i+1; 
+            for ($i=0; $i < 6; $i++) {
+                $k = $i+1;
                 $definisiNilai1[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
                     'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
@@ -672,13 +673,13 @@ $k = 0;
                 ]);
             }
         }else{
-			$alatUkur = AlatUkur::updateOrCreate([
+            $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
                 'name' => $iku->namaprogram . '#mystery_call'
             ],['tipe' => $tipe_1,
                 'active' => '0']);
-		}
-		if($r->input_tipe3_2_2 == null){$tipe_2 = 'iku';}else{$tipe_2 = $r->input_tipe3_2_2;}
+        }
+        if($r->input_tipe3_2_2 == null){$tipe_2 = 'iku';}else{$tipe_2 = $r->input_tipe3_2_2;}
         if ($r->sks == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
@@ -686,7 +687,7 @@ $k = 0;
             ],['tipe' => $tipe_2,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { $k = $i+1; 
+            for ($i=0; $i < 6; $i++) { $k = $i+1;
                 $definisiNilai2[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
                     'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
@@ -695,13 +696,13 @@ $k = 0;
                     'tahun' => $persentase->tahun
                 ]);
             }
-        }else{ 
-			$alatUkur = AlatUkur::updateOrCreate([
+        }else{
+            $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
                 'name' => $iku->namaprogram . '#survei_stake_holder'
             ],['tipe' => $tipe_2,
                 'active' => '0']);
-		}
+        }
 
 
         $response['status'] = true;
@@ -712,7 +713,7 @@ $k = 0;
 
     public function persentaseEdit3_2(Request $r) {
 
-$k = 0;
+        $k = 0;
         $response = [
             'status' => false,
             'data' => [],
@@ -760,25 +761,25 @@ $k = 0;
         AlatUkur::where('iku_id', $iku->id)->delete();
 //GATAU ERROR KEKNYA
         // if ($r->input_tipe3 == 'parameterized') {
-            // $alatUkur = AlatUkur::updateOrCreate([
-                // 'iku_id' => $iku->id,
-                // 'name' => $iku->namaprogram
-            // ]);
+        // $alatUkur = AlatUkur::updateOrCreate([
+        // 'iku_id' => $iku->id,
+        // 'name' => $iku->namaprogram
+        // ]);
 
-            // for ($i=0; $i < 6; $i++) { $k = $i+1;
-                // $definisiNilai2[$i] = DefinisiNilai::create([
-                    // 'iku_id' => $iku->id,
-                    // 'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
-                    // 'deskripsi' => request('pindikator_' . ($i+1)),
-                    // 'triwulan' => $persentase->triwulan,
-                    // 'tahun' => $persentase->tahun
-                // ]);
-            // }
+        // for ($i=0; $i < 6; $i++) { $k = $i+1;
+        // $definisiNilai2[$i] = DefinisiNilai::create([
+        // 'iku_id' => $iku->id,
+        // 'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
+        // 'deskripsi' => request('pindikator_' . ($i+1)),
+        // 'triwulan' => $persentase->triwulan,
+        // 'tahun' => $persentase->tahun
+        // ]);
+        // }
         // }
 
-		//
-		
-		if($r->input_tipe3_1_1 == null){$tipe_1 = 'iku';}else{$tipe_1 = $r->input_tipe3_1_1;}
+        //
+
+        if($r->input_tipe3_1_1 == null){$tipe_1 = 'iku';}else{$tipe_1 = $r->input_tipe3_1_1;}
         if ($r->kuantitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
@@ -786,7 +787,7 @@ $k = 0;
             ],['tipe' => $tipe_1,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { $k = $i+1; 
+            for ($i=0; $i < 6; $i++) { $k = $i+1;
                 $definisiNilai1[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,'skala_nilai' => $k,
                     'alatukur_id' => $alatUkur->id,
@@ -796,13 +797,13 @@ $k = 0;
                 ]);
             }
         }else{
-			$alatUkur = AlatUkur::updateOrCreate([
+            $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
                 'name' => $iku->namaprogram . '#kuantitas (Frekuensi & Partisipasi)'
             ],['tipe' => $tipe_1,
                 'active' => '0']);
-		}
-		if($r->input_tipe3_1_2 == null){$tipe_2 = 'iku';}else{$tipe_2 = $r->input_tipe3_1_2;}
+        }
+        if($r->input_tipe3_1_2 == null){$tipe_2 = 'iku';}else{$tipe_2 = $r->input_tipe3_1_2;}
         if ($r->kualitas == 1) {
             $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
@@ -810,7 +811,7 @@ $k = 0;
             ],['tipe' => $tipe_2,
                 'active' => '1']);
 
-            for ($i=0; $i < 6; $i++) { $k = $i+1; 
+            for ($i=0; $i < 6; $i++) { $k = $i+1;
                 $definisiNilai2[$i] = DefinisiNilai::create([
                     'iku_id' => $iku->id,
                     'alatukur_id' => $alatUkur->id,'skala_nilai' => $k,
@@ -819,13 +820,13 @@ $k = 0;
                     'tahun' => $persentase->tahun
                 ]);
             }
-        }else{ 
-			$alatUkur = AlatUkur::updateOrCreate([
+        }else{
+            $alatUkur = AlatUkur::updateOrCreate([
                 'iku_id' => $iku->id,
                 'name' => $iku->namaprogram . '#kualitas (Survei)'
             ],['tipe' => $tipe_2,
                 'active' => '0']);
-		}
+        }
         $response['status'] = true;
         $response['data']['persen'] = $persentase->nilai;
 
@@ -834,7 +835,7 @@ $k = 0;
 
     public function persentaseEdit3_3(Request $r) {
 
-$k = 0;
+        $k = 0;
         $response = [
             'status' => false,
             'data' => [],
