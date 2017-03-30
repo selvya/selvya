@@ -498,41 +498,39 @@
                             </td>
                         </tr>
                         @foreach($v->s_assesment as $kuy => $vals)
-<<<<<<< HEAD
                             @php 
                                 $nama  = collect(explode('#', $vals->iku->namaprogram));
                             @endphp
-=======
-                        @php $nama       = collect(explode('#', $vals->iku->namaprogram)); @endphp
->>>>>>> 6e2021bc2d5a64e26aeefa4c51f376cac5f6bf40
 
-                        <tr>
-                            <td colspan="2">Nama Program : &nbsp;&nbsp; <b>{{title_case(str_replace('_', ' ', $nama->last()))}}</b></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Deskripsi Program :</td>
-                            <td colspan="4" class="content">{{$vals->deskripsi}}</td>
-                        </tr>
-                        <tr>
-                            <td>File Lampiran</td>
-                            <td colspan="4" class="content">{{$vals->filelampiran}}</td>
-                        </tr>
-                            @foreach($vals->iku->alat_ukur as $alatnya => $data_alat )
-                            @php $nama_alat  = collect(explode('#', $data_alat->name)); @endphp
-                        <tr>
-                            <td>Alat Ukur :</td>
-                            <td colspan="4"  class="content"><b>{{title_case(str_replace('_', ' ', $nama_alat->last()))}}</b></td>
-                        </tr>
-                        <tr>
-                            <td>Skala Nilai :</td>
-                            <td colspan="4" class="content">{{$vals->skala_nilai}}</td>
-                        </tr>
-                            @endforeach
+                            <tr>
+                                <td colspan="2">Nama Program : &nbsp;&nbsp; <b>{{title_case(str_replace('_', ' ', $nama->last()))}}</b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Deskripsi Program :</td>
+                                <td colspan="4" class="content">{{$vals->deskripsi}}</td>
+                            </tr>
+                            <tr>
+                                <td>File Lampiran</td>
+                                <td colspan="4" class="content">{{$vals->filelampiran}}</td>
+                            </tr>
+
+                                @foreach($vals->iku->alat_ukur as $alatnya => $data_alat )
+
+                                    @php
+                                        $nama_alat  = collect(explode('#', $data_alat->name));
+                                    @endphp
+
+                                    <tr>
+                                        <td>Alat Ukur :</td>
+                                        <td colspan="4"  class="content"><b>{{title_case(str_replace('_', ' ', $nama_alat->last()))}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Skala Nilai :</td>
+                                        <td colspan="4" class="content">{{$vals->skala_nilai}}</td>
+                                    </tr>
+                                @endforeach
                         @endforeach
-                        {{--   @foreach($data_alat->definisi as $def => $defnilai)
-                                        
-                                    @endforeach --}}
                     @endif
 
                     @empty
@@ -564,112 +562,112 @@
         </div>
         <p class="footer">Otoritas Jasa Keuangan</p>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#downloadBtn").on("click", function() {
-                var chart_div2 = $("#chart_div2").html();
-                $("#htmlContentHidden2").val(chart_div2);
-                $('#savePDFForm').submit();
-            });
-            $("#downloadCDBtn").on("click", function() {
-             window.open("http://localhost:8888/ojkway-assesment/public/other/template-catatan-dinas.docx","_self");
-         });
-        });
+    {{--<script type="text/javascript">--}}
+        {{--$(document).ready(function() {--}}
+            {{--$("#downloadBtn").on("click", function() {--}}
+                {{--var chart_div2 = $("#chart_div2").html();--}}
+                {{--$("#htmlContentHidden2").val(chart_div2);--}}
+                {{--$('#savePDFForm').submit();--}}
+            {{--});--}}
+            {{--$("#downloadCDBtn").on("click", function() {--}}
+             {{--window.open("http://localhost:8888/ojkway-assesment/public/other/template-catatan-dinas.docx","_self");--}}
+         {{--});--}}
+        {{--});--}}
 
-        google.load('visualization', '1', {packages:['corechart']});
-        google.setOnLoadCallback(initialize);
-        function initialize()   
-        {
-            drawVisualization();
-            function drawVisualization() {
-                drawBreakdown();
-                drawOverall();
-            } 
-        }
-        function drawBreakdown() {
-            var dataBreakdown = new google.visualization.DataTable();
-            dataBreakdown.addColumn('string', 'Program');
-            dataBreakdown.addColumn('number', 'Score');
-            dataBreakdown.addColumn({type:'string', role:'style'});
-            dataBreakdown.addColumn({type:'string', role:'annotation'});
-            dataBreakdown.addRows([["Sharing Informasi",5,"#7F7F7F","5"],["Efektivitas Rapat",5,"#FFB600","5"],["Salam OJK",4,"#DC6900","4"],["Standar Penampilan",5,"#E0301E","5"],["OJK Rapi",5,"#FF0000","5"],["Program Budaya Spesifik",5,"#A32020","5"],["Peran Pimpinan",5,"#DB536A","5"],["Partisipasi Direktorat",5,"#70180F","5"],["Efektivitas Monitoring Pelaksanaan Program",5,"#3b5998","5"],["Kreativitas dan Efektivitas Penggunaan Media Kampanye",5,"#6dc066","5"]]);
-            var optionsBreakdown = {
-                width:750,
-                chartArea: {
-                    left:300,
-                    top:50,
-                    width:400
-                },
-                title: 'Nilai per Program',
-                vAxis: {
-                    title: '',
-                    textStyle: {
-                        fontSize:10
-                    }
-                },
-                hAxis: {
-                    viewWindow: {
-                        min: 0,
-                        max: 6
-                    },
-                    ticks: [0, 1, 2, 3, 4, 5, 6]
-                },
-                legend: 'none'
-            };
-            var chartBreakdown_div = document.getElementById('chart_div1');
-            var chartBreakdown_div_hidden = document.getElementById('chart_div_hidden');
-            var chartBreakdown = new google.visualization.BarChart(chartBreakdown_div);
-            google.visualization.events.addListener(chartBreakdown, 'ready', function (){
-            //var imgUri = chartBreakdown.getImageURI();
-            // to trigger a download, change the mime type:
-            //var imgUriName = imgUri.replace(/^data:image\/png/, 'data:application/octet-stream');
-            chartBreakdown_div.innerHTML = '<img src="' + chartBreakdown.getImageURI() + '">';
-            chartBreakdown_div_hidden.innerHTML = '<img src="' + chartBreakdown.getImageURI() + '">';
-            $("#htmlContentHidden").val('<img src="' + chartBreakdown.getImageURI() + '" style="width:600px">');
-        });
-            chartBreakdown.draw(dataBreakdown, optionsBreakdown);
-        }
+        {{--google.load('visualization', '1', {packages:['corechart']});--}}
+        {{--google.setOnLoadCallback(initialize);--}}
+        {{--function initialize()   --}}
+        {{--{--}}
+            {{--drawVisualization();--}}
+            {{--function drawVisualization() {--}}
+                {{--drawBreakdown();--}}
+                {{--drawOverall();--}}
+            {{--} --}}
+        {{--}--}}
+        {{--function drawBreakdown() {--}}
+            {{--var dataBreakdown = new google.visualization.DataTable();--}}
+            {{--dataBreakdown.addColumn('string', 'Program');--}}
+            {{--dataBreakdown.addColumn('number', 'Score');--}}
+            {{--dataBreakdown.addColumn({type:'string', role:'style'});--}}
+            {{--dataBreakdown.addColumn({type:'string', role:'annotation'});--}}
+            {{--dataBreakdown.addRows([["Sharing Informasi",5,"#7F7F7F","5"],["Efektivitas Rapat",5,"#FFB600","5"],["Salam OJK",4,"#DC6900","4"],["Standar Penampilan",5,"#E0301E","5"],["OJK Rapi",5,"#FF0000","5"],["Program Budaya Spesifik",5,"#A32020","5"],["Peran Pimpinan",5,"#DB536A","5"],["Partisipasi Direktorat",5,"#70180F","5"],["Efektivitas Monitoring Pelaksanaan Program",5,"#3b5998","5"],["Kreativitas dan Efektivitas Penggunaan Media Kampanye",5,"#6dc066","5"]]);--}}
+            {{--var optionsBreakdown = {--}}
+                {{--width:750,--}}
+                {{--chartArea: {--}}
+                    {{--left:300,--}}
+                    {{--top:50,--}}
+                    {{--width:400--}}
+                {{--},--}}
+                {{--title: 'Nilai per Program',--}}
+                {{--vAxis: {--}}
+                    {{--title: '',--}}
+                    {{--textStyle: {--}}
+                        {{--fontSize:10--}}
+                    {{--}--}}
+                {{--},--}}
+                {{--hAxis: {--}}
+                    {{--viewWindow: {--}}
+                        {{--min: 0,--}}
+                        {{--max: 6--}}
+                    {{--},--}}
+                    {{--ticks: [0, 1, 2, 3, 4, 5, 6]--}}
+                {{--},--}}
+                {{--legend: 'none'--}}
+            {{--};--}}
+            {{--var chartBreakdown_div = document.getElementById('chart_div1');--}}
+            {{--var chartBreakdown_div_hidden = document.getElementById('chart_div_hidden');--}}
+            {{--var chartBreakdown = new google.visualization.BarChart(chartBreakdown_div);--}}
+            {{--google.visualization.events.addListener(chartBreakdown, 'ready', function (){--}}
+            {{--//var imgUri = chartBreakdown.getImageURI();--}}
+            {{--// to trigger a download, change the mime type:--}}
+            {{--//var imgUriName = imgUri.replace(/^data:image\/png/, 'data:application/octet-stream');--}}
+            {{--chartBreakdown_div.innerHTML = '<img src="' + chartBreakdown.getImageURI() + '">';--}}
+            {{--chartBreakdown_div_hidden.innerHTML = '<img src="' + chartBreakdown.getImageURI() + '">';--}}
+            {{--$("#htmlContentHidden").val('<img src="' + chartBreakdown.getImageURI() + '" style="width:600px">');--}}
+        {{--});--}}
+            {{--chartBreakdown.draw(dataBreakdown, optionsBreakdown);--}}
+        {{--}--}}
 
-        function drawOverall() {        
-            var dataOverall = new google.visualization.DataTable();
-            dataOverall.addColumn('string', 'Program');
-            dataOverall.addColumn('number', 'Score');
-            dataOverall.addColumn({type:'string', role:'style'});
-            dataOverall.addColumn({type:'string', role:'annotation'});
-            dataOverall.addRows([["Nilai",98.4,"green","98.4"]]);
-            var optionsOverall = {
-                width:200,
-                height:180,
-                chartArea: {
-                    top:40,
-                    height:'75%'
-                },
-                title: 'Total Nilai',
-                vAxis: {
+        {{--function drawOverall() {        --}}
+            {{--var dataOverall = new google.visualization.DataTable();--}}
+            {{--dataOverall.addColumn('string', 'Program');--}}
+            {{--dataOverall.addColumn('number', 'Score');--}}
+            {{--dataOverall.addColumn({type:'string', role:'style'});--}}
+            {{--dataOverall.addColumn({type:'string', role:'annotation'});--}}
+            {{--dataOverall.addRows([["Nilai",98.4,"green","98.4"]]);--}}
+            {{--var optionsOverall = {--}}
+                {{--width:200,--}}
+                {{--height:180,--}}
+                {{--chartArea: {--}}
+                    {{--top:40,--}}
+                    {{--height:'75%'--}}
+                {{--},--}}
+                {{--title: 'Total Nilai',--}}
+                {{--vAxis: {--}}
 
-                    viewWindow: {
-                        min: 0,
-                        max: 100
-                    },
-                    ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-                },
-                hAxis: {
-                    title: '',
-                    textStyle: {
-                        fontSize:10
-                    }
-                },
-                legend: 'none'
-            };
-        //var chartOverall = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
-        //chartOverall.draw(dataOverall, optionsOverall);
-        var chartOverall_div = document.getElementById('chart_div2');
-        var chartOverall = new google.visualization.ColumnChart(chartOverall_div);
-        google.visualization.events.addListener(chartOverall, 'ready', function (){
-            chartOverall_div.innerHTML = '<img src="' + chartOverall.getImageURI() + '">';
-        });
-        chartOverall.draw(dataOverall, optionsOverall);
-    }
-</script>
+                    {{--viewWindow: {--}}
+                        {{--min: 0,--}}
+                        {{--max: 100--}}
+                    {{--},--}}
+                    {{--ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]--}}
+                {{--},--}}
+                {{--hAxis: {--}}
+                    {{--title: '',--}}
+                    {{--textStyle: {--}}
+                        {{--fontSize:10--}}
+                    {{--}--}}
+                {{--},--}}
+                {{--legend: 'none'--}}
+            {{--};--}}
+        {{--//var chartOverall = new google.visualization.ColumnChart(document.getElementById('chart_div2'));--}}
+        {{--//chartOverall.draw(dataOverall, optionsOverall);--}}
+        {{--var chartOverall_div = document.getElementById('chart_div2');--}}
+        {{--var chartOverall = new google.visualization.ColumnChart(chartOverall_div);--}}
+        {{--google.visualization.events.addListener(chartOverall, 'ready', function (){--}}
+            {{--chartOverall_div.innerHTML = '<img src="' + chartOverall.getImageURI() + '">';--}}
+        {{--});--}}
+        {{--chartOverall.draw(dataOverall, optionsOverall);--}}
+    {{--}--}}
+{{--</script>--}}
 </body>
 </html>

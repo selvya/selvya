@@ -129,6 +129,9 @@ Route::group(['middleware' => ['satker']], function () {
         return view('monitoring.lihat');
     });
     //TUTUP MONITORING
+
+    //Hapus Monitoring
+    Route::post('hapusStakeHolder', ['as' => 'hapus-stake-holder', 'uses' => 'StakeHolderController@hapus']);
 });
 
 

@@ -100,6 +100,12 @@ return [
             'length' => 20,
             'alphabet' => 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890'
         ],
+
+        'stakeholder' => [
+            'salt' => 'UYKvxquHGyehgxZ6ryfmhqwgetuyghnvasJJH',
+            'length' => 40,
+            'alphabet' => 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890'
+        ],
     ],
 
 ];
