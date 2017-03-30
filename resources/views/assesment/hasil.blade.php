@@ -94,26 +94,24 @@
 
             <h6><b>Nilai Rata-Rata per Program:</b></h6>
 
-            <a href="javascript:void(0)" class="btn btn-warning">
-                <b>OJK Melayani</b>
-                <br>
-                <big>10</big>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-warning">
-                <b>OJK Peduli</b>
-                <br>
-                <big>10</big>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-warning">
-                <b>Program Budaya Spesifik</b>
-                <br>
-                <big>10</big>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-warning">
-                <b>Peran Pimpinan</b>
-                <br>
-                <big>10</big>
-            </a>
+            {{-- Rata-rata --}}
+            @foreach($persentase as $k => $v)
+                <a href="javascript:void(0)" class="btn btn-warning">
+                    <b>{{$v->daftar_indikator->name}}</b>
+                    <br>
+                    @php
+                        $ratarata = 0;
+                        $nilai = \App\ReportAssessment::where('tahun', $t)
+                                    ->where('triwulan', $tw)
+                                    ->where('final_status', 1)
+                                    ->where('daftarindikator_id', $v->daftarindikator_id)
+                                    ->count();
+                    @endphp
+                    <big></big>
+                </a>
+            @endforeach
+            
+            
             <a href="javascript:void(0)" class="btn btn-primary">
                 <b>Total</b><br>
                 <big>10</big>
