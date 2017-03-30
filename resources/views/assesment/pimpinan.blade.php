@@ -209,7 +209,8 @@
                                     <select name="nilai" class="form-control" @if($pim AND $ppp->final_status == 1) disabled @endif required> 
                                         @for($i=$iku->alat_ukur->first()->definisi->count();$i>=1; $i--)x
                                         {{-- @foreach($iku->alat_ukur->first()->definisi as $k => $v) --}}
-                                            <option value="{{$i}}">{{$i}} - {{$iku->alat_ukur->first()->definisi[$i-1]->deskripsi}}</option>
+
+                                            <option value="{{$i}}" @if($pim AND $ppp->nilai == $i) selected @endif>{{$i}} - {{$iku->alat_ukur->first()->definisi[$i-1]->deskripsi}}</option>
                                         {{-- @endforeach --}}
                                         @endfor
                                     </select>
@@ -219,7 +220,7 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-3">Nilai</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="nilai" class="form-control" @if($pim AND $ppp->final_status == 1) disabled @endif required>
+                                    <input type="text" name="nilai" class="form-control" @if($pim) value="{{$ppp->nilai}}" @endif @if($pim AND $ppp->final_status == 1) disabled @endif required>
                                 </div>
                             </div>
                         @endif
