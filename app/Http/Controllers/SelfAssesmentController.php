@@ -858,12 +858,41 @@ class SelfAssesmentController extends Controller
                 [
                     'iku_id' => $iku_id[$b],
                     'definisinilai_id' => $def_id[$b],
-                    'filelampiran' => $r->file_melayani,
                     'reportassesment_id' => $rid[0],
-                    'skala_nilai' => $nilai[$b],
-                    'filelampiran' => $r->file_inovatif
+                    'skala_nilai' => $nilai[$b]
                 ]);
             $nilaiino += $nilai[$b];
+        }
+
+        //Upload File melayani
+        if ($r->hasFile('file_melayani')) {
+            $allowedTipe = [
+                'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+            ];
+
+            $validFile = in_array(pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+            if (!$validFile) {
+                Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                return redirect()->back();
+            }
+
+            $fileName = 'Lampiran_Inovatif_' . date('Y') . '_' . $i . '_' . Auth::user()->hashid . '_';
+            $fileName .= str_random(4) . '.';
+            $fileName .= pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION);
+
+            if (!$r->file_melayani->move(storage_path() . '/uploads/lampiran_program_budaya/', $fileName)) {
+                return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload Inovatif']);
+            }
+
+            foreach ($isialat as $k => $v) {
+                if (Storage::disk('lampiran_program_budaya')->has($v->filelampiran)) {
+                    Storage::disk('lampiran_anggaran')->delete($v->filelampiran);
+                }
+
+                $v->filelampiran = $fileName;
+                $v->save();
+            }
         }
 
         if (null != $r->nilai_manual_peduli) {
