@@ -1176,17 +1176,17 @@ class SelfAssesmentController extends Controller
             ->value('id');
 
         //STAKE HOLDER MELAYANI
-        if (!empty($r->name_stake_melayani)) {
+        if (!empty($r->nama_stake_melayani)) {
             foreach ($r->nama_stake_melayani as $q => $v) {
                 if ($v !== '') {
                     $isi_stake_melayani[$q] = StakeHolder::create([
                         // selfassesment_id di ambil dari data iku
-                        'user_id' => Auth::user()->id,
-                        'nama' => $v,
-                        'selfassesment_id' => $melayani,
-                        'email' => $r->email_stake_melayani[$q],
-                        'instansi' => $r->instansi_stake_melayani[$q],
-                        'no_hp' => $r->telp_stake_melayani[$q]
+                        'user_id'           => Auth::user()->id,
+                        'nama'              => $v,
+                        'selfassesment_id'  => $melayani,
+                        'email'             => $r->email_stake_melayani[$q],
+                        'instansi'          => $r->instansi_stake_melayani[$q],
+                        'no_hp'             => $r->telp_stake_melayani[$q]
                     ]);
                 }
             }
@@ -1198,12 +1198,12 @@ class SelfAssesmentController extends Controller
                 if ($l !== '') {
                     $isi_stake_peduli[$m] = StakeHolder::create([
                         // selfassesment_id di ambil dari data iku
-                        'user_id' => Auth::user()->id,
-                        'nama' => $l,
-                        'selfassesment_id' => $peduli,
-                        'email' => $r->email_stake_peduli[$m],
-                        'instansi' => $r->instansi_stake_peduli[$m],
-                        'no_hp' => $r->telp_stake_peduli[$m]
+                        'user_id'           => Auth::user()->id,
+                        'nama'              => $l,
+                        'selfassesment_id'  => $peduli,
+                        'email'             => $r->email_stake_peduli[$m],
+                        'instansi'          => $r->instansi_stake_peduli[$m],
+                        'no_hp'             => $r->telp_stake_peduli[$m]
                     ]);
                 }
             }
@@ -1215,12 +1215,12 @@ class SelfAssesmentController extends Controller
                 if ($p !== '') {
                     $isi_stake_inovatif[$u] = StakeHolder::create([
                         // selfassesment_id di ambil dari data iku
-                        'user_id' => Auth::user()->id,
-                        'nama' => $p,
-                        'selfassesment_id' => $inovatif,
-                        'email' => $r->email_stake_inovatif[$u],
-                        'instansi' => $r->instansi_stake_inovatif[$u],
-                        'no_hp' => $r->telp_stake_inovatif[$u]
+                        'user_id'           => Auth::user()->id,
+                        'nama'              => $p,
+                        'selfassesment_id'  => $inovatif,
+                        'email'             => $r->email_stake_inovatif[$u],
+                        'instansi'          => $r->instansi_stake_inovatif[$u],
+                        'no_hp'             => $r->telp_stake_inovatif[$u]
                     ]);
                 }
             }

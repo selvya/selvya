@@ -456,7 +456,8 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                     <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr><?php }?> 
-                                            </table>@if($faktorpeduli > 0)
+                                            </table>
+                                            @if($faktorpeduli > 0)
                                                   <small>Cantumkan minimal {{$faktorpeduli}} Pihak</small>
 											  @endif
                                         </div>
@@ -578,7 +579,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             @foreach($stakeholder as $holder)
                                             <tr id="fieldz{{$holder->id}}">
                                                 <td>
-                                                    <input type="text"readonly class="form-control" value="{{$holder->nama}}">
+                                                    <input type="text" readonly class="form-control" value="{{$holder->nama}}">
                                                 </td>
                                                 <td><input type="email" readonly class="form-control" value="{{$holder->email}}"></td>
                                                 <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}"></td>
