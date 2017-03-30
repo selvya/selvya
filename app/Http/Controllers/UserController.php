@@ -86,7 +86,7 @@ class UserController extends Controller
         $user->deputi_kom = $r->deputi;
         $user->departemen = $r->departemen;
         $user->direktorat_id = $r->kojk;
-        $user->kojk = $r->kojk;
+        $user->kojk = $r->deputi;
         $user->change_partner = $r->change_partner;
       //  $user->satker = $r->satker;
         $user->namapengisi = $r->namapengisi;
