@@ -95,17 +95,12 @@
             <h6><b>Nilai Rata-Rata per Program:</b></h6>
 
             {{-- Rata-rata --}}
-            @foreach($persentase as $k => $v)
+            @foreach($persentase as $key => $val)
                 <a href="javascript:void(0)" class="btn btn-warning">
-                    <b>{{$v->daftar_indikator->name}}</b>
+                    <b>{{$val->daftar_indikator->name}}</b>
                     <br>
                     @php
-                        $ratarata = 0;
-                        $nilai = \App\ReportAssessment::where('tahun', $t)
-                                    ->where('triwulan', $tw)
-                                    ->where('final_status', 1)
-                                    ->where('daftarindikator_id', $v->daftarindikator_id)
-                                    ->count();
+                        $ratarata[$key] = 0;
                     @endphp
                     <big></big>
                 </a>
