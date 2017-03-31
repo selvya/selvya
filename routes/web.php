@@ -175,8 +175,7 @@ Route::group(['middleware' => ['reviewer']], function () {
 
     //Revisi
     Route::post('revisicp/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@reviewPost']);
-    //Lihat Hasil Laporan
-    Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);
+    
     //MANUAL BOOK
     Route::get('manual-pengguna-reviewer', 'PanduanController@reviewer');
 
@@ -288,9 +287,16 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('hirarki', ['as' => 'hirarki.index', 'uses' => 'HirarkiController@index']);
 });
 
-//Download
-Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
-Route::get('attachment/lampiran_program_budaya/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranProgramBudaya']);
+
+Route::group(['middleware' => ['auth']], function()
+{
+    //Download
+    Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
+    Route::get('attachment/lampiran_program_budaya/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranProgramBudaya']);
+
+    //Lihat Hasil Laporan
+    Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);
+});
 
 
 //TOKEN

@@ -10,6 +10,7 @@ use App\User;
 use App\ReportAssessment;
 use App\Persentase;
 use App\NilaiAkhir;
+use PDF;
 
 class ReviewController extends Controller
 {
@@ -79,7 +80,14 @@ class ReviewController extends Controller
                         ->orderBy('daftarindikator_id', 'ASC')
                         ->get();
 
+
+        if (null != $r->c AND $r->c == 1) {
+            $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
+            
+            return @$pdf->stream();
+        }  
         return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
+
     }
 
     public function hasilAssesment(Request $r)
@@ -96,6 +104,7 @@ class ReviewController extends Controller
 
         $user = User::where('level', 'satker')->get();
         // dd($persentase);
+        
         return view('assesment.hasil', compact('persentase', 'user', 't', 'tw'));
     }
 }

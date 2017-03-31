@@ -324,8 +324,6 @@ class SelfAssesmentController extends Controller
             $reportPimpinan->nilai = $reportPimpinan->nilai;
             $reportPimpinan->persentase = $persenPimpinan->nilai;
             $reportPimpinan->final_status = 1;
-            $reportPimpinan->partisipasi = $r->partisipasi;
-            $reportPimpinan->deskripsi = $r->deskrips;
             $reportPimpinan->hasil = $reportPimpinan->nilai / 6 * $persenPimpinan->nilai;
 
         } else {
@@ -338,8 +336,6 @@ class SelfAssesmentController extends Controller
             $reportPimpinan->user_id = Auth::user()->id;
             $reportPimpinan->persentase = $persenPimpinan->nilai;
             $reportPimpinan->final_status = 1;
-            $reportPimpinan->partisipasi = $r->partisipasi;
-            $reportPimpinan->deskripsi = $r->deskrips;
             $reportPimpinan->hasil = $nPim / 6 * $persenPimpinan->nilai;
         }
 

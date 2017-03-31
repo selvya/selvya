@@ -7,3 +7,4 @@ app\Exceptions\Handler.php
 Homestead.json
 Homestead.yaml
 .env
+.phpintel/
