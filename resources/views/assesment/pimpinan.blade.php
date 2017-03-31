@@ -214,7 +214,7 @@
                                         {{-- @endforeach --}}
                                         @endfor
                                     </select>
-                                </div>
+                                </div>	
                             </div>
                         @else
                             <div class="form-group">
@@ -243,18 +243,18 @@
                                     $desss = '';
                                 }
                             @endphp
-                            <label class="control-label col-lg-3">Peran Pimpinan</label>
+                            <label class="control-label col-lg-3">Deskripsi Peran</label>
                             <div class="col-md-6">
                                 <textarea name="partisipasi" class="form-control" placeholder="{{$iku->keterangan}}" @if($pim AND $ppp->final_status == 1) disabled @endif >{{$perrr}}</textarea>
                             </div>
                         </div>
-                         <div class="form-group">
+                         <!-- <div class="form-group">
                             <label class="control-label col-lg-3">Deskripsi</label>
                             <div class="col-md-6">
                                 
                                 <textarea name="deskripsi" class="form-control" @if($pim AND $ppp->final_status == 1) disabled @endif >{{$desss}}</textarea>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <div class="col-md-3">

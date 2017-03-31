@@ -306,7 +306,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                         <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
                                                         <td><a onclick="tambah_MC()"  data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                       </tr>
-                                                      <?php }?><?php if($hitunglayan < $faktorlayan && $stakelayan !== 10){?>
+                                                      <?php }?><?php if($hitunglayan >= $faktorlayan && $stakelayan !== 10){?>
 													   <tr id="field1">
                                                         <td>
                                                             <input type="text" name="nama_stake_melayani[]" class="form-control" placeholder="Masukan nama PIC">
@@ -447,7 +447,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                     <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Masukan nama instansi"></td>
                                                     <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC"></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
-                                                </tr><?php }if($hitungpeduli < $faktorpeduli && $stakepedul !== 10){?> 
+                                                </tr><?php }if($hitungpeduli >= $faktorpeduli && $stakepedul !== 10){?> 
 												<tr id="field3">
                                                     <td>
                                                         <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Masukan nama PIC" >
