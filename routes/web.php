@@ -293,6 +293,9 @@ Route::group(['middleware' => ['auth']], function()
 
     //Lihat Hasil Laporan
     Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);
+    
+    //Ringkasan SelfAssesment
+    Route::get('ringkasan-sa/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@cetakRingkasan']);
 });
 
 

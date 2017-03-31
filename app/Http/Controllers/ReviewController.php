@@ -82,7 +82,7 @@ class ReviewController extends Controller
 
 
         if (null != $r->c AND $r->c == 1) {
-            $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment'));
+            $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
             
             return @$pdf->stream();
         }  
@@ -106,5 +106,32 @@ class ReviewController extends Controller
         // dd($persentase);
         
         return view('assesment.hasil', compact('persentase', 'user', 't', 'tw'));
+    }
+
+    public function cetakRingkasan(Request $r, $hashid)
+    {
+        $hashid = Hashids::connection('user')->decode($hashid);
+        if (count($hashid) == 0) {
+            Session::flash('alert-class', 'alert-danger');
+            Session::flash('message', 'Invalid');
+            return redirect()->back();
+        }
+
+        $usr = User::findOrFail($hashid[0]);
+
+        $triwulan = cekCurrentTriwulan();
+
+        $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
+        $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
+
+        $reportAssesment = ReportAssessment::where('tahun', $t)
+                        ->where('triwulan', $tw)
+                        ->where('user_id', $usr->id)
+                        ->orderBy('daftarindikator_id', 'ASC')
+                        ->get();
+
+        $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
+        
+        return @$pdf->stream();
     }
 }
