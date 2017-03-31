@@ -108,11 +108,11 @@
                                 <i class="gi gi-user sidebar-nav-icon"></i> Semua User
                             </a>
                         </li>
-                      <!--   <li class="@if(Request::is('map-report')) active @endif">
+                        <li class="@if(Request::is('map-report')) active @endif">
                             <a href="{{url('map-report')}}">
                                 <i class="gi gi-google_maps sidebar-nav-icon"></i> Mapping Report
                             </a>
-                        </li> -->
+                        </li>
                         <li class="@if(Request::is('upload')) active @endif">
                             <a href="#" class="sidebar-nav-menu">
                                 <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>

@@ -74,7 +74,9 @@
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" id="done" class="btn btn-success btn-lg">Simpan</button>
+                <a href="{{url('detail-monitoring').'/'.$satker->hashid.'?t='.Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}" class="btn btn-lg btn-default"><i class="fa fa-arrow-left"></i> Kembali</a>
+                <button type="submit" id="done" class="btn btn-success btn-lg"><i class="fa fa-save"></i> Simpan</button>
+                <a href="{{url('wizard-monitoring').'/'.$satker->hashid.'?t='.Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}" class="btn btn-lg btn-info"><i class="fa fa-arrow-right"></i> Selanjutnya</a>
             </div>
         </form>
     </div>

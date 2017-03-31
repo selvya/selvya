@@ -182,6 +182,8 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('lihathasil-monitoring', 'MonitoringController@hasilmonitoring');
     Route::get('detail-monitoring/{hashid}','MonitoringController@detailmonitoring');
     Route::get('tambah-monitoring/{hashid}', 'MonitoringController@tambahmonitoring');
+    Route::get('wizard-monitoring/{hashid}','MonitoringController@wizardmonitoring');
+    Route::post('proses-wizard/{hashid}','MonitoringController@proseswizard');
     Route::post('proses-tambah-monitoring/{hashid}', 'MonitoringController@prosestambahmonitoring');
 });
 /*
