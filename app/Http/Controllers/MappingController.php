@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mapping;
+use App\MappingSatker;
+use DB;
 
 
 class MappingController extends Controller
@@ -40,11 +42,35 @@ class MappingController extends Controller
     $map->save();
     return redirect()->back()->with('success', 'Mapping berhasil di ubah');
   }
+  public function prosesaddsatkernya(Request $r,$id)
+  {
+    $map = Mapping::findOrFail($id);
+    $map->nama = $r->nama;
+    $map->kantor = $r->kantor;
+    $map->urutan = $r->urutan;
+    $map->save();
+    return redirect()->back()->with('success', 'Mapping berhasil di ubah');
+  }
   public function detailnya(Request $r,$id)
   {
     $map = Mapping::findOrFail($id);
+    $map_sat = MappingSatker::join('users','mapping_satker.user_id','users.id')->where('mapping_id',$id)->orderBy('updated_at')->paginate(10);;
+    return view('mapping.detail', compact('map','map_sat'));
+  }
+  public function addsatkernya(Request $r,$id)
+  {
+    $user = DB::table('users')
+            ->leftJoin('mapping_satker', 'users.id', '=', 'mapping_satker.user_id')
+			->where('nm_unit_kerja','!=','')
+            ->get();
     $map = Mapping::findOrFail($id);
-    return view('mapping.list', compact('map'));
+    return view('mapping.susunsatker', compact('user','map'));
+  }
+  public function prosesdeletesatkernya(Request $r,$id)
+  {
+    $map = Mapping::findOrFail($id);
+    $map_sat = MappingSatker::where('mapping_id',$id)->first();
+    return view('mapping.detail', compact('map','map_sat'));
   }
   public function hapus($id)
   {

@@ -44,7 +44,7 @@
 				<td align="center" class=" ">
 					<a href="{{url('edit/mapping/'.$data->id)}}" class="btn btn-warning" data-toggle="tooltip" title="Sunting Mapping" ><i class="fa fa-pencil"></i></a>
 					<a href="{{url('hapus-maping/'.$data->id)}}" class="btn btn-danger" data-toggle="tooltip" title="Hapus Mapping"><i class="fa fa-times"></i></a>
-					<a href="" class="btn btn-primary" data-toggle="tooltip" title="Detail Mapping"><i class="fa fa-arrow-right"></i></a>
+					<a href="{{url('mapping-detail/'.$data->id)}}" class="btn btn-primary" data-toggle="tooltip" title="Detail Mapping"><i class="fa fa-arrow-right"></i></a>
 				</td>
 			</tr>
 			@endforeach
@@ -58,10 +58,7 @@
 		</div>
 	</div>
 </div>
-<!-- END Datatables Content -->
 </div>
-<!-- END Page Content -->
-<!-- END Page Content -->
 @endsection
 @section('js')
 <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
