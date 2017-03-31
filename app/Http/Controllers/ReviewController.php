@@ -82,7 +82,7 @@ class ReviewController extends Controller
 
 
         if (null != $r->c AND $r->c == 1) {
-            $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment'));
+            $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
             
             return @$pdf->stream();
         }  

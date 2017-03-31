@@ -468,10 +468,10 @@
                         </tr>
                     @endif
 
-                    {{-- Program Budaya --}}
+                     {{-- Program Budaya --}}
                     @if($v->daftarindikator_id == 3)
                         <tr>
-                            <td colspan=4>
+                            <td colspan=5>
                                 <div class="title">
                                     <p>
                                         Indikator {{$k+1}} : <b><u>{{$v->daftar_indikator->name}} [{{$v->daftar_indikator->persentase->where('tahun', $v->tahun)->where('triwulan', $v->triwulan)->first()->nilai}}%]</u></b>
@@ -479,57 +479,85 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                       Tujuan Program:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        {{$v->daftar_indikator->name}}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        @foreach($v->s_assesment as $kuy => $vals)
-                            @php 
-                                $nama  = collect(explode('#', $vals->iku->namaprogram));
-                            @endphp
-
-                            <tr>
-                                <td colspan="2">Nama Program : &nbsp;&nbsp; <b>{{title_case(str_replace('_', ' ', $nama->last()))}}</b></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Deskripsi Program :</td>
-                                <td colspan="4" class="content">{{$vals->deskripsi}}</td>
-                            </tr>
-                            <tr>
-                                <td>File Lampiran</td>
-                                <td colspan="4" class="content">{{$vals->filelampiran}}</td>
-                            </tr>
-
-                                @foreach($vals->iku->alat_ukur as $alatnya => $data_alat )
-
-                                    @php
-                                        $nama_alat  = collect(explode('#', $data_alat->name));
-                                    @endphp
+                        <?php 
+                            $reportnya  = \App\ReportAssessment::where('tahun',$t)->where('triwulan',$tw)->where('daftarindikator_id','3')->where('user_id',$usr->id)->where('final_status','1')->first();
+                            $selfnya    = \App\SelfAssesment::where('tahun',$t)->where('triwulan',$tw)->where('reportassesment_id', $reportnya->id)->groupBy('iku_id')->get();
+                            ?>
+                            @foreach($selfnya as $a => $data)
+                            <?php
+                                $ikunya[$a] = \App\Iku::where('tahun',$t)->where('daftarindikator_id','3')->where('id',$data->iku_id)->get();
+                            ?>
+                                @foreach($ikunya[$a] as $b => $data_iku)
+                                @php 
+                                    $nama_iku[$b]       = collect(explode('#', $data_iku->namaprogram));
+                                    $alatnya[$b]        = \App\AlatUkur::where('alatukur.iku_id',$data_iku->id)
+                                                          ->join('selfassesment', 'alatukur.id','=','selfassesment.alatukur_id')
+                                                          ->groupBy('selfassesment.alatukur_id')
+                                                          ->get();
+                                @endphp
+                                    <tr><td colspan="5" ></td></tr>
+                                    <tr><td colspan="5" ></td></tr>
 
                                     <tr>
-                                        <td>Alat Ukur :</td>
-                                        <td colspan="4"  class="content"><b>{{title_case(str_replace('_', ' ', $nama_alat->last()))}}</b></td>
+                                        <td>
+                                            Nama Program
+                                        </td>
+                                        <td colspan="4" class="content">
+                                            <b>{{title_case(str_replace('_', ' ', $nama_iku[$b]->last()))}}</b>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>Skala Nilai :</td>
-                                        <td colspan="4" class="content">{{$vals->skala_nilai}}</td>
+                                        <td>
+                                            Tujuan Program
+                                        </td>
+                                        <td colspan="4" class="content">
+                                            <b>{{$data_iku->tujuan}}</b>
+                                        </td>
                                     </tr>
+                                    <tr>
+                                        <td>Deskripsi Program </td>
+                                        <td colspan="4" class="content">{{$data_iku->keterangan}}</td>
+                                    </tr>
+                                        @foreach($alatnya[$b] as $c => $data_alat)
+                                        <?php 
+                                            $nama_alat[$c]       = collect(explode('#', $data_alat->name));  
+                                        ?>
+                                            <tr>
+                                                <td>Nama Alat Ukur</td>
+                                                <td colspan="4" class="content">
+                                                    <b>{{title_case(str_replace('_', ' ', $nama_alat[$c]->last()))}}</b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Skala Nilai</td>
+                                                <td colspan="4" class="content">
+                                                    <b>{{$data_alat->skala_nilai}}</b>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        <tr>
+                                            <td>Hasil</td>
+                                            <td colspan="4" class="content">
+                                                @if($nama_iku[$b]->last() == 'ojk_peduli')
+                                                    {{$reportnya->hasil_peduli}}
+                                                @elseif($nama_iku[$b]->last() == 'ojk_melayani')
+                                                    {{$reportnya->hasil_melayani}}
+                                                @else
+                                                    {{$reportnya->hasil_inovatif}}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>File Lampiran</td>
+                                            <td colspan="4">
+                                                <a href="{{asset('attachment/lampiran_program_budaya/'.$data->filelampiran)}}" style="text-decoration: none;">Download Lampiran</a>
+                                            </td>
+                                        </tr>
                                 @endforeach
-                        @endforeach
+                            @endforeach
                     @endif
+                    {{-- TUTUP Program Budaya --}}
+                    
 
                     @empty
                         --
