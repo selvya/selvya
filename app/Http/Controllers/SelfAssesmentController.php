@@ -551,9 +551,9 @@ class SelfAssesmentController extends Controller
             return redirect()->back()->with('warning', 'Data masih belum di masukan oleh admin');
         }
 
-        $alatino = AlatUkur::where('iku_id', $inovatif->id)->get();
-        $alatpeduli = AlatUkur::where('iku_id', $peduli->id)->get();
-        $alatmelayani = AlatUkur::where('iku_id', $melayani->id)->get();
+        $alatino = AlatUkur::where('iku_id', $inovatif->id)->where('active', '1')->get();
+        $alatpeduli = AlatUkur::where('iku_id', $peduli->id)->where('active', '1')->get();
+        $alatmelayani = AlatUkur::where('iku_id', $melayani->id)->where('active', '1')->get();
 
 
         $persen = \App\Persentase::where('tahun', date('Y'))
@@ -1294,6 +1294,7 @@ class SelfAssesmentController extends Controller
 
 // dd($nilaimelayani);
 
+        if (!empty($r->alatukur_peduli)) {
         $self = SelfAssesment::where('user_id', Auth::user()->id)
             ->where('tahun', date('Y'))
             ->where('iku_id', $iku_idpeduli[$a])
@@ -1306,7 +1307,7 @@ class SelfAssesmentController extends Controller
         $self->namaprogram = $r->peduli_program;
         $self->deskripsi = $r->deskripsi_program;
         $self->save();
-
+		}
 
         $reportassess = ReportAssessment::where('tahun', date('Y'))
             ->where('triwulan', $triwulan['current']['triwulan'])
