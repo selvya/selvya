@@ -70,6 +70,8 @@
             margin:2px;
         }
     </style>
+       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+   <script type="text/javascript" src="{{asset('js/jq.js')}}"></script>
 </head>
 <body>
     <div id="container">
@@ -562,9 +564,143 @@
                     @empty
                         --
                 @endforelse
+
+                <tr>
+                    <td colspan=2 align="center">
+                        <div id="chart_div1"></div>
+                        <div id="chart_div_hidden" style="display:none;"></div>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td colspan=2 align="center">
+                        <div id="chart_div2" style="height:220px"></div>
+                    </td>
+                </tr>
             </table>
         </div>
         <p class="footer">Otoritas Jasa Keuangan</p>
     </div>
+
+
+        <script type="text/javascript">
+        google.load('visualization', '1', {packages:['corechart']});
+        google.setOnLoadCallback(initialize);
+        function initialize()   
+        {
+            drawVisualization();
+            function drawVisualization() {
+                drawBreakdown();
+                drawOverall();
+            } 
+        }
+
+        @php
+            $colors = [
+                '#1abc9c',
+                '#3498db',
+                '#9b59b6',
+                '#f1c40f',
+                '#e74c3c',
+                '#c0392b',
+                '#2c3e50'
+            ];
+            $d = '';
+            foreach($reportAssesment as $k => $v){
+                $d .= '[';
+                $d .= '"' . $v->daftar_indikator->name . '",';
+                $d .= $v->nilai . ',';
+                $d .= '"' . $colors[$k] . '",';
+                $d .= '"' . $v->nilai . '"';
+                $d .= '],';
+            }
+
+            $d = trim($d, ',');
+        @endphp
+        function drawBreakdown() {
+            var dataBreakdown = new google.visualization.DataTable();
+            dataBreakdown.addColumn('string', 'Program');
+            dataBreakdown.addColumn('number', 'Score');
+            dataBreakdown.addColumn({type:'string', role:'style'});
+            dataBreakdown.addColumn({type:'string', role:'annotation'});
+            dataBreakdown.addRows([
+               {!!$d!!}
+            ]);
+            var optionsBreakdown = {
+                width:750,
+                chartArea: {
+                    left:300,
+                    top:50,
+                    width:400
+                },
+                title: 'Nilai per Program',
+                vAxis: {
+                    title: '',
+                    textStyle: {
+                        fontSize:10
+                    }
+                },
+                hAxis: {
+                    viewWindow: {
+                        min: 0,
+                        max: 6
+                    },
+                    ticks: [0, 1, 2, 3, 4, 5, 6]
+                },
+                legend: 'none'
+            };
+            var chartBreakdown_div = document.getElementById('chart_div1');
+            var chartBreakdown_div_hidden = document.getElementById('chart_div_hidden');
+            var chartBreakdown = new google.visualization.BarChart(chartBreakdown_div);
+            google.visualization.events.addListener(chartBreakdown, 'ready', function (){
+                //var imgUri = chartBreakdown.getImageURI();
+                // to trigger a download, change the mime type:
+                //var imgUriName = imgUri.replace(/^data:image\/png/, 'data:application/octet-stream');
+                chartBreakdown_div.innerHTML = '<img src="' + chartBreakdown.getImageURI() + '">';
+                chartBreakdown_div_hidden.innerHTML = '<img src="' + chartBreakdown.getImageURI() + '">';
+                $("#htmlContentHidden").val('<img src="' + chartBreakdown.getImageURI() + '" style="width:600px">');
+            });
+            chartBreakdown.draw(dataBreakdown, optionsBreakdown);
+        }
+        
+        function drawOverall() {        
+            var dataOverall = new google.visualization.DataTable();
+            dataOverall.addColumn('string', 'Program');
+            dataOverall.addColumn('number', 'Score');
+            dataOverall.addColumn({type:'string', role:'style'});
+            dataOverall.addColumn({type:'string', role:'annotation'});
+            dataOverall.addRows([["Nilai",{{$reportAssesment->sum('hasil')}},"green","{{$reportAssesment->sum('hasil')}}"]]);
+            var optionsOverall = {
+                width:200,
+                height:180,
+                chartArea: {
+                    top:40,
+                    height:'75%'
+                },
+                title: 'Total Nilai',
+                vAxis: {
+                    
+                    viewWindow: {
+                        min: 0,
+                        max: 100
+                    },
+                    ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+                },
+                hAxis: {
+                    title: '',
+                    textStyle: {
+                        fontSize:10
+                    }
+                },
+                legend: 'none'
+            };
+            //var chartOverall = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+            //chartOverall.draw(dataOverall, optionsOverall);
+            var chartOverall_div = document.getElementById('chart_div2');
+            var chartOverall = new google.visualization.ColumnChart(chartOverall_div);
+            google.visualization.events.addListener(chartOverall, 'ready', function (){
+                chartOverall_div.innerHTML = '<img src="' + chartOverall.getImageURI() + '">';
+            });
+            chartOverall.draw(dataOverall, optionsOverall);
+        }
+    </script>
 </body>
 </html>

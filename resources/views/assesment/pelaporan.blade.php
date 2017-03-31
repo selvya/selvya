@@ -161,7 +161,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
 
                                 <hr>
                                 <div class="col-md-4 col-md-offset-4">
-                                    <a href="" class="btn btn-block btn-default" target="_blank">Unduh Ringkasan Self Assesment <i class="fa fa-download"></i></a>
+                                    <a href="{{url('ringkasan-sa/' . Auth::user()->hashid)}}" class="btn btn-block btn-default" target="_blank">Cetak Ringkasan Self Assesment <i class="fa fa-print"></i></a>
                                 </div>
                                 <br>
                                 <br>
@@ -202,12 +202,12 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                 {{-- <div class="form-group"> --}}
                                     <br>
                                     <div class="form-group">
-                                        <label for="ttd" class="col-md-4 control-label">Tandatangan Pimpinan</label>
+                                        <label for="ttd" class="col-md-4 col-md-offset-2 control-label">Tandatangan Pimpinan</label>
                                         <div class="col-md-4">
                                             <input type="file" name="ttd" required  accept="application/pdf">
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-md-offset-1">
+                                    <div class="col-md-8 col-md-offset-2">
                                         <input type="submit" class="btn btn-block btn-primary" id="next2" value="Finalisasi Lembar Self Assessment">
                                     </div>
                                 {{-- </div> --}}
@@ -233,6 +233,13 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
         e.preventDefault();
         if (confirm('Apakah anda yakin? ini akan mengirimkan semua data triwulan ini dan tidak dapat diubah kembali')) {
             // alert('asdas');
+            t = $('input[name="ttd"]');
+            if (! t.val().length) {
+                alert('Masukkan File lampiran yang telah ditandatangani pimpinan');
+                t.focus();
+                return false;
+            }
+
             $('#clickable-wizard').submit();
         }
     });  <?php 

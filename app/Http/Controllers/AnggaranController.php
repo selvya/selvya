@@ -201,20 +201,6 @@ class AnggaranController extends Controller
                 ]
             );
 
-            if (AnggaranTriwulan::where('user_id', $satker)
-                ->where('anggaran_tahun_id',  $tahunAnggaran->id)
-                ->sum('realisasi') != $tahunAnggaran->total_anggaran) {
-
-                $ex = AnggaranTriwulan::where('user_id', $satker)
-                ->where('anggaran_tahun_id',  $tahunAnggaran->id)
-                ->update([
-                    'rencana' => 0
-                ]);
-
-                Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
-                return redirect()->back();
-            }
-
             if ($realisasi[$i] > 0) {
                 //REPORT
                 if (null != $r->final AND preg_replace("/[^0-9]/","", request('realisasi_' . $i)) > 0) {

@@ -1,14 +1,6 @@
 <?php
 
-Route::get('test.jsp', function () {
-    $nilaiPim = cekNilaiPimpinan(date('Y'), cekCurrentTriwulan()['current']->triwulan, getSatker());
-    // return gen('kmp.kmp', 'admin');
-    // return cek('$2y$10$fjwKt2rQlYy1ClO2VHuUYutPSqHbfG0K7LkV9P8e7gPzjuDRcsX.W');
-    // return str_slug('Here is where you can register web', '_');
-    // $c = cekBudaya(date('Y'),cekCurrentTriwulan()['current']['triwulan'],getSatker());
-    // dd($c);
-    return $nilaiPim;
-});
+Route::get('test', 'ReviewController@tes');
 
 
 Route::post('customlogin', ['as'=> 'customlogin', 'uses' => 'MyCustomController@authenticate']);
@@ -276,6 +268,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('edit/mapping/proses/{id}', 'MappingController@proseseditmapping');
     Route::get('hapus-maping/{id}', 'MappingController@hapus');
     Route::get('mapping-detail/{id}', 'MappingController@detailnya');
+    Route::get('mapping-satker/add/{id}', 'MappingController@addsatkernya');
+    Route::post('mapping-satker/add/{id}', 'MappingController@prosesaddsatkernya');
+    Route::post('mapping-satker/delete/{id}', 'MappingController@prosesdeletesatkernya');
 
     //MANUAL PENGGUNA
     Route::get('upload/satker','PanduanController@uploadsatkerview');
@@ -295,6 +290,9 @@ Route::group(['middleware' => ['auth']], function()
 
     //Lihat Hasil Laporan
     Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);
+    
+    //Ringkasan SelfAssesment
+    Route::get('ringkasan-sa/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@cetakRingkasan']);
 });
 
 
