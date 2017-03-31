@@ -272,7 +272,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             <?php $stakelayan = 0; ?>
                                             @if(count($lampiran) > 0)
                                             <?php 
-                                                $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
+                                                $stakeholder = \App\StakeHolder::where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
                                                 $stakelayan = count($stakeholder);
                                                 ?>@foreach($stakeholder as $holder)
                                                 <tr id="fieldz{{$holder->id}}">
@@ -282,7 +282,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                     <td><input type="email" readonly class="form-control" value="{{$holder->email}}" placeholder="Masukan email PIC"></td>
                                                     <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}" placeholder="Masukan nama instansi" ></td>
                                                     <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}' placeholder="Masukan nomer kontak PIC" ></td>
-                                                    <td><a onclick="kurang_OM($(this))"  data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
+                                                    <td><a onclick="kurang_OP($(this))" data-id="{{$holder->hashid}}"  data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
                                                  </tr>
 
                                                  @endforeach 
@@ -572,7 +572,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                     <div class="col-md-9">
                                         <table class="table">@if(count($lampiran) > 0)
                                             <?php 
-                                            $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
+                                            $stakeholder = \App\StakeHolder::where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 
                                             ?>
                                             @foreach($stakeholder as $holder)
@@ -583,7 +583,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                 <td><input type="email" readonly class="form-control" value="{{$holder->email}}"></td>
                                                 <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}"></td>
                                                 <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}'></td>
-                                                <td><a onclick="kurang_OI($(this))" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
+                                                <td><a onclick="kurang_OP($(this))" data-id="{{$holder->hashid}}" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
                                              </tr>
                                              @endforeach
                                              @endif
