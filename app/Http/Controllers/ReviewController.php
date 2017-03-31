@@ -93,12 +93,19 @@ class ReviewController extends Controller
 
 
         if (null != $r->c AND $r->c == 1) {
-
+            // return 'aksldhas';
+            // return view('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
             $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
+            // $pdf = PDF::loadHTML($this->getHtmlString(compact('usr', 'triwulan', 'reportAssesment', 't', 'tw')));
             return @$pdf->stream();
         }  
         return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
 
+    }
+
+    public function getHtmlString($data)
+    {
+        return view('cetak.hasil-self-assesment', $data);
     }
 
     public function hasilAssesment(Request $r)
