@@ -35,7 +35,7 @@
             // dd($all);
 
             // dd($all);
-            $monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
+            $monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->get();
             $satkernya = \App\User::where('level','satker')->count();
 
             $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
@@ -81,8 +81,7 @@
                             <option value="2015">2015</option>
                         </select>
                     </div>
-                    <br><br><br>
-                    <div class="pull-left">
+                    <div class="col-md-2">
                         <a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </form>

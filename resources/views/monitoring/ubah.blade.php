@@ -218,7 +218,7 @@
                             <a href="{{url('monitoring-anggaran')}}" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;Kembali</a>
                             {{csrf_field()}}
                             <button type="submit" id="done" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;Submit</button>
-                            <button type="submit" id="final" name="final" value="1" class="btn btn-primary"><i class="fa fa-check-o"></i>&nbsp;Final</button>
+                            {{-- <button type="submit" id="final" name="final" value="1" class="btn btn-primary"><i class="fa fa-check-o"></i>&nbsp;Final</button> --}}
                         </form>
                     </div>
                 </div>

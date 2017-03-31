@@ -272,7 +272,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             <?php $stakelayan = 0; ?>
                                             @if(count($lampiran) > 0)
                                             <?php 
-                                                $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->take(2)->get();
+                                                $stakeholder = \App\StakeHolder::where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
                                                 $stakelayan = count($stakeholder);
                                                 ?>@foreach($stakeholder as $holder)
                                                 <tr id="fieldz{{$holder->id}}">
@@ -282,8 +282,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                     <td><input type="email" readonly class="form-control" value="{{$holder->email}}" placeholder="Masukan email PIC"></td>
                                                     <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}" placeholder="Masukan nama instansi" ></td>
                                                     <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}' placeholder="Masukan nomer kontak PIC" ></td>
-                                                    <td><a onclick="kurang_OM({{$holder->id}})" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a>
-                                                     <!-- belum dibuat function --></td>
+                                                    <td><a onclick="kurang_OP($(this))" data-id="{{$holder->hashid}}"  data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
                                                  </tr>
 
                                                  @endforeach 
@@ -304,7 +303,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                         <td><input type="email" name="email_stake_melayani[]" class="form-control" placeholder="Masukan email PIC"></td>
                                                         <td><input type="text" name="instansi_stake_melayani[]" class="form-control" placeholder="Masukan nama instansi" required></td>
                                                         <td><input type="text" name="telp_stake_melayani[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
-                                                        <td></td>
+                                                        <td><a onclick="tambah_MC()"  data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                       </tr>
                                                       <?php }?><?php if($stakelayan !== 10){?>
 													   <tr id="field1">
@@ -419,7 +418,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                 <?php 
                                                     $stakeholder = \App\StakeHolder::where('user_id',Auth::user()->id)
                                                                     ->where('selfassesment_id',$lampiran->id)
-                                                                    ->take(2)
+                                                                    
                                                                     ->get();
                                                     $stakepedul = count($stakeholder);
                                                 ?>
@@ -431,8 +430,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                     <td><input type="email" readonly class="form-control" value="{{$holder->email}}" placeholder="Masukan email PIC"></td>
                                                     <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}" placeholder="Masukan nama instansi"></td>
                                                     <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}' placeholder="Masukan nomer kontak PIC" ></td>
-                                                    <td><a onclick="kurang_OP($(this))" data-id="{{$holder->hashid}}" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a>
-                                                     <!-- belum dibuat function --></td>
+                                                    <td><a onclick="kurang_OP($(this))" data-id="{{$holder->hashid}}" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
                                                  </tr>
 
                                                  @endforeach
@@ -446,15 +444,15 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                     <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Masukan email PIC"></td>
                                                     <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Masukan nama instansi"></td>
                                                     <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC"></td>
-                                                    <td></td>
+                                                    <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr><?php }if($stakepedul !== 10){?> 
 												<tr id="field3">
                                                     <td>
-                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Masukan nama PIC" required>
+                                                        <input type="text" name="nama_stake_peduli[]" class="form-control" placeholder="Masukan nama PIC" >
                                                     </td>
                                                     <td><input type="email" name="email_stake_peduli[]" class="form-control" placeholder="Masukan email PIC"></td>
-                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Masukan nama instansi" required></td>
-                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" required></td>
+                                                    <td><input type="text" name="instansi_stake_peduli[]" class="form-control" placeholder="Masukan nama instansi" ></td>
+                                                    <td><input type="text" name="telp_stake_peduli[]" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Masukan nomer kontak PIC" ></td>
                                                     <td><a onclick="tambah_OP()" data-toggle="tooltip" title="Tambah Stakeholder" class="btn btn-success"><i class="fa fa-plus"></i></a></td>
                                                 </tr><?php }?> 
                                             </table>
@@ -574,7 +572,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                     <div class="col-md-9">
                                         <table class="table">@if(count($lampiran) > 0)
                                             <?php 
-                                            $stakeholder = DB::table('stakeholder')->where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->take(2)->get();
+                                            $stakeholder = \App\StakeHolder::where('user_id',Auth::user()->id)->where('selfassesment_id',$lampiran->id)->get();
 
                                             ?>
                                             @foreach($stakeholder as $holder)
@@ -585,8 +583,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                                 <td><input type="email" readonly class="form-control" value="{{$holder->email}}"></td>
                                                 <td><input type="text" readonly class="form-control" value="{{$holder->instansi}}"></td>
                                                 <td><input type="text" readonly class="form-control" value='{{$holder->no_hp}}'></td>
-                                                <td><a onclick="kurang_OI($holder->id)" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a>
-                                                 <!-- belum dibuat function --></td>
+                                                <td><a onclick="kurang_OP($(this))" data-id="{{$holder->hashid}}" data-toggle="tooltip" title="Hapus Stakeholder" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
                                              </tr>
                                              @endforeach
                                              @endif
@@ -727,6 +724,50 @@ if (count($bbbb) > 0) {
     }
     ?>
 
+    function kurang_OI(obj) {
+        $.ajax({
+            url: '{{url('hapusStakeHolder')}}',
+            type: 'POST',
+            data: '_token={{csrf_token()}}&hash=' + obj.attr('data-id'),
+            dataType: 'JSON',
+            beforeSend: function() {
+                obj.html('<i class="fa fa-spinner fa-spin"><i/>');
+            },
+            success: function(resp) {
+                if (resp.status) {
+                    obj.parent().parent().remove();
+                }else{
+                    alert('error');
+                    obj.html('<i class="fa fa-minus"><i/>');
+                }
+            },
+            error: function(resp) {
+                obj.html('<i class="fa fa-minus"><i/>');
+            }
+        });
+    }
+    function kurang_OM(obj) {
+        $.ajax({
+            url: '{{url('hapusStakeHolder')}}',
+            type: 'POST',
+            data: '_token={{csrf_token()}}&hash=' + obj.attr('data-id'),
+            dataType: 'JSON',
+            beforeSend: function() {
+                obj.html('<i class="fa fa-spinner fa-spin"><i/>');
+            },
+            success: function(resp) {
+                if (resp.status) {
+                    obj.parent().parent().remove();
+                }else{
+                    alert('error');
+                    obj.html('<i class="fa fa-minus"><i/>');
+                }
+            },
+            error: function(resp) {
+                obj.html('<i class="fa fa-minus"><i/>');
+            }
+        });
+    }
     function kurang_OP(obj) {
         $.ajax({
             url: '{{url('hapusStakeHolder')}}',

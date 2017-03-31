@@ -98,7 +98,7 @@
 							<select name="deputi" class="form-control">
 								<option value="">Pilih Deputi Komisioner Terkait</option>
 								@forelse($komisioner as $k => $v)
-									<option value="{{$v->id}}" @if($user->kojk == $v->id) selected @endif>{{$v->komisioner_name}}</option>
+									<option value="{{$v->id}}" @if($user->deputi_kom == $v->id) selected @endif>{{$v->komisioner_name}}</option>
 								@empty
 								@endforelse
 							</select>
@@ -134,7 +134,7 @@
 							<select name="jenis_kantor" class="form-control">
 								<option value="Kantor Pusat" @if($user->jenis_kantor == 'Kantor Pusat') selected @endif>Kantor Pusat</option>
 								<option value="Kantor Regional" @if($user->jenis_kantor == 'Kantor Regional') selected @endif>Kantor Regional</option>
-								<option value="OJK Wide" @if($user->jenis_kantor !== 'Kantor Pusat' || $user->jenis_kantor !== 'Kantor Regional') selected @endif>OJK Wide</option>
+								<option value="OJK Wide" @if($user->jenis_kantor == 'OJK Wide') selected @endif>OJK Wide</option>
 							</select>
 						</div>
 					</div>

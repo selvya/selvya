@@ -121,14 +121,14 @@
                             $nilainya = \App\NilaiAkhir::where('tahun', $t)
                                         ->where('triwulan', $tw)
                                         ->groupBy('user_id')
-                                        ->count();
+                                        ->get();
                             $satkernya = \App\User::where('level','satker')->count();
                         @endphp
-                        {{$nilainya}} <br>
+                        {{count($nilainya)}} <br>
                         Sudah Submit Assessment
                     </div>
                     <div class="btn btn-warning">
-                        {{$satkernya-$nilainya}} <br>
+                        {{$satkernya-count($nilainya)}} <br>
                         Belum Submit Assessment
                     </div>
                 </div>

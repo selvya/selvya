@@ -27,7 +27,8 @@ $rv = [];
     if ($triwulan) {
         foreach ($triwulan as $k => $v) {
             $awal[($k+1)] = \Carbon\Carbon::parse($v->sejak);
-            $akhir[($k+1)] = \Carbon\Carbon::parse($v->hingga)->addWeeks(1);
+            $akhir[($k+1)] = \Carbon\Carbon::parse($v->hingga);
+            $kadaluarsa[($k+1)] = \Carbon\Carbon::parse($v->hingga)->addWeeks(1);
             $now[($k+1)] = \Carbon\Carbon::now();
 
             $rv['triwulan'][($k+1)] = [
@@ -36,7 +37,7 @@ $rv = [];
                 'akhir_triwulan' => $v->hingga
             ];
 
-            if ($now[($k+1)]->between($awal[($k+1)], $akhir[($k+1)])) {
+            if ($now[($k+1)]->between($awal[($k+1)], $kadaluarsa[($k+1)])) {
                 $rv['current'] = $v;
             }
         }
