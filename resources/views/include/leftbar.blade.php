@@ -194,19 +194,19 @@
                                 <a href="#" class="sidebar-nav-menu">
                                     <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
                                     <i class="gi gi-sort sidebar-nav-icon"></i>
-                                    <span class="sidebar-nav-mini-hide">Self Assassment</span>
+                                    <span class="sidebar-nav-mini-hide">Self Assessment</span>
                                 </a>
                                 <ul>
                                     <li>
                                         <a href="{{url('rekap-assessment')}}">
                                             <i class="gi gi-notes sidebar-nav-icon"></i> 
-                                            Rekap Self Assassment
+                                            Rekap Self Assessment
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{url('hasil-assessment')}}">
                                             <i class="gi gi-notes sidebar-nav-icon"></i> 
-                                            Hasil Self Assassment
+                                            Hasil Self Assessment
                                         </a>
                                     </li>
                                     <li>

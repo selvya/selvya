@@ -10,7 +10,7 @@ class MappingController extends Controller
 {
   public function report()
   {
-    $map = Mapping::paginate(10);
+    $map = Mapping::orderBy('urutan')->paginate(10);
     return view('mapping.map-report', compact('map'));
   }    
   public function tambah_mapping()
@@ -20,10 +20,11 @@ class MappingController extends Controller
   public function proses_tambah_mapping(Request $r){
     $map        = new Mapping;
     $map->nama  = $r->nama;
-    $map->group = $r->group;
+    $map->kantor = $r->kantor;
+    $map->urutan = $r->urutan;
     $map->save();
 
-    return redirect()->back()->with('success', 'Mapping berhasil ditambahkan');
+    return redirect('map-report')->with('success', 'Mapping berhasil ditambahkan');
   }
   public function editmapping($id)
   {
@@ -34,9 +35,16 @@ class MappingController extends Controller
   {
     $map = Mapping::findOrFail($id);
     $map->nama = $r->nama;
-    $map->group = $r->group;
+    $map->kantor = $r->kantor;
+    $map->urutan = $r->urutan;
     $map->save();
     return redirect()->back()->with('success', 'Mapping berhasil di ubah');
+  }
+  public function detailnya(Request $r,$id)
+  {
+    $map = Mapping::findOrFail($id);
+    $map = Mapping::findOrFail($id);
+    return view('mapping.list', compact('map'));
   }
   public function hapus($id)
   {

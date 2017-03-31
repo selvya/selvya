@@ -38,9 +38,9 @@
 		<tbody>	
 			@foreach($map as $data)
 			<tr class="even">
-				<td class="sorting_1">{{$data->id}}</td>
+				<td class="sorting_1"><center>{{$data->urutan}}</center></td>
 				<td class=" ">{{$data->nama}}</td>
-				<td class=" ">Kantor {{$data->group}}</td>
+				<td class=" ">Kantor {{$data->kantor}}</td>
 				<td align="center" class=" ">
 					<a href="{{url('edit/mapping/'.$data->id)}}" class="btn btn-warning" data-toggle="tooltip" title="Sunting Mapping" ><i class="fa fa-pencil"></i></a>
 					<a href="{{url('hapus-maping/'.$data->id)}}" class="btn btn-danger" data-toggle="tooltip" title="Hapus Mapping"><i class="fa fa-times"></i></a>

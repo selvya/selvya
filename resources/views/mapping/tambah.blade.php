@@ -38,16 +38,16 @@
 							<input type="text" name="nama" class="form-control" placeholder="Nama Mapping">
 						</div>
 					</div>
-					<!-- <div class="form-group">
+					<div class="form-group">
 						<label class="col-sm-2 control-label">Urutan</label>
 						<div class="col-sm-10">
-							<input type="text" name="urutan" class="form-control" placeholder="Urutan">
+							<input type="number" name="urutan" class="form-control" placeholder="Urutan">
 						</div>
-					</div> -->
+					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Group</label>
 						<div class="col-sm-10">
-							<select name="group" class="form-control">
+							<select name="kantor" class="form-control">
 								<option value="Pusat">Kantor Pusat</option>
 								<option value="Regional">Kantor Regional</option>
 							</select>

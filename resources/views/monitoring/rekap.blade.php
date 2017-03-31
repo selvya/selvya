@@ -31,29 +31,13 @@
             ->join('users','monitoring.user_id','=','users.id')
             ->join('selfassesment','monitoring.selfassesment_id','=','selfassesment.id')
             ->get();
-
-            // dd($all);
-
-            // dd($all);
+            
             $monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->get();
             $satkernya = \App\User::where('level','satker')->count();
+            // dd($satkernya);
 
             $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
             $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
-
-        // $final = \App\ReportAssessment::where('daftarindikator_id','2')
-        // ->where('tahun',date('Y'))
-        // ->where('triwulan',$triwulan['current']['triwulan'])
-        // ->where('final_status','1')
-        // ->join('users','report_assesment.user_id','=','users.id')
-        // ->get();
-
-        // $belumfinal = \App\ReportAssessment::where('daftarindikator_id','2')
-        // ->where('tahun',date('Y'))
-        // ->where('triwulan',$triwulan['current']['triwulan'])
-        // ->where('final_status','0')
-        // ->join('users','report_assesment.user_id','=','users.id')
-        // ->get();
             ?>
             <div class="panel-heading">
                 <form method="post" enctype="multipart/form-data" action="">
@@ -105,7 +89,7 @@
                 <tbody>
                     @foreach($all as $data)
                     <?php
-                    $monitoring = \App\Monitoring::where('tahun',date('Y'))->where('triwulan', $triwulan['current']['triwulan'])->where('user_id',$data->id)->first();
+                        $monitoring = \App\NilaiAkhirMonitor::where('tahun',$t)->where('triwulan', $tw)->where('user_id',$data->id)->first();
                     ?>
                     <tr>
                         <td class="text-center">{{$data->username}}</td>

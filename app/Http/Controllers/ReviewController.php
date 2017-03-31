@@ -80,6 +80,7 @@ class ReviewController extends Controller
                         ->orderBy('daftarindikator_id', 'ASC')
                         ->get();
 
+<<<<<<< HEAD
         if (null != $r->c AND $r->c == 1) {
             $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment'));
             
@@ -87,6 +88,9 @@ class ReviewController extends Controller
         }
 
         return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment'));
+=======
+        return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
+>>>>>>> dfc1807a7d6c3898cbecc9b86d1f7e18bb86bb5d
     }
 
     public function hasilAssesment(Request $r)

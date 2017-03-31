@@ -93,7 +93,7 @@
             <br>
 
             @if($persentase->count() > 0)
-                <h6><b>Nilai Rata-Rata per Program:</b></h6>
+                <h6><b>Nilai Rata-Rata Program per Triwulan:</b></h6>
 
                 {{-- Rata-rata --}}
                 @php
