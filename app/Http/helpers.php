@@ -27,7 +27,7 @@ $rv = [];
     if ($triwulan) {
         foreach ($triwulan as $k => $v) {
             $awal[($k+1)] = \Carbon\Carbon::parse($v->sejak);
-            $akhir[($k+1)] = \Carbon\Carbon::parse($v->hingga);
+            $akhir[($k+1)] = \Carbon\Carbon::parse($v->hingga)->addWeeks(1);
             $now[($k+1)] = \Carbon\Carbon::now();
 
             $rv['triwulan'][($k+1)] = [
