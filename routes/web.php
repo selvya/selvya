@@ -274,6 +274,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('edit/mapping/{id}', 'MappingController@editmapping');
     Route::post('edit/mapping/proses/{id}', 'MappingController@proseseditmapping');
     Route::get('hapus-maping/{id}', 'MappingController@hapus');
+    Route::get('mapping-detail/{id}', 'MappingController@detailnya');
 
     //MANUAL PENGGUNA
     Route::get('upload/satker','PanduanController@uploadsatkerview');
