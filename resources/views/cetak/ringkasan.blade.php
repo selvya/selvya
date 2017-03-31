@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Summary Monitoring Program Budaya</title>
-
+    
     <style type="text/css">
         @page {
             margin: 0cm 0cm; 
@@ -69,7 +69,12 @@
         .content p, .title p, .subtitle p, .label p{
             margin:2px;
         }
+
+        table tr td {
+            font-size: 10px;
+        }
     </style>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/chartis.css')}}">
 </head>
 <body>
     <div id="container">
@@ -88,455 +93,139 @@
         </div>
         <div id="body">
 
-            <table width="100%" border=0>
-                <tr>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Periode:
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                {{\Carbon\Carbon::parse($triwulan['current']->sejak)->format('F') . ' - ' . \Carbon\Carbon::parse($triwulan['current']->hingga)->format('F')}}
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Tahun:
-                            </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="content">
-                            <p>
-                                {{date('Y')}}
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Deputi Komisioner:
-                            </p>
-                        </div>
-                    </td>
-                    <td colspan=4>
-                        <div class="content">
-                            <p>
-                                {{ucwords($usr->nm_deputi_komisioner)}}
-                            </p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="label">
-                            <p>
-                                Departemen:
-                            </p>
-                        </div>
-                    </td>
-                    <td colspan=4>
-                        <div class="content">
-                            <p>
-                                {{ucwords($usr->nm_unit_kerja)}}
-                            </p>
-                        </div>
-                    </td>
-                </tr>
+        <table width="100%" border=0>
+            <tr>
+                <td>
+                    <div class="label">
+                        <p>
+                            Periode:
+                        </p>
+                    </div>
+                </td>
+                <td>
+                    <div class="content">
+                        <p>
+                            {{\Carbon\Carbon::parse($triwulan['current']->sejak)->format('F') . ' - ' . \Carbon\Carbon::parse($triwulan['current']->hingga)->format('F')}}
+                        </p>
+                    </div>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <div class="label">
+                        <p>
+                            Tahun:
+                        </p>
+                    </div>
+                </td>
+                <td>
+                    <div class="content">
+                        <p>
+                            {{date('Y')}}
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="label">
+                        <p>
+                            Deputi Komisioner:
+                        </p>
+                    </div>
+                </td>
+                <td colspan=4>
+                    <div class="content">
+                        <p>
+                            {{ucwords($usr->nm_deputi_komisioner)}}
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="label">
+                        <p>
+                            Departemen:
+                        </p>
+                    </div>
+                </td>
+                <td colspan=4>
+                    <div class="content">
+                        <p>
+                            {{ucwords($usr->nm_unit_kerja)}}
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <div id="chart">
+            
+        </div>
+        <br>
+        <br>
+        <br>
 
-
-                @forelse($reportAssesment as $k => $v)
-
-                    {{-- Serapan Anggaran --}}
-                    @if($v->daftarindikator_id == 2)
-                        <tr>
-                            <td colspan=5>
-                                <div class="title">
-                                    <p>
-                                        Indikator {{$k+1}} : <b><u>{{$v->daftar_indikator->name}} [{{$v->daftar_indikator->persentase->where('tahun', $v->tahun)->where('triwulan', $v->triwulan)->first()->nilai}}%]</u></b>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Nama Program:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        {{$v->daftar_indikator->name}}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Nilai <i>Self Assessment</i>:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-
-                                        @php
-                                            $auA = \App\AlatUkur::with('definisi')
-                                            ->where('name', 
-                                                    'serapan_anggaran#' . 
-                                                    $v->tahun . '#' .
-                                                    $v->triwulan
-                                            )->first();
-
-                                            $angg = \App\AnggaranTahun::with('anggaran_triwulan')
-                                                    ->where('tahun', $v->tahun)
-                                                    ->where('user_id', $v->user_id)
-                                                    ->first();
-                                        @endphp
-
-                                        {{$v->nilai . ' (' . ($v->hasil) . '% dari ' . $v->persentase . '%)'}}
-                                    
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Total Anggaran :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        Rp. {{number_format($angg->total_anggaran, 0, ',', '.')}},-
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Realisasi :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        Rp. {{number_format($angg->anggaran_triwulan->where('triwulan', $v->triwulan)->first()->realisasi, 0, ',', '.')}},-
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        {{-- <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Lampiran :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-
-                                @if($angg->anggaran_triwulan->where('triwulan', $v->triwulan)->first()->file != null)
-                            
-                                    <a href="{{url('attachment/lampiran_anggaran')}}/{{$angg->anggaran_triwulan->where('triwulan', $v->triwulan)->first()->file}}?dl=1" target="_blank" class="btn yellow">
-                                        Download Lampiran
-                                    </a>
-                            
-                                @else
-                                    <em>-TIDAK ADA LAMPIRAN-</em>
-                                @endif
-                            
-                            </td>
-                        </tr> --}}
-                    @endif
-                    
-                    {{-- Partisipasi Pimpinan --}}
-                    @if($v->daftarindikator_id == 4)
-
-                        <tr>
-                            <td colspan=5>
-                                <div class="title">
-                                    <p>
-                                        Indikator {{$k+1}} : <b><u>{{$v->daftar_indikator->name}} [{{$v->daftar_indikator->persentase->where('tahun', $v->tahun)->where('triwulan', $v->triwulan)->first()->nilai}}%]</u></b>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Nama Program:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        {{$v->daftar_indikator->name}}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Nilai <i>Self Assessment</i>:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-
-                                        @php
-                                            $auA = \App\AlatUkur::with('definisi')
-                                            ->where('name', 
-                                                    'partisipasi_pimpinan#' . 
-                                                    $v->tahun . '#' .
-                                                    $v->triwulan
-                                            )->first();
-                                        @endphp
-
-                                        {{$v->nilai . ' (' . ($v->hasil) . '% dari ' . $v->persentase . '%)'}}
-                                    
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Peran Pimpinan :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        {{($v->partisipasi != null) ? $v->partisipasi : '-'}}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Deskripsi :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        {{($v->Deskripsi != null) ? $v->deskripsi : '-'}}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endif
-
-                    {{-- Kecepatan Pelaporan --}}
-                    @if($v->daftarindikator_id == 1)
-                        <tr>
-                            <td colspan=5>
-                                <div class="title">
-                                    <p>
-                                        Indikator {{$k+1}} : <b><u>{{$v->daftar_indikator->name}} [{{$v->daftar_indikator->persentase->where('tahun', $v->tahun)->where('triwulan', $v->triwulan)->first()->nilai}}%]</u></b>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Nama Program:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        {{$v->daftar_indikator->name}}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Nilai <i>Self Assessment</i>:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-
-                                        @php
-                                            $auA = \App\AlatUkur::with('definisi')
-                                            ->where('name', 
-                                                    'kecepatan_pelaporan#' . 
-                                                    $v->tahun . '#' .
-                                                    $v->triwulan
-                                            )->first();
-
-                                            $batas = getBatasTanggalPelaporan($v->tahun, $v->triwulan);
-                                        @endphp
-
-                                        {{$v->nilai . ' (' . ($v->hasil) . '% dari ' . $v->persentase . '%)'}}
-                                    
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Tgl. Batas Melapor :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        <code>{{$batas->tanggal->format('d F Y h:i:s')}}</code>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Tgl. Melapor :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        <code>{{\Carbon\Carbon::parse($v->updated_at)->format('d F Y h:i:s')}}</code>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                        Selisih :
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        <code>{{\Carbon\Carbon::parse($v->updated_at)->diffInDays($batas->tanggal, true)}} hari</code>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endif
-
-                    {{-- Program Budaya --}}
-                    @if($v->daftarindikator_id == 3)
-                        <tr>
-                            <td colspan=4>
-                                <div class="title">
-                                    <p>
-                                        Indikator {{$k+1}} : <b><u>{{$v->daftar_indikator->name}} [{{$v->daftar_indikator->persentase->where('tahun', $v->tahun)->where('triwulan', $v->triwulan)->first()->nilai}}%]</u></b>
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="bottom">
-                                <div class="label">
-                                    <p>
-                                       Tujuan Program:
-                                    </p>
-                                </div>
-                            </td>
-                            <td colspan=4>
-                                <div class="content">
-                                    <p>
-                                        {{$v->daftar_indikator->name}}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        @foreach($v->s_assesment as $kuy => $vals)
-                            @php 
-                                $nama  = collect(explode('#', $vals->iku->namaprogram));
-                            @endphp
-
-                            <tr>
-                                <td colspan="2">Nama Program : &nbsp;&nbsp; <b>{{title_case(str_replace('_', ' ', $nama->last()))}}</b></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Deskripsi Program :</td>
-                                <td colspan="4" class="content">{{$vals->deskripsi}}</td>
-                            </tr>
-                            <tr>
-                                <td>File Lampiran</td>
-                                <td colspan="4" class="content">{{$vals->filelampiran}}</td>
-                            </tr>
-
-                                @foreach($vals->iku->alat_ukur as $alatnya => $data_alat )
-
-                                    @php
-                                        $nama_alat  = collect(explode('#', $data_alat->name));
-                                    @endphp
-
-                                    <tr>
-                                        <td>Alat Ukur :</td>
-                                        <td colspan="4"  class="content"><b>{{title_case(str_replace('_', ' ', $nama_alat->last()))}}</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Skala Nilai :</td>
-                                        <td colspan="4" class="content">{{$vals->skala_nilai}}</td>
-                                    </tr>
-                                @endforeach
-                        @endforeach
-                    @endif
-
-                    @empty
-                        --
-                @endforelse
+        <div style="100%">
+            <table width="100%">
+                @foreach($reportAssesment as $k => $v)
+                    <tr>
+                        {{-- <td style="font-size: 12px;">{{$k+1}}</td> --}}
+                        <td style="font-size: 12px;text-align: right;width: 49%">{{$v->daftar_indikator->name}}</td>
+                        <td style="font-size: 12px;text-align: center;width: 2%">:</td>
+                        <td style="font-size: 12px;text-align: left;width: 49%">{{number_format($v->hasil, 1, '.', ',')}}% dari {{$v->persentase}}%</td>
+                    </tr>
+                @endforeach
             </table>
+        </div>
+        <br>
+        <br>
+        <br>
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 30%"></td>
+                <td style="width: 30%"></td>
+                <td style="width: 30%">
+                    <div style="font-size:10px;">
+                        Laporan ini telah diketahui dan disetujui
+                        <br>Pada tanggal: __/__/{{date('Y')}}
+
+                        <div style="font-size:10px;margin-top: 65px;">
+                            ______________________
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </table>
         </div>
         <p class="footer">Otoritas Jasa Keuangan</p>
     </div>
+
+    <script type="text/javascript" src="{{asset('js/chartis.js')}}"></script>
+    <script type="text/javascript">
+        var data = {
+          // A labels array that can contain any sort of values
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+          // Our series array that contains series objects or in this case series data arrays
+          series: [
+            [5, 2, 4, 2, 0]
+          ]
+        };
+
+        // As options we currently only set a static size of 300x200 px. We can also omit this and use aspect ratio containers
+        // as you saw in the previous example
+        var options = {
+          width: 300,
+          height: 200
+        };
+
+        // Create a new line chart object where as first parameter we pass in a selector
+        // that is resolving to our chart container element. The Second parameter
+        // is the actual data object. As a third parameter we pass in our custom options.
+        new Chartist.Line('#chart', data, options);
+    </script>
 </body>
 </html>

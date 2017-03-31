@@ -476,7 +476,7 @@
                     {{-- Program Budaya --}}
                     @if($v->daftarindikator_id == 3)
                         <tr>
-                            <td colspan=4>
+                            <td colspan=5>
                                 <div class="title">
                                     <p>
                                         Indikator {{$k+1}} : <b><u>{{$v->daftar_indikator->name}} [{{$v->daftar_indikator->persentase->where('tahun', $v->tahun)->where('triwulan', $v->triwulan)->first()->nilai}}%]</u></b>
@@ -507,7 +507,7 @@
                                         <td>
                                             Nama Program
                                         </td>
-                                        <td colspan="4">
+                                        <td colspan="4" class="content">
                                             <b>{{title_case(str_replace('_', ' ', $nama_iku[$b]->last()))}}</b>
                                         </td>
                                     </tr>

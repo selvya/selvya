@@ -11,6 +11,9 @@ use App\ReportAssessment;
 use App\Persentase;
 use App\NilaiAkhir;
 use PDF;
+use Response;
+use File;
+use Storage;
 
 class ReviewController extends Controller
 {
@@ -50,8 +53,16 @@ class ReviewController extends Controller
                 ->where('tahun', $t)
                 ->where('triwulan', $tw)
                 ->where('daftarindikator_id', 1)
-                ->delete();
+                ->first();
 
+        // File::delete(File::glob('foor/bar.*'));
+        // if (Storage::disk('lampiran_ttd')->has($kp->filelampiran)) {
+        //     // dd($isialat[$b]);
+        Storage::disk('lampiran_ttd')->delete('Lampiran_Tandatangan' . $t .'_' . $tw . '_' . $usr->hashid . '_*');
+        // }
+
+        // $kp->delete();
+        
         Session::flash('alert-class', 'alert-success');
         Session::flash('message', 'Berhasil');
         return redirect()->back();
@@ -82,8 +93,8 @@ class ReviewController extends Controller
 
 
         if (null != $r->c AND $r->c == 1) {
+
             $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
-            
             return @$pdf->stream();
         }  
         return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
@@ -130,7 +141,8 @@ class ReviewController extends Controller
                         ->orderBy('daftarindikator_id', 'ASC')
                         ->get();
 
-        $pdf = PDF::loadView('cetak.hasil-self-assesment', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
+        // return view('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
+        $pdf = PDF::loadView('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
         
         return @$pdf->stream();
     }
