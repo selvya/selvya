@@ -79,7 +79,7 @@ class ReviewController extends Controller
                         ->orderBy('daftarindikator_id', 'ASC')
                         ->get();
 
-        return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment'));
+        return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
     }
 
     public function hasilAssesment(Request $r)
