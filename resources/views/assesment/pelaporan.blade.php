@@ -77,7 +77,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                 <!-- END Wizard with Validation Title -->
 
                 <!-- Wizard with Validation Content -->
-                <form id="clickable-wizard" action="" method="post" class="form-horizontal form-bordered">
+                <form class="form-horizontal" id="clickable-wizard" action="" enctype="multipart/form-data" method="post" class="form-horizontal form-bordered">
 
                     @include('include.alert')
 
@@ -158,6 +158,15 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                 <h4 class="text-center">Tanggal pelaporan Seharusnya: {{readify(cekCurrentTriwulan()['current']->tanggal)}}</h4>
                                 <br>
                                 <h4 class="text-center">Nilai Kecepatan Pelaporan: {{cekSimpanPelaporan($rep)}} ({{ ( ((int) cekSimpanPelaporan($rep)) / 6) * cekPersenLaporan(date('Y'), 1, cekCurrentTriwulan()['current']->triwulan)->nilai}}%)</h4>
+
+                                <hr>
+                                <div class="col-md-4 col-md-offset-4">
+                                    <a href="" class="btn btn-block btn-default" target="_blank">Unduh Ringkasan Self Assesment <i class="fa fa-download"></i></a>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+
                             </div>
                         </div>
                     </div>
@@ -165,7 +174,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
 
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
-                        <div class="col-md-8 col-md-offset-6">
+                        <div class="col-md-12">
                             {{csrf_field()}}
                             {{-- <input type="reset" class="btn btn-lg btn-warning" id="back2" value="Back"> --}}
                             @php
@@ -180,8 +189,28 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                 !cekFinalPimpinan($thn, $tw, $usr) OR
                                 !cekFinalAnggaran($thn, $tw, $usr)
                             )
-                            {{-- @if($rep == null) --}}
-                                <input type="submit" class="btn btn-lg btn-primary" id="next2" value="Finalisasi Lembar Self Assessment">
+
+                                @php
+                                    $lappp = \App\ReportAssessment::where('user_id', getSatker())
+                                                ->where('tahun', date('Y'))
+                                                ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                                ->where('daftarindikator_id', 1)
+                                                ->first();
+                                @endphp
+
+                                
+                                {{-- <div class="form-group"> --}}
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="ttd" class="col-md-4 control-label">Tandatangan Pimpinan</label>
+                                        <div class="col-md-4">
+                                            <input type="file" name="ttd" required  accept="application/pdf">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-md-offset-1">
+                                        <input type="submit" class="btn btn-block btn-primary" id="next2" value="Finalisasi Lembar Self Assessment">
+                                    </div>
+                                {{-- </div> --}}
                             @endif
                         </div>
                     </div>

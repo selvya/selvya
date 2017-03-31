@@ -226,15 +226,33 @@
                         @endif
 
                         <div class="form-group">
+                            @php
+                                $desss = \App\ReportAssessment::where('tahun', date('Y'))
+                                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                                        ->where('user_id', getSatker())
+                                        ->where('daftarindikator_id', 4)
+                                        ->first();
+                                if (count($desss) > 0) {
+                                    // dd($desss);
+                                    $perrr = $desss->partisipasi;
+                                    $desss = $desss->deskripsi;
+                                    
+
+                                }else{
+                                    $perrr = '';
+                                    $desss = '';
+                                }
+                            @endphp
                             <label class="control-label col-lg-3">Peran Pimpinan</label>
                             <div class="col-md-6">
-                                <textarea name="partisipasi" class="form-control" placeholder="{{$iku->keterangan}}" @if($pim AND $ppp->final_status == 1) disabled @endif >@if($pim){{$ppp->partisipasi}}@endif</textarea>
+                                <textarea name="partisipasi" class="form-control" placeholder="{{$iku->keterangan}}" @if($pim AND $ppp->final_status == 1) disabled @endif >{{$perrr}}</textarea>
                             </div>
                         </div>
                          <div class="form-group">
                             <label class="control-label col-lg-3">Deskripsi</label>
                             <div class="col-md-6">
-                                <textarea name="deskripsi" class="form-control" @if($pim AND $ppp->final_status == 1) disabled @endif >@if($pim){{$ppp->deskripsi}}@endif</textarea>
+                                
+                                <textarea name="deskripsi" class="form-control" @if($pim AND $ppp->final_status == 1) disabled @endif >{{$desss}}</textarea>
                             </div>
                         </div>
 
