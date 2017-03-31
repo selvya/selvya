@@ -43,25 +43,23 @@ class MappingController extends Controller
     return redirect()->back()->with('success', 'Mapping berhasil di ubah');
   }
   public function prosesaddsatkernya(Request $r,$id)
-  {
-    $map = Mapping::findOrFail($id);
-    $map->nama = $r->nama;
-    $map->kantor = $r->kantor;
-    $map->urutan = $r->urutan;
+  {$map        = new MappingSatker;
+    $map->user_id  = $r->satker;
+    $map->mapping_id = $id;
     $map->save();
-    return redirect()->back()->with('success', 'Mapping berhasil di ubah');
+
+    return redirect()->back()->with('success', 'Berhasil  menambah satker');
   }
   public function detailnya(Request $r,$id)
   {
     $map = Mapping::findOrFail($id);
-    $map_sat = MappingSatker::join('users','mapping_satker.user_id','users.id')->where('mapping_id',$id)->orderBy('updated_at')->paginate(10);;
+    $map_sat = MappingSatker::join('users','mapping_satker.user_id','users.id')->where('mapping_id',$id)->orderBy('mapping_satker.updated_at')->paginate(10);;
     return view('mapping.detail', compact('map','map_sat'));
   }
   public function addsatkernya(Request $r,$id)
   {
-    $user = DB::table('users')
-            ->leftJoin('mapping_satker', 'users.id', '=', 'mapping_satker.user_id')
-			->where('nm_unit_kerja','!=','')
+			$user = DB::table('users')
+			->where('nm_unit_kerja','!=','""')
             ->get();
     $map = Mapping::findOrFail($id);
     return view('mapping.susunsatker', compact('user','map'));

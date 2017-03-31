@@ -36,7 +36,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Satuan Kerja</label>
 						<div class="col-sm-10">
-							<select name="kantor" class="form-control">
+							<select name="satker" class="form-control">
 							@foreach($user as $satker)
 								@if($satker->nm_deputi_komisioner !== '' || $satker->nm_deputi_direktur !== '' ||  $satker->nm_deputi_direktur == $satker->nm_unit_kerja)
 								<option value="{{$satker->id}}">{{$satker->username}} :: {{$satker->nm_unit_kerja}} // {{$satker->nm_deputi_direktur}}</option>
