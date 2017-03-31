@@ -161,7 +161,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
 
                                 <hr>
                                 <div class="col-md-4 col-md-offset-4">
-                                    <a href="{{url('ringkasan-sa/' . Auth::user()->hashid)}}" class="btn btn-block btn-default" target="_blank">Cetak Ringkasan Self Assesment <i class="fa fa-print"></i></a>
+                                    <a href="{{url('ringkasan-sa/' . Auth::user()->hashid . '?t=' . Hashids::connection('tahun')->encode(date('Y')) . '&tw=' . Hashids::connection('triwulan')->encode(cekCurrentTriwulan()['current']->triwulan))}}" class="btn btn-block btn-default" target="_blank">Cetak Ringkasan Self Assesment <i class="fa fa-print"></i></a>
                                 </div>
                                 <br>
                                 <br>
