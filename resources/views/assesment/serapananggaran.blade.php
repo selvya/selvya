@@ -234,7 +234,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                                                             // $now[$k] = $no;
                                                                                         @endphp
 
-                                                                                        @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
+                                                                                        @if($v->rencana == 0 OR cekCurrentTriwulan()['current']->triwulan !== $k+1 OR $v->is_final == 1)
                                                                                             readonly 
                                                                                         @endif
                                                                                     >
@@ -257,7 +257,7 @@ $reportall = \App\ReportAssessment::where('triwulan',$triwulan['current']['triwu
                                                                                             class="form-control" 
                                                                                             type="file"
                                                                                             name="lampiran_{{$k+1}}"
-                                                                                            @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
+                                                                                            @if($v->rencana == 0 OR cekCurrentTriwulan()['current']->triwulan !== $k+1 OR $v->is_final == 1)
                                                                                                 disabled
                                                                                                 readonly
                                                                                             @endif

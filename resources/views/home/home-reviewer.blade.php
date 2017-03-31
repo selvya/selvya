@@ -37,17 +37,17 @@
 			</div>
 			<!-- Mini Top Stats Row -->
 			<?php 
-			$nilainya = \App\NilaiAkhir::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
-			$monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->count();
-			$inovatif = \App\Iku::where('tahun',date('Y'))->where('programbudaya_id',3)->where('satker','!=',0)->where('inovatif_triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('satker')->count();
+			$nilainya = \App\NilaiAkhir::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->get();
+			$monitornya = \App\NilaiAkhirMonitor::where('tahun',date('Y'))->where('triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('user_id')->get();
+			$inovatif = \App\Iku::where('tahun',date('Y'))->where('programbudaya_id',3)->where('satker','!=',0)->where('inovatif_triwulan',cekCurrentTriwulan()['current']->triwulan)->groupBy('satker')->get();
 			$satkernya = \App\User::where('level','satker')->count();
-			$ygudah = $nilainya;
-			$ygudahmonitor = $monitornya;
+			$ygudah = count($nilainya);
+			$ygudahmonitor = count($monitornya);
 			$persenudah = $ygudah/$satkernya*100;
 			$persenudahmonitor = $ygudahmonitor/$satkernya*100;
 			$ygblmmonitor = $satkernya-$ygudahmonitor;
 			$persenblmmonitor = $ygblmmonitor/$satkernya*100;
-			$ygudahinov = $inovatif;
+			$ygudahinov = count($inovatif);
 			$persenudahinov = $ygudahinov/$satkernya*100;
 			$ygblm = $satkernya-$ygudah;
 			$persenblm = $ygblm/$satkernya*100;
