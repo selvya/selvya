@@ -12,6 +12,7 @@ use App\NilaiAkhirMonitor;
 use App\User;
 use App\SelfAssesment;
 use Storage;
+use App\ReportAssessment;
 
 class MonitoringController extends Controller
 {
@@ -134,28 +135,94 @@ class MonitoringController extends Controller
                     [
                         'iku_id' => $r->iku_mel,
                         'skala_nilai' => $r->nilai_melayani[$a],
-                        'deskripsi' => $r->des_melayani,
-                        'filelampiran' => $r->file_melayani
+                        'deskripsi' => $r->des_melayani
                 ]);
-            }
-       }
-       //TUTUP MELAYANI
 
-       ///////PEDULI
-       if(!empty($r->alat_ped) || !empty($r->nilai_peduli)) {
-            foreach ($r->alat_ped as $b => $alat_ped) {
-                $self[$b] = SelfAssesment::updateOrCreate([
-                    'user_id' => Auth::user()->id,
-                    'tahun' => $t,
-                    'triwulan' => $tw,
-                    'alatukur_id' => $r->alat_ped[$b]
-                ],
-                    [
-                        'iku_id' => $r->iku_ped,
-                        'skala_nilai' => $r->nilai_peduli[$b],
-                        'deskripsi' => $r->des_peduli,
-                        'filelampiran' => $r->file_peduli
-                ]);
+                  //FILE MELAYANI
+                        if ($r->hasFile('file_melayani') AND file_exists($r->file_melayani)) {
+                            $allowedTipe = [
+                                'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+                            ];
+
+                            $validFile = in_array(pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+                            if (!$validFile) {
+                                Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                                return redirect()->back();
+                            }
+
+                            $fileName = 'Lampiran_Melayani_Reviewer' . date('Y') . '_' . $triwulan['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
+                            $fileName .= str_random(4) . '.';
+                            $fileName .= pathinfo($r->file_melayani->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                            // dd($fileName);
+
+                            if (!$r->file_melayani->move(storage_path() . '/uploads/lampiran_monitoring/', $fileName)) {
+                                return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload File Lampiran Melayani']);
+                            }
+
+                                
+                            if (Storage::disk('lampiran_monitoring')->has($self[$a]->filelampiran)) {
+                                Storage::disk('lampiran_monitoring')->delete($self[$a]->filelampiran);
+                            }
+                            
+                            $self[$a]->filelampiran = $fileName;
+                            $self[$a]->save();
+                    }
+                    //TUTUP FILE MELAYANI
+
+                }
+           }
+           //TUTUP MELAYANI
+
+           ///////PEDULI
+           if(!empty($r->alat_ped) || !empty($r->nilai_peduli)) {
+                foreach ($r->alat_ped as $b => $alat_ped) {
+                    $self[$b] = SelfAssesment::updateOrCreate([
+                        'user_id' => Auth::user()->id,
+                        'tahun' => $t,
+                        'triwulan' => $tw,
+                        'alatukur_id' => $r->alat_ped[$b]
+                    ],
+                        [
+                            'iku_id' => $r->iku_ped,
+                            'skala_nilai' => $r->nilai_peduli[$b],
+                            'deskripsi' => $r->des_peduli
+                    ]);
+
+                    //FILE PEDULI
+                    if ($r->hasFile('file_peduli') AND file_exists($r->file_peduli)) {
+                        $allowedTipe = [
+                            'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
+                        ];
+
+                        $validFile = in_array(pathinfo($r->file_peduli->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+
+                        if (!$validFile) {
+                            Session::flash('msg', '<div class="alert alert-danger">File Lampiran harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+                            return redirect()->back();
+                        }
+
+                        $fileName = 'Lampiran_Peduli_Reviewer' . date('Y') . '_' . $triwulan['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
+                        $fileName .= str_random(4) . '.';
+                        $fileName .= pathinfo($r->file_peduli->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                        // dd($fileName);
+
+                        if (!$r->file_peduli->move(storage_path() . '/uploads/lampiran_monitoring/', $fileName)) {
+                            return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload File Lampiran Peduli']);
+                        }
+
+                            
+                        if (Storage::disk('lampiran_monitoring')->has($self[$b]->filelampiran)) {
+                            Storage::disk('lampiran_monitoring')->delete($self[$b]->filelampiran);
+                        }
+                        
+                        $self[$b]->filelampiran = $fileName;
+                        $self[$b]->save();
+                }
+                //TUTUP FILE PEDULI
+
             }
        }
        //TUTUP PEDULI
@@ -172,8 +239,7 @@ class MonitoringController extends Controller
                     [
                         'iku_id' => $r->iku_ino,
                         'skala_nilai' => $r->nilai_inovatif[$c],
-                        'deskripsi' => $r->des_inovatif,
-                        'filelampiran' => $r->file_inovatif
+                        'deskripsi' => $r->des_inovatif
                 ]);
 
                 
@@ -212,7 +278,19 @@ class MonitoringController extends Controller
 
             }
        }
-       //TUTUP INOVATIF
 
+       $self    = ReportAssessment::updateOrCreate([
+                    'user_id'               => Auth::user()->id,
+                    'tahun'                 => $t,
+                    'triwulan'              => $tw,
+                    'daftarindikator_id'    => 4
+                ],
+                    [
+                        'nilai'                 => $r->nilai_pimpinan,
+                        'deskripsi'             => $r->des_pimpinan
+                ]);
+
+       //TUTUP INOVATIF
+       return redirect('detail-monitoring/'.$id.'?t='.Hashids::connection('tahun')->encode($t).'&p='.Hashids::connection('triwulan')->encode($tw))->with('success','Berhasil ditambahkan');
    }
 }

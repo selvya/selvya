@@ -52,17 +52,25 @@
                     </div>
                 </div>
                 <!-- END Step Info -->
+                @php
+                    $data_isi_mel = \App\SelfAssesment::where('user_id', Auth::user()->id)->where('tahun', $t)->where('triwulan', $tw)->where('iku_id',$melayani->id)->first();
+                    $data_isi_ped = \App\SelfAssesment::where('user_id', Auth::user()->id)->where('tahun', $t)->where('triwulan', $tw)->where('iku_id',$peduli->id)->first();
+                    $data_isi_ino = \App\SelfAssesment::where('user_id', Auth::user()->id)->where('tahun', $t)->where('triwulan', $tw)->where('iku_id',$inovatif->id)->first();
+                    $data_isi_pim = \App\ReportAssessment::where('user_id', Auth::user()->id)->where('tahun', $t)->where('triwulan', $tw)->where('daftarindikator_id','4')->first();
+                @endphp
+
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Penjelasan</label>
                     <div class="col-md-10">
-                        <textarea name="des_melayani" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya."></textarea>
-                        <input type="text" name="iku_mel" value="{{$melayani->id}}">
+                        <textarea name="des_melayani" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_mel)) {{$data_isi_mel->deskripsi}} @endif</textarea>
+                        <input type="hidden" name="iku_mel" value="{{$melayani->id}}">
                     </div>
                 </div>
 
                 @foreach($alatukur_melayani as $a => $data_alat_melayani)
                     @php 
                         $nama[$a] = collect(explode('#', $data_alat_melayani->name));
+                        $nilaiygdiinput[$a] = DB::table('selfassesment')->where('alatukur_id',$data_alat_melayani->id)->where('user_id',Auth::user()->id)->where('iku_id',$melayani->id)->where('triwulan', $tw)->where('tahun',$t)->value('skala_nilai');
                     @endphp
                     <div class="form-group">
                         <label class="col-md-2 control-label">Alat Ukur</label>
@@ -73,8 +81,8 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                         <div class="col-md-10">
-                            <input type="number" name="nilai_melayani[]" class="form-control numberbox" step="0.01" min="0" max="6">
-                            <input type="text" name="alat_mel[]" value="{{$data_alat_melayani->id}}">
+                            <input type="number" name="nilai_melayani[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$a]}}">
+                            <input type="hidden" name="alat_mel[]" value="{{$data_alat_melayani->id}}">
                             <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                         </div>
                     </div>
@@ -83,6 +91,9 @@
                     <label class="col-md-2 control-label" for="example-clickable-username">Lampiran</label>
                     <div class="col-md-10">
                         <input type="file" class="form-control" name="file_melayani">
+                        @if(!empty($data_isi_mel))
+                            <a href="{{asset('attachment/lampiran_monitoring/'.$data_isi_mel->filelampiran)}}" class="btn btn-warning">{{$data_isi_mel->filelampiran}}</a><br>
+                        @endif
                         <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
                     </div>
                 </div>  
@@ -106,7 +117,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Penjelasan</label>
                     <div class="col-md-10">
-                        <textarea name="des_peduli" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya."></textarea>
+                        <textarea name="des_peduli" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_ped)) {{$data_isi_ped->deskripsi}} @endif</textarea>
                         <input type="hidden" name="iku_ped" value="{{$peduli->id}}">
                     </div>
                 </div>
@@ -114,6 +125,7 @@
                @foreach($alatukur_peduli as $b => $data_alat_peduli)
                     @php 
                         $nama[$b] = collect(explode('#', $data_alat_peduli->name));
+                        $nilaiygdiinput[$b] = DB::table('selfassesment')->where('alatukur_id',$data_alat_peduli->id)->where('user_id',Auth::user()->id)->where('iku_id',$peduli->id)->where('triwulan', $tw)->where('tahun',$t)->value('skala_nilai');
                     @endphp
                     <div class="form-group">
                         <label class="col-md-2 control-label">Alat Ukur</label>
@@ -124,7 +136,11 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                         <div class="col-md-10">
-                            <input type="number" name="nilai_peduli[]" class="form-control numberbox" step="0.01" min="0" max="6">
+                            @if(!empty($nilaiygdiinput[$b]))
+                                <input type="number" name="nilai_peduli[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$b]}}">
+                            @else
+                                <input type="number" name="nilai_peduli[]" class="form-control numberbox" step="0.01" min="0" max="6">
+                            @endif
                             <input type="hidden" name="alat_ped[]" value="{{$data_alat_peduli->id}}">
                             <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                         </div>
@@ -135,6 +151,9 @@
                     <label class="col-md-2 control-label" for="example-clickable-username">Lampiran</label>
                     <div class="col-md-10">
                         <input type="file" class="form-control" name="file_peduli">
+                        @if(!empty($data_isi_ped))  
+                            <a href="{{url('attachment/lampiran_monitoring/'.$data_isi_ped->filelampiran)}}" class="btn btn-warning">{{$data_isi_ped->filelampiran}}</a> <br>
+                        @endif
                         <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
                     </div>
                 </div>
@@ -172,6 +191,7 @@
                 @foreach($alatukur_inovatif as $c => $data_alat_inovatif)
                     @php 
                         $nama[$c] = collect(explode('#', $data_alat_inovatif->name));
+                        $nilaiygdiinput[$c] = DB::table('selfassesment')->where('alatukur_id',$data_alat_inovatif->id)->where('user_id',Auth::user()->id)->where('iku_id',$inovatif->id)->where('triwulan', $tw)->where('tahun',$t)->value('skala_nilai');
                     @endphp
                     <div class="form-group">
                         <label class="col-md-2 control-label">Alat Ukur</label>
@@ -182,7 +202,11 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                         <div class="col-md-10">
+                        @if(!empty($nilaiygdiinput[$c]))
+                            <input type="number" name="nilai_inovatif[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$c]}}">
+                        @else
                             <input type="number" name="nilai_inovatif[]" class="form-control numberbox" step="0.01" min="0" max="6">
+                        @endif                            
                             <input type="hidden" name="alat_ino[]" value="{{$data_alat_inovatif->id}}">
                             <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                         </div>
@@ -193,6 +217,9 @@
                     <label class="col-md-2 control-label" for="example-clickable-username">Lampiran</label>
                     <div class="col-md-10">
                         <input type="file" class="form-control" name="file_inovatif">
+                         @if(!empty($data_isi_ino))  
+                            <a href="{{url('attachment/lampiran_monitoring/'.$data_isi_ino->filelampiran)}}" class="btn btn-warning">{{$data_isi_ino->filelampiran}}</a> <br>
+                        @endif
                         <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
                     </div>
                 </div>
@@ -218,21 +245,18 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Penjelasan</label>
                     <div class="col-md-10">
-                        <textarea name="des_pimpinan" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya."></textarea>
+                        <textarea name="des_pimpinan" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_pim)) {{$data_isi_pim->deskripsi}} @endif</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                     <div class="col-md-10">
-                        <input type="number" name="nilai_pimpinan numberbox" class="form-control" step="0.01" min="0" max="6">
+                        @if(!empty($data_isi_pim->nilai))
+                            <input type="number" name="nilai_pimpinan" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$data_isi_pim->nilai}}">
+                        @else
+                            <input type="number" name="nilai_pimpinan" class="form-control numberbox" step="0.01" min="0" max="6">
+                        @endif
                         <small>Isi dengan index 0-6 (Cth: 4.50)</small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="example-clickable-username">Lampiran</label>
-                    <div class="col-md-10">
-                        <input type="file" class="form-control" name="file_pimpinan">
-                        <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
                     </div>
                 </div>
                 

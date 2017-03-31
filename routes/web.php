@@ -287,6 +287,7 @@ Route::group(['middleware' => ['auth']], function()
     //Download
     Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
     Route::get('attachment/lampiran_program_budaya/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranProgramBudaya']);
+    Route::get('attachment/lampiran_monitoring/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranReviewerMelayani']);
 
     //Lihat Hasil Laporan
     Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);
