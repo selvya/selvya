@@ -103,6 +103,7 @@ $(document).ready(function(){
                 @php
                     $str = '';
                     $nilaiAkhir = '';
+                    $nilaiAkhirMonitor = '';
 
                     foreach ($v->ms as $key => $value) {
 
@@ -112,16 +113,28 @@ $(document).ready(function(){
                             ->where('tahun', $t)
                             ->where('triwulan', $tw)
                             ->first();
-
+                        
                         if (count($na) > 0) {
                             $nilaiAkhir .= $na->nilai . ', ';
                         }else{
                             $nilaiAkhir .= '0, ';
                         }
+                        
+                        $nam = $value->sat->nilai_akhir_monitoring
+                            ->where('tahun', $t)
+                            ->where('triwulan', $tw)
+                            ->first();
+
+                        if (count($nam) > 0) {
+                            $nilaiAkhirMonitor .= $na->nilaiakhir . ', ';
+                        }else{
+                            $nilaiAkhirMonitor .= '0, ';
+                        }
                     }
 
                     $str = trim($str, ',');
                     $nilaiAkhir = trim($nilaiAkhir, ',');
+                    $nilaiAkhirMonitor = trim($nilaiAkhirMonitor, ',');
 
                 @endphp
 
@@ -135,11 +148,11 @@ $(document).ready(function(){
             },
             series: [
                 {
-                    name: 'Reviewer',
-                    data: [{!!$nilaiAkhir!!}]
+                    name: 'Hasil Monitoring',
+                    data: [{!!$nilaiAkhirMonitor!!}]
                 },
                 {
-                    name: 'Sel fAssesment',
+                    name: 'Self Assesment',
                     data: [{!!$nilaiAkhir!!}]
                 }
             ]
