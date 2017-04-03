@@ -102,10 +102,15 @@
                                     }
                                 @endphp
                                 {{-- <kbd class="pull-left">{{$n}}%</kbd>---------------<kbd class="pull-right">100%</kbd> --}}
-                                <div class="progress">
+                                <div class="progress"style="background-color:#ccc;">
+								@if(empty($nilaifinal) || $nilaifinal->nilai == 0)
                                     <div class="progress-bar @if($n < 100) progress-bar-danger @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$n}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$n}}%;min-width: 2em;">
-                                        {{$n}}%
-                                    </div>
+                                        {{$n}}% Pencapaian
+                                    </div>@else 
+										<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{$nilaifinal->nilai}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$nilaifinal->nilai}}%;min-width: 2em;">
+                                       Nilai Final : <b>{{$nilaifinal->nilai}}</b>
+										</div>
+										@endif
                                 </div>
                                 <span>
                                     @php
@@ -118,8 +123,14 @@
                                         setlocale(LC_TIME, 'id');
                                         $lu = \Carbon\Carbon::parse($t->updated_at);
                                     @endphp
-                                    Permbaruan terakhir: <br>
+									@if(empty($nilaifinal) || $nilaifinal->nilai == 0)
+                                    Pembaruan terakhir:
                                         <code>{{$lu->formatLocalized('%A %d %B %Y')}}  {{$lu->hour . ':' . $lu->minute}}</code>
+										@else
+                                    Finalisasi pada: 
+                                   @php     $luz = \Carbon\Carbon::parse($nilaifinal->updated_at); @endphp
+                                        <code style="color:green">{{$luz->formatLocalized('%A %d %B %Y')}}  {{$luz->hour . ':' . $luz->minute}}</code>
+									@endif
                                 </span>
                                 {{-- @if(count($reportall) == 4)
                                 <strong>Final pada :</strong> {{date('d-M-Y', strtotime($reportall->last()->created_at))}}
@@ -142,18 +153,15 @@
                                         </span>
                                     </div>
                                 </div>
-                                
- --}}
+								--}}
                             </div>
                         </td>
                         <td class="text-center">
-                            <br>
-                            <a href="{{url('edit-self-assessment/'.$report->hashid.'/programbudaya')}}" class="btn btn-warning">
+								@if(empty($nilaifinal) || $nilaifinal->nilai == 0)
+                            <a href="{{url('edit-self-assessment/'.$report->hashid.'/programbudaya')}}" class="btn btn-warning"> <i class="fa fa-edit"></i> 
                                 Ubah 
-                            </a>                            
-                            @if((count($reportall) == 4)  && ($report->last()->final_status == 1))
-                            <a href="{{url('detail/assessment')}}" class="btn btn-primary">Preview </a>
-                            <span class="btn btn-success"> Sudah di Final</span>
+                            </a>                            @else
+                            <a href="{{url('edit-self-assessment/'.$report->hashid.'/programbudaya')}}" class="btn btn-primary"> <i class="fa fa-search"></i> Preview </a>
                             @endif
                         </td>
                     </tr>

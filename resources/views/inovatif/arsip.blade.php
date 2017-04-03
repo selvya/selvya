@@ -28,29 +28,21 @@
 					<tr>
 						<th class="text-center">Nama Program</th>
 						<th class="text-center">Deskripsi Program</th>
-						<th class="text-center">Tujuan</th>
+						<th class="text-center">Sasaran</th>
 						<th class="text-center">Triwulan</th>
 						<th class="text-center">Tahun</th>
+						<th class="text-center">Pengaturan</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php 
-					// $triwulan = cekCurrentTriwulan();
-					$ikunya = \App\Iku::where('daftarindikator_id','3')
-					->where('tipe','parameterized')
-					->where('programbudaya_id','3')
-					->where('isfinal','y')
-					->where('satker',Auth::user()->id)
-					
-					->get();
-					?>
 					@forelse($ikunya as $data)
 					<tr>
-						<td>{{$data->namaprogram}}</td>
-						<td>{{$data->keterangan}}</td>
-						<td>{{$data->tujuan}}</td>
-						<td>{{$data->inovatif_triwulan}}</td>
-						<td>{{$data->tahun}}</td>
+						<td class="text-center">{{$data->namaprogram}}</td>
+						<td class="text-center">{{$data->keterangan}}</td>
+						<td class="text-center">{{$data->sasaran}}</td>
+						<td class="text-center">{{$data->inovatif_triwulan}}</td>
+						<td class="text-center">{{$data->tahun}}</td>
+						<td class="text-center"><a href="{{url('tambah/inovatif')}}" class="btn btn-primary"><i class="fa fa-eye"></i> View</a>	</td>
 					</tr>
 					@empty
 					@endforelse
