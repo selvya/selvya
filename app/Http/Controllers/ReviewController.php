@@ -55,6 +55,16 @@ class ReviewController extends Controller
                 ->where('daftarindikator_id', 1)
                 ->first();
 
+        //Aktifkan Pengeditan Anggaran
+        $anggaranTahun = \App\AnggaranTahun::with('anggaran_triwulan')
+                        ->where('tahun', $t)
+                        ->where('user_id', $usr->id)
+                        ->first();
+
+        $anggaranTahun->anggaran_triwulan->where('triwulan', $tw)
+                    ->first()
+                    ->update(['is_final' => 0]);
+
         // File::delete(File::glob('foor/bar.*'));
         // if (Storage::disk('lampiran_ttd')->has($kp->filelampiran)) {
         //     // dd($isialat[$b]);
