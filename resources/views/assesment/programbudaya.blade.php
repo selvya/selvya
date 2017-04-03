@@ -102,7 +102,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                         <li class="@if(!$belumFinal) red @else hijau @endif">
                                             <a href="{{url('edit-self-assessment/'.$reportall->last()->hashid.'/programbudaya')}}" data-gotostep="clickable-first">
                                                 <strong>Pelaksanaan Program Budaya <br> 
-                                                    <big>{{$reportall->last()->hasil}}%</big> <big>[{{$persen->nilai}}%]</big>
+                                                    <big>{{number_format($reportall->last()->hasil,2,'.',' ')}}%</big> <big>[{{$persen->nilai}}%]</big>
                                                 </strong>
                                             </a>
                                         </li>
@@ -131,7 +131,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
 
                                         <li class="@if($atasWizard == 0) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/serapan-anggaran')}}" data-gotostep="clickable-second"><strong>
-                                                Serapan Anggaran <br> <big>{{$atasWizard}}% [{{$anggaran->nilai}}%]</big></strong>
+                                                Serapan Anggaran <br> <big>{{number_format($atasWizard,2,'.',' ')}}% [{{$anggaran->nilai}}%]</big></strong>
                                             </a>
                                         </li>
                                         @endif
@@ -153,7 +153,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
 
                                         <li class="@if(!$pimF) redd @else hijauu @endif">
                                             <a href="{{url('edit-self-assessment/'.Request::segment(2).'/partisipasi-pimpinan')}}" data-gotostep="clickable-third">                                    
-                                                <strong>Partisipan Pimpinan <br> <big>{{$nilaiPim}}% [{{$pimpinan->nilai}}%]</big></strong>
+                                                <strong>Partisipan Pimpinan <br> <big>{{number_format($nilaiPim,2,'.',' ')}}% [{{$pimpinan->nilai}}%]</big></strong>
                                             </a>
                                         </li>
                                         @endif

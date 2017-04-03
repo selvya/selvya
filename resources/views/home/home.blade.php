@@ -72,7 +72,7 @@
 						<div class="col-sm-12 col-lg-6">
 							<a href="" class="widget widget-hover-effect1">
 								<div class="widget-simple">
-									<div class="pie-chart block-section" data-bar-color="{{$color}}" data-percent="{{$nilaiakhir->nilai}}" data-size="50"><span><b>{{$nilaiakhir->nilai}}</b></span></div>
+									<div class="pie-chart block-section" data-bar-color="{{$color}}" data-percent="{{$nilaiakhir->nilai}}" data-size="50"><span><b>{{number_format($nilaiakhir->nilai,2,'.',' ')}}</b></span></div>
 									<h3 class="widget-content text-right animation-pullDown">
 										<strong style="color:{{$color}}">Triwulan @php
 											switch ($nilaiakhir->triwulan) {
