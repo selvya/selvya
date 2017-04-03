@@ -23,9 +23,6 @@ Route::get('survey', function () {
 
 // Auth::routes();
 
-Route::get('grafik-budaya', function () {
-    return view('assesment.grafik-budaya');
-});
 
 // Route::get('/home', 'HomeController@index');
 
@@ -176,6 +173,9 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('wizard-monitoring/{hashid}','MonitoringController@wizardmonitoring');
     Route::post('proses-wizard/{hashid}','MonitoringController@proseswizard');
     Route::post('proses-tambah-monitoring/{hashid}', 'MonitoringController@prosestambahmonitoring');
+
+    //Grafik
+    Route::get('grafik-budaya', ['as' => 'grafik.satker', 'uses' => 'ReviewController@grafik']);
 });
 /*
 |--------------------------------------------------------------------------
@@ -269,7 +269,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('mapping-detail/{id}', 'MappingController@detailnya');
     Route::get('mapping-satker/add/{id}', 'MappingController@addsatkernya');
     Route::post('mapping-satker/add/{id}', 'MappingController@prosesaddsatkernya');
-    Route::post('mapping-satker/delete/{id}', 'MappingController@prosesdeletesatkernya');
+    Route::post('mapping-satker/delete', 'MappingController@prosesdeletesatkernya');
 
     //MANUAL PENGGUNA
     Route::get('upload/satker','PanduanController@uploadsatkerview');

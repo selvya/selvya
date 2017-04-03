@@ -14,6 +14,8 @@ use PDF;
 use Response;
 use File;
 use Storage;
+use App\Mapping;
+use App\MappingSatker;
 
 class ReviewController extends Controller
 {
@@ -162,5 +164,20 @@ class ReviewController extends Controller
         $pdf = PDF::loadView('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
         
         return @$pdf->stream();
+    }
+
+
+    //Grafik
+    public function grafik(Request $r)
+    {
+        $triwulan = cekCurrentTriwulan();
+        $t = (null != request('tahun')) ? request('tahun') : date('Y');
+        $tw = (null != request('triwulan')) ? request('triwulan') : $triwulan['current']->triwulan;
+        $kantor = (null != request('kantor')) ? request('kantor') : 'Pusat';
+
+        $map = Mapping::with('ms')->where('kantor', $kantor)->get();
+        $jenisKantor = Mapping::select('kantor')->distinct()->get();
+
+        return view('assesment.grafik-budaya', compact('map', 't', 'tw', 'kantor', 'jenisKantor'));
     }
 }
