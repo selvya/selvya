@@ -207,36 +207,6 @@ class SelfAssesmentController extends Controller
 
     public function pelaporanSimpan(Request $r)
     {
-
-        if (! $r->hasFile('ttd')) {
-            Session::flash('msg', '<div class="alert alert-danger">File tandatangan harus ada berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
-            return redirect()->back();
-        }
-
-        if ($r->hasFile('ttd')) {
-            $allowedTipe = [
-                'jpg', 'jpeg', 'zip', 'rar', 'pdf', 'png', 'doc', 'docx', 'xls', 'xlsx'
-            ];
-
-            $validFile = in_array(pathinfo($r->ttd->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
-
-            if (!$validFile) {
-                Session::flash('msg', '<div class="alert alert-danger">File Tandatangan harus berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
-                return redirect()->back();
-            }
-
-            $fileName = 'Lampiran_Tandatangan' . date('Y') . '_' . cekCurrentTriwulan()['current']['triwulan'] . '_' . Auth::user()->hashid . '_';
-            $fileName .= str_random(4) . '.';
-            $fileName .= pathinfo($r->ttd->getClientOriginalName(), PATHINFO_EXTENSION);
-
-            // dd($fileName);
-
-            if (!$r->ttd->move(storage_path() . '/uploads/lampiran_ttd/', $fileName)) {
-                return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload TTD']);
-            }
-
-        }
-
         $iku = \App\Iku::where(
             'namaprogram',
             'kecepatan_pelaporan#' .
@@ -421,8 +391,6 @@ class SelfAssesmentController extends Controller
             );
 
 
-
-        ///PELAPORAN
         $persenLap = \App\Persentase::where('tahun', date('Y'))
             ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
             ->where('daftarindikator_id', 1)
@@ -440,21 +408,6 @@ class SelfAssesmentController extends Controller
                 'persentase' => $persenLap->nilai,
                 'updated_at' => \Carbon\Carbon::now(),
                 'final_status' => 1
-            ]
-        );
-
-        $pelaporanSeldAssesment = \App\SelfAssesment::create(
-            [
-                'user_id' => Auth::user()->id,
-                'tahun' => date('Y'),
-                'triwulan' => cekCurrentTriwulan()['current']->triwulan,
-                'alatukur_id' => $alatUkur->id,
-                'iku_id' => $iku->id
-            ],
-            [
-                'filelampiran'  => $fileName,
-                'skala_nilai' => $newRep->nilai,
-                'reportassesment_id' => $newRep->id
             ]
         );
 
@@ -515,8 +468,15 @@ class SelfAssesmentController extends Controller
             ->where('triwulan', $triwulan['current']->triwulan)
             ->where('nilai', '!=', 0)
             ->get();
-
-        return view('assesment.lembar', compact('report', 'triwulan', 'reportall', 'jumlahPersen'));
+		
+        #Ambil final tahun ini
+        $nilaifinal = \App\NilaiAkhir::where('tahun', date('Y'))
+            ->where('triwulan', $triwulan['current']->triwulan)
+            ->where('nilai', '!=', 0)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+		
+        return view('assesment.lembar', compact('report', 'triwulan', 'reportall', 'jumlahPersen', 'nilaifinal'));
     }
 
     public function arsipassesment()
