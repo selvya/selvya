@@ -91,18 +91,17 @@ Route::group(['middleware' => ['satker']], function () {
         ->where('programbudaya_id','=','3')
         ->where('inovatif_triwulan',$triwulan['current']['triwulan'])
         ->first();
+
         if (count($iku) > 0) {
             return view('inovatif.ubah', compact('iku'));
         }else{
           return view('inovatif.tambah');
-      }
-  });
+        }
+    });
     // Route::get('ubah/inovatif', function () {
         // return view('inovatif.ubah');
     // });
-    Route::get('arsip/inovatif', function () {
-        return view('inovatif.arsip');
-    });
+    Route::get('arsip/inovatif', ['as' => 'arsip.inovatif.index', 'uses' => 'ArsipController@arsipInovatifIndex']);
     Route::get('detail/inovatif', function () {
         return view('inovatif.detail-inovatif');
     });
