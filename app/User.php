@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\NilaiAkhir', 'user_id');
     }
+
+    public function nilai_akhir_monitoring()
+    {
+        return $this->hasMany('\App\NilaiAkhirMonitor', 'user_id');
+    }
 }

@@ -16,4 +16,9 @@ class NilaiAkhirMonitor extends Model
         'penandatangan',
         'nilaiakhir'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('\App\User', 'user_id');
+    }
 }
