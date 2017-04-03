@@ -36,8 +36,8 @@
         height:90px;
     }
 </style>
- <!-- Main Sidebar -->
- <div id="sidebar">
+<!-- Main Sidebar -->
+<div id="sidebar">
     <!-- Wrapper for scrolling functionality -->
     <div id="sidebar-scroll">
         <!-- Sidebar Content -->
@@ -108,11 +108,11 @@
                                 <i class="gi gi-user sidebar-nav-icon"></i> Semua User
                             </a>
                         </li>
-                      <!--   <li class="@if(Request::is('map-report')) active @endif">
+                        <li class="@if(Request::is('map-report')) active @endif">
                             <a href="{{url('map-report')}}">
                                 <i class="gi gi-google_maps sidebar-nav-icon"></i> Mapping Report
                             </a>
-                        </li> -->
+                        </li>
                         <li class="@if(Request::is('upload')) active @endif">
                             <a href="#" class="sidebar-nav-menu">
                                 <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
@@ -131,12 +131,12 @@
                                         Manual Pengguna Reviewer
                                     </a>
                                 </li>
-                                <!-- <li>
-                                    <a href="">
+                                <li>
+                                    <a href="{{url('upload/catatan-dinas')}}">
                                         <i class="gi gi-notes sidebar-nav-icon"></i> 
                                         Catatan Dinas
                                     </a>
-                                </li> -->
+                                </li>
                             </ul>
                         </li>
                         <!-- <li class="@if(Request::is('survey')) active @endif">
@@ -289,68 +289,68 @@
                         <!-- END Sidebar Navigation -->
 
                         <div style="padding:20px 10px 30px 10px;">
-                      <b>SOCIAL MEDIA</b>
-                  </div>
-                  <div align="middle">                  
-                      <div class="sidebar-section">
-                          <a target="_blank" href="https://www.instagram.com/OJKWAY/">
-                            <div class="alert alert-alt" style="border-color:#895a4d;">
+                          <b>SOCIAL MEDIA</b>
+                      </div>
+                      <div align="middle">                  
+                          <div class="sidebar-section">
+                              <a target="_blank" href="https://www.instagram.com/OJKWAY/">
+                                <div class="alert alert-alt" style="border-color:#895a4d;">
+                                    <div class="social">
+                                     <small>Follow our Instagram</small><br><br>
+                                     <i class="fa fa-instagram fa-5x" style="padding-top:17px;"></i><br>
+                                     <small>@OJKWay</small>
+                                 </div>
+                             </div>
+                         </a>
+                         <br>
+                         <a target="_blank" href="https://www.facebook.com/ojkway">
+                            <div class="alert alert-alt" style="border-color:#21618c;">
                                 <div class="social">
-                                   <small>Follow our Instagram</small><br><br>
-                                   <i class="fa fa-instagram fa-5x" style="padding-top:17px;"></i><br>
+                                   <small>Like our Facebook</small><br><br>
+                                   <i class="fa fa-facebook fa-5x" style="padding-top:17px;"></i><br>
                                    <small>@OJKWay</small>
                                </div>
                            </div>
                        </a>
                        <br>
-                       <a target="_blank" href="https://www.facebook.com/ojkway">
-                        <div class="alert alert-alt" style="border-color:#21618c;">
-                            <div class="social">
-                             <small>Like our Facebook</small><br><br>
-                             <i class="fa fa-facebook fa-5x" style="padding-top:17px;"></i><br>
-                             <small>@OJKWay</small>
-                         </div>
-                     </div>
-                 </a>
-                 <br>
-                 <a target="_blank" href="https://www.twitter.com/ojkway">                    
-                     <div class="alert alert-alt" style="border-color:#46c0fb;">
-                      <div class="social">
-                        <small>Follow our Twitter</small><br><br>
-                        <i class="fa fa-twitter fa-5x" style="padding-top:17px;"></i><br>
-                        <small>@OJKWay</small>
+                       <a target="_blank" href="https://www.twitter.com/ojkway">                    
+                           <div class="alert alert-alt" style="border-color:#46c0fb;">
+                              <div class="social">
+                                <small>Follow our Twitter</small><br><br>
+                                <i class="fa fa-twitter fa-5x" style="padding-top:17px;"></i><br>
+                                <small>@OJKWay</small>
+                            </div>
+                        </div>
+                    </a>
+                    <br>
+                    <a target="_blank" href="https://www.youtube.com/channel/UCSHDzYCmge5nijj3bs55SAg">
+                        <div class="alert alert-alt" style="border-color:#e74c3c;">
+                          <div class="social">
+                            <small>Subscribe our Channel</small><br><br>
+                            <i class="fa fa-youtube fa-5x" style="padding-top:17px;"></i><br><br>
+                            <small>@OJKWay</small>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <br>
-            <a target="_blank" href="https://www.youtube.com/channel/UCSHDzYCmge5nijj3bs55SAg">
-                <div class="alert alert-alt" style="border-color:#e74c3c;">
-                  <div class="social">
-                    <small>Subscribe our Channel</small><br><br>
-                    <i class="fa fa-youtube fa-5x" style="padding-top:17px;"></i><br><br>
-                    <small>@OJKWay</small>
-                </div>
-            </div>
-        </a>
-        <br>
-        <a href="http://ojkway.ojk.go.id">
-            <img src="http://ojkway.ojk.go.id/images/ojkwayapp.png" width="100%">
-        </a>
-        <br>
-        <br>
-        <a href="https://play.google.com/store/apps/details?id=id.ojkway">
-           <img src="http://ojkway.ojk.go.id/images/google_play.png" width="100%" height="auto" style="border-radius: 15px;">
-       </a>
-       <br><br>
-       <a href="http://ojkway.appstor.io/">
-          <img src="http://ojkway.ojk.go.id/images/app_store.png" width="100%" height="auto" style="border-radius: 15px;">
-      </a>
+                </a>
+                <br>
+                <a href="http://ojkway.ojk.go.id">
+                    <img src="http://ojkway.ojk.go.id/images/ojkwayapp.png" width="100%">
+                </a>
+                <br>
+                <br>
+                <a href="https://play.google.com/store/apps/details?id=id.ojkway">
+                 <img src="http://ojkway.ojk.go.id/images/google_play.png" width="100%" height="auto" style="border-radius: 15px;">
+             </a>
+             <br><br>
+             <a href="http://ojkway.appstor.io/">
+              <img src="http://ojkway.ojk.go.id/images/app_store.png" width="100%" height="auto" style="border-radius: 15px;">
+          </a>
+      </div>
   </div>
-</div>
 
-                    </div>
-                    <!-- END Sidebar Content -->
-                </div>
-                <!-- END Wrapper for scrolling functionality -->
-            </div>
+</div>
+<!-- END Sidebar Content -->
+</div>
+<!-- END Wrapper for scrolling functionality -->
+</div>
     <!-- END Main Sidebar -->

@@ -72,6 +72,11 @@ return [
             'root' => storage_path('uploads/lampiran_program_budaya'),
         ],
 
+        'lampiran_monitoring' => [
+            'driver' => 'local',
+            'root' => storage_path('uploads/lampiran_monitoring'),
+        ],
+
         'lampiran_ttd' => [
             'driver' => 'local',
             'root' => storage_path('uploads/lampiran_ttd'),

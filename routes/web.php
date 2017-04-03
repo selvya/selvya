@@ -91,18 +91,17 @@ Route::group(['middleware' => ['satker']], function () {
         ->where('programbudaya_id','=','3')
         ->where('inovatif_triwulan',$triwulan['current']['triwulan'])
         ->first();
+
         if (count($iku) > 0) {
             return view('inovatif.ubah', compact('iku'));
         }else{
           return view('inovatif.tambah');
-      }
-  });
+        }
+    });
     // Route::get('ubah/inovatif', function () {
         // return view('inovatif.ubah');
     // });
-    Route::get('arsip/inovatif', function () {
-        return view('inovatif.arsip');
-    });
+    Route::get('arsip/inovatif', ['as' => 'arsip.inovatif.index', 'uses' => 'ArsipController@arsipInovatifIndex']);
     Route::get('detail/inovatif', function () {
         return view('inovatif.detail-inovatif');
     });
@@ -174,6 +173,8 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('lihathasil-monitoring', 'MonitoringController@hasilmonitoring');
     Route::get('detail-monitoring/{hashid}','MonitoringController@detailmonitoring');
     Route::get('tambah-monitoring/{hashid}', 'MonitoringController@tambahmonitoring');
+    Route::get('wizard-monitoring/{hashid}','MonitoringController@wizardmonitoring');
+    Route::post('proses-wizard/{hashid}','MonitoringController@proseswizard');
     Route::post('proses-tambah-monitoring/{hashid}', 'MonitoringController@prosestambahmonitoring');
 });
 /*
@@ -273,6 +274,7 @@ Route::group(['middleware' => ['admin']], function () {
     //MANUAL PENGGUNA
     Route::get('upload/satker','PanduanController@uploadsatkerview');
     Route::get('upload/dmpb', 'PanduanController@uploadreviewer');
+    Route::get('upload/catatan-dinas', 'PanduanController@uploaddinas');
     Route::post('upload/manual-book/proses', 'PanduanController@uploadpost');
 
     // HIRARKI
@@ -285,6 +287,7 @@ Route::group(['middleware' => ['auth']], function()
     //Download
     Route::get('attachment/lampiran_anggaran/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranAnggaran']);
     Route::get('attachment/lampiran_program_budaya/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranProgramBudaya']);
+    Route::get('attachment/lampiran_monitoring/{filename}', ['as' => 'download.lampiran', 'uses' => 'LampiranController@downloadLampiranReviewerMelayani']);
 
     //Lihat Hasil Laporan
     Route::get('lihathasilassesment/{hashid}', ['as' => 'reviewcp', 'uses' => 'ReviewController@lihatGet']);

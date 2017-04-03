@@ -36,7 +36,6 @@
 							<input type="file" name="upload_reviewer" class="form-control">
 						</div>
 					</div>
-					<a href="">Download File</a>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-success">Simpan</button>
@@ -48,12 +47,14 @@
 				<h4><b>Upload Manual Book Terakhir</b></h4>
 				<table class="table table-stripped">
 					<tr>
-						<td>File</td>
-						<td>Tanggal</td>
+						<td class="text-center">File</td>
+						<td class="text-center">Tanggal</td>
+						<td class="text-center">Download</td>
 					</tr>
 					<tr>
-						<td><a href="{{asset('manual-book/reviewer/'.$data->name)}}">{{$data->name}}</a></td>
-						<td>{{date('H:i:s d-m-Y', strtotime($data->created_at))}}</td>
+						<td class="text-center">Manual Reviewer</td>
+						<td class="text-center">{{date('H:i:s d-m-Y', strtotime($data->created_at))}}</td>
+						<td class="text-center"><a class="btn btn-success" href="{{asset('manual-book/reviewer/'.$data->name)}}">Download</a></td>
 					</tr>
 				</table>
 				@endif

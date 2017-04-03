@@ -493,6 +493,7 @@ class SelfAssesmentController extends Controller
 
         $inovatif = Iku::where('tahun', date('Y'))
             ->where('satker', Auth::user()->id)
+            ->where('inovatif_triwulan', $triwulan['current']['triwulan'])
             ->where('daftarindikator_id', '3')
             ->first();
 
