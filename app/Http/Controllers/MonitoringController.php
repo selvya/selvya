@@ -110,6 +110,10 @@ class MonitoringController extends Controller
         $peduli = \App\Iku::where('tahun', date('Y'))->where('namaprogram', 'pelaksanaan_program_budaya#' . $t . '#' . $tw . '#ojk_peduli')->first();
         $melayani = \App\Iku::where('tahun', date('Y'))->where('namaprogram', 'pelaksanaan_program_budaya#' . $t . '#' . $tw . '#ojk_melayani')->first();
 
+        if(($melayani == null) || ($inovatif == null) || ($peduli == null)){
+            return redirect()->back()->with('warning', 'Data belum dimasukan oleh satker');
+        }
+
         $alatukur_melayani    = \App\AlatUkur::where('iku_id', $melayani->id)->get();
         $alatukur_peduli      = \App\AlatUkur::where('iku_id', $peduli->id)->get();
         $alatukur_inovatif    = \App\AlatUkur::where('iku_id', $inovatif->id)->get();

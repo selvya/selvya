@@ -275,6 +275,7 @@ Route::group(['middleware' => ['admin']], function () {
     //MANUAL PENGGUNA
     Route::get('upload/satker','PanduanController@uploadsatkerview');
     Route::get('upload/dmpb', 'PanduanController@uploadreviewer');
+    Route::get('upload/catatan-dinas', 'PanduanController@uploaddinas');
     Route::post('upload/manual-book/proses', 'PanduanController@uploadpost');
 
     // HIRARKI
