@@ -259,7 +259,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             <?php
                                             $lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
                                             ?>
-                                            <input type="file" name="file_melayani" class="form-control" @if(count($lampiran) > 0)
+                                            <input type="file" required name="file_melayani" class="form-control" @if(count($lampiran) > 0)
                                             @if($lampiran->filelampiran !== '') @else required @endif @endif>
                                             <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
                                             @if(count($lampiran) > 0) <br><a href="{{url('attachment/lampiran_program_budaya/' . $lampiran->filelampiran)}}" class="btn btn-sm btn-block btn-danger" target="_blank">{{$lampiran->filelampiran}} <i class="fa fa-download"></i></a>@endif
@@ -404,7 +404,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                             <div class="col-md-9">
                                               <?php
                                               $lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
-                                              ?>  <input type="file" name="file_peduli" class="form-control" 
+                                              ?>  <input type="file" required name="file_peduli" class="form-control" 
                                               @if(count($lampiran) > 0)
                                               @if($lampiran->filelampiran !== '') @else required @endif
                                               @endif> 
@@ -562,7 +562,7 @@ $sasa_ped =  DB::table('selfassesment')->where('reportassesment_id',$reportidnya
                                         <div class="col-md-9">
                                          <?php
                                          $lampiran = DB::table('selfassesment')->where('user_id',Auth::user()->id)->where('iku_id',$v->iku_id)->where('triwulan', $triwulan['current']['triwulan'])->where('tahun',date('Y'))->first();
-                                         ?> <input type="file" name="file_inovatif" class="form-control"@if(count($lampiran) > 0) @if($lampiran->filelampiran !== '') @else required @endif
+                                         ?> <input type="file" required name="file_inovatif" class="form-control"@if(count($lampiran) > 0) @if($lampiran->filelampiran !== '') @else required @endif
                                          @endif>
                                          <small>Data Lampiran (Ukuran Maksimal 20MB) (.pdf,.zip,.rar,.jpg,.jpeg,.png,.doc,.docx)  </small>
                                          @if(count($lampiran) > 0) <br><a href="{{url('attachment/lampiran_program_budaya/' . $lampiran->filelampiran)}}" class="btn btn-sm btn-block btn-danger" target="_blank">{{$lampiran->filelampiran}} <i class="fa fa-download"></i></a> @endif
