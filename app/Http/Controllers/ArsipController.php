@@ -11,7 +11,6 @@ class ArsipController extends Controller
     //
     public function arsipInovatifIndex(Request $r)
     {
-        // $triwulan = cekCurrentTriwulan();
         $ikunya = Iku::where('daftarindikator_id','3')
         ->where('tipe','parameterized')
         ->where('programbudaya_id','3')

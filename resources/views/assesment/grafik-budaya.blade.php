@@ -1,9 +1,11 @@
 @extends('layout.master')
+
 @section('content')
+
 <!-- Page content -->
 <div id="page-content">
-	<!-- Datatables Header -->
-	 <div class="content-header content-media">
+    <!-- Datatables Header -->
+    <div class="content-header content-media">
         <div class="header-section">
             <div class="jumbotron" >
                 <div class="col-md-12">
@@ -13,360 +15,137 @@
             </div>
         </div>
     </div>
-	<ul class="breadcrumb breadcrumb-top">
-		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li>Grafik Budaya</li>
-	</ul>
-	<!-- END Datatables Header -->
 
-	<!-- Datatables Content -->
-	<div class="block full">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<form method="post" enctype="multipart/form-data" action="" style="margin:0">
-					<select name="tipe">
-						<option value="2" selected="selected">Kantor Pusat</option>
-						<option value="3">Kantor Regional</option>
-						<option value="4">Kantor KOJK</option>
-						<option value="5">OJK-wide</option>
-					</select>&nbsp;						Period&nbsp;:&nbsp;&nbsp;
-					<select name="month">
-						<option value="13" selected="selected">Januari - Maret</option>
-						<option value="14">April - Juni</option>
-						<option value="15">Juli - September</option>
-						<option value="16">Oktober-Desember</option>
-					</select>&nbsp;<select name="year">
-					<option value="2017" selected="selected">2017</option>
-					<option value="2016">2016</option>
-					<option value="2015">2015</option>
-				</select>&nbsp;						
-				<a class="btn btn-primary">Lihat&nbsp;<i class="fa fa-arrow-circle-o-right"></i></a>
-				<a href="#" class="btn btn-success"><i class="fa fa-print"></i>&nbsp;Export ke Excel</a>
-			</form>
-		</div>
-		<!-- /.panel-heading -->
+    <ul class="breadcrumb breadcrumb-top">
+        <li><a href="{{url('/')}}">Beranda</a></li>
+        <li>Grafik Budaya</li>
+    </ul>
 
-		<div class="panel-body" style="padding:0px; margin-top:5px; margin-left:-1px;">
-			<div class="col-md-12">
-				<div id="container1"></div>
-				<div id="container2"></div>
-				<div id="container3"></div>
-				<div id="container4"></div>
-				<div id="container5"></div>
-				<div id="container6"></div>
-				<div id="container7"></div>
-				<div id="container8"></div>
-			</div>
-		</div>
-	</div>
+    <div class="block full">
+        <form method="get" action="" style="margin:0">
+            <select name="kantor">
+                @foreach($jenisKantor as $k => $v)
+                    <option value="{{$v->kantor}}" @if($v->kantor == $kantor) selected @endif>{{$v->kantor}}</option>
+                @endforeach
+            </select>
 
+            &nbsp;Period&nbsp;:&nbsp;&nbsp;
+
+            <select name="triwulan">
+                <option value="1" @if($tw == 1) selected @endif>I - Januari s/d Maret</option>
+                <option value="2" @if($tw == 2) selected @endif>II - April s/d Juni</option>
+                <option value="3" @if($tw == 3) selected @endif>III - Juli s/d September</option>
+                <option value="4" @if($tw == 4) selected @endif>IV - Oktober s/d Desember</option>
+            </select>
+
+            &nbsp;
+
+            <select name="tahun">
+                @for($i = date('Y'); $i >= (date('Y') - 3); $i--)
+                    <option value="{{$i}}" @if($i == $t) selected @endif>{{$i}}</option>
+                @endfor
+            </select>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-default btn-sm" value="view">
+                    Lihat &nbsp;
+                    <i class="fa fa-eye"></i>
+                </button>
+                <button type="submit" class="btn btn-primary btn-sm" value="export">
+                    Export &nbsp;
+                    <i class="fa fa-file-excel-o"></i>
+                </button>
+            </div>
+        </form>
+        <hr>
+
+        @forelse($map as $k => $v)
+            <div id="con_{{$k+1}}">
+                <h3 class="page-header">{{$k+1 . '. ' . $v->nama}}</h3>
+                <div id="chartContainer_{{$k+1}}">
+                    
+                </div>
+            </div>
+        @empty
+            <div class="alert alert-info">Belum ada pengelompokan map oleh admin</div>
+        @endforelse
+    </div>
 </div>
-<!-- END Datatables Content -->
-</div>
-<!-- END Page Content -->
-<!-- END Page Content -->
+
 @endsection
+
 @section('js')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <!--CHART BAR-->
 <script type="text/javascript">
-						//CHART 1
-						Highcharts.chart('container1', {
-							chart: {
-								type: 'column',
-								options3d: {
-									enabled: true,
-													alpha: 1,
-													beta: 1,
-													depth: 100
-								}
-							},
-							title: {
-								text: 'Manajemen Strategis I'
-							},
-							plotOptions: {
-								column: {
-									depth: 25
-								}
-							},
-							xAxis: {
-								categories: ['Pengembangan Keijakan Strategis', 'Komunikasi & Internasional' , 'Perencanaan Strategis, Manajemen Perubahan dan Sekretariat Dewan Komisioner' , 'Penyidikan Sektor Jasa Keuangan' , 'Pengawasan IKNB 2A']
-							},
-							yAxis: {
-								title: {
-									text: 'Nilai'
-								}
-							},
-							series: [{
-								name: 'Reviewer',
-								data: [10, 6 , 3,8,14],
-							},
-							{
-								name: 'Satker',
-								data: [10, 6 , 3,8,14],
-							}
-							]
-						});
-							//CHART 2
-							Highcharts.chart('container2', {
-								chart: {
-									type: 'column',
-									options3d: {
-										enabled: true,
-										alpha: 10,
-										beta: 25,
-										depth: 70
-									}
-								},
-								title: {
-									text: 'Manajemen Strategis II'
-								},
-								plotOptions: {
-									column: {
-										depth: 25
-									}
-								},
-								xAxis: {
-									categories: ['Oraganisasi & SDM', 'Hukum' , 'Pengelolaan Sistem Informasi' , 'Keuangan' , 'Logistik']
-								},
-								yAxis: {
-									title: {
-										text: 'Nilai'
-									}
-								},
-								series: [{
-									name: 'Reviewer',
-									data: [10, 6 , 3,8,14]
-								},
-								{
-									name: 'Satker',
-									data: [10, 6 , 3,8,14]
-								}
-								]
-							});
-							//CHART 3
-							Highcharts.chart('container3', {
-								chart: {
-									type: 'column',
-									options3d: {
-										enabled: true,
-										alpha: 10,
-										beta: 25,
-										depth: 70
-									}
-								},
-								title: {
-									text: 'AIMRPK'
-								},
-								plotOptions: {
-									column: {
-										depth: 25
-									}
-								},
-								xAxis: {
-									categories: ['Audit Internal', 'Manajemen Resiko & Pengendalian Kualitas']
-								},
-								yAxis: {
-									title: {
-										text: 'Nilai'
-									}
-								},
-								series: [{
-									name: 'Reviewer',
-									data: [10, 6 ]
-								},
-								{
-									name: 'Satker',
-									data: [10, 6 ]
-								}
-								]
-							});
-							//CHART 4
-							Highcharts.chart('container4', {
-								chart: {
-									type: 'column',
-									options3d: {
-										enabled: true,
-										alpha: 10,
-										beta: 25,
-										depth: 70
-									}
-								},
-								title: {
-									text: 'EPK'
-								},
-								plotOptions: {
-									column: {
-										depth: 25
-									}
-								},
-								xAxis: {
-									categories: ['Perlindungan Konsumen', 'Literasi & Inklusi Keuangan']
-								},
-								yAxis: {
-									title: {
-										text: 'Nilai'
-									}
-								},
-								series: [{
-									name: 'Reviewer',
-									data: [10, 6]
-								},
-								{
-									name: 'Satker',
-									data: [10, 6]
-								}
-								]
-							});
-							//CHART 5
-							Highcharts.chart('container5', {
-								chart: {
-									type: 'column',
-									options3d: {
-										enabled: true,
-										alpha: 10,
-										beta: 25,
-										depth: 70
-									}
-								},
-								title: {
-									text: 'Perbankan'
-								},
-								plotOptions: {
-									column: {
-										depth: 25
-									}
-								},
-								xAxis: {
-									categories: ['Penelitian & Pengaturan Perbankan', 'Perizinan & Informasi Perbankan']
-								},
-								yAxis: {
-									title: {
-										text: 'Nilai'
-									}
-								},
-								series: [{
-									name: 'Reviewer',
-									data: [10, 6]
-								},
-								{
-									name: 'Satker',
-									data: [10, 6]
-								}
-								]
-							});
-							//CHART 6
-							Highcharts.chart('container6', {
-								chart: {
-									type: 'column',
-									options3d: {
-										enabled: true,
-													alpha: 1,
-													beta: 1,
-													depth: 1
-									}
-								},
-								title: {
-									text: 'Perbankan - Kantor Regional'
-								},
-								plotOptions: {
-									column: {
-										depth: 25
-									}
-								},
-								xAxis: {
-									categories: ['Kantor Regional 1', 'Kantor Regional 2','Kantor Regional 3','Kantor Regional 4','Kantor Regional 5','Kantor Regional 6']
-								},
-								yAxis: {
-									title: {
-										text: 'Nilai'
-									}
-								},
-								series: [{
-									name: 'Reviewer',
-									data: [10, 6,8,4,6,7]
-								},
-								{
-									name: 'Satker',
-									data: [10, 6,8,4,6,7]
-								}
-								]
-							});
-							//CHART 7
-							Highcharts.chart('container7', {
-								chart: {
-									type: 'column',
-									options3d: {
-										enabled: true,
-													alpha: 1,
-													beta: 1,
-													depth: 1
-									}
-								},
-								title: {
-									text: 'IKNB'
-								},
-								plotOptions: {
-									column: {
-										depth: 25
-									}
-								},
-								xAxis: {
-									categories: ['Pengawasan IKNB 1A','Pengawasan IKNB 1B','Pengawasan IKNB 2A','Pengawasan IKNB 2B']
-								},
-								yAxis: {
-									title: {
-										text: 'Nilai'
-									}
-								},
-								series: [{
-									name: 'Reviewer',
-									data: [10, 6,8,4]
-								},
-								{
-									name: 'Satker',
-									data: [10, 6,8,4]
-								}
-								]
-							});
-										//CHART 8
-										Highcharts.chart('container8', {
-											chart: {
-												type: 'column',
-												options3d: {
-													enabled: true,
-													alpha: 1,
-													beta: 1,
-													depth: 1
-												}
-											},
-											title: {
-												text: 'Pasar Modal'
-											},
-											plotOptions: {
-												column: {
-													depth: 25
-												}
-											},
-											xAxis: {
-												categories: ['Pengawasan Pasar Modal 1A','Pengawasan Pasar Modal 1B','Pengawasan Pasar Modal 2A','Pengawasan Pasar Modal 2B']
-											},
-											yAxis: {
-												title: {
-													text: 'Nilai'
-												}
-											},
-											series: [{
-												name: 'Reviewer',
-												data: [10, 6,8,4]
-											},
-											{
-												name: 'Satker',
-												data: [10, 6,8,4]
-											}
-											]
-										});
-									</script>				
-									@endsection
+$(document).ready(function(){
+    @forelse($map as $k => $v)
+        Highcharts.chart('chartContainer_{{$k+1}}', {
+            chart: {
+                type: 'column',
+                options3d: {
+                    enabled: true,
+                    alpha: 1,
+                    beta: 1,
+                    depth: 100
+                }
+            },
+            title: {
+                text: '{{$v->nama}}'
+            },
+            plotOptions: {
+                column: {
+                    depth: 25
+                }
+            },
+            xAxis: {
+                @php
+                    $str = '';
+                    $nilaiAkhir = '';
+
+                    foreach ($v->ms as $key => $value) {
+
+                        $str .= "'" . trim($value->sat->nm_unit_kerja) . "', ";
+
+                        $na = $value->sat->nilai_akhir
+                            ->where('tahun', $t)
+                            ->where('triwulan', $tw)
+                            ->first();
+
+                        if (count($na) > 0) {
+                            $nilaiAkhir .= $na->nilai . ', ';
+                        }else{
+                            $nilaiAkhir .= '0, ';
+                        }
+                    }
+
+                    $str = trim($str, ',');
+                    $nilaiAkhir = trim($nilaiAkhir, ',');
+
+                @endphp
+
+                categories: [{!!$str!!}]
+            },
+            yAxis: {
+                title: {
+                    text: 'Nilai'
+                },
+                max: 100
+            },
+            series: [
+                {
+                    name: 'Reviewer',
+                    data: [{!!$nilaiAkhir!!}]
+                },
+                {
+                    name: 'Sel fAssesment',
+                    data: [{!!$nilaiAkhir!!}]
+                }
+            ]
+        });
+    @empty
+    @endforelse
+});
+</script>               
+@endsection
