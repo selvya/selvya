@@ -68,7 +68,7 @@ class PanduanController extends Controller
              $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
             $extcat = $r->file('upload_catatan')->getClientOriginalExtension();
               if (($extcat == 'doc') || ($extcat == 'docx') || ($extcat == 'ppt') || ($extcat == 'pptx') || ($extcat == 'pdf')) {
-                  $file = 'Catatan_Dinas#'.$t.'#'.$tw.'.'.$r->file('upload_catatan')->getClientOriginalExtension();
+                  $file = 'Catatan_Dinas_'.$t.'_'.$tw.'.'.$r->file('upload_catatan')->getClientOriginalExtension();
                   $r->file('upload_catatan')->move(realpath(public_path("manual-book/dinas")), $file);
                   $manual->type = 'Dinas';
                   $manual->name = $file;
