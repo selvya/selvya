@@ -156,10 +156,15 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('rekap-monitoring', function () {
         return view('monitoring.rekap');
     });
-    Route::get('hasil-monitoring', 'MonitoringController@monihasil');
-    Route::get('anggaran-budaya', function () {
-        return view('monitoring.anggaran-budaya');
+
+    Route::get('hasil-monitoring', function () {
+        return view('monitoring.hasil');
     });
+
+
+    Route::get('anggaran-budaya', ['as' => 'review.anggaran.index', 'uses' => 'ReviewController@anggaranIndex']);
+    Route::post('hapusAnggaran', ['as' => 'review.anggaran.hapus', 'uses' => 'ReviewController@hapusAnggaran']);
+    Route::get('lihatAnggaran/{hashid}', ['as' => 'review.anggaran.lihat', 'uses' => 'ReviewController@lihatAnggaran']);
 
 
     //Revisi

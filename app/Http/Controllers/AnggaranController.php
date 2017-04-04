@@ -193,7 +193,8 @@ class AnggaranController extends Controller
                 [
                     'user_id' => $satker,
                     'anggaran_tahun_id' => $tahunAnggaran->id,
-                    'triwulan' => cekCurrentTriwulan()['current']->triwulan
+                    // 'triwulan' => cekCurrentTriwulan()['current']->triwulan
+                    'triwulan' => $i
                 ],
                 [
                     'rencana' => $rencana[$i],
@@ -259,10 +260,10 @@ class AnggaranController extends Controller
             ->sum('rencana') != $tahunAnggaran->total_anggaran) {
 
             $ex = AnggaranTriwulan::where('user_id', $satker)
-            ->where('anggaran_tahun_id',  $tahunAnggaran->id)
-            ->update([
-                'rencana' => 0
-            ]);
+                ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+                ->update([
+                    'rencana' => 0
+                ]);
 
             Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
             return redirect()->back();

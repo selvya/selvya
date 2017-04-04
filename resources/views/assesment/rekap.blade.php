@@ -98,27 +98,26 @@
                     @php
                     $triwulan = cekCurrentTriwulan();
 
-                            //Ambil persentase
+                    //Ambil persentase
                     $t = (null != request('tahun')) ? request('tahun') : date('Y');
                     $tw = (null != request('triwulan')) ? request('triwulan') : $triwulan['current']->triwulan;
                     $persentase = \App\Persentase::where('tahun', $t)
-                    ->where('triwulan', $tw)
-                    ->where('nilai', '>', 0)
-                    ->count();
+                        ->where('triwulan', $tw)
+                        ->where('nilai', '>', 0)
+                        ->count();
 
                     $usr = \App\User::where('level','satker')->get();
 
                     $nilainya = \App\NilaiAkhir::where('tahun', $t)
-                    ->where('triwulan', $tw)
-                    ->groupBy('user_id')
-                    ->get();
+                        ->where('triwulan', $tw)
+                        ->count();
                     $satkernya = \App\User::where('level','satker')->count();
                     @endphp
-                    {{count($nilainya)}} <br>
+                    {{$nilainya}} <br>
                     Sudah Submit Assessment
                 </div>
                 <div class="btn btn-warning">
-                    {{$satkernya-count($nilainya)}} <br>
+                    {{$satkernya - $nilainya}} <br>
                     Belum Submit Assessment
                 </div>
             </div>
@@ -143,7 +142,7 @@
                     <td class="text-center">{{$data->kojk}}</td>
                     <td class="text-center">
                         {{-- {{count($persentase)}} --}}
-                        @if(
+                        {{-- @if(
                             $persentase > 0
                             AND
                             $data->r_assesment
@@ -152,11 +151,17 @@
                             ->where('final_status', 1)
                             ->count()
                             == $persentase
-                            )
+                            ) --}}
 
-                            <button type="button" class="btn btn-success ck" data-satker="{{$data->hashid}}">Sudah Submit</button>
+                            @if(
+                                \App\NilaiAkhir::where('tahun', $t)
+                                ->where('tahun', $tw)
+                                ->where('user_id', $data->id)
+                                ->count() > 0)
+
+                                <button type="button" class="btn btn-success ck" data-satker="{{$data->hashid}}">Sudah Submit</button>
                             @else
-                            <label class="btn btn-danger disabled">Belum Submit</label>
+                                <label class="btn btn-danger disabled">Belum Submit</label>
                             @endif
                         </td>
                     </tr>

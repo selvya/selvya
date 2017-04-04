@@ -1,24 +1,31 @@
 @extends('layout.master')
+
 @section('content')
 
 <div id="page-content">
-    <!-- Datatables Header -->
     <div class="content-header content-media">
         <div class="header-section">
             <div class="jumbotron" >
                 <div class="col-md-12">
                     <h1>Salam <b>Perubahan</b></h1>
-                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Ubah Anggaran Program Budaya</h4>
+                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Anggaran Program Budaya</h4>
                 </div>
             </div>
         </div>
     </div>
     <ul class="breadcrumb breadcrumb-top">
         <li><a href="{{url('/')}}">Beranda</a></li>
-        <li><a href="{{url('monitoring-anggaran')}}">Monitoring Anggaran</a></li>
-        <li>Ubah Anggaran Budaya</li>
+        <li>Anggaran Budaya</li>
     </ul>
     <!-- END Datatables Header -->
+
+@php
+    if($anggaran->total_anggaran !== null){
+        $totalnya = $anggaran->total_anggaran;
+    }else{
+        $totalnya = 1;
+    }
+@endphp
 
     <!-- Datatables Content -->
     @if(Session::has('msg'))
@@ -43,20 +50,8 @@
                                             min="1"
                                             step="1"
                                             value="{{number_format($anggaran->total_anggaran, 0, ',', '.')}}"
-                                            @if($anggaran->status == 1) disabled @endif
+                                            disabled
                                         >
-                                        @if($anggaran->status == 0)
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-success" id="finalisasi_total">Finalisasi</button>
-                                            </span>
-                                        @endif
-                                        @php
-                                        if($anggaran->total_anggaran !== null){
-                                            $totalnya = $anggaran->total_anggaran;
-                                        }else{
-                                            $totalnya = 1;
-                                        }
-                                        @endphp
                                     </div>  
                                 </div>                              
                             </div>
@@ -74,151 +69,109 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Rencana Anggaran</td>
-
-                                                   {{--  @foreach($target as $k => $v)
-                                                        
-                                                        <td>
-                                                            <div class="input-group">
-                                                                <span class="input-group-addon">Rp.</span>
-                                                                <input
-                                                                    type="text"
-                                                                    class="form-control"
-                                                                    value="{{number_format(getPercentOfNumber($anggaran->total_anggaran, $v->iku->first()->alat_ukur->first()->definisi->last()->deskripsi, 0, ',', '.'))}}"
-                                                                    disabled
-                                                                >
-                                                                <span class="input-group-addon">({{$v->iku->first()->alat_ukur->first()->definisi->last()->deskripsi}}%)</span>
-                                                            </div>
-                                                        </td>
-                                                    @endforeach --}}
-
-                                                    {{--<td colspan="4"><div class="alert alert-info">Target belum ditetapkan!!</div> </td>--}}
                                                     @foreach($rencana as $k => $v)
                                                         <td>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Rp.</span>
                                                                 <input
-                                                                    name="rencana_{{($k+1)}}"
-                                                                    id="rencana_{{($k+1)}}"
+                                                                    name="rencana_{{($k)}}"
+                                                                    id="rencana_{{($k)}}"
                                                                     type="text"
                                                                     class="form-control rencana"
                                                                     value="{{number_format($v->rencana, 0, ',', '.')}}"
-                                                                    @if($v->rencana > 0)
-                                                                        readonly
-                                                                    @endif
-                                                                    required
+                                                                    readonly
                                                                 >
                                                             </div>
                                                         </td>
                                                     @endforeach
                                                 </tr>
                                                 <tr>
-                                                    <td>Realisasi Anggaran</td>
+                                                <td>Realisasi Anggaran</td>
                                                     @foreach($rencana as $k => $v)
                                                         <td>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Rp.</span>
                                                                 <input 
                                                                     type="text"
-                                                                    name="realisasi_{{$k+1}}"
+                                                                    name="realisasi_{{$k}}"
                                                                     class="form-control realisasi"
                                                                     value="{{number_format($v->realisasi, 0, ',', '.')}}"
-                                                                    @php
-                                                                        // $no = \Carbon\Carbon::parse('2017-11-10 00:00:00');
-                                                                        $triwulan[$k] = \App\TanggalLaporan::where('tahun', date('Y'))
-                                                                                    ->where('triwulan', ($k+1))
-                                                                                    ->first();
-                                                                        $awal[$k] = \Carbon\Carbon::parse($triwulan[$k]->sejak);
-                                                                        $akhir[$k] = \Carbon\Carbon::parse($triwulan[$k]->hingga);
-                                                                        $now[$k] = \Carbon\Carbon::now();
-                                                                        // $now[$k] = $no;
-                                                                    @endphp
-
-                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k])  OR $v->is_final == 1)
-                                                                        readonly 
-                                                                    @endif
+                                                                    readonly
                                                                 >
                                                             </div>
                                                         </td>
                                                     @endforeach
-                                                </tr><tr>
+                                                </tr>
+                                                <tr>
                                                     <td>Persentase Realisasi</td>
                                                     @foreach($rencana as $k => $v)
-                                                        <td><center>
+                                                        <td>
+                                                            <center>
                                                                 <input 
                                                                     type="text"
-                                                                    name="persenrealisiasi_{{$k+1}}" style="text-align:Center"
+                                                                    name="persenrealisiasi_{{$k}}" style="text-align:Center"
                                                                     class="form-control realisasi"
-                                                                   @if($v->realisasi > 0)
+                                                                    @if($v->realisasi > 0)
                                                                        value="{{number_format((float)$v->realisasi/$totalnya*100,1, '.', '')}}%"
                                                                     @else value="0%"
-                                                                    @endif readonly
-                                                                ></center>
+                                                                    @endif 
+                                                                    readonly
+                                                                >
+                                                            </center>
                                                         </td>
                                                     @endforeach
                                                 </tr><tr>
-                                                    <td>Persentase Akumulasi</td> <?php $jumlahreal =0;?>
+                                                    <td>Persentase Akumulasi</td> 
+                                                    @php 
+                                                        $jumlahreal =0;
+                                                    @endphp
+                                                    
                                                     @foreach($rencana as $k => $v)
-                                                        <td><center><?php $jumlahreal = $jumlahreal+$v->realisasi;?>
-                                                         <input 
+                                                        <td>
+                                                            <center>
+                                                                @php 
+                                                                    $jumlahreal = $jumlahreal + $v->realisasi;
+                                                                @endphp
+                                                                <input 
                                                                     type="text"
-                                                                    name="persenakumulasi_{{$k+1}}" style="text-align:Center"
-                                                                    class="form-control realisasi"@if($v->realisasi > 0)
-                                                                    value="{{number_format((float)$jumlahreal/$totalnya*100,1, '.', '')}}%"@else value="0%"
-                                                                    @endif readonly
-                                                                ></center>
+                                                                    name="persenakumulasi_{{$k}}" 
+                                                                    style="text-align:Center"
+                                                                    class="form-control realisasi"
+
+                                                                    @if($v->realisasi > 0)
+                                                                        value="{{number_format( (float) $jumlahreal / $totalnya * 100, 1, '.', '')}}%"
+                                                                        @else value="0%"
+                                                                    @endif
+                                                                    readonly
+                                                                >
+                                                            </center>
                                                         </td>
                                                     @endforeach
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <label for="exampleInputFile">Lampiran<br>(Max. 20MB)<br>(.zip,.rar, .pdf, .jpg)</label>
+                                                    
                                                     </td>
+
                                                     @foreach($rencana as $k => $v)
                                                         @if($v->file == null)
                                                             <td>
-                                                                <input 
-                                                                    class="form-control" 
-                                                                    type="file"
-                                                                    name="lampiran_{{$k+1}}"
-                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
-                                                                        disabled 
-                                                                    @else
-                                                                        required
-                                                                    @endif
-                                                                >
+                                                                -
                                                             </td>
                                                         @else
                                                             <td>
                                                                 <a href="{{url('attachment/lampiran_anggaran/' . $v->file . '?dl=1')}}" class="btn btn-danger btn-block">
                                                                     {{str_limit($v->file, 12)}} <i class="fa fa-download"></i>
                                                                 </a>
-                                                              <!--  <input 
-                                                                    class="form-control" 
-                                                                    type="file"
-                                                                    name="lampiran_{{$k+1}}"
-                                                                    @if($v->rencana == 0 OR !$now[$k]->between($awal[$k], $akhir[$k]) OR $v->is_final == 1)
-                                                                        disabled
-                                                                    @endif
-                                                                >-->
                                                             </td>
                                                         @endif
                                                     @endforeach
-                                                    {{-- <td>
-                                                        <input class="form-control" type="file" id="exampleInputFile1" name="userfile1" onchange="AlertFilesize(document.getElementById('exampleInputFile1').getAttribute('id'),1)">
-                                                    </td>
-                                                    <td>Belum ada Lampiran</td>
-                                                    <td>Belum ada Lampiran</td>
-                                                    <td>Belum ada Lampiran</td> --}}
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{url('monitoring-anggaran')}}" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i>&nbsp;Kembali</a>
-                            {{csrf_field()}}
-                            <button type="submit" id="done" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;Submit</button>
-                            {{-- <button type="submit" id="final" name="final" value="1" class="btn btn-primary"><i class="fa fa-check-o"></i>&nbsp;Final</button> --}}
                         </form>
                     </div>
                 </div>
