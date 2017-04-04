@@ -14,6 +14,11 @@ class NilaiAkhirMonitor extends Model
         'triwulan',
         'penilai',
         'penandatangan',
+        'hasil_inovatif',
+        'hasil_melayani',
+        'hasil_peduli',
+        'hasil_pimpinan',
+        'isfinal',
         'nilaiakhir'
     ];
 

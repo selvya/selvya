@@ -55,13 +55,15 @@
                     $data_isi_ped = \App\SelfAssesment::where('user_id', Auth::user()->id)->where('tahun', $t)->where('triwulan', $tw)->where('iku_id',$peduli->id)->first();
                     $data_isi_ino = \App\SelfAssesment::where('user_id', Auth::user()->id)->where('tahun', $t)->where('triwulan', $tw)->where('iku_id',$inovatif->id)->first();
                     $data_isi_pim = \App\ReportAssessment::where('user_id', Auth::user()->id)->where('tahun', $t)->where('triwulan', $tw)->where('daftarindikator_id','4')->first();
+
+                    $isfinal = \App\NilaiAkhirMonitor::where('penilai', Auth::user()->id)->where('tahun',$t)->where('triwulan',$tw)->where('user_id',$satker->id)->where('isfinal','y')->first();
                 @endphp
 
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Penjelasan</label>
                     <div class="col-md-10">
-                        <textarea name="des_melayani" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_mel)) {{$data_isi_mel->deskripsi}} @endif</textarea>
-                        <input type="hidden" name="iku_mel" value="{{$melayani->id}}">
+                        <textarea name="des_melayani" @if(!empty($isfinal)) readonly @endif id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_mel)) {{$data_isi_mel->deskripsi}} @endif</textarea>
+                        <input type="hidden" @if(!empty($isfinal)) readonly @endif name="iku_mel" value="{{$melayani->id}}">
                     </div>
                 </div>
 
@@ -79,8 +81,8 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                         <div class="col-md-10">
-                            <input type="number" name="nilai_melayani[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$a]}}">
-                            <input type="hidden" name="alat_mel[]" value="{{$data_alat_melayani->id}}">
+                            <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_melayani[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$a]}}" readonly>
+                            <input type="hidden" @if(!empty($isfinal)) readonly @endif name="alat_mel[]" value="{{$data_alat_melayani->id}}">
                             <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                         </div>
                     </div>
@@ -88,7 +90,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Lampiran</label>
                     <div class="col-md-10">
-                        <input type="file" class="form-control" name="file_melayani">
+                        <input type="file" @if(!empty($isfinal)) readonly @endif class="form-control" name="file_melayani">
                         @if(!empty($data_isi_mel))
                             <a href="{{asset('attachment/lampiran_monitoring/'.$data_isi_mel->filelampiran)}}" class="btn btn-warning">{{$data_isi_mel->filelampiran}}</a><br>
                         @endif
@@ -115,8 +117,8 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Penjelasan</label>
                     <div class="col-md-10">
-                        <textarea name="des_peduli" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_ped)) {{$data_isi_ped->deskripsi}} @endif</textarea>
-                        <input type="hidden" name="iku_ped" value="{{$peduli->id}}">
+                        <textarea name="des_peduli" @if(!empty($isfinal)) readonly @endif id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_ped)) {{$data_isi_ped->deskripsi}} @endif</textarea>
+                        <input type="hidden" @if(!empty($isfinal)) readonly @endif name="iku_ped" value="{{$peduli->id}}">
                     </div>
                 </div>
 
@@ -135,11 +137,11 @@
                         <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                         <div class="col-md-10">
                             @if(!empty($nilaiygdiinput[$b]))
-                                <input type="number" name="nilai_peduli[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$b]}}">
+                                <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_peduli[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$b]}}">
                             @else
-                                <input type="number" name="nilai_peduli[]" class="form-control numberbox" step="0.01" min="0" max="6">
+                                <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_peduli[]" class="form-control numberbox" step="0.01" min="0" max="6">
                             @endif
-                            <input type="hidden" name="alat_ped[]" value="{{$data_alat_peduli->id}}">
+                            <input type="hidden" @if(!empty($isfinal)) readonly @endif name="alat_ped[]" value="{{$data_alat_peduli->id}}">
                             <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                         </div>
                     </div>
@@ -148,7 +150,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Lampiran</label>
                     <div class="col-md-10">
-                        <input type="file" class="form-control" name="file_peduli">
+                        <input type="file" @if(!empty($isfinal)) readonly @endif class="form-control" name="file_peduli">
                         @if(!empty($data_isi_ped))  
                             <a href="{{url('attachment/lampiran_monitoring/'.$data_isi_ped->filelampiran)}}" class="btn btn-warning">{{$data_isi_ped->filelampiran}}</a> <br>
                         @endif
@@ -201,11 +203,11 @@
                         <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                         <div class="col-md-10">
                         @if(!empty($nilaiygdiinput[$c]))
-                            <input type="number" name="nilai_inovatif[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$c]}}">
+                            <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_inovatif[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$c]}}">
                         @else
-                            <input type="number" name="nilai_inovatif[]" class="form-control numberbox" step="0.01" min="0" max="6">
+                            <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_inovatif[]" class="form-control numberbox" step="0.01" min="0" max="6">
                         @endif                            
-                            <input type="hidden" name="alat_ino[]" value="{{$data_alat_inovatif->id}}">
+                            <input type="hidden" @if(!empty($isfinal)) readonly @endif name="alat_ino[]" value="{{$data_alat_inovatif->id}}">
                             <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                         </div>
                     </div>
@@ -214,7 +216,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Lampiran</label>
                     <div class="col-md-10">
-                        <input type="file" class="form-control" name="file_inovatif">
+                        <input type="file" @if(!empty($isfinal)) readonly @endif class="form-control" name="file_inovatif">
                          @if(!empty($data_isi_ino))  
                             <a href="{{url('attachment/lampiran_monitoring/'.$data_isi_ino->filelampiran)}}" class="btn btn-warning">{{$data_isi_ino->filelampiran}}</a> <br>
                         @endif
@@ -243,16 +245,16 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Penjelasan</label>
                     <div class="col-md-10">
-                        <textarea name="des_pimpinan" id="" class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_pim)) {{$data_isi_pim->deskripsi}} @endif</textarea>
+                        <textarea name="des_pimpinan" @if(!empty($isfinal)) readonly @endif class="form-control" cols="30" rows="10" placeholder="Jelaskan program budaya yang dilakukan, seberapa sering dilakukan, media kampanye yang digunakan, monitoring yang dilakukan, dan lainnya.">@if(!empty($data_isi_pim)) {{$data_isi_pim->deskripsi}} @endif</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                     <div class="col-md-10">
                         @if(!empty($data_isi_pim->nilai))
-                            <input type="number" name="nilai_pimpinan" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$data_isi_pim->nilai}}">
+                            <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_pimpinan" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$data_isi_pim->nilai}}">
                         @else
-                            <input type="number" name="nilai_pimpinan" class="form-control numberbox" step="0.01" min="0" max="6">
+                            <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_pimpinan" class="form-control numberbox" step="0.01" min="0" max="6">
                         @endif
                         <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                     </div>
@@ -265,8 +267,8 @@
             <div class="form-group form-actions">
                 <div class="col-md-8 col-md-offset-4">
                     <button type="reset" class="btn btn-lg btn-warning" id="back4"><i class="fa fa-arrow-left"></i> Kembali</button>
-                    <button type="submit" class="btn btn-lg btn-success" id="next4"><i class="fa fa-save"></i> Simpan</button>
-                    <button type="submit" class="btn btn-lg btn-info" id="next4">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+                    <button class="btn btn-lg btn-success" type="submit" name="final"><i class="fa fa-save"></i> Simpan</button>
+                    <button class="btn btn-lg btn-info" type="submit">Selanjutnya <i class="fa fa-arrow-right"></i></button>
                 </div>
             </div>
             <!-- END Form Buttons -->

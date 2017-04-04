@@ -13,6 +13,8 @@ use App\User;
 use App\SelfAssesment;
 use Storage;
 use App\ReportAssessment;
+use App\ProgramBudaya;
+use App\Persentase;
 
 class MonitoringController extends Controller
 {
@@ -102,13 +104,13 @@ class MonitoringController extends Controller
         $decode_user    = Hashids::connection('user')->decode($id);
         $satker = User::findOrFail($decode_user[0]);
 
-        $inovatif = \App\Iku::where('tahun', date('Y'))
+        $inovatif = \App\Iku::where('tahun', $t)
         ->where('satker', $satker->id)
         ->where('daftarindikator_id', '3')
         ->first();
 
-        $peduli = \App\Iku::where('tahun', date('Y'))->where('namaprogram', 'pelaksanaan_program_budaya#' . $t . '#' . $tw . '#ojk_peduli')->first();
-        $melayani = \App\Iku::where('tahun', date('Y'))->where('namaprogram', 'pelaksanaan_program_budaya#' . $t . '#' . $tw . '#ojk_melayani')->first();
+        $peduli = \App\Iku::where('tahun', $t)->where('namaprogram', 'pelaksanaan_program_budaya#' . $t . '#' . $tw . '#ojk_peduli')->first();
+        $melayani = \App\Iku::where('tahun', $t)->where('namaprogram', 'pelaksanaan_program_budaya#' . $t . '#' . $tw . '#ojk_melayani')->first();
 
         if(($melayani == null) || ($inovatif == null) || ($peduli == null)){
             return redirect()->back()->with('warning', 'Data belum dimasukan oleh satker');
@@ -127,9 +129,11 @@ class MonitoringController extends Controller
        $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
        $decode_user    = Hashids::connection('user')->decode($id);
 
+
        ///////MELAYANI
        if(!empty($r->alat_mel) || !empty($r->nilai_melayani)) {
             foreach ($r->alat_mel as $a => $alat_mel) {
+
                 $self[$a] = SelfAssesment::updateOrCreate([
                     'user_id'       => Auth::user()->id,
                     'tahun'         => $t,
@@ -137,11 +141,10 @@ class MonitoringController extends Controller
                     'alatukur_id'   => $r->alat_mel[$a]
                 ],
                     [
-                        'iku_id'        => $r->iku_mel[$a],
+                        'iku_id'        => $r->iku_mel,
                         'skala_nilai'   => $r->nilai_melayani[$a],
-                        'deskripsi'     => $r->des_melayani[$a]
+                        'deskripsi'     => $r->des_melayani
                 ]);
-
 
                   //FILE MELAYANI
                         if ($r->hasFile('file_melayani') AND file_exists($r->file_melayani)) {
@@ -175,8 +178,11 @@ class MonitoringController extends Controller
                             $self[$a]->save();
                     }
                     //TUTUP FILE MELAYANI
-
                 }
+
+            $pro_mel        = ProgramBudaya::where('nama_program', 'OJK Melayani')->first();
+            $jml_alat_mel   = count($r->alat_mel);
+            $nilaimelayani  = array_sum($r->nilai_melayani);
            }
            //TUTUP MELAYANI
 
@@ -190,9 +196,9 @@ class MonitoringController extends Controller
                         'alatukur_id'   => $r->alat_ped[$b]
                     ],
                         [
-                            'iku_id'        => $r->iku_ped[$b],
+                            'iku_id'        => $r->iku_ped,
                             'skala_nilai'   => $r->nilai_peduli[$b],
-                            'deskripsi'     => $r->des_peduli[$b]
+                            'deskripsi'     => $r->des_peduli
                     ]);
 
 
@@ -226,10 +232,14 @@ class MonitoringController extends Controller
                         
                         $self[$b]->filelampiran = $fileName;
                         $self[$b]->save();
+
                 }
                 //TUTUP FILE PEDULI
-
             }
+
+            $pro_ped        = ProgramBudaya::where('nama_program', 'OJK Peduli')->first();
+            $jml_alat_ped   = count($r->alat_ped);
+            $nilaipeduli    = array_sum($r->nilai_peduli);
        }
        //TUTUP PEDULI
 
@@ -247,8 +257,6 @@ class MonitoringController extends Controller
                         'skala_nilai'   => $r->nilai_inovatif[$c],
                         'deskripsi'     => 'null'
                 ]);
-
-
                 
                 //FILE INOVATIF
                 if ($r->hasFile('file_inovatif') AND file_exists($r->file_inovatif)) {
@@ -284,9 +292,13 @@ class MonitoringController extends Controller
                 //TUTUP FILE INOVATIF
 
             }
-       }
 
-       $self    = ReportAssessment::updateOrCreate([
+        $pro_ino        = ProgramBudaya::where('nama_program', 'OJK Inovatif')->first();
+        $jml_alat_ino   = count($r->alat_ino);
+        $nilaiino       = array_sum($r->nilai_inovatif);
+       }//TUTUP INOVATIF
+
+       $self_pimpinan    = ReportAssessment::updateOrCreate([
                     'user_id'               => Auth::user()->id,
                     'tahun'                 => $t,
                     'triwulan'              => $tw,
@@ -297,7 +309,38 @@ class MonitoringController extends Controller
                         'deskripsi'             => $r->des_pimpinan
                 ]);
 
-       //TUTUP INOVATIF
+       $persen = Persentase::where('tahun', $t)
+                            ->where('triwulan', $tw)
+                            ->where('daftarindikator_id', '3')->first();
+
+       $hasilino        = ($nilaiino / ((6 * $jml_alat_ino))) * ($pro_ino->persentase_program / 100);
+       $hasilpeduli     = ($nilaipeduli / ((6 * $jml_alat_ped))) * ($pro_ped->persentase_program / 100);
+       $hasilmelayani   = ($nilaimelayani / ((6 * $jml_alat_mel))) * ($pro_mel->persentase_program / 100);
+       $hasilakhirnya   = (((($hasilino * 100) + ($hasilmelayani * 100) + ($hasilpeduli * 100))) * ($persen->nilai / 100));
+
+       if ($r->final == 'Submit') {
+            $isfinal  = 'y';
+        }else{
+            $isfinal  = 'n';
+        }
+
+
+       $self_program = NilaiAkhirMonitor::updateOrCreate([
+                    'user_id'               => $decode_user[0],
+                    'penilai'               => Auth::user()->id,
+                    'tahun'                 => $t,
+                    'triwulan'              => $tw
+                ],
+                    [   
+                        'hasil_inovatif'        => ($hasilino*100),
+                        'hasil_peduli'          => ($hasilpeduli*100),
+                        'hasil_melayani'        => ($hasilmelayani*100),
+                        'hasil_pimpinan'        => $r->nilai_pimpinan,
+                        'nilaiakhir'            => $hasilakhirnya,
+                        'isfinal'               => $isfinal
+
+                ]);
+
        return redirect('detail-monitoring/'.$id.'?t='.Hashids::connection('tahun')->encode($t).'&p='.Hashids::connection('triwulan')->encode($tw))->with('success','Berhasil ditambahkan');
    }
 }
