@@ -164,8 +164,9 @@ class ReviewController extends Controller
                         ->orderBy('daftarindikator_id', 'ASC')
                         ->get();
 
+        $fileName = 'Ringkasan_SelfAssesment_' . $t . '_' . $tw . '_' . $usr->hashid;
         $pdf = WKPDF::loadView('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
-        return $pdf->download('invoice.pdf');
+        return $pdf->stream($fileName . '.pdf');
 
         //return view('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
         // $pdf = PDF::loadView('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
