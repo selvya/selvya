@@ -1,178 +1,148 @@
 @extends('layout.master')
+
 @section('css')
-<link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables_themeroller.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/jquery.dataTables.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table_jui.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_table.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/css/demo_page.css" rel="stylesheet" data-semver="1.9.4" data-require="datatables@*" />
-<link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />@endsection
+    <style type="text/css">
+        .shtct {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+@endsection
+
+
 @section('content')
+    
+    <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{-- <h4 class="modal-title" id="menuModal">Pilih Jenis Perjalanan Dinas</h4> --}}
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="post" action="" id="revisicp">
+                                <button type="submit" class="btn btn-sm shtct btn-danger">
+                                    <i class="fa fa-trash-o fa-2x"></i><br>Hapus Anggaran
+                                </button>
+                                <input type="hidden" name="said" value="">
+                                {{csrf_field()}}
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="" target="_blank" id="lihat" class="btn btn-sm shtct btn-success">
+                                <i class="fa fa-eye fa-2x"></i><br>Lihat Hasil Self Assesment
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div id="page-content">
+        <!-- Datatables Header -->
+        <div class="content-header content-media">
+            <div class="header-section">
+                <div class="jumbotron" >
+                    <div class="col-md-12">
+                        <h1 >Salam <b>Perubahan</b></h1>
+                        <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Rekap Self Assessment</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="breadcrumb breadcrumb-top">
+            <li><a href="{{url('/')}}">Beranda</a></li>
+            <li>Anggaran Budaya</li>
+        </ul>
+        <!-- END Datatables Header -->
 
+        <!-- Datatables Content -->
+        <div class="block full">
+            <form method="get" enctype="multipart/form-data" action="">
+                <div class="col-md-2">
+                    <select name="tahun" class="form-control">
+                        @for($i = date('Y'); $i >= date('Y') - 2; $i--)
+                            <option value="{{$i}}" @if($t == $i) selected @endif>{{$i}}</option>
+                        @endfor
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary btn-block">Lihat <i class="fa fa-eye"></i></button>
+                </div>
+            </form>
 
+            <div class="col-md-12">
+                <div class="btn btn-success">
+                    <small>Sudah Memiliki</small>
+                    <br>
+                    {{$sudahMemiliki}}<br>
+                </div>
+                <div class="btn btn-warning">
+                    <small>Belum Memiliki</small>
+                    <br>
+                    {{$belumMemiliki}}<br>
+                </div>
+            </div>
+            <br><br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Deputi Komisioner</td>
+                        <td>Departemen</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($satker as $k => $v)
+                        <tr>
+                            <td>{{$k+1}}</td>
+                            <td>{{$v->nm_deputi_komisioner}}</td>
+                            <td>{{$v->nm_departemen}}</td>
+                            <td>
+                                @php
+                                    $anggaranTahun[$k] = \App\AnggaranTahun::where('tahun', $t)
+                                                        ->where('user_id', $v->id)
+                                                        ->count();
+                                @endphp
+                                @if($anggaranTahun[$k] > 0)
+                                    <button class="btn btn-success btn-sm btn-block ck" data-id="{{$v->hashid}}" data-tahun="{{Hashids::connection('tahun')->encode($t)}}" type="button"><i class="fa fa-check-o"></i> Sudah Memiliki</button>
+                                @else
+                                    <button class="btn btn-danger btn-sm btn-block" disabled data-id="{{$v->hashid}}" data-tahun="{{Hashids::connection('tahun')->encode($t)}}" type="button"><i class="fa fa-times"></i> Belum Memiliki</button>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<!-- Page content -->
-<div id="page-content">
-	<!-- Datatables Header -->
-	<div class="content-header content-media">
-		<div class="header-section">
-			<div class="jumbotron" >
-				<div class="col-md-12">
-					<h1 >Salam <b>Perubahan</b></h1>
-					<h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Anggaran Program Budaya</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-	<ul class="breadcrumb breadcrumb-top">
-		<li><a href="{{url('/')}}">Beranda</a></li>
-		<li>Anggaran Program Budaya</li>
-	</ul>
-	<!-- END Datatables Header -->
+@endsection
 
-	<?php
-	$triwulan = cekCurrentTriwulan();
-	$all= \App\ReportAssessment::where('daftarindikator_id','2')
-	->where('tahun',date('Y'))
-	->where('triwulan',$triwulan['current']['triwulan'])
-	->join('users','report_assesment.user_id','=','users.id')
-	->get();
+@section('js')
+    <script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
+    <script>$(function(){ TablesDatatables.init(); });</script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
 
-	$final = \App\ReportAssessment::where('daftarindikator_id','2')
-	->where('tahun',date('Y'))
-	->where('triwulan',$triwulan['current']['triwulan'])
-	->where('final_status','1')
-	->join('users','report_assesment.user_id','=','users.id')
-	->get();
+        $(document).on('click', '.ck', function() {
+            var c = $(this).attr('data-id');
+            var lr = '{{url('hapusAnggaran')}}';
+            var ll = '{{url('lihatAnggaran')}}/' + c + '?t={{Hashids::connection('tahun')->encode($t)}}';
 
-	$belumfinal = \App\ReportAssessment::where('daftarindikator_id','2')
-	->where('tahun',date('Y'))
-	->where('triwulan',$triwulan['current']['triwulan'])
-	->where('final_status','0')
-	->join('users','report_assesment.user_id','=','users.id')
-	->get();
-	?>
-
-	<!-- Datatables Content -->
-	<div class="block full">
-		<div class="container">
-			<p id="date_filter">
-				<span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
-				<span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
-			</p>
-				<b>Rekapitulasi:</b> <br>
-				<span class="btn btn-success"><b>Sudah Final</b><br><big>{{count($final)}}</big></span>
-				<span class="btn btn-danger"><b>Belum Final</b><br><big>{{count($belumfinal)}}</big></span>
-			</div>
-			<br>
-			<div class="table-responsive">
-				<table class="table table-striped table-bordered table-hover" id="myTable">
-					<thead>
-						<tr>
-							<th>Deputi Komisioner</th>
-							<th>Departemen</th>
-							<th style="width:13%;">KOJK</th>
-							<th style="width:13%;text-align:center">Status</th>
-							<th>Tanggal</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($all as $data)
-						<tr>
-							<td>{{$data->deputi_kom}}</td>
-							<td>{{$data->departemen}}</td>
-							<td>{{$data->kojk}}</td>
-							<td style="text-align:center">
-								@if($data->final_status == 1)
-								<label class="btn btn-success">Sudah Memiliki</label>
-								@else
-								<label class="btn btn-danger">Belum Memiliki</label>
-								@endif
-							</td>
-							<td>{{$data->created_at}}</td>
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
-
-			</div>
-		</div>
-		<!-- END Datatables Content -->
-	</div>
-	<!-- END Page Content -->
-	@endsection
-	@section('js')
-	<script src="{{asset('vendor/js/pages/tablesDatatables.js')}}"></script>
-	<script>
-		$(function(){ TablesDatatables.init(); });
-		// $(document).ready(function(){
-		// 	$('#myTable').DataTable();
-		// });
-
-		$(function() {
-			var oTable = $('#myTable').DataTable({
-				"oLanguage": {
-					"sSearch": "Filter Data"
-				},
-				"iDisplayLength": -1,
-				"sPaginationType": "full_numbers",
-
-			});
-
-
-
-
-			$("#datepicker_from").datepicker({
-				showOn: "button",
-				buttonImage: "images/calendar.gif",
-				buttonImageOnly: false,
-				"onSelect": function(date) {
-					minDateFilter = new Date(date).getTime();
-					oTable.fnDraw();
-				}
-			}).keyup(function() {
-				minDateFilter = new Date(this.value).getTime();
-				oTable.fnDraw();
-			});
-
-			$("#datepicker_to").datepicker({
-				showOn: "button",
-				buttonImage: "images/calendar.gif",
-				buttonImageOnly: false,
-				"onSelect": function(date) {
-					maxDateFilter = new Date(date).getTime();
-					oTable.fnDraw();
-				}
-			}).keyup(function() {
-				maxDateFilter = new Date(this.value).getTime();
-				oTable.fnDraw();
-			});
-
-		});
-
-// Date range filter
-minDateFilter = "";
-maxDateFilter = "";
-
-$.fn.dataTableExt.afnFiltering.push(
-	function(oSettings, aData, iDataIndex) {
-		if (typeof aData._date == 'undefined') {
-			aData._date = new Date(aData[0]).getTime();
-		}
-
-		if (minDateFilter && !isNaN(minDateFilter)) {
-			if (aData._date < minDateFilter) {
-				return false;
-			}
-		}
-
-		if (maxDateFilter && !isNaN(maxDateFilter)) {
-			if (aData._date > maxDateFilter) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-	);
-</script>
+            $('#revisicp').prop('action', '').prop('action', lr);
+            $('#lihat').prop('href', '').prop('href', ll);
+            $('#menuModal').modal('show');
+        });
+    </script>
 @endsection

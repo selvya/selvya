@@ -188,4 +188,21 @@ class ReviewController extends Controller
 
         return view('assesment.grafik-budaya', compact('map', 't', 'tw', 'kantor', 'jenisKantor'));
     }
+
+    public function anggaranIndex(Request $r)
+    {
+        $t = (null != request('tahun')) ? request('tahun') : date('Y');
+
+        $satker = User::where('level', 'satker')->get();
+        $sudahMemiliki = \App\AnggaranTahun::where('tahun', $t)->count();
+        $belumMemiliki = $satker->count() - $sudahMemiliki;
+
+        return view('monitoring.anggaran-budaya', compact('satker', 't', 'sudahMemiliki', 'belumMemiliki'));
+    }
+
+    public function hapusAnggaran(Request $r)
+    {
+        $this->validate($r, [
+        ]);
+    }
 }

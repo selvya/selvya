@@ -159,9 +159,10 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('hasil-monitoring', function () {
         return view('monitoring.hasil');
     });
-    Route::get('anggaran-budaya', function () {
-        return view('monitoring.anggaran-budaya');
-    });
+
+
+    Route::get('anggaran-budaya', ['as' => 'review.anggaran.index', 'uses' => 'ReviewController@anggaranIndex']);
+    Route::post('hapusAnggaran', ['as' => 'review.anggaran.hapus', 'uses' => 'ReviewController@hapusAnggaran']);
 
 
     //Revisi
