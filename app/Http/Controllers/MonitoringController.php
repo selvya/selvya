@@ -131,16 +131,17 @@ class MonitoringController extends Controller
        if(!empty($r->alat_mel) || !empty($r->nilai_melayani)) {
             foreach ($r->alat_mel as $a => $alat_mel) {
                 $self[$a] = SelfAssesment::updateOrCreate([
-                    'user_id' => Auth::user()->id,
-                    'tahun' => $t,
-                    'triwulan' => $tw,
-                    'alatukur_id' => $r->alat_mel[$a]
+                    'user_id'       => Auth::user()->id,
+                    'tahun'         => $t,
+                    'triwulan'      => $tw,
+                    'alatukur_id'   => $r->alat_mel[$a]
                 ],
                     [
-                        'iku_id' => $r->iku_mel,
-                        'skala_nilai' => $r->nilai_melayani[$a],
-                        'deskripsi' => $r->des_melayani
+                        'iku_id'        => $r->iku_mel[$a],
+                        'skala_nilai'   => $r->nilai_melayani[$a],
+                        'deskripsi'     => $r->des_melayani[$a]
                 ]);
+
 
                   //FILE MELAYANI
                         if ($r->hasFile('file_melayani') AND file_exists($r->file_melayani)) {
@@ -183,16 +184,17 @@ class MonitoringController extends Controller
            if(!empty($r->alat_ped) || !empty($r->nilai_peduli)) {
                 foreach ($r->alat_ped as $b => $alat_ped) {
                     $self[$b] = SelfAssesment::updateOrCreate([
-                        'user_id' => Auth::user()->id,
-                        'tahun' => $t,
-                        'triwulan' => $tw,
-                        'alatukur_id' => $r->alat_ped[$b]
+                        'user_id'       => Auth::user()->id,
+                        'tahun'         => $t,
+                        'triwulan'      => $tw,
+                        'alatukur_id'   => $r->alat_ped[$b]
                     ],
                         [
-                            'iku_id' => $r->iku_ped,
-                            'skala_nilai' => $r->nilai_peduli[$b],
-                            'deskripsi' => $r->des_peduli
+                            'iku_id'        => $r->iku_ped[$b],
+                            'skala_nilai'   => $r->nilai_peduli[$b],
+                            'deskripsi'     => $r->des_peduli[$b]
                     ]);
+
 
                     //FILE PEDULI
                     if ($r->hasFile('file_peduli') AND file_exists($r->file_peduli)) {
@@ -235,16 +237,17 @@ class MonitoringController extends Controller
        if(!empty($r->alat_ino) || !empty($r->nilai_inovatif)) {
             foreach ($r->alat_ino as $c => $alat_ino) {
                 $self[$c] = SelfAssesment::updateOrCreate([
-                    'user_id' => Auth::user()->id,
-                    'tahun' => $t,
-                    'triwulan' => $tw,
-                    'alatukur_id' => $r->alat_ino[$c]
+                    'user_id'       => Auth::user()->id,
+                    'tahun'         => $t,
+                    'triwulan'      => $tw,
+                    'alatukur_id'   => $r->alat_ino[$c]
                 ],
                     [
-                        'iku_id' => $r->iku_ino,
-                        'skala_nilai' => $r->nilai_inovatif[$c],
-                        'deskripsi' => $r->des_inovatif
+                        'iku_id'        => $r->iku_ino,
+                        'skala_nilai'   => $r->nilai_inovatif[$c],
+                        'deskripsi'     => 'null'
                 ]);
+
 
                 
                 //FILE INOVATIF

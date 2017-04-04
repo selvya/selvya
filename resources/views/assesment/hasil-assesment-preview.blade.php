@@ -579,10 +579,17 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan=5 align="center">
+                    <td colspan="5" align="center">
                         <a href="{{URL::current() . '?t=' . request('t') . '&p=' . request('p')}}&c=1" style="color: inherit;text-decoration: none;border: 1px solid #ddd;padding: 3px;-webkit-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
 box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75); border-radius: 6px;font-size: 10px;">Cetak PDF Lembar Monitoring</a>
+
+@php
+
+@endphp
+<a href="{{asset('manual-book/dinas/'.$dinas->name)}}" style="color: inherit;text-decoration: none;border: 1px solid #ddd;padding: 3px;-webkit-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75); border-radius: 6px;font-size: 10px;">Cetak Catatan Dinas</a>
                         
                     </td>
                 </tr>

@@ -17,6 +17,7 @@ use Storage;
 use App\Mapping;
 use App\MappingSatker;
 use WKPDF;
+use App\ManualBook;
 
 class ReviewController extends Controller
 {
@@ -104,6 +105,8 @@ class ReviewController extends Controller
                         ->orderBy('daftarindikator_id', 'ASC')
                         ->get();
 
+        $dinas = ManualBook::where('type','Dinas')->orderBy('created_at','DESC')->first();
+
 
         if (null != $r->c AND $r->c == 1) {
             // return 'aksldhas';
@@ -112,7 +115,7 @@ class ReviewController extends Controller
             // $pdf = PDF::loadHTML($this->getHtmlString(compact('usr', 'triwulan', 'reportAssesment', 't', 'tw')));
             return @$pdf->stream();
         }  
-        return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment','t','tw'));
+        return view('assesment.hasil-assesment-preview', compact('usr', 'triwulan', 'reportAssesment','t','tw','dinas'));
 
     }
 

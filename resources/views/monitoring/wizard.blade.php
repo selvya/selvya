@@ -22,9 +22,7 @@
     <!-- Clickable Wizard Block -->
     <div class="block">
         <!-- Clickable Wizard Title -->
-        <div class="block-title">
-            <h2><strong>Clickable</strong> Wizard</h2>
-        </div>
+        
         <!-- END Clickable Wizard Title -->
 
         <!-- Clickable Wizard Content -->

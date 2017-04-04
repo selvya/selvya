@@ -964,6 +964,8 @@ class SelfAssesmentController extends Controller
 
                 $nilaipeduli += $nilai_peduli;
             }
+        }else{
+            $alatnyapeduli_man =0;
         }
         if (!empty($r->alatukur_peduli)) {
             $alatnyapeduli = $r->alatukur_peduli;
@@ -1085,6 +1087,8 @@ class SelfAssesmentController extends Controller
 
                 $nilaimelayani += $nilai_melayani;
             }
+        }else{
+            $alatnyamelayani_man = 0;
         }
         if (null != $r->alatukur_melayani) {
             $alatnyamelayani = $r->alatukur_melayani;
@@ -1244,6 +1248,7 @@ class SelfAssesmentController extends Controller
         if (null != $r->alatukur_melayani) {
             $alatnyamelayani = count($r->alatukur_melayani);
         }
+        // dd($alatnyamelayani_man);
 
         $hasilino = ($nilaiino / ((6 * count($r->alatukur_inovatif)))) * ($persenino->persentase_program / 100);
 
