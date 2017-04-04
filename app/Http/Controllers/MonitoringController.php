@@ -343,4 +343,14 @@ class MonitoringController extends Controller
 
        return redirect('detail-monitoring/'.$id.'?t='.Hashids::connection('tahun')->encode($t).'&p='.Hashids::connection('triwulan')->encode($tw))->with('success','Berhasil ditambahkan');
    }
+
+   public function monihasil()
+   {
+        $satker = User::where('level','satker')->get(); 
+        $triwulan = cekCurrentTriwulan();
+        $t = (null != request('t')) ? Hashids::connection('tahun')->decode(request('t'))[0] : date('Y');
+        $tw = (null != request('p')) ? Hashids::connection('triwulan')->decode(request('p'))[0] : $triwulan['current']->triwulan;
+
+       return view('monitoring.hasil',compact('satker','t','tw'));
+   }
 }

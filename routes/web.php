@@ -156,6 +156,7 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('rekap-monitoring', function () {
         return view('monitoring.rekap');
     });
+
     Route::get('hasil-monitoring', function () {
         return view('monitoring.hasil');
     });
