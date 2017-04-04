@@ -265,7 +265,7 @@
             <div class="form-group form-actions">
                 <div class="col-md-8 col-md-offset-4">
                     <button type="reset" class="btn btn-lg btn-warning" id="back4"><i class="fa fa-arrow-left"></i> Kembali</button>
-                    <button type="submit" class="btn btn-lg btn-success" id="next4"><i class="fa fa-save"></i> Simpan</button>
+                    <button type="submit" class="btn btn-lg btn-success" name="final" value="1" id="next4"><i class="fa fa-save"></i> Simpan</button>
                     <button type="submit" class="btn btn-lg btn-info" id="next4">Selanjutnya <i class="fa fa-arrow-right"></i></button>
                 </div>
             </div>
