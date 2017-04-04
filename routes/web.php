@@ -156,9 +156,7 @@ Route::group(['middleware' => ['reviewer']], function () {
     Route::get('rekap-monitoring', function () {
         return view('monitoring.rekap');
     });
-    Route::get('hasil-monitoring', function () {
-        return view('monitoring.hasil');
-    });
+    Route::get('hasil-monitoring', 'MonitoringController@monihasil');
     Route::get('anggaran-budaya', function () {
         return view('monitoring.anggaran-budaya');
     });

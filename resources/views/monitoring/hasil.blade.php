@@ -4,15 +4,15 @@
 <div id="page-content">
 	<!-- Datatables Header -->
 	<div class="content-header content-media">
-        <div class="header-section">
-            <div class="jumbotron" >
-                <div class="col-md-12">
-                    <h1>Salam <b>Perubahan</b></h1>
-                    <h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Hasil Monitoring</h4>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="header-section">
+			<div class="jumbotron" >
+				<div class="col-md-12">
+					<h1>Salam <b>Perubahan</b></h1>
+					<h4 style="color: #fff; padding: 0px 20px;">Selamat Datang di Hasil Monitoring</h4>
+				</div>
+			</div>
+		</div>
+	</div>
 	<ul class="breadcrumb breadcrumb-top">
 		<li><a href="{{url('/')}}">Beranda</a></li>
 		<li>Hasil Monitoring</li>
@@ -87,24 +87,45 @@
 		<table class="table table-striped table-bordered table-hover" id="myTable">
 			<thead>
 				<tr>
-					<th>Deputi Komisioner</th>
-					<th>Satuan Kerja</th>
-					<th>Direktorat / KOJK</th>
-					<th>Periode</th>
-					<th>Nilai</th>
-					<th>Program Budaya Spesifik<br>(20% )</th>
+					<th class="text-center">Deputi Komisioner</th>
+					<th class="text-center">Satuan Kerja</th>
+					<th class="text-center">Direktorat / KOJK</th>
+					<th class="text-center">Periode</th>
+					<th class="text-center">Nilai</th>
+					<th class="text-center">OJK Melayani</th>
+					<th class="text-center">OJK Peduli</th>
+					<th class="text-center">OJK Inovatif</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Manajemen Strategis IA</td>
-					<td>Pengembangan Kebijakan Strategis</td>
-					<td> N/A</td>
-					<td></td>
-					<td>-</td>
-					<td>-</td>
+			@foreach($satker as $data)
+			@php
+				$nilai      = 0;
+		        $periode    = 0;
+		        $ino        = 0;
+		        $ped        = 0;
+		        $mel        = 0;
 
+		        $nm = \App\NilaiAkhirMonitor::where('tahun',$t)->where('triwulan',$tw)->where('user_id',$data->id)->where('isfinal','y')->first();
+		        if (count($nm) > 0) {
+		            $periode    = $nm->triwulan;
+		            $nilai      = $nm->nilaiakhir;
+		            $ino        = $nm->hasil_inovatif;
+		            $ped        = $nm->hasil_peduli;
+		            $mel        = $nm->hasil_melayani;
+		        }
+			@endphp
+				<tr>
+					<td class="text-center">{{$data->nm_deputi_komisioner}}</td>
+					<td class="text-center">{{$data->nm_unit_kerja}}</td>
+					<td class="text-center">{{$data->nm_deputi_direktur}}</td>
+					<td class="text-center">{{$periode}}</td>
+					<td class="text-center">{{$nilai}}</td>
+					<td class="text-center">{{$mel}}</td>
+					<td class="text-center">{{$ped}}</td>
+					<td class="text-center">{{$ino}}</td>
 				</tr>
+			@endforeach
 			</tbody>
 		</table>
 	</div>
