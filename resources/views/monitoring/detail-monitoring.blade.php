@@ -50,23 +50,31 @@
         <br>
         <div class="col-md-12 text-right" style="clear: both;">
             <a href="{{url('arsip-monitoring').'/'.$satker->hashid.'?t='.Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}" class="btn btn-default">Arsip</a>
-            <a href="{{url('tambah-monitoring').'/'.$satker->hashid.'?t='.Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}" class="btn btn-success">Tambah</a>
+            @if(empty($all))
+                <a href="{{url('tambah-monitoring').'/'.$satker->hashid.'?t='.Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}" class="btn btn-success">Tambah</a>
+            @else
+                <a href="{{url('tambah-monitoring').'/'.$satker->hashid.'?t='.Hashids::connection('tahun')->encode($t)}}&p={{Hashids::connection('triwulan')->encode($tw)}}" class="btn btn-info">Edit</a>
+            @endif
         </div>
         <br><br><br>
         <table class="table table-striped table-bordebtn-danger table-hover" id="myTable">
             <thead>
                 <tr>
                     <th class="text-center">Tanggal Monitoring</th>
-                    <th class="text-center">Progress</th>
-                    <th class="text-center">Pengaturan</th>
+                    <th class="text-center">Nilai Melayani</th>
+                    <th class="text-center">Nilai Peduli</th>
+                    <th class="text-center">Nilai Inovatif</th>
+                    <th class="text-center">Total Nilai</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($all as $data)
                 <tr>
-                    <td class="text-center">asas</td>
-                    <td class="text-center">asas</td>
-                    <td class="text-center">ajsh</td>
+                    <td class="text-center">{{date('d/m/Y',strtotime($data->created_at))}}</td>
+                    <td class="text-center">{{$data->hasil_melayani}}</td>
+                    <td class="text-center">{{$data->hasil_peduli}}</td>
+                    <td class="text-center">{{$data->hasil_inovatif}}</td>
+                    <td class="text-center">{{$data->nilaiakhir}}</td>
                 </tr>
                 @endforeach
             </tbody>

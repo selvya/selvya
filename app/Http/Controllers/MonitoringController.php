@@ -134,8 +134,6 @@ class MonitoringController extends Controller
        if(!empty($r->alat_mel) || !empty($r->nilai_melayani)) {
             foreach ($r->alat_mel as $a => $alat_mel) {
 
-                $nil_mel = $r->nilai_melayani[$a];
-
                 $self[$a] = SelfAssesment::updateOrCreate([
                     'user_id'       => Auth::user()->id,
                     'tahun'         => $t,
@@ -143,9 +141,9 @@ class MonitoringController extends Controller
                     'alatukur_id'   => $r->alat_mel[$a]
                 ],
                     [
-                        'iku_id'        => $r->iku_mel[$a],
-                        'skala_nilai'   => $nil_mel,
-                        'deskripsi'     => $r->des_melayani[$a]
+                        'iku_id'        => $r->iku_mel,
+                        'skala_nilai'   => $r->nilai_melayani[$a],
+                        'deskripsi'     => $r->des_melayani
                 ]);
 
                   //FILE MELAYANI
@@ -198,9 +196,9 @@ class MonitoringController extends Controller
                         'alatukur_id'   => $r->alat_ped[$b]
                     ],
                         [
-                            'iku_id'        => $r->iku_ped[$b],
+                            'iku_id'        => $r->iku_ped,
                             'skala_nilai'   => $r->nilai_peduli[$b],
-                            'deskripsi'     => $r->des_peduli[$b]
+                            'deskripsi'     => $r->des_peduli
                     ]);
 
 
@@ -241,7 +239,7 @@ class MonitoringController extends Controller
 
             $pro_ped        = ProgramBudaya::where('nama_program', 'OJK Peduli')->first();
             $jml_alat_ped   = count($r->alat_ped);
-            $nilaipeduli  = array_sum($r->nilai_peduli);
+            $nilaipeduli    = array_sum($r->nilai_peduli);
        }
        //TUTUP PEDULI
 
@@ -297,7 +295,7 @@ class MonitoringController extends Controller
 
         $pro_ino        = ProgramBudaya::where('nama_program', 'OJK Inovatif')->first();
         $jml_alat_ino   = count($r->alat_ino);
-        $nilaiino  = array_sum($r->nilai_inovatif);
+        $nilaiino       = array_sum($r->nilai_inovatif);
        }//TUTUP INOVATIF
 
        $self_pimpinan    = ReportAssessment::updateOrCreate([
@@ -320,11 +318,12 @@ class MonitoringController extends Controller
        $hasilmelayani   = ($nilaimelayani / ((6 * $jml_alat_mel))) * ($pro_mel->persentase_program / 100);
        $hasilakhirnya   = (((($hasilino * 100) + ($hasilmelayani * 100) + ($hasilpeduli * 100))) * ($persen->nilai / 100));
 
-       if ($r->final == 1) {
+       if ($r->final == 'Submit') {
             $isfinal  = 'y';
         }else{
             $isfinal  = 'n';
         }
+
 
        $self_program = NilaiAkhirMonitor::updateOrCreate([
                     'user_id'               => $decode_user[0],

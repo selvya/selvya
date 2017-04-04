@@ -100,7 +100,7 @@
 						<div class="form-group row">
 							<div class="col-md-12 text-center">
 								<a href="{{url('inovatif')}}" class="btn btn-default btn-lg"><i class="fa fa-arrow-left"></i> Kembali</a>
-								<button class="btn btn-primary btn-lg" type="submit"name="simpan" value="t"><i class="fa fa-save"></i> Simpan</button>
+								<button class="btn btn-primary btn-lg" type="submit" name="simpan" value="t"><i class="fa fa-save"></i> Simpan</button>
 								<button class="btn btn-success btn-lg" type="submit" name="simpan" value="y"><i class=" fa fa-flag"></i> Finalisasi</button>
 							</div>
 						</div>
