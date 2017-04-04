@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="example-clickable-username">Nilai</label>
                         <div class="col-md-10">
-                            <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_melayani[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$a]}}" readonly>
+                            <input type="number" @if(!empty($isfinal)) readonly @endif name="nilai_melayani[]" class="form-control numberbox" step="0.01" min="0" max="6" value="{{$nilaiygdiinput[$a]}}">
                             <input type="hidden" @if(!empty($isfinal)) readonly @endif name="alat_mel[]" value="{{$data_alat_melayani->id}}">
                             <small>Isi dengan index 0-6 (Cth: 4.50)</small>
                         </div>
