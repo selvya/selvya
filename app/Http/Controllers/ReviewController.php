@@ -18,6 +18,8 @@ use App\Mapping;
 use App\MappingSatker;
 use WKPDF;
 use App\ManualBook;
+use App\AnggaranTahun;
+use App\AnggaranTriwulan;
 
 class ReviewController extends Controller
 {
@@ -194,7 +196,7 @@ class ReviewController extends Controller
         $t = (null != request('tahun')) ? request('tahun') : date('Y');
 
         $satker = User::where('level', 'satker')->get();
-        $sudahMemiliki = \App\AnggaranTahun::where('tahun', $t)->count();
+        $sudahMemiliki = \App\AnggaranTahun::where('tahun', $t)->where('total_anggaran', '>', 0)->count();
         $belumMemiliki = $satker->count() - $sudahMemiliki;
 
         return view('monitoring.anggaran-budaya', compact('satker', 't', 'sudahMemiliki', 'belumMemiliki'));
@@ -203,6 +205,52 @@ class ReviewController extends Controller
     public function hapusAnggaran(Request $r)
     {
         $this->validate($r, [
+            't' => 'required',
+            'satker_id' => 'required'
         ]);
+
+        $user = User::findOrFail(Hashids::connection('user')->decode($r->satker_id)[0]);
+        $anggaranTahun = \App\AnggaranTahun::where('user_id', $user->id)
+                        ->where('tahun', Hashids::connection('tahun')->decode($r->t)[0])
+                        ->first();
+        $anggaranTahun->total_anggaran = 0;
+        $anggaranTahun->save();
+
+        $anggaranTriwulan = \App\AnggaranTriwulan::where('anggarantahun_id', $anggaranTahun->id)
+        ->update([
+            'is_final' => 0,
+            'file' => null,
+            'rencana' => 0,
+            'realisasi' => 0
+        ]);
+
+        Session::flash('message', '<div claass="alert alert-success">Berhasil dihapus</div>');
+        return redirect()->back();
+    }
+
+    public function lihatAnggaran(Request $r, $hashid)
+    {
+        $hashid = Hashids::connection('user')->decode($hashid);
+        if (count($hashid) == 0) {
+            abort(404);
+        }
+
+        $user = User::findOrFail($hashid[0]);
+
+        $tahun = (null != request('t')) ? request('t') : date('Y');
+
+        $anggaran = AnggaranTahun::updateOrCreate([
+            'user_id' => $user->id, 'tahun' => $tahun
+        ]);
+
+        for ($i=1; $i <= 4 ; $i++) { 
+            $rencana[$i] = AnggaranTriwulan::updateOrCreate([
+                'user_id' => $user->id,
+                'anggaran_tahun_id' => $anggaran->id,
+                'triwulan' => $i
+            ]);
+        }
+        
+        return view('review.anggaran', compact('anggaran', 'user', 'rencana'));
     }
 }

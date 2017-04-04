@@ -26,7 +26,8 @@
                                 <button type="submit" class="btn btn-sm shtct btn-danger">
                                     <i class="fa fa-trash-o fa-2x"></i><br>Hapus Anggaran
                                 </button>
-                                <input type="hidden" name="said" value="">
+                                <input type="hidden" name="satker_id" id="satker_id" value="">
+                                <input type="hidden" name="t" id="t" value="{{Hashids::connection('tahun')->encode($t)}}">
                                 {{csrf_field()}}
                             </form>
                         </div>
@@ -109,6 +110,7 @@
                             <td>
                                 @php
                                     $anggaranTahun[$k] = \App\AnggaranTahun::where('tahun', $t)
+                                                        ->where('total_anggaran', '>', 0)
                                                         ->where('user_id', $v->id)
                                                         ->count();
                                 @endphp
@@ -138,9 +140,11 @@
         $(document).on('click', '.ck', function() {
             var c = $(this).attr('data-id');
             var lr = '{{url('hapusAnggaran')}}';
-            var ll = '{{url('lihatAnggaran')}}/' + c + '?t={{Hashids::connection('tahun')->encode($t)}}';
+            var ll = '{{url('lihatAnggaran')}}/' + c + '?t={{$t}}';
+
 
             $('#revisicp').prop('action', '').prop('action', lr);
+            $('#satker_id').val(c);
             $('#lihat').prop('href', '').prop('href', ll);
             $('#menuModal').modal('show');
         });

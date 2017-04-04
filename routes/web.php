@@ -163,6 +163,7 @@ Route::group(['middleware' => ['reviewer']], function () {
 
     Route::get('anggaran-budaya', ['as' => 'review.anggaran.index', 'uses' => 'ReviewController@anggaranIndex']);
     Route::post('hapusAnggaran', ['as' => 'review.anggaran.hapus', 'uses' => 'ReviewController@hapusAnggaran']);
+    Route::get('lihatAnggaran/{hashid}', ['as' => 'review.anggaran.lihat', 'uses' => 'ReviewController@lihatAnggaran']);
 
 
     //Revisi
