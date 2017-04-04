@@ -186,6 +186,10 @@ return [
         Vinkla\Hashids\HashidsServiceProvider::class,
         //Whoops
         GrahamCampbell\Exceptions\ExceptionsServiceProvider::class,
+
+        //WkPDF
+        Barryvdh\Snappy\ServiceProvider::class,
+
     ],
 
     /*
@@ -238,6 +242,10 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         //HashIDs
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
+        //WkPDF
+        'WKPDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+
     ],
 
 ];

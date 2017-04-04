@@ -1,6 +1,9 @@
 <?php
 
-Route::get('test', 'ReviewController@tes');
+Route::get('test', function()
+{
+    return getSatker();
+});
 
 
 Route::post('customlogin', ['as'=> 'customlogin', 'uses' => 'MyCustomController@authenticate']);

@@ -16,6 +16,7 @@ use File;
 use Storage;
 use App\Mapping;
 use App\MappingSatker;
+use WKPDF;
 
 class ReviewController extends Controller
 {
@@ -160,10 +161,13 @@ class ReviewController extends Controller
                         ->orderBy('daftarindikator_id', 'ASC')
                         ->get();
 
-        // return view('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
-        $pdf = PDF::loadView('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
+        $pdf = WKPDF::loadView('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
+        return $pdf->download('invoice.pdf');
+
+        //return view('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
+        // $pdf = PDF::loadView('cetak.ringkasan', compact('usr', 'triwulan', 'reportAssesment', 't', 'tw'));
         
-        return @$pdf->stream();
+        // return @$pdf->stream();
     }
 
 
