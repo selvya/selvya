@@ -391,10 +391,24 @@ class AnggaranController extends Controller
                     'triwulan' => cekCurrentTriwulan()['current']->triwulan
                 ],
                 [
-                    'rencana' => $rencana[$i],
+                    // 'rencana' => $rencana[$i],
                     'realisasi' => $realisasi[$i]
                 ]
             );
+
+            if ($rencana[$i] > 0) {
+                $ren[$i] = AnggaranTriwulan::updateOrCreate(
+                    [
+                        'user_id' => $satker,
+                        'anggaran_tahun_id' => $tahunAnggaran->id,
+                        'triwulan' => $i
+                    ],
+                    [
+                        'rencana' => $rencana[$i]
+                    ]
+                );
+            }
+            
 
             if ($realisasi[$i] > 0) {
                 //REPORT
