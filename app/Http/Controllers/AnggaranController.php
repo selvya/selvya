@@ -34,13 +34,13 @@ class AnggaranController extends Controller
                 'triwulan' => $i
             ]);
 
-            $reportAssesment[$i] = ReportAssessment::updateOrCreate([
-                'daftarindikator_id' => 2,
-                'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
-                'triwulan' => $i,
-                'tahun' => date('Y'),
-                'user_id' => $satker
-            ]);
+            // $reportAssesment[$i] = ReportAssessment::updateOrCreate([
+            //     'daftarindikator_id' => 2,
+            //     'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
+            //     'triwulan' => $i,
+            //     'tahun' => date('Y'),
+            //     'user_id' => $satker
+            // ]);
         }
         
 
