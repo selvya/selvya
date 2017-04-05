@@ -975,7 +975,7 @@ class SelfAssesmentController extends Controller
                 $iku_idpeduli[$a] = $alatpeduli[$a][0];
                 $alat_idpeduli[$a] = $alatpeduli[$a][1];
                 $def_idpeduli[$a] = $alatpeduli[$a][2];
-                $nilaipedulinya = $alatpeduli[$a][3];
+                $nilaipedulinya[$a] = $alatpeduli[$a][3];
                 $isialat[$a] = SelfAssesment::updateOrCreate([
                     'user_id' => Auth::user()->id,
                     'tahun' => date('Y'),
