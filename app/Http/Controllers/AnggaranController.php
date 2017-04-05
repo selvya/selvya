@@ -132,197 +132,197 @@ class AnggaranController extends Controller
         return response()->json($resp, 200);
     }
 
-    public function ubahAnggaran(Request $r)
-    {
-        // dd(request()->files[0]);
-        $a = collect(request()->files);
-        $satker = getSatker();
+    // public function ubahAnggaran(Request $r)
+    // {
+    //     // dd(request()->files[0]);
+    //     $a = collect(request()->files);
+    //     $satker = getSatker();
 
-        $iku = \App\Iku::where(
-            'namaprogram',
-            'serapan_anggaran#' .
-            date('Y') . '#' .
-            cekCurrentTriwulan()['current']->triwulan
-        )->first();
+    //     $iku = \App\Iku::where(
+    //         'namaprogram',
+    //         'serapan_anggaran#' .
+    //         date('Y') . '#' .
+    //         cekCurrentTriwulan()['current']->triwulan
+    //     )->first();
 
-        $alatUkur = \App\AlatUkur::where(
-            'name',
-            'serapan_anggaran#' .
-            date('Y') . '#' .
-            cekCurrentTriwulan()['current']->triwulan
-        )->first();
+    //     $alatUkur = \App\AlatUkur::where(
+    //         'name',
+    //         'serapan_anggaran#' .
+    //         date('Y') . '#' .
+    //         cekCurrentTriwulan()['current']->triwulan
+    //     )->first();
 
-        $tahunAnggaran = AnggaranTahun::where('tahun', date('Y'))
-                        ->where('user_id', $satker)
-                        ->first();
+    //     $tahunAnggaran = AnggaranTahun::where('tahun', date('Y'))
+    //                     ->where('user_id', $satker)
+    //                     ->first();
 
-        $tmpNilai = 0;
-        // dd((int) preg_replace("/[^0-9]/","", request('realisasi_' . '1')));
-        for ($i=1; $i <= 4 ; $i++) {
-            $tmpNilai += (int) preg_replace("/[^0-9]/","", request('rencana_' . $i));
-        }
+    //     $tmpNilai = 0;
+    //     // dd((int) preg_replace("/[^0-9]/","", request('realisasi_' . '1')));
+    //     for ($i=1; $i <= 4 ; $i++) {
+    //         $tmpNilai += (int) preg_replace("/[^0-9]/","", request('rencana_' . $i));
+    //     }
 
-        if ($tmpNilai > $tahunAnggaran->total_anggaran) {
-            Session::flash('msg', '<div class="alert alert-danger">Rencana Angaran Tidak boleh melebihi Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
-            return redirect()->back();
-        }
+    //     if ($tmpNilai > $tahunAnggaran->total_anggaran) {
+    //         Session::flash('msg', '<div class="alert alert-danger">Rencana Angaran Tidak boleh melebihi Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+    //         return redirect()->back();
+    //     }
 
-        for ($i=1; $i <= 4 ; $i++) {
+    //     for ($i=1; $i <= 4 ; $i++) {
 
-            $realisasi[$i] = 0;
-            $rencana[$i] = 0;
-            if(null != request('realisasi_' . $i)) {
-                $realisasi[$i] = preg_replace("/[^0-9]/","", request('realisasi_' . $i));
-            }
+    //         $realisasi[$i] = 0;
+    //         $rencana[$i] = 0;
+    //         if(null != request('realisasi_' . $i)) {
+    //             $realisasi[$i] = preg_replace("/[^0-9]/","", request('realisasi_' . $i));
+    //         }
 
-            if(null != request('rencana_' . $i)) {
-                $rencana[$i] = preg_replace("/[^0-9]/","", request('rencana_' . $i));
-            }
+    //         if(null != request('rencana_' . $i)) {
+    //             $rencana[$i] = preg_replace("/[^0-9]/","", request('rencana_' . $i));
+    //         }
 
-            $existingRealisasi = AnggaranTriwulan::where('user_id', $satker)
-                ->where('anggaran_tahun_id',  $tahunAnggaran->id)
-                ->sum('realisasi');
+    //         $existingRealisasi = AnggaranTriwulan::where('user_id', $satker)
+    //             ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+    //             ->sum('realisasi');
 
-            // dd($existingRealisasi);
-            if($existingRealisasi + $realisasi[$i] > $tahunAnggaran->total_anggaran) {
-                Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
-                return redirect()->back();
-            }
+    //         // dd($existingRealisasi);
+    //         if($existingRealisasi + $realisasi[$i] > $tahunAnggaran->total_anggaran) {
+    //             Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+    //             return redirect()->back();
+    //         }
 
-            $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
-                [
-                    'user_id' => $satker,
-                    'anggaran_tahun_id' => $tahunAnggaran->id,
-                    // 'triwulan' => cekCurrentTriwulan()['current']->triwulan
-                    'triwulan' => $i
-                ],
-                [
-                    'rencana' => $rencana[$i],
-                    'realisasi' => $realisasi[$i]
-                ]
-            );
+    //         $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
+    //             [
+    //                 'user_id' => $satker,
+    //                 'anggaran_tahun_id' => $tahunAnggaran->id,
+    //                 // 'triwulan' => cekCurrentTriwulan()['current']->triwulan
+    //                 'triwulan' => $i
+    //             ],
+    //             [
+    //                 'rencana' => $rencana[$i],
+    //                 'realisasi' => $realisasi[$i]
+    //             ]
+    //         );
 
-            if ($realisasi[$i] > 0) {
-                //REPORT
-                if (null != $r->final AND preg_replace("/[^0-9]/","", request('realisasi_' . $i)) > 0) {
-                    $reportAssesment[$i] = ReportAssessment::updateOrCreate(
-                        [
-                            'daftarindikator_id' => 2,
-                            'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
-                            'triwulan' => $i,
-                            'tahun' => date('Y'),
-                            'user_id' => $satker
-                        ],
-                        [
-                            'final_status' => 1
-                        ]
-                    );
+    //         if ($realisasi[$i] > 0) {
+    //             //REPORT
+    //             if (null != $r->final AND preg_replace("/[^0-9]/","", request('realisasi_' . $i)) > 0) {
+    //                 $reportAssesment[$i] = ReportAssessment::updateOrCreate(
+    //                     [
+    //                         'daftarindikator_id' => 2,
+    //                         'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
+    //                         'triwulan' => $i,
+    //                         'tahun' => date('Y'),
+    //                         'user_id' => $satker
+    //                     ],
+    //                     [
+    //                         'final_status' => 1
+    //                     ]
+    //                 );
 
-                    $selfAssesment[$i] = \App\SelfAssesment::updateOrCreate(
-                        [
-                            'user_id' => getSatker(),
-                            'tahun' => date('Y'),
-                            'triwulan' => $i,
-                            'iku_id' => $iku->id,
-                            'alatukur_id' => $alatUkur->id,
-                            'definisinilai_id' => 0,
-                            'filelampiran' => null,
-                            'reportassesment_id' => $reportAssesment[$i]->id
-                        ]
-                    );
+    //                 $selfAssesment[$i] = \App\SelfAssesment::updateOrCreate(
+    //                     [
+    //                         'user_id' => getSatker(),
+    //                         'tahun' => date('Y'),
+    //                         'triwulan' => $i,
+    //                         'iku_id' => $iku->id,
+    //                         'alatukur_id' => $alatUkur->id,
+    //                         'definisinilai_id' => 0,
+    //                         'filelampiran' => null,
+    //                         'reportassesment_id' => $reportAssesment[$i]->id
+    //                     ]
+    //                 );
 
-                    $agt = \App\AnggaranTriwulan::where('user_id', getSatker())
-                        ->where('anggaran_tahun_id', $tahunAnggaran->id)
-                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                        ->update(
-                            ['is_final' => 1]
-                        );
+    //                 // $agt = \App\AnggaranTriwulan::where('user_id', getSatker())
+    //                 //     ->where('anggaran_tahun_id', $tahunAnggaran->id)
+    //                 //     ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+    //                 //     ->update(
+    //                 //         ['is_final' => 1]
+    //                 //     );
 
-                    // $reportAssesment = ReportAssessment::updateOrCreate(
-                    //     [
-                    //         'daftarindikator_id' => 2,
-                    //         'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
-                    //         'triwulan' => cekCurrentTriwulan()['current']->triwulan,
-                    //         'tahun' => date('Y'),
-                    //         'user_id' => $satker
-                    //     ],
-                    //     [
-                    //         'final_status' => 1
-                    //     ]
-                    // );
-                    // dd($selfAssesment[$i]);
-                }
-            }
-        }
+    //                 // $reportAssesment = ReportAssessment::updateOrCreate(
+    //                 //     [
+    //                 //         'daftarindikator_id' => 2,
+    //                 //         'persentase' => cekPersenSerapan($tahun = date('Y'), $daftar_iku = 2, $triwulan = $i)->nilai,
+    //                 //         'triwulan' => cekCurrentTriwulan()['current']->triwulan,
+    //                 //         'tahun' => date('Y'),
+    //                 //         'user_id' => $satker
+    //                 //     ],
+    //                 //     [
+    //                 //         'final_status' => 1
+    //                 //     ]
+    //                 // );
+    //                 // dd($selfAssesment[$i]);
+    //             }
+    //         }
+    //     }
 
-        if (AnggaranTriwulan::where('user_id', $satker)
-            ->where('anggaran_tahun_id',  $tahunAnggaran->id)
-            ->sum('rencana') != $tahunAnggaran->total_anggaran) {
+    //     if (AnggaranTriwulan::where('user_id', $satker)
+    //         ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+    //         ->sum('rencana') != $tahunAnggaran->total_anggaran) {
 
-            $ex = AnggaranTriwulan::where('user_id', $satker)
-                ->where('anggaran_tahun_id',  $tahunAnggaran->id)
-                ->update([
-                    'rencana' => 0
-                ]);
+    //         $ex = AnggaranTriwulan::where('user_id', $satker)
+    //             ->where('anggaran_tahun_id',  $tahunAnggaran->id)
+    //             ->update([
+    //                 'rencana' => 0
+    //             ]);
 
-            Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
-            return redirect()->back();
-        }
+    //         Session::flash('msg', '<div class="alert alert-danger">Realisasi Angaran Tidak boleh melebihi atau kurang dari Total Anggaran Tahunan (' . $tahunAnggaran->total_anggaran . ')</div>');
+    //         return redirect()->back();
+    //     }
 
-        $fileName = null;
-        // dd($a);
+    //     $fileName = null;
+    //     // dd($a);
 
-        foreach ($a as $i => $value) {
-            // dd(explode('lampiran_', $i));
-            //LAMPIRAN
-            $allowedTipe = [
-                'jpg', 'jpeg', 'zip', 'rar', 'pdf'
-            ];
+    //     foreach ($a as $i => $value) {
+    //         // dd(explode('lampiran_', $i));
+    //         //LAMPIRAN
+    //         $allowedTipe = [
+    //             'jpg', 'jpeg', 'zip', 'rar', 'pdf'
+    //         ];
 
-            $validFile = in_array(pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
+    //         $validFile = in_array(pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION), $allowedTipe);
 
-            if (!$validFile) {
-                Session::flash('msg', '<div class="alert alert-danger">File Lampiran hairs berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
-                return redirect()->back();
-            }
+    //         if (!$validFile) {
+    //             Session::flash('msg', '<div class="alert alert-danger">File Lampiran hairs berupa file .zip, .rar, .jpg, .jpeg, atau .pdf</div>');
+    //             return redirect()->back();
+    //         }
 
-            $fileName  = 'Lampiran_Anggaran_' . date('Y') . '_' . $i . '_' . $satker . '_';
-            $fileName .= str_random(4) . '.';
-            $fileName .= pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION);
+    //         $fileName  = 'Lampiran_Anggaran_' . date('Y') . '_' . $i . '_' . $satker . '_';
+    //         $fileName .= str_random(4) . '.';
+    //         $fileName .= pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION);
 
-            if(!$value->move(storage_path() . '/uploads/lampiran_anggaran/', $fileName)){
-                return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload']);
-            }
+    //         if(!$value->move(storage_path() . '/uploads/lampiran_anggaran/', $fileName)){
+    //             return response()->json(['status' => false, 'data' => [], 'message' => 'Gagal mengupload']);
+    //         }
 
-            // $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
-            //     [
-            //         'user_id' => $satker,
-            //         'anggaran_tahun_id' => $tahunAnggaran->id,
-            //         'triwulan' => explode('lampiran_', $i)[1]
-            //     ],
-            //     [ 
-            //         'file' => $fileName
-            //     ]
-            // );
-            $anggaranTriwulan[$i] = AnggaranTriwulan::where('user_id', $satker)
-                    ->where('anggaran_tahun_id', $tahunAnggaran->id)
-                    ->where('triwulan', explode('lampiran_', $i)[1])
-                    ->first();
+    //         // $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
+    //         //     [
+    //         //         'user_id' => $satker,
+    //         //         'anggaran_tahun_id' => $tahunAnggaran->id,
+    //         //         'triwulan' => explode('lampiran_', $i)[1]
+    //         //     ],
+    //         //     [ 
+    //         //         'file' => $fileName
+    //         //     ]
+    //         // );
+    //         $anggaranTriwulan[$i] = AnggaranTriwulan::where('user_id', $satker)
+    //                 ->where('anggaran_tahun_id', $tahunAnggaran->id)
+    //                 ->where('triwulan', explode('lampiran_', $i)[1])
+    //                 ->first();
 
-            if (Storage::disk('lampiran_anggaran')->has($anggaranTriwulan[$i]->file)) {
-                Storage::disk('lampiran_anggaran')->delete($anggaranTriwulan[$i]->file);
-            }
+    //         if (Storage::disk('lampiran_anggaran')->has($anggaranTriwulan[$i]->file)) {
+    //             Storage::disk('lampiran_anggaran')->delete($anggaranTriwulan[$i]->file);
+    //         }
 
-            $anggaranTriwulan[$i]->file = $fileName;
-            $anggaranTriwulan[$i]->save();
+    //         $anggaranTriwulan[$i]->file = $fileName;
+    //         $anggaranTriwulan[$i]->save();
 
-        }
+    //     }
 
         
 
-        Session::flash('msg', '<div class="alert alert-success">Berhasil menyimpan</div>');
-        return redirect()->back();
-    }
+    //     Session::flash('msg', '<div class="alert alert-success">Berhasil menyimpan</div>');
+    //     return redirect()->back();
+    // }
 
     public function submit(Request $r)
     {
@@ -384,17 +384,30 @@ class AnggaranController extends Controller
                 return redirect()->back();
             }
 
-            $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
-                [
-                    'user_id' => $satker,
-                    'anggaran_tahun_id' => $tahunAnggaran->id,
-                    'triwulan' => cekCurrentTriwulan()['current']->triwulan
-                ],
-                [
-                    // 'rencana' => $rencana[$i],
-                    'realisasi' => $realisasi[$i]
-                ]
-            );
+            if ($i == cekCurrentTriwulan()['current']->triwulan) {
+                $anggaranTriwulan = AnggaranTriwulan::updateOrCreate(
+                    [
+                        'user_id' => $satker,
+                        'anggaran_tahun_id' => $tahunAnggaran->id,
+                        'triwulan' => cekCurrentTriwulan()['current']->triwulan
+                    ],
+                    [
+                        // 'rencana' => $rencana[$i],
+                        'realisasi' => $realisasi[$i]
+                    ]
+                );
+            }
+            // $anggaranTriwulan[$i] = AnggaranTriwulan::updateOrCreate(
+            //     [
+            //         'user_id' => $satker,
+            //         'anggaran_tahun_id' => $tahunAnggaran->id,
+            //         'triwulan' => cekCurrentTriwulan()['current']->triwulan
+            //     ],
+            //     [
+            //         // 'rencana' => $rencana[$i],
+            //         'realisasi' => $realisasi[$i]
+            //     ]
+            // );
 
             if ($rencana[$i] > 0) {
                 $ren[$i] = AnggaranTriwulan::updateOrCreate(
@@ -425,12 +438,12 @@ class AnggaranController extends Controller
 
                     
 
-                    $agt = \App\AnggaranTriwulan::where('user_id', getSatker())
-                        ->where('anggaran_tahun_id', $tahunAnggaran->id)
-                        ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
-                        ->update(
-                            ['is_final' => 1]
-                        );
+                    // $agt = \App\AnggaranTriwulan::where('user_id', getSatker())
+                    //     ->where('anggaran_tahun_id', $tahunAnggaran->id)
+                    //     ->where('triwulan', cekCurrentTriwulan()['current']->triwulan)
+                    //     ->update(
+                    //         ['is_final' => 1]
+                    //     );
 
 
                     $hasill[$i] = (hitungNilaiSerapan(date('Y'), $i, Auth::user()->id) / 6) * cekPersenSerapan(date('Y'), 2, $i)->nilai;

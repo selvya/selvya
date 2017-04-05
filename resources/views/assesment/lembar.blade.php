@@ -99,7 +99,10 @@
                                             }
                                             
                                         }
+
+                                        // echo $value->daftarindikator_id;
                                     }
+
                                 @endphp
                                 {{-- <kbd class="pull-left">{{$n}}%</kbd>---------------<kbd class="pull-right">100%</kbd> --}}
                                 <div class="progress"style="background-color:#ccc;">
